@@ -60,10 +60,17 @@
       <scope>test</scope>
     </dependency>
 
-<!--
-    To use JUnit4 instead of JUnit5, comment out the previous 2 dependency elements and uncomment
-    the following 2 elements.
--->
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+
+    <!--
+        To use JUnit4 instead of JUnit5, comment out the previous 2 dependency elements and uncomment
+        the following 2 elements.
+    -->
 <!--
     <dependency>
       <groupId>junit</groupId>
