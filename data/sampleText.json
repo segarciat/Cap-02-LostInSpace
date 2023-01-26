@@ -1,0 +1,24 @@
+{
+  "rooms":[
+    {"name":"Docking Bay",
+      "description":"You glance around the Docking Bay. It acts as a structure jutting from the starboard side of the ship, providing room for landing and loading. \nThe vast port your ship entered through generates a crackling enviro-field, holding in what little toxic atmosphere that remains. \nYou cannot make out any more details due to the dim emergency lighting.",
+      "items":["scrambler"],
+      "exits":{
+        "west": "Junction Hallway 1",
+        "north": "",
+        "south": "",
+        "east": ""
+      }
+    },
+    {"name":"Junction Hallway 1",
+      "description":"This hallway divides the ship into the stern and bow sectors. A environ-panel hangs open, the oxygen pipe here has been siphoned. \nThe dim red light pervades this area, too, allowing you to barely make out the signage off 3 exits. \nIt seems dumb for everything to be labeled grey, how frustrating. \nTo the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door. \nTo the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\". \nTo the East, you spot a final grey stripe on the open bay doors, you can vaguely make out the silhouette of your ship in the distance.",
+      "items":["pipes"],
+      "exits":{
+        "east": "Docking Bay",
+        "north": "",
+        "south": "",
+        "west": ""
+      }
+    }
+  ]
+}
