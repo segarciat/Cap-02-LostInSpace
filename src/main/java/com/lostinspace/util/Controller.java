@@ -142,7 +142,7 @@ public class Controller {
         for (int i = 0; i < map.size(); i++) {
             // if the direction desired exists as an exit in that room...
             if (map.get(i).getName().equals(room)) {
-                // ...reassign retRoom as the room in that direction
+                // ...then reassign return room as the room in that direction
                 switch (dir) {
                     case "north":
                         retRoom = map.get(i).exits.getNorth();
