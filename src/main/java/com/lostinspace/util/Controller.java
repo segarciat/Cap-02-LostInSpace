@@ -51,8 +51,8 @@ public class Controller {
                 .append("*radio[name] - <radio> your crew to receive their status and helpful hints\n")
                 .append("name: <Douglas>, <Zhang> \n\n")
                 .append("*objectives - review current game objectives\n\n")
-                .append("*new[game] - restart the game\n\n")
-                .append("*quit[game] - quits the current game.\n\n")
+                .append("*new - restart the game\n\n")
+                .append("*quit/exit/escape - quits the current game.\n\n")
                 .toString();
     }
 
@@ -106,10 +106,42 @@ public class Controller {
         return retText; // return game map
     }
 
-    public String move(String room, String dir) {
-//        for(){
+//    #if they type 'go' first
+//    if move[0] == 'go':
+//            #check that they are allowed wherever they want to go
+//        if move[1] in rooms[currentRoom]:
+//            #set the current room to the new room
+//            currentRoom = rooms[currentRoom][move[1]]
+//        # if they aren't allowed to go that way:
+//            else:
+//    print(crayons.red('You can\'t go that way!', bold=True))
+//            time.sleep(1)
 //
-//        }
-        return "";
-    }
+//            #if they type 'get' first
+//    if move[0] == 'get' :
+//            # make two checks:
+//            # 1. if the current room contains an item
+//        # 2. if the item in the room matches the item the player wishes to get
+//        if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]['item']:
+//            #add the item to their inventory
+//            inventory.append(move[1])
+//            #display a helpful message
+//    print(f'\nYou got the {crayons.magenta(move[1])}!\n\n')
+//    input(crayons.blue("Press ENTER to continue"))
+//            #delete the item key:value pair from the room's dictionary
+//    del rooms[currentRoom]['item']
+//            # if there's no item in the room or the item doesn't match
+//        else:
+//                #tell them they can't get it
+//    print('Can\'t get ' + move[1] + '!')
+//
+//    ## If a player enters a room with a monster
+//    if 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
+//    print('A monster has got you... GAME OVER!')
+//        break
+//
+//                ## Define how a player can win
+//    if currentRoom == 'Garden' and 'key' in inventory and 'potion' in inventory:
+//    print('You escaped the house with the ultra rare key and magic potion... YOU WIN!')
+//        break
 }
