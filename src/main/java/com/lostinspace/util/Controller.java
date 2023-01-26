@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.util.*;
 
 import com.google.gson.Gson;
+import com.lostinspace.classes.Room;
 import com.lostinspace.classes.RoomsRoot;
 
 /*
@@ -51,7 +52,7 @@ public class Controller {
                 .append("*radio[name] - <radio> your crew to receive their status and helpful hints\n")
                 .append("name: <Douglas>, <Zhang> \n\n")
                 .append("*objectives - review current game objectives\n\n")
-                .append("*new - restart the game\n\n")
+                .append("*new/restart - restart the game\n\n")
                 .append("*quit/exit/escape - quits the current game.\n\n")
                 .toString();
     }
@@ -78,6 +79,54 @@ public class Controller {
         System.out.println(ANSI_RED + String.format("\nOxygen Level: %f percent", 45.5) + ANSI_RESET);
 
         System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
+    }
+
+    // moves player between rooms in map
+    // returns string which resets currentRoom
+    public static String move(RoomsRoot mapObj, String room, String dir) {
+        String retRoom = ""; // create empty string to hold return room
+        ArrayList<Room> map = mapObj.rooms;
+
+        // iterate through map
+        for(int i = 0; i < map.size(); i++){
+            // if the direction desired exists as an exit in that room...
+            if(map.get(i).getName().equals(room)){
+                // ...reassign retRoom as the room in that direction
+                switch (dir){
+                    case "north":
+                        retRoom = map.get(i).exits.getNorth();
+                        break;
+
+                    case "south":
+                        retRoom = map.get(i).exits.getSouth();
+                        break;
+
+                    case "east":
+                        retRoom = map.get(i).exits.getEast();
+                        break;
+
+                    case "west":
+                        retRoom = map.get(i).exits.getWest();
+                        break;
+                    // if an invalid direction is chosen, tell the player
+                    default:
+                        System.out.println("\nINVALID DIRECTION: " + dir);
+                        System.out.println("\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)");
+                        retRoom = room;
+                        break;
+                }
+
+                // if retRoom is an empty string then there is no exit in that direction
+                if(retRoom.equals("")){
+                    System.out.println("\nINVALID DIRECTION: " + dir);
+                    System.out.println("\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)");
+                    retRoom = room;
+
+                    return retRoom; // return back to starting room
+                }
+            }
+        }
+        return retRoom; // return new room
     }
 
     // Todo fix Controller.clearConsole to clear terminal between commands
