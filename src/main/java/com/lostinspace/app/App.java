@@ -25,9 +25,12 @@ public class App {
     public static void main(String[] args) throws IOException {
         // todo multi-threading for delays in text
 
+
+
         titleCard();                                         // display title card
+        gameInstructions();                                  //Provide game instructions
         currentRoom = "Docking Bay";                         // start the player in the Docking Bay
-        System.out.println(controller.showInstructions());   // display instructions
+        //System.out.println(controller.showInstructions());   // display instructions
 
         // try to load the game map
         testMap = controller.loadMap();                      // load the map into memory
@@ -98,7 +101,7 @@ public class App {
 
         try {
             // load file from resources dir
-            BufferedReader reader = new BufferedReader(new FileReader("data/scripts/title.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("data/scripts/welcome.txt"));
 
             StringBuilder sB = new StringBuilder();            // sB builds title card line by line
             String line = null;                                // empty string for line
@@ -121,4 +124,32 @@ public class App {
 
         return content;
     }
+    static String gameInstructions() {
+        String Instructions = ""; // empty return string
+
+        try {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(new FileReader("data/scripts/instructions.txt"));
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            Instructions = sBuilder.toString();
+            Instructions.format("\nPress enter to proceed.\n");
+            //Instructions.nextLine();
+            System.out.println(Instructions);
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+        return Instructions;
+    }
 }
+
