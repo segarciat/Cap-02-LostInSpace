@@ -7,13 +7,8 @@ package com.lostinspace.util;
  * Handles loading game map into memory.
  */
 
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.*;
-
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.Item;
@@ -28,6 +23,7 @@ import com.lostinspace.model.RoomsRoot;
  */
 public class Controller {
     Gson gson = new Gson();                                // creates a new Gson object for converting JSON objects
+    FileGetter filegetter = new FileGetter();
 
     // variables for string coloring
     public static final String ANSI_RESET = "\u001B[0m";   // resets the color
@@ -151,16 +147,16 @@ public class Controller {
                 retDescribe = retDescribe + "\nExits: \n";            // then add a header for exits from the room
 
                 // add each existing exit to the return string
-                if(!map.get(i).exits.getNorth().equals("")){          // ignore non-exits
+                if (!map.get(i).exits.getNorth().equals("")) {          // ignore non-exits
                     retDescribe = retDescribe + "- North: " + map.get(i).exits.getNorth() + "\n";
                 }
-                if(!map.get(i).exits.getSouth().equals("")){
+                if (!map.get(i).exits.getSouth().equals("")) {
                     retDescribe = retDescribe + "- South: " + map.get(i).exits.getSouth() + "\n";
                 }
-                if(!map.get(i).exits.getEast().equals("")){
+                if (!map.get(i).exits.getEast().equals("")) {
                     retDescribe = retDescribe + "- East: " + map.get(i).exits.getEast() + "\n";
                 }
-                if(!map.get(i).exits.getWest().equals("")){
+                if (!map.get(i).exits.getWest().equals("")) {
                     retDescribe = retDescribe + "- West: " + map.get(i).exits.getWest() + "\n";
                 }
 
@@ -222,14 +218,13 @@ public class Controller {
     }
 
     public RoomsRoot loadMap() throws IOException {
-        RoomsRoot retText = new RoomsRoot();                                // create empty map object
-        try {
-            Reader reader = new FileReader("data/sampleText.json"); // read map data file
-            retText = gson.fromJson(reader, RoomsRoot.class);               // Convert JSON File to Java Object
-        } catch (IOException err) {                                         // throw IO Exception if failed
-            err.printStackTrace();
-        }
+        RoomsRoot retText = new RoomsRoot();                               // create empty map object
 
-        return retText; // return game map
+        try(Reader map = filegetter.getResource("sampleText.json")) {  // try with
+            retText = gson.fromJson(map, RoomsRoot.class);                 // Convert JSON File to Java Object
+            return retText;                                                // return game map
+        }catch(IOException err){
+            throw new RuntimeException(err);
+        }
     }
 }
