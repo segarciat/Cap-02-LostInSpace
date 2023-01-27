@@ -9,7 +9,6 @@ package com.lostinspace.util;
 
 import java.io.*;
 import java.util.*;
-
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.Item;
@@ -33,59 +32,7 @@ public class Controller {
     public static final String ANSI_RED = "\u001B[31m";    //               |
     public static final String ANSI_YELLOW = "\u001B[33m"; //               |
 
-    List<String> inventory = Arrays.asList();              // player inventory, which is initially empty
-
-    // returns title card data
-    public String titleCard() {
-        String content = ""; // empty return string
-
-        try(Reader title = filegetter.getResource("title.txt")) { // try with loaded title.txt resource
-            BufferedReader buffReader = new BufferedReader(title);    // read map data resource
-            StringBuilder sB = new StringBuilder();                   // sB builds title card line by line
-            String line = null;                                       // empty string for line
-            String ls = System.getProperty("line.separator");         // line separator
-
-            // while there are still lines of characters to read
-            while ((line = buffReader.readLine()) != null) {
-                sB.append(line);                    // append the next line to the SB
-                sB.append(ls);                      // new line
-            }
-
-            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
-            buffReader.close();                         // close file being worked with
-            content = sB.toString();                // create new string with sB content
-            System.out.println(content);            // display title card!
-
-        } catch (IOException err) {                 // throw IO Exception if failed
-            err.printStackTrace();
-        }
-
-        return content;
-    }
-
-    // displays general instructions to player as a reminder
-    public String showInstructions() {
-
-        // returns all commands as long string
-        return new StringBuilder()
-                .append("COMMANDS:\n\n")
-                .append("*go/walk/move[direction] - <move> in selected <direction>\n")
-                .append("directions: North, South, East, West\n\n")
-                .append("*get/take/grab[item] - add <item> to <inventory>\n")
-                .append("item: <inspect> rooms to find <items>\n\n")
-                .append("*check[inventory, oxygen] - look at the <item>(s) being held in your <inventory>\n")
-                .append("Note: remember to \"CHECK OXYGEN\" often as reaching 0% will END YOUR GAME! \n\n")
-                .append("*use[item] - <use> an item in your <inventory> or in the same <room> as you\n")
-                .append("Not all items can be used at all times or in every room. Experiment with your options!\n\n")
-                .append("*inspect/look/examine/search [room, item, object] - receive a description of what was inspected, look inside containers\n")
-                .append("<inspect> will often reveal details about something you are confused about")
-                .append("*radio[name] - <radio> your crew to receive their status and helpful hints\n")
-                .append("name: <Douglas>, <Zhang> \n\n")
-                .append("*objectives - review current game objectives\n\n")
-                .append("*new/restart - restart the game\n\n")
-                .append("*quit/exit/escape - quits the current game.\n\n")
-                .toString();
-    }
+    List<String> inventory = Arrays.asList();              // player inventory, which is initially empty   
 
     // restarts game when called
     public static void restart() {
@@ -102,13 +49,13 @@ public class Controller {
         System.exit(0);
     }
 
+
     /*
      * displays the current status of the player, including
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
-        //clear text from terminal
-        clearConsole();
+
 
         System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
 
@@ -175,6 +122,9 @@ public class Controller {
         }
         return retRoom; // return new room
     }
+
+
+    /* Todo fix Controller.clearConsole to clear terminal between commands
 
     /*
      * allows player to inspect rooms to find items and exits
@@ -253,6 +203,7 @@ public class Controller {
     }
 
     // Todo fix Controller.clearConsole to clear terminal between commands
+
     public static void clearConsole() {
         try {
             final String os = System.getProperty("os.name");
@@ -264,7 +215,7 @@ public class Controller {
         } catch (final Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public RoomsRoot loadMap() throws IOException {
         RoomsRoot retText = new RoomsRoot();                               // create empty map object
