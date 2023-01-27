@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ScriptReader {
-
     private String script;
 
     public void readScript(Path path) {
@@ -15,8 +14,5 @@ public class ScriptReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }

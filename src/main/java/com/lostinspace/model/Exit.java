@@ -1,4 +1,4 @@
-package com.lostinspace.classes;
+package com.lostinspace.model;
 
 /*
  * Room Exits Class| Author: Mike Greene

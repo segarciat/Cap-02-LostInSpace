@@ -7,15 +7,19 @@ package com.lostinspace.util;
  * Handles loading game map into memory.
  */
 
-import java.io.Console;
+
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
 import com.google.gson.Gson;
-import com.lostinspace.classes.Room;
-import com.lostinspace.classes.RoomsRoot;
+import com.lostinspace.app.App;
+import com.lostinspace.model.Item;
+import com.lostinspace.model.PointOfInterest;
+import com.lostinspace.model.Room;
+import com.lostinspace.model.RoomsRoot;
 
 /*
  * handles user commands and their feedback
@@ -32,11 +36,27 @@ public class Controller {
     public static final String ANSI_RED = "\u001B[31m";    //               |
     public static final String ANSI_YELLOW = "\u001B[33m"; //               |
 
-    List<String> inventory = Arrays.asList();              // player inventory, which is initially empty
+    List<String> inventory = Arrays.asList();              // player inventory, which is initially empty   
+
+    // restarts game when called
+    public static void restart() {
+        String[] string = {};
+        try {
+            App.main(string);
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
+    // quits the game when called
+    public static void quit() {
+        System.exit(0);
+    }
+
 
     /*
-     * determine the current status of the player
-     * displays current location, inventory, and Oxygen levels
+     * displays the current status of the player, including
+     * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
 
@@ -45,7 +65,6 @@ public class Controller {
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location
 
-        //todo Add Room Description to showStatus()
         System.out.println(ANSI_GREEN + description + ANSI_RESET);          // print description of current room
 
         String result = String.join(",", inventory);                // print what the player is carrying
@@ -57,18 +76,21 @@ public class Controller {
         System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
     }
 
-    // moves player between rooms in map
-    // returns string which resets currentRoom
+    /*
+     * moves player between rooms in map by finding valid exits
+     * prompts player to INSPECT ROOM when invalid choice is given.
+     * returns string which resets currentRoom in App
+     */
     public static String move(RoomsRoot mapObj, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
         ArrayList<Room> map = mapObj.rooms;
 
         // iterate through map
-        for(int i = 0; i < map.size(); i++){
+        for (int i = 0; i < map.size(); i++) {
             // if the direction desired exists as an exit in that room...
-            if(map.get(i).getName().equals(room)){
-                // ...reassign retRoom as the room in that direction
-                switch (dir){
+            if (map.get(i).getName().equals(room)) {
+                // ...then reassign return room as the room in that direction
+                switch (dir) {
                     case "north":
                         retRoom = map.get(i).exits.getNorth();
                         break;
@@ -93,7 +115,7 @@ public class Controller {
                 }
 
                 // if retRoom is an empty string then there is no exit in that direction
-                if(retRoom.equals("")){
+                if (retRoom.equals("")) {
                     System.out.println("\nINVALID DIRECTION: " + dir);
                     System.out.println("\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)");
                     retRoom = room;
@@ -105,7 +127,87 @@ public class Controller {
         return retRoom; // return new room
     }
 
+
     /* Todo fix Controller.clearConsole to clear terminal between commands
+
+    /*
+     * allows player to inspect rooms to find items and exits
+     * returns string detailing
+     */
+    public static String inspectRoom(RoomsRoot mapObj, String room, String toBeInspected) {
+        String retDescribe = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
+        ArrayList<Room> map = mapObj.rooms;                                      // get a list of all rooms in the map
+
+        // iterate through room list
+        for (int i = 0; i < map.size(); i++) {
+            if (map.get(i).getName().equals(room)) {                  // find the room object the player is currently in
+                ArrayList<Item> items = map.get(i).items;             // quick reference to items list for currentRoom
+
+                // iterate through item list
+                for (int j = 0; j < map.get(i).items.size(); j++) {
+                    retDescribe = retDescribe + "- " + items.get(j).getFullName() + "\n"; // first add all items to return
+                }
+
+                retDescribe = retDescribe + "\nExits: \n";            // then add a header for exits from the room
+
+                // add each existing exit to the return string
+                if(!map.get(i).exits.getNorth().equals("")){          // ignore non-exits
+                    retDescribe = retDescribe + "- North: " + map.get(i).exits.getNorth() + "\n";
+                }
+                if(!map.get(i).exits.getSouth().equals("")){
+                    retDescribe = retDescribe + "- South: " + map.get(i).exits.getSouth() + "\n";
+                }
+                if(!map.get(i).exits.getEast().equals("")){
+                    retDescribe = retDescribe + "- East: " + map.get(i).exits.getEast() + "\n";
+                }
+                if(!map.get(i).exits.getWest().equals("")){
+                    retDescribe = retDescribe + "- West: " + map.get(i).exits.getWest() + "\n";
+                }
+
+                retDescribe = retDescribe + "\n"; // add a new line for formatting
+            }
+        }
+        return retDescribe;                       // return description
+    }
+
+    /*
+     * allows player to inspect items and pointsOfInterest
+     * returns string detailing what was inspected
+     */
+    public static String inspectItem(RoomsRoot mapObj, String room, String toBeInspected) {
+        String retDescribe = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
+        ArrayList<Room> map = mapObj.rooms;                             // get a list of all rooms in the map
+
+        // iterate through room list
+        for (int i = 0; i < map.size(); i++) {
+            if (map.get(i).getName().equals(room)) {                // find the room object the player is currently in
+                ArrayList<Item> items = map.get(i).items;           // quick reference to items list for currentRoom
+
+                // iterate through item list
+                for (int j = 0; j < map.get(i).items.size(); j++) {
+                    if (items.get(j).getName().equals(toBeInspected)) {         // see if item to be inspected is in room
+                        ArrayList<PointOfInterest> pois = map.get(i).getPois(); // reference to poi list for currentRoom
+
+                        // iterate through list
+                        for (int k = 0; k < pois.size(); k++) {
+                            if (pois.get(k).getName().equals(toBeInspected)) {  // find item to be inspected in poi list
+                                if (pois.get(k).isUsed() == false) {            // if the item has not been used yet
+                                    retDescribe = pois.get(k).getDescription(); // return the unused description
+                                } else {
+                                    retDescribe = pois.get(k).getUsedDescr();   // if it has return the used description
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return retDescribe; // return description
+    }
+
+    // Todo fix Controller.clearConsole to clear terminal between commands
+
     public static void clearConsole() {
         try {
             final String os = System.getProperty("os.name");
@@ -130,43 +232,4 @@ public class Controller {
 
         return retText; // return game map
     }
-
-//    #if they type 'go' first
-//    if move[0] == 'go':
-//            #check that they are allowed wherever they want to go
-//        if move[1] in rooms[currentRoom]:
-//            #set the current room to the new room
-//            currentRoom = rooms[currentRoom][move[1]]
-//        # if they aren't allowed to go that way:
-//            else:
-//    print(crayons.red('You can\'t go that way!', bold=True))
-//            time.sleep(1)
-//
-//            #if they type 'get' first
-//    if move[0] == 'get' :
-//            # make two checks:
-//            # 1. if the current room contains an item
-//        # 2. if the item in the room matches the item the player wishes to get
-//        if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]['item']:
-//            #add the item to their inventory
-//            inventory.append(move[1])
-//            #display a helpful message
-//    print(f'\nYou got the {crayons.magenta(move[1])}!\n\n')
-//    input(crayons.blue("Press ENTER to continue"))
-//            #delete the item key:value pair from the room's dictionary
-//    del rooms[currentRoom]['item']
-//            # if there's no item in the room or the item doesn't match
-//        else:
-//                #tell them they can't get it
-//    print('Can\'t get ' + move[1] + '!')
-//
-//    ## If a player enters a room with a monster
-//    if 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
-//    print('A monster has got you... GAME OVER!')
-//        break
-//
-//                ## Define how a player can win
-//    if currentRoom == 'Garden' and 'key' in inventory and 'potion' in inventory:
-//    print('You escaped the house with the ultra rare key and magic potion... YOU WIN!')
-//        break
 }

@@ -1,4 +1,4 @@
-package com.lostinspace.classes;
+package com.lostinspace.model;
 
 /*
  * Game Map Class| Author: Mike Greene
