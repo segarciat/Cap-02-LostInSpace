@@ -7,15 +7,13 @@ package com.lostinspace.app;
  * Calls Controller for player commands
  */
 
+//import com.apps.util.Console;       // todo why cant intellij see this library?
 import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import com.lostinspace.util.Controller;
 import com.lostinspace.util.FileGetter;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.*;
 
 public class App {
@@ -28,8 +26,8 @@ public class App {
     public static void main(String[] args) throws IOException {
         // todo multi-threading for delays in text
 
-
         titleCard();                                         // display title card
+        //Console.clear();
         gameInstructions();                                  // display game instructions
 
         currentRoom = "Docking Bay";                         // start the player in the Docking Bay
