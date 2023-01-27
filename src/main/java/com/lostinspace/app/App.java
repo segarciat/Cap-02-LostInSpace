@@ -10,10 +10,12 @@ package com.lostinspace.app;
 import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import com.lostinspace.util.Controller;
+import com.lostinspace.util.FileGetter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.*;
 
 public class App {
@@ -21,17 +23,16 @@ public class App {
     private static Controller controller = new Controller(); // make an instance of controller for player commands
     private static RoomsRoot testMap = new RoomsRoot();      // create an instance of the game map
     private static ArrayList<Room> map;                      // ref to testMap.rooms
-
+    static FileGetter filegetter = new FileGetter();
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
         // todo multi-threading for delays in text
 
 
-        titleCard();                              // display title card
-        gameInstructions();
+        titleCard();                                         // display title card
+        gameInstructions();                                  // display game instructions
 
         currentRoom = "Docking Bay";                         // start the player in the Docking Bay
-        //System.out.println(controller.showInstructions());   // display instructions
 
         // try to load the game map
         testMap = controller.loadMap();                      // load the map into memory
@@ -71,7 +72,7 @@ public class App {
                 }
 
                 // inspect rooms, items, or anything listed as a Point of interest
-                if(inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")){
+                else if(inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")){
                     // rooms are inspected differently than items
                     if(inputArr[1].equals("room")){
                         System.out.println(controller.inspectRoom(testMap, currentRoom, inputArr[1]));
@@ -81,33 +82,29 @@ public class App {
                 }
 
                 // exit the game
-                if(inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")){
+                else if(inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")){
                     controller.quit();
                 }
 
                 // restart the game
-                if(inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")){
+                else if(inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")){
                     controller.restart();
                 }
+
+                else {
+                    System.out.println("I don't know how to " + inputArr[0] + " anything! Enter a valid COMMAND!");
+                }
             }
-        }
-    }
-    // restarts game when called
-    public static void restart(){
-        String[] string = {};
-        try {
-            main(string);
-        } catch (IOException err){
-            err.printStackTrace();
         }
     }
 
     static String titleCard() {
         String content = ""; // empty return string
 
-        try {
+        try(Reader title = filegetter.getResource("welcome.txt")) {
             // load file from resources dir
-            BufferedReader reader = new BufferedReader(new FileReader("data/scripts/welcome.txt"));
+
+            BufferedReader reader = new BufferedReader(title);
 
             StringBuilder sB = new StringBuilder();            // sB builds title card line by line
             String line = null;                                // empty string for line
@@ -130,12 +127,13 @@ public class App {
 
         return content;
     }
+
     static String gameInstructions() {
         String Instructions = ""; // empty return string
 
-        try {
+        try(Reader instructions = filegetter.getResource("instructions.txt")) {
             // load file from resources dir
-            BufferedReader reader = new BufferedReader(new FileReader("data/scripts/instructions.txt"));
+            BufferedReader reader = new BufferedReader(instructions);
             StringBuilder sBuilder = new StringBuilder();
             String line = null;
             String ls = System.getProperty("line.separator");
@@ -157,5 +155,6 @@ public class App {
         }
         return Instructions;
     }
+
 }
 

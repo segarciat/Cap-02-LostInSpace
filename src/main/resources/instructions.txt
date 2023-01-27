@@ -1,0 +1,24 @@
+
+	
+
+*go/walk/move[direction] - <move> in selected <direction>
+directions: North, South, East, West
+
+*get/take/grab[item] - add <item> to <inventory>
+item: <inspect> rooms to find <items>
+
+*check[inventory, oxygen] - look at the <item>(s) being held in your <inventory>
+Note: remember to "CHECK OXYGEN" often as reaching 0% will END YOUR GAME! 
+
+*use[item] - <use> an item in your <inventory> or in the same <room> as you
+Not all items can be used at all times or in every room. Experiment with your options!
+
+*inspect/look/examine/search [room, item, object] - receive a description of what was inspected, look inside containers
+<inspect> will often reveal details about something you are confused about*radio[name] - <radio> your crew to receive their status and helpful hints
+name: <Douglas>, <Zhang> 
+
+*objectives - review current game objectives
+
+*new/restart - restart the game
+
+*quit/exit/escape - quits the current game.
