@@ -11,6 +11,8 @@ import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import com.lostinspace.util.Controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -25,7 +27,8 @@ public class App {
         // todo multi-threading for delays in text
 
 
-        controller.titleCard();                              // display title card
+        titleCard();                              // display title card
+        gameInstructions();
 
         currentRoom = "Docking Bay";                         // start the player in the Docking Bay
         //System.out.println(controller.showInstructions());   // display instructions
@@ -98,8 +101,6 @@ public class App {
             err.printStackTrace();
         }
     }
-
-
 
     static String titleCard() {
         String content = ""; // empty return string

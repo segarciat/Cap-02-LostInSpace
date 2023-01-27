@@ -219,7 +219,7 @@ public class Controller {
         } catch (final Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public RoomsRoot loadMap() throws IOException {
         RoomsRoot retText = new RoomsRoot();                                // create empty map object
