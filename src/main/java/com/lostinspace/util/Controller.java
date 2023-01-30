@@ -49,14 +49,12 @@ public class Controller {
         System.exit(0);
     }
 
-
     /*
      * displays the current status of the player, including
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
-
-
+        clearConsole();
         System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location
@@ -205,16 +203,18 @@ public class Controller {
     // Todo fix Controller.clearConsole to clear terminal between commands
 
     public static void clearConsole() {
-        try {
-            final String os = System.getProperty("os.name");
+//        try {
+//            final String os = System.getProperty("os.name");
 //            if (os.contains("Windows")) {
 //                Runtime.getRuntime().exec("cls");
 //            } else {
-            Runtime.getRuntime().exec("clear");
+//            Runtime.getRuntime().exec("clear");
 //            }
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
+//        } catch (final Exception e) {
+//            e.printStackTrace();
+//        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public RoomsRoot loadMap() throws IOException {

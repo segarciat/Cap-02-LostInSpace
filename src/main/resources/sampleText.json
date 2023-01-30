@@ -1,4 +1,4 @@
-{ 
+{
   "rooms": [
     {
       "name": "Enviro-Field",
@@ -18,12 +18,12 @@
       "items": [
         {
           "name": "scrambler",
-          "fullName": "a Mk39 Broad-Band Scrambler/Unscrambler",
+          "fullName": "a Mk39 Broad-Band SCRAMBLER",
           "isHeld": true
         },
         {
           "name": "ship",
-          "fullName": "the E.D.F.S. Spartan",
+          "fullName": "the E.D.F.S. Spartan, your SHIP",
           "isHeld": false
         }
       ],
@@ -54,7 +54,7 @@
       "items": [
         {
           "name": "pipes",
-          "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside",
+          "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES",
           "isHeld": false
         }
       ],
@@ -71,6 +71,111 @@
         "north": "Junction Hallway 2",
         "south": "Cargo Hold",
         "west": ""
+      }
+    },
+    {
+      "name": "Cargo Hold",
+      "description": "You enter the Cargo Hold. Immediately the towering rows of crates, equipment, and who knows what else cast great shadows, \nblocking the dim emergency lighting overhead. You won't be able to see anything clearly without the ship's proper warehouse lighting.\n\n- To the North, you make out the grey stripe leading back to the door to the junction hallway.\n- To the South, you barely spot the grey stripe leading to a door marked \"Reactor Room\"\n",
+      "items": [
+        {
+          "name": "cabinet",
+          "fullName": "some kind of supply CABINET",
+          "isHeld": false
+        }
+      ],
+      "pointsOfInterest": [
+        {
+          "name": "cabinet",
+          "description": "Looking closer, you see the cabinet houses a complete industrial-capacity warp drive socket set.\n\nThis should most certainly contain the TOOL that Zhang briefed you on!",
+          "used": false,
+          "usedDescr": "The cabinet door hangs open. There isn't anything else of use inside."
+        }
+      ],
+      "exits": {
+        "west": "",
+        "north": "Junction Hallway 1",
+        "south": "Reactor Hallway",
+        "east": ""
+      }
+    },
+    {
+      "name": "Reactor Hallway",
+      "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked \"Power Supplies\"”.\n\n- To the South, you spot the door to the Reactor Room. \n- To the East, a door marked \"Power Supplies\" hums with the sound of machinery.\n",
+      "items": [],
+      "pointsOfInterest": [],
+      "exits": {
+        "west": "",
+        "north": "Cargo Hold",
+        "south": "Reactor Room",
+        "east": "Power Supplies"
+      }
+    },
+    {
+      "name": "Reactor Room",
+      "description": "The Reactor Room vibrates with the steady hum of the emergency generators coming through the adjoining wall.\nA long console sits against the far wall, its displays dimmed out. Seems like it’s in power savings mode.\n\n- To the North, you see the door back to the Reactor Hallway. \n- To the South, the door to \"Engine Room\" sits darkened.",
+      "items": [
+        {
+          "name": "console",
+          "fullName": "the ship reactor control CONSOLE",
+          "isHeld": false
+        }
+      ],
+      "pointsOfInterest": [],
+      "exits": {
+        "west": "",
+        "north": "Reactor Hallway",
+        "south": "Engine Room Hallway",
+        "east": ""
+      }
+    },
+    {
+      "name": "Engine Room Hallway",
+      "description": "The air in the hall before the Engine Room holds the tang of burning oil, even without the Chief's expertise you can see several clear signs of mechanical neglect. \n\nWhat happened to the crew to allow things to reach this state?\n\n- To the East, you spot the door to the Engine Room. \n- To the North, the Reactor Room.\n",
+      "items": [
+        {
+          "name": "pipes",
+          "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES",
+          "isHeld": false
+        }
+      ],
+      "pointsOfInterest": [
+        {
+          "name": "pipes",
+          "description": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to \nsiphon off some nearby gases in them.",
+          "used": false,
+          "usedDescr": "Atmo-ducting. You've siphoned off what you could from here, already."
+        }
+      ],
+      "exits": {
+        "west": "",
+        "north": "Reactor Room",
+        "south": "",
+        "east": "Engine Room"
+      }
+    },
+    {
+      "name": "Engine Room",
+      "description": "The Engine Room is not so much a \"room\" as it is an observation platform now containing a messy makeshift workshop.\nRows of engine parts from ships of every capacity line the shelves and hang partially completed from shop chains.\nA rickety steel railing separates you from the yawning cavern that holds the freighter's industrial capacity jump drives.\n\n- To the West, you see the door returning to the hallway.\n- To the North, you see the doors to the Power Supplies are now working.",
+      "items": [
+        {
+          "name": "rack",
+          "fullName": "a ship parts RACK affixed with contraband components",
+          "isHeld": false
+        }
+      ],
+      "pointsOfInterest": [
+        {
+          "name": "rack",
+          "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\n\nThis place is gonna be a mountain of paperwork...",
+          "used": false,
+          "usedDescr": "the evidence teams are going to be here for years, but you have everything you need from here for now."
+        }
+      ],
+      "exits": {
+        "west": "Engine Room Hallway",
+        "north": "Power Supplies",
+        "south": "",
+        "east": ""
       }
     }
   ]
