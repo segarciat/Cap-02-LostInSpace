@@ -12,6 +12,8 @@ import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import com.lostinspace.util.Controller;
 import com.lostinspace.util.FileGetter;
+import com.lostinspace.util.FileSetter;
+import com.lostinspace.util.GameEvents;
 
 import java.io.*;
 import java.util.*;
@@ -22,13 +24,16 @@ public class App {
     private static RoomsRoot testMap = new RoomsRoot();      // create an instance of the game map
     private static ArrayList<Room> map;                      // ref to testMap.rooms
     static FileGetter filegetter = new FileGetter();
+    static GameEvents events = new GameEvents();
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
         // todo multi-threading for delays in text
 
         titleCard();                                         // display title card
-        //Console.clear();
+        events.enterToContinue();                            // user must press enter to continue
+
         gameInstructions();                                  // display game instructions
+        events.enterToContinue();
 
         currentRoom = "Docking Bay";                         // start the player in the Docking Bay
 
@@ -87,6 +92,13 @@ public class App {
                 // restart the game
                 else if(inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")){
                     controller.restart();
+                }
+
+                // todo debug commands, REMOVE upon release
+                else if(inputArr[0].equals("output-test")){
+                    String toSend ="{\"inventory\": [[\"RESURRECTION\"]]}";
+                    FileSetter fileSetter = new FileSetter();
+                    fileSetter.saveToFile(toSend);
                 }
 
                 else {
@@ -153,6 +165,5 @@ public class App {
         }
         return Instructions;
     }
-
 }
 

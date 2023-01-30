@@ -100,7 +100,7 @@
     },
     {
       "name": "Reactor Hallway",
-      "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked “Power Supplies”.\n\n- To the South, you spot the door to the Reactor Room. \n- To the East, a door marked “Power Supplies” hums with the sound of machinery.\n",
+      "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked \"Power Supplies\"”.\n\n- To the South, you spot the door to the Reactor Room. \n- To the East, a door marked \"Power Supplies\" hums with the sound of machinery.\n",
       "items": [],
       "pointsOfInterest": [],
       "exits": {
@@ -112,7 +112,7 @@
     },
     {
       "name": "Reactor Room",
-      "description": "The Reactor Room vibrates with the steady hum of the emergency generators coming through the adjoining wall.\nA long console sits against the far wall, its displays dimmed out. Seems like it’s in power savings mode.\n\n- To the North, you see the door back to the Reactor Hallway. \n- To the South, the door to “Engine Room” sits darkened.",
+      "description": "The Reactor Room vibrates with the steady hum of the emergency generators coming through the adjoining wall.\nA long console sits against the far wall, its displays dimmed out. Seems like it’s in power savings mode.\n\n- To the North, you see the door back to the Reactor Hallway. \n- To the South, the door to \"Engine Room\" sits darkened.",
       "items": [
         {
           "name": "console",
@@ -130,7 +130,7 @@
     },
     {
       "name": "Engine Room Hallway",
-      "description": "The air in the hall before the Engine Room holds the tang of burning oil, even without the Chief's expertise you can see several \nclear signs of mechanical neglect. What happened to the crew to allow things to reach this state?\n\n- To the East, you spot the door to the Engine Room. \n- To the North, the Reactor Room.\n",
+      "description": "The air in the hall before the Engine Room holds the tang of burning oil, even without the Chief's expertise you can see several clear signs of mechanical neglect. \n\nWhat happened to the crew to allow things to reach this state?\n\n- To the East, you spot the door to the Engine Room. \n- To the North, the Reactor Room.\n",
       "items": [
         {
           "name": "pipes",
@@ -155,7 +155,7 @@
     },
     {
       "name": "Engine Room",
-      "description": "The Engine Room is not so much a \"room\" as it is an observation platform now containing a messy makeshift workshop.\nRows of engine parts of ships of every capacity line the shelves and hang partially completed from shop chains.\nA rickety steel railing separates you from the yawning cavern of the freighter's industrial capacity jump drives.\n\n- To the West, you see the door returning to the hallway.\n- To the North, you see the doors to the Power Supplies are now working.",
+      "description": "The Engine Room is not so much a \"room\" as it is an observation platform now containing a messy makeshift workshop.\nRows of engine parts from ships of every capacity line the shelves and hang partially completed from shop chains.\nA rickety steel railing separates you from the yawning cavern that holds the freighter's industrial capacity jump drives.\n\n- To the West, you see the door returning to the hallway.\n- To the North, you see the doors to the Power Supplies are now working.",
       "items": [
         {
           "name": "rack",
