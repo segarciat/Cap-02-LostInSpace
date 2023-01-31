@@ -9,12 +9,16 @@ package com.lostinspace.util;
 
 import java.io.*;
 import java.util.*;
+
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.Item;
 import com.lostinspace.model.PointOfInterest;
 import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
+import org.fusesource.jansi.*;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 
 /*
  * handles user commands and their feedback
@@ -22,6 +26,8 @@ import com.lostinspace.model.RoomsRoot;
  * loads game text/dialogue
  */
 public class Controller {
+    private static final String os = System.getProperty("os.name").toLowerCase();
+
     Gson gson = new Gson();                                // creates a new Gson object for converting JSON objects
     FileGetter filegetter = new FileGetter();
 
@@ -213,17 +219,37 @@ public class Controller {
 //        } catch (final Exception e) {
 //            e.printStackTrace();
 //        }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//        ProcessBuilder var0 = os.contains("windows") ? new ProcessBuilder(new String[]{"cmd", "/c", "cls"}) : new ProcessBuilder(new String[]{"clear"});
+//        try {
+//            var0.inheritIO().start().waitFor();
+//        } catch (InterruptedException var2) {
+//        } catch (IOException var3) {
+//            var3.printStackTrace();
+//        }
+
+        System.out.println( ansi().eraseScreen() );
+        System.out.println( ansi().cursor(0,0) );
     }
 
-    public RoomsRoot loadMap() throws IOException {
-        RoomsRoot retText = new RoomsRoot();                               // create empty map object
+    // Enables the Jansi ANSI support
+    public void loadAnsiConsole(){
+        AnsiConsole.systemInstall();
+    }
 
-        try(Reader map = filegetter.getResource("sampleText.json")) {  // try with
-            retText = gson.fromJson(map, RoomsRoot.class);                 // Convert JSON File to Java Object
-            return retText;                                                // return game map
-        }catch(IOException err){
+    public void ansiTest(){
+        System.out.println( ansi().eraseScreen().fg(RED).a("Hello").fg(GREEN).a(" World").reset() );
+    }
+
+    // returns the game map object, RoomsRoot
+    public RoomsRoot loadMap() throws IOException {
+        RoomsRoot retText = new RoomsRoot();                                // create empty map object
+
+        try (Reader map = filegetter.getResource("sampleText.json")) {  // try with
+            retText = gson.fromJson(map, RoomsRoot.class);                  // Convert JSON File to Java Object
+            return retText;                                                 // return game map
+        } catch (IOException err) {
             throw new RuntimeException(err);
         }
     }

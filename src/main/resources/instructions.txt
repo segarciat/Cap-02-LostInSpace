@@ -1,6 +1,3 @@
-
-	
-
 *go/walk/move[direction] - <move> in selected <direction>
 directions: North, South, East, West
 
