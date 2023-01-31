@@ -8,6 +8,7 @@ public class GameEvents {
     Controller controller = new Controller();   // instance of Controller methods
 
     public void enterToContinue() throws IOException {
+
         System.out.println("\n\nPress ENTER to Continue--->"); // Tell user how to continue
         System.in.read();                                      // listen for keyboard input
         evThread.proceed = true;       // get out of the evThread loop

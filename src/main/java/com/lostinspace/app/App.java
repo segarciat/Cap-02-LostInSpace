@@ -28,6 +28,7 @@ public class App {
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
         // todo multi-threading for delays in text
+        controller.loadAnsiConsole();                        // enables Jansi ANSI support
 
         titleCard();                                         // display title card
         events.enterToContinue();                            // user must press enter to continue
