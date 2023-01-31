@@ -7,6 +7,14 @@ public class GameEvents {
     Thread th = new Thread(evThread);           // create Thread and attach EventThread obj logic
     Controller controller = new Controller();   // instance of Controller methods
 
+    public void enterForNewGame() throws IOException {
+
+        System.out.println("\n\n- Press ENTER to Start a New Game -"); // Tell user how to continue
+        System.in.read();                                      // listen for keyboard input
+        evThread.proceed = true;       // get out of the evThread loop
+        controller.clearConsole();     // clear the console
+    }
+
     public void enterToContinue() throws IOException {
 
         System.out.println("\n\nPress ENTER to Continue--->"); // Tell user how to continue
@@ -14,23 +22,24 @@ public class GameEvents {
         evThread.proceed = true;       // get out of the evThread loop
         controller.clearConsole();     // clear the console
     }
-}
 
-class EventThread extends Thread{
-    public boolean proceed = false;    // breaks the while loop
+    class EventThread extends Thread{
+        public boolean proceed = false;    // breaks the while loop
 
-    /*
-     * loop continues until user presses Enter
-     * this continues the logic to next line of
-     * enterToContinue() where the loop ends and
-     * the game logic may proceed
-    */
-    public void run(){
-        while(proceed){
-            if(proceed){ // exit loop when changed
-                return;
+        /*
+         * loop continues until user presses Enter
+         * this continues the logic to next line of
+         * enterToContinue() where the loop ends and
+         * the game logic may proceed
+         */
+        public void run(){
+            while(proceed){
+                if(proceed){ // exit loop when changed
+                    return;
+                }
             }
         }
-    }
 
+    }
 }
+
