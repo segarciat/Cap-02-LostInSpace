@@ -25,7 +25,7 @@ the ship violently lurching into a new trajectory.
 Zhang yells into your ear, you hear panic creep into his voice as he begins partially using his regional state tongue,
 
     "Hùnzhàng! Captain, we've lost the jump drive and the ship is rapidly depressurizing!
-     I can slow it, but we need to land now! over."
+     I can slow it, but we need to land NOW! over."
 
 You bark a quick command,
 
@@ -36,19 +36,71 @@ You bark a quick command,
 Douglas replies curtly and gets to work. Dependable as always.
 
 You quickly scan your instruments for any stable body to put the ship down on.
-A space station, cavernous asteroid, there had to be something in this Sol-forsaken sector! After a tense moment, the ship's computer pings you with something unexpected: a freighter ship!
+
+A space station, cavernous asteroid, there had to be something in this Sol-forsaken sector! After a tense moment, the ship's computer pings you
+with something unexpected: A Freighter Ship!
+
 Strangely, you notice no engine signature from the vessel, but no distress signal either.
 It could be a Ravager ship…but there isn't time to worry. You need to land now.
 
 You see Lt. Douglas frantically tending to several sub-systems of the ship as you make the call,
 
     "Crew, we see a freighter dead in the water about 60 clicks out, sending coords. Since it's moving pretty slow,
-     we're gonna match velocity and drift into the docking bay. With no tractor, let's beg the maker there's no
+     we're going to match velocity and drift into the docking bay. With no tractor, let's beg the maker there's no
      security protocol on that atmospheric field… "
+
 
 A brief moment passes, no one says anything.
 
-    "Aye, sir."
+    "...Aye, sir."
     "...aye, aye, Captain."
 
+
+
+
+
+
+
+
+
 You switch the controls to manual override, take a deep breath, and begin your maneuver…
+
+
+
+
+
+
+
+
+
+
+
+
+You blink a few times, trying to shake the source of the red light from your eyes. Your vision swims.
+After a few moments you realize you are being shaken by somebody…
+
+    "-up!"
+
+You begin to awake from your stupor.
+
+    "Captain! On your feet!"
+
+The front of your flight suit is yanked as you're forced to sit up, the sting of a slap to your cheek creates a small surge of adrenaline which jolts you back to focus.
+Douglas kneels in front of you with a concerned look on her face.
+
+    "You back with us, Sir?"
+You nod, your head feels heavy like a morning after shore leave.
+
+    "What happened?"
+
+    "Whatever you pulled back there must have worked, sir" She holds out her arms in a gesture, "We're alive."
+
+Through the fog of sleep you begin to remember, the atmospheric field allowed your ship through into the docking bay with no trouble.
+Pretty lucky.
+
+What was not so lucky was the complete lack of organization in the bay.
+Used to the neat rows of your military outpost, you slammed the Spartan into several stacked sections of various parts and cargo then passed out.
+
+Not your finest hour.
+
+    "Are you sure you're ok Captain? Why don't you try a few COMMANDS, make sure nothing is broken?"
