@@ -7,9 +7,6 @@ package com.lostinspace.util;
  * Handles loading game map into memory.
  */
 
-import java.io.*;
-import java.util.*;
-
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.Item;
@@ -17,7 +14,17 @@ import com.lostinspace.model.PointOfInterest;
 import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import org.fusesource.jansi.*;
-import static org.fusesource.jansi.Ansi.*;
+
+import org.fusesource.jansi.AnsiConsole;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 /*
  * handles user commands and their feedback
@@ -259,7 +266,7 @@ public class Controller {
      */
     public static String move(RoomsRoot mapObj, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
-        ArrayList<Room> map = mapObj.rooms;
+        List<Room> map = mapObj.rooms;
 
         // iterate through map
         for (int i = 0; i < map.size(); i++) {
@@ -309,7 +316,7 @@ public class Controller {
      */
     public static String inspectRoom(RoomsRoot mapObj, String room) {
         String retDescribe = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
-        ArrayList<Room> map = mapObj.rooms;                                      // get a list of all rooms in the map
+        List<Room> map = mapObj.rooms;                                      // get a list of all rooms in the map
 
         // iterate through room list
         for (int i = 0; i < map.size(); i++) {
@@ -349,7 +356,7 @@ public class Controller {
      */
     public static String inspectItem(RoomsRoot mapObj, String room, String toBeInspected) {
         String retDescribe = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
-        ArrayList<Room> map = mapObj.rooms;                             // get a list of all rooms in the map
+        List<Room> map = mapObj.rooms;                             // get a list of all rooms in the map
 
         // iterate through room list
         for (int i = 0; i < map.size(); i++) {
@@ -397,8 +404,10 @@ public class Controller {
     public RoomsRoot loadMap() throws IOException {
         RoomsRoot retText = new RoomsRoot();                                // create empty map object
 
-        try (Reader map = filegetter.getResource("shiprooms.json")) {  // try with
-            retText = gson.fromJson(map, RoomsRoot.class);                  // Convert JSON File to Java Object
+        try (Reader reader = filegetter.getResource("shiprooms.json")) {  // try with
+            retText = gson.fromJson(reader, RoomsRoot.class);                 // Convert JSON File to Java Object
+            retText.createMap();
+
             return retText;                                                 // return game map
         } catch (IOException err) {
             throw new RuntimeException(err);

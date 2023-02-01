@@ -43,7 +43,6 @@ HELP.md
 # - build output
 /target/
 
-
 ### Database ###
 
 # BE SURE TO EXCLUDE ANY LOCAL DATABASE DIRECTORY/FILES AND LOG FILES!
