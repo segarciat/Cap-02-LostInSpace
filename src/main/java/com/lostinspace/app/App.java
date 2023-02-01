@@ -8,7 +8,6 @@ package com.lostinspace.app;
  */
 
 import com.lostinspace.model.Room;
-import com.lostinspace.model.RoomsRoot;
 import com.lostinspace.util.Controller;
 
 import java.io.*;
@@ -18,7 +17,7 @@ public class App {
 
     public static String currentRoom = new String();         // current location of Player
     private static Controller controller = new Controller(); // make an instance of controller for player commands
-    private static RoomsRoot testMap = new RoomsRoot();      // create an instance of the game map
+
     private static List<Room> map;                      // ref to testMap.rooms
 
 
@@ -26,20 +25,19 @@ public class App {
     public static void main(String[] args) throws IOException {
         controller.loadAnsiConsole();                        // enables Jansi ANSI support
 
+        controller.loadGameObjects();                        // loads all objects used for game logic into memory
+
         controller.titleCard();                              // display title card
 
         controller.prologue();                               // display prologue text
 
         controller.gameInstructions();                      // display game instructions
 
-        // try to load the game map
-        testMap = controller.loadMap();                      // load the map into memory
-        map = testMap.rooms;                                 // ref to rooms list
-
         // breaking this while loop means the game is over
         while (true) {
             String description = "";                            // create empty string to hold description
 
+            map = controller.getRoomsList();                    // gets a ref to list of rooms
             for (int i = 0; i < map.size(); i++) {              // search through all rooms for currentRoom description
                 if (map.get(i).name.equals(controller.getCurrentRoom())) {      // if found...
                     description = map.get(i).description;       // ...create string to hold currentRoom's description
@@ -65,11 +63,6 @@ public class App {
                 controller.userCommands(inputArr);
             }
         }
-    }
-
-    //ACCESSOR METHODS
-    public static RoomsRoot getMap() {
-        return testMap;
     }
 }
 
