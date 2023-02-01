@@ -9,10 +9,9 @@ package com.lostinspace.util;
 
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
-import com.lostinspace.model.Item;
-import com.lostinspace.model.PointOfInterest;
-import com.lostinspace.model.Room;
-import com.lostinspace.model.RoomsRoot;
+import com.lostinspace.model.*;
+import org.fusesource.jansi.*;
+
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.BufferedReader;
@@ -33,7 +32,10 @@ public class Controller {
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     static FileGetter filegetter = new FileGetter();                              // FileGetter retrieves resources
     static GameEvents events = new GameEvents();                                  // ref to Game Event Methods
-    Gson gson = new Gson();                                                       // Gson object converts JSON objects
+    private Gson gson = new Gson();                                               // Gson object converts JSON objects
+    private List roomsList;                           // create an instance of the game map
+    private List items;
+    private List interactables;
 
     // variables for string coloring
     public static final String ANSI_RESET = "\u001B[0m";   // resets the color
@@ -45,32 +47,45 @@ public class Controller {
     List<String> inventory = Arrays.asList();              // player inventory, which is initially empty   
     static String currentRoom = "Docking Bay";             // current string location of player
 
+    // todo for testing delete when finished
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+        try {
+            controller.loadGameObjects();
+        } catch (IOException err) {
+            throw new RuntimeException(err);
+        }
+
+        System.out.println(controller.getItems().get(0).getClass());
+
+    }
+
+
     //-------------------------------CONTROLLER METHODS
 
     public void userCommands(String[] inputArr) throws IOException {
         // SINGLE WORD COMMANDS
         // exit the game
-        if(inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")){
+        if (inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")) {
             quit();
         }
 
         // restart the game
-        else if(inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")){
+        else if (inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")) {
             restart();
         }
 
         // restart the game
-        else if(inputArr[0].equals("help") || inputArr[0].equals("instructions")){
+        else if (inputArr[0].equals("help") || inputArr[0].equals("instructions")) {
             clearConsole();
             gameInstructions();
         }
 
         // check for commands that are too short or too long
-        else if(inputArr.length < 2 || inputArr.length > 2){
+        else if (inputArr.length < 2 || inputArr.length > 2) {
             clearConsole();
-            System.out.println("You want to "+ inputArr[0] + ", but what exactly?" + "\nYou MUST enter valid command!\n\n(Enter HELP for a list of commands)");
-        }
-        else if(inputArr.length > 2){
+            System.out.println("You want to " + inputArr[0] + ", but what exactly?" + "\nYou MUST enter valid command!\n\n(Enter HELP for a list of commands)");
+        } else if (inputArr.length > 2) {
             clearConsole();
             System.out.println("Too many words in your command." + "\nOnly enter VALID 2-WORD commands!\n\n(Enter HELP for a list of commands)");
             events.enterToContinue();
@@ -80,26 +95,26 @@ public class Controller {
         // movement commands
         else if (inputArr[0].equals("go") || inputArr[0].equals("walk") || inputArr[0].equals("move") || inputArr[0].equals("run")) {
             // check that player is allowed to go in that direction
-            setCurrentRoom(move(App.getMap(), getCurrentRoom(), inputArr[1]));
+            setCurrentRoom(move(getRoomsList(), getCurrentRoom(), inputArr[1]));
         }
 
         // inspect rooms, items, or anything listed as a Point of interest
-        else if(inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")){
+        else if (inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")) {
             // rooms are inspected differently than items
-            if(inputArr[1].equals("room")){
+            if (inputArr[1].equals("room")) {
                 clearConsole();
-                System.out.println(inspectRoom(App.getMap(), getCurrentRoom()));
+                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), getCurrentRoom()));
                 events.enterToContinue();
             } else {
                 clearConsole();
-                System.out.println(inspectItem(App.getMap(), getCurrentRoom(), inputArr[1]));
+                System.out.println(inspectItem(getItems(), getInteractables(), getCurrentRoom(), inputArr[1]));
                 events.enterToContinue();
             }
         }
 
         // todo debug commands, REMOVE upon release
-        else if(inputArr[0].equals("output-test")){
-            String toSend ="{\"inventory\": [[\"RESURRECTION\"]]}";
+        else if (inputArr[0].equals("output-test")) {
+            String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
             FileSetter fileSetter = new FileSetter();
             fileSetter.saveToFile(toSend);
         }
@@ -107,7 +122,7 @@ public class Controller {
         // invalid command
         else {
             clearConsole();
-            System.out.println("I don't know how to " + inputArr[0] + " anything! Enter a valid COMMAND!");
+            System.out.println("I don't know how to " + inputArr[0] + " anything! Enter a valid COMMAND!\n\n(Enter HELP for a list of commands)");
             events.enterToContinue();
         }
     }
@@ -116,7 +131,7 @@ public class Controller {
     public static void prologue() {
         String text = ""; // empty return string
 
-        try(Reader data = filegetter.getResource("prologue.txt")) {
+        try (Reader data = filegetter.getResource("prologue.txt")) {
             // load file from resources dir
             BufferedReader reader = new BufferedReader(data);
             StringBuilder sBuilder = new StringBuilder();
@@ -136,17 +151,17 @@ public class Controller {
             String[] lines = text.split(System.getProperty("line.separator"));
 
             double linesToDisplay = 13;
-            double printLimit = lines.length/linesToDisplay;
+            double printLimit = lines.length / linesToDisplay;
             printLimit = Math.ceil(printLimit);
 
             int idx = 0;
-            while(printLimit > 0){
-                for(int i = 0; i < linesToDisplay; i++){
-                    if(!lines[idx].equals(null)){
+            while (printLimit > 0) {
+                for (int i = 0; i < linesToDisplay; i++) {
+                    if (!lines[idx].equals(null)) {
                         System.out.println(lines[idx]);
                         idx++;
                     }
-                    if(idx == lines.length){
+                    if (idx == lines.length) {
                         break;
                     }
                 }
@@ -164,7 +179,7 @@ public class Controller {
     public static void titleCard() throws IOException {
         String content = ""; // empty return string
 
-        try(Reader title = filegetter.getResource("welcome.txt")) {
+        try (Reader title = filegetter.getResource("welcome.txt")) {
             // load file from resources dir
 
             BufferedReader reader = new BufferedReader(title);
@@ -195,7 +210,7 @@ public class Controller {
     public static void gameInstructions() throws IOException {
         String instructions = ""; // empty return string
 
-        try(Reader data = filegetter.getResource("instructions.txt")) {
+        try (Reader data = filegetter.getResource("instructions.txt")) {
             // load file from resources dir
             BufferedReader reader = new BufferedReader(data);
             StringBuilder sBuilder = new StringBuilder();
@@ -262,9 +277,8 @@ public class Controller {
      * prompts player to INSPECT ROOM when invalid choice is given.
      * returns string which resets currentRoom in App
      */
-    public static String move(RoomsRoot mapObj, String room, String dir) {
+    public static String move(List<Room> map, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
-        List<Room> map = mapObj.rooms;
 
         // iterate through map
         for (int i = 0; i < map.size(); i++) {
@@ -312,101 +326,142 @@ public class Controller {
      * allows player to inspect rooms to find items and exits
      * returns string detailing
      */
-    public static String inspectRoom(RoomsRoot mapObj, String room) {
-        String retDescribe = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
-        List<Room> map = mapObj.rooms;                                      // get a list of all rooms in the map
-
+    public String inspectRoom(List<Item> items, List<Item> interactables, List<Room> rooms, String room) {
+        String roomDescription = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
+        System.out.println("Current Room: " + room);
         // iterate through room list
-        for (int i = 0; i < map.size(); i++) {
-            if (map.get(i).getName().equals(room)) {                  // find the room object the player is currently in
-                ArrayList<Item> items = map.get(i).items;             // quick reference to items list for currentRoom
-
-                // iterate through item list
-                for (int j = 0; j < map.get(i).items.size(); j++) {
-                    retDescribe = retDescribe + "- " + items.get(j).getFullName() + "\n"; // first add all items to return
+        for (int i = 0; i < items.size(); i++) {
+            for (int j = 0; j < items.get(i).getRoom().size(); j++) {
+                if (items.get(i).getRoom().get(j).equals(room)) {              // ensure item is in same room as player
+                    // first add all items to return
+                    roomDescription = roomDescription + "- " + items.get(i).getFullName() + "\n";
                 }
-
-                retDescribe = retDescribe + "\nExits: \n";            // then add a header for exits from the room
-
-                // add each existing exit to the return string
-                if (!map.get(i).exits.getNorth().equals("")) {          // ignore non-exits
-                    retDescribe = retDescribe + "- North: " + map.get(i).exits.getNorth() + "\n";
-                }
-                if (!map.get(i).exits.getSouth().equals("")) {
-                    retDescribe = retDescribe + "- South: " + map.get(i).exits.getSouth() + "\n";
-                }
-                if (!map.get(i).exits.getEast().equals("")) {
-                    retDescribe = retDescribe + "- East: " + map.get(i).exits.getEast() + "\n";
-                }
-                if (!map.get(i).exits.getWest().equals("")) {
-                    retDescribe = retDescribe + "- West: " + map.get(i).exits.getWest() + "\n";
-                }
-
-                retDescribe = retDescribe + "\n"; // add a new line for formatting
             }
         }
-        return retDescribe;                       // return description
+
+        for (int i = 0; i < interactables.size(); i++) {
+            for (int j = 0; j < interactables.get(i).getRoom().size(); j++) {
+                if (interactables.get(i).getRoom().get(j).equals(room)) {              // ensure item is in same room as player
+                    // first add all items to return
+                    roomDescription = roomDescription + "- " + interactables.get(i).getFullName() + "\n";
+                }
+            }
+        }
+
+        roomDescription = roomDescription + "\nExits: \n";            // then add a header for exits from the room
+
+        for (int i = 0; i < rooms.size(); i++) {
+            if (rooms.get(i).getName().equals(room)) {
+                // add each existing exit to the return string
+                if (!rooms.get(i).exits.getNorth().equals("")) {          // ignore non-exits
+                    roomDescription = roomDescription + "- North: " + rooms.get(i).exits.getNorth() + "\n";
+                }
+                if (!rooms.get(i).exits.getSouth().equals("")) {
+                    roomDescription = roomDescription + "- South: " + rooms.get(i).exits.getSouth() + "\n";
+                }
+                if (!rooms.get(i).exits.getEast().equals("")) {
+                    roomDescription = roomDescription + "- East: " + rooms.get(i).exits.getEast() + "\n";
+                }
+                if (!rooms.get(i).exits.getWest().equals("")) {
+                    roomDescription = roomDescription + "- West: " + rooms.get(i).exits.getWest() + "\n";
+                }
+
+                roomDescription = roomDescription + "\n"; // add a new line for formatting
+            }
+        }
+
+
+        return roomDescription;                       // return description
     }
 
     /*
      * allows player to inspect items and pointsOfInterest
      * returns string detailing what was inspected
      */
-    public static String inspectItem(RoomsRoot mapObj, String room, String toBeInspected) {
-        String retDescribe = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
-        List<Room> map = mapObj.rooms;                             // get a list of all rooms in the map
+    public static String inspectItem(List<Item> items, List<Item> interactables, String room, String toBeInspected) {
+        String itemDescription = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
 
-        // iterate through room list
-        for (int i = 0; i < map.size(); i++) {
-            if (map.get(i).getName().equals(room)) {                // find the room object the player is currently in
-                ArrayList<Item> items = map.get(i).items;           // quick reference to items list for currentRoom
-
-                // iterate through item list
-                for (int j = 0; j < map.get(i).items.size(); j++) {
-                    if (items.get(j).getName().equals(toBeInspected)) {         // see if item to be inspected is in room
-                        ArrayList<PointOfInterest> pois = map.get(i).getPois(); // reference to poi list for currentRoom
-
-                        // iterate through list
-                        for (int k = 0; k < pois.size(); k++) {
-                            if (pois.get(k).getName().equals(toBeInspected)) {  // find item to be inspected in poi list
-                                if (pois.get(k).isUsed() == false) {            // if the item has not been used yet
-                                    retDescribe = pois.get(k).getDescription(); // return the unused description
-                                } else {
-                                    retDescribe = pois.get(k).getUsedDescr();   // if it has return the used description
-                                }
-                            }
-                        }
+        // iterate through items list
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getName().equals(toBeInspected)) {  // find the items matching the inspected item
+                if (items.get(i).getRoom().contains(room)) {            // if instance of item in the same room
+                    if (!items.get(i).isUsed()) {
+                        return items.get(i).getDescription();     // then return the unused description
+                    } else {
+                        return items.get(i).getUsedDescription();   // if it has return the used description
                     }
                 }
+            } else{
+                itemDescription = "There is no \"" + toBeInspected + "\".\n\n(Use INSPECT ROOM if you are looking for an item!)";
             }
         }
 
-        return retDescribe; // return description
+        // iterate through interactables list
+        for (int i = 0; i < interactables.size(); i++) {
+            if (interactables.get(i).getName().equals(toBeInspected)) {  // find the interactables matching the inspected item
+                if (interactables.get(i).getRoom().contains(room)) {            // if instance of interactable in the same room
+                    if (!interactables.get(i).isUsed()) {
+                        return interactables.get(i).getDescription();     // then return the unused description
+                    } else {
+                        return interactables.get(i).getUsedDescription();   // if it has return the used description
+                    }
+                }
+            } else{
+                itemDescription = "There is no \"" + toBeInspected + "\".\n\n(Use INSPECT ROOM if you are looking for an item!)";
+            }
+        }
+        return itemDescription; // return description
     }
-
 
     //-------------------------------UTILITY METHODS
 
     // uses Jansi ANSI methods to clear terminal and reset cursor at 0,0
     public static void clearConsole() {
-        System.out.println( ansi().eraseScreen() );
-        System.out.println( ansi().cursor(0,0) );
+        System.out.println(ansi().eraseScreen());
+        System.out.println(ansi().cursor(0, 0));
     }
 
     // Enables the Jansi ANSI support
-    public void loadAnsiConsole(){
+    public void loadAnsiConsole() {
         AnsiConsole.systemInstall();
+    }
+
+    // returns the items list object
+    public void loadGameObjects() throws IOException {
+        setRoomsList(loadMap().getRooms());     // load the rooms list into memory
+        setItems(loadItems().getItems());                  // load the items list into memory
+        setInteractables(loadIteractables().getInteractables());   // load the interactables objects list into memory
     }
 
     // returns the game map object, RoomsRoot
     public RoomsRoot loadMap() throws IOException {
         RoomsRoot retText = new RoomsRoot();                                // create empty map object
 
-        try (Reader reader = filegetter.getResource("sampleText.json")) {  // try with
-            retText = gson.fromJson(reader, RoomsRoot.class);
+        try (Reader reader = filegetter.getResource("shiprooms.json")) {  // try with
+            retText = gson.fromJson(reader, RoomsRoot.class);                 // Convert JSON File to Java Object
             retText.createMap();
-            // Convert JSON File to Java Object
+
             return retText;                                                 // return game map
+        } catch (IOException err) {
+            throw new RuntimeException(err);
+        }
+    }
+
+    // returns the items list object
+    public ItemsList loadItems() throws IOException {
+
+        try (Reader reader = filegetter.getResource("items.json")) {  // try with resources
+            return gson.fromJson(reader, ItemsList.class);                     // Convert JSON File to Java Object and return
+        } catch (IOException err) {
+            throw new RuntimeException(err);
+        }
+    }
+
+    // returns the iteractables list object
+    public InteractablesList loadIteractables() throws IOException {
+
+        try (Reader reader = filegetter.getResource("interactables.json")) {  // try with resources
+            return gson.fromJson(reader, InteractablesList.class);                             // Convert JSON File to Java Object and return
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
@@ -420,5 +475,29 @@ public class Controller {
 
     public static void setCurrentRoom(String currentRoom) {
         Controller.currentRoom = currentRoom;
+    }
+
+    public List getRoomsList() {
+        return roomsList;
+    }
+
+    public void setRoomsList(List roomsList) {
+        this.roomsList = roomsList;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List items) {
+        this.items = items;
+    }
+
+    public List getInteractables() {
+        return interactables;
+    }
+
+    public void setInteractables(List interactables) {
+        this.interactables = interactables;
     }
 }

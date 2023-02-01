@@ -1,0 +1,48 @@
+{
+  "interactables": [
+    {
+      "name": "cabinet",
+      "synonyms": [],
+      "room": ["Cargo Hold"],
+      "fullName": "some kind of supply CABINET",
+      "description": "Looking closer, you see the cabinet houses a complete industrial-capacity warp drive socket set.\n\nThis should most certainly contain the TOOL that Zhang briefed you on!",
+      "used": false,
+      "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside."
+    },
+    {
+      "name": "console",
+      "synonyms": [],
+      "room": ["Reactor Room"],
+      "fullName": "the ship reactor control CONSOLE",
+      "used": false,
+      "usedDescription": ""
+    },
+    {
+      "name": "pipes",
+      "synonyms": ["ducts"],
+      "room": ["Junction Hallway 1", "Reactor Hallway"],
+      "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES",
+      "description": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to \nsiphon off some nearby gases in them.",
+      "used": false,
+      "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already."
+    },
+    {
+      "name": "ship",
+      "synonyms": ["spartan"],
+      "room": ["Docking Bay"],
+      "fullName": "the E.D.F.S. Spartan, your SHIP",
+      "description": "The E.D.F.S. Spartan rests precariously on its twisted landing struts. Every few seconds her hull groans as Zhang shifts his weight inside. \nShe's seen better days, but you're still breathing. \n\nYou silently mouth words of appreciation.",
+      "used": false,
+      "usedDescription": ""
+    },
+    {
+      "name": "rack",
+      "synonyms": [],
+      "room": ["Engine Room"],
+      "fullName": "a ship parts RACK affixed with contraband components",
+      "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\n\nThis place is gonna be a mountain of paperwork...",
+      "used": false,
+      "usedDescription": "the evidence teams are going to be here for years, but you have everything you need from here for now."
+    }
+  ]
+}
