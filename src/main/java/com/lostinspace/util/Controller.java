@@ -18,7 +18,6 @@ import com.lostinspace.model.Room;
 import com.lostinspace.model.RoomsRoot;
 import org.fusesource.jansi.*;
 import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
 
 /*
  * handles user commands and their feedback
@@ -398,7 +397,7 @@ public class Controller {
     public RoomsRoot loadMap() throws IOException {
         RoomsRoot retText = new RoomsRoot();                                // create empty map object
 
-        try (Reader map = filegetter.getResource("sampleText.json")) {  // try with
+        try (Reader map = filegetter.getResource("shiprooms.json")) {  // try with
             retText = gson.fromJson(map, RoomsRoot.class);                  // Convert JSON File to Java Object
             return retText;                                                 // return game map
         } catch (IOException err) {
