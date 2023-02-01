@@ -44,16 +44,16 @@ class ItemModifier {
     // TODO: create an overloaded getMapObjectFromJson method that accepts a map of string : objects
 
     // TODO: create a method that accepts an room map, searches for items, and adds in an item obj
-    public Map<String, ArrayList<Room>> addObjectToMap(String name, String fullName, boolean isHeld) {
-        Item item = new Item(name, fullName, isHeld);
-        Map<String, ArrayList<Room>> map = getMapObjectFromJson("sampleText.json");
-        ArrayList<Room> roomArrayList = map.get("rooms");
-//        System.out.println(roomArrayList);
-        for (Room room : roomArrayList) {
-            System.out.println(room);
-        }
-        return map;
-    }
+//    public Map<String, ArrayList<Room>> addObjectToMap(String name, String fullName, boolean isHeld) {
+//        Item item = new Item(name, fullName, isHeld);
+//        Map<String, ArrayList<Room>> map = getMapObjectFromJson("sampleText.json");
+//        ArrayList<Room> roomArrayList = map.get("rooms");
+////        System.out.println(roomArrayList);
+//        for (Room room : roomArrayList) {
+//            System.out.println(room);
+//        }
+//        return map;
+//    }
 
     // TODO: write a method that will allow the player to pick up and item
     public void addItemObjectToInventory(HashMap<String, Object> item) throws IOException {
@@ -91,6 +91,6 @@ class ItemModifier {
 
     public static void main(String[] args) throws IOException {
         ItemModifier modifier = new ItemModifier("sampleText.json");
-        modifier.addObjectToMap("cigar", "fresh cuban", true);
+//        modifier.addObjectToMap("cigar", "fresh cuban", true);
     }
 }

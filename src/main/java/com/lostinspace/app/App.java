@@ -22,7 +22,7 @@ public class App {
     public static String currentRoom = new String();         // current location of Player
     private static Controller controller = new Controller(); // make an instance of controller for player commands
     private static RoomsRoot testMap = new RoomsRoot();      // create an instance of the game map
-    private static ArrayList<Room> map;                      // ref to testMap.rooms
+    private static List<Room> map;                      // ref to testMap.rooms
     static FileGetter filegetter = new FileGetter();
     static GameEvents events = new GameEvents();
     // GAME LOGIC
@@ -41,7 +41,6 @@ public class App {
         // try to load the game map
         testMap = controller.loadMap();                      // load the map into memory
         map = testMap.rooms;                                 // ref to rooms list
-
 
         // breaking this while loop means the game is over
         while (true) {
