@@ -1,0 +1,25 @@
+[
+  {
+    "room": "Docking Bay",
+    "description": "You glance around the Docking Bay. It acts as a structure jutting from the starboard side of the ship, providing room for landing and loading. \nThe vast port your ship entered through generates a crackling enviro-field, holding in what little toxic atmosphere that remains. \nYou cannot make out any more details due to the dim emergency lighting. \n\n- To the West, you see the bay doors exit.",
+    "NPC": [],
+    "items": [
+      {
+        "name": "scrambler",
+        "fullName": "a Mk39 Broad-Band SCRAMBLER",
+        "isHeld": true
+      },
+      {
+        "name": "ship",
+        "fullName": "the E.D.F.S. Spartan, your SHIP",
+        "isHeld": false
+      }
+    ],
+    "directions": {
+      "north": "Junction Hallway 1",
+      "south": "",
+      "east": "Envio-Field",
+      "west": ""
+    }
+  }
+]
