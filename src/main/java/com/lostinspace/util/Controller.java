@@ -26,10 +26,10 @@ import static org.fusesource.jansi.Ansi.Color.*;
  * loads game text/dialogue
  */
 public class Controller {
-    private static final String os = System.getProperty("os.name").toLowerCase();
-
-    Gson gson = new Gson();                                // creates a new Gson object for converting JSON objects
-    FileGetter filegetter = new FileGetter();
+    private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
+    static FileGetter filegetter = new FileGetter();                              // FileGetter retrieves resources
+    static GameEvents events = new GameEvents();                                  // ref to Game Event Methods
+    Gson gson = new Gson();                                                       // Gson object converts JSON objects
 
     // variables for string coloring
     public static final String ANSI_RESET = "\u001B[0m";   // resets the color
@@ -39,6 +39,183 @@ public class Controller {
     public static final String ANSI_YELLOW = "\u001B[33m"; //               |
 
     List<String> inventory = Arrays.asList();              // player inventory, which is initially empty   
+    static String currentRoom = "Docking Bay";             // current string location of player
+
+    //-------------------------------CONTROLLER METHODS
+
+    public void userCommands(String[] inputArr) throws IOException {
+        // SINGLE WORD COMMANDS
+        // exit the game
+        if(inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")){
+            quit();
+        }
+
+        // restart the game
+        else if(inputArr[0].equals("new") || inputArr[0].equals("restart") || inputArr[0].equals("escape")){
+            restart();
+        }
+
+        // restart the game
+        else if(inputArr[0].equals("help") || inputArr[0].equals("instructions")){
+            clearConsole();
+            gameInstructions();
+        }
+
+        // check for commands that are too short or too long
+        else if(inputArr.length < 2 || inputArr.length > 2){
+            clearConsole();
+            System.out.println("You want to "+ inputArr[0] + ", but what exactly?" + "\nYou MUST enter valid command!\n\n(Enter HELP for a list of commands)");
+        }
+        else if(inputArr.length > 2){
+            clearConsole();
+            System.out.println("Too many words in your command." + "\nOnly enter VALID 2-WORD commands!\n\n(Enter HELP for a list of commands)");
+            events.enterToContinue();
+        }
+
+        // MULTI-WORD COMMANDS
+        // movement commands
+        else if (inputArr[0].equals("go") || inputArr[0].equals("walk") || inputArr[0].equals("move") || inputArr[0].equals("run")) {
+            // check that player is allowed to go in that direction
+            setCurrentRoom(move(App.getMap(), getCurrentRoom(), inputArr[1]));
+        }
+
+        // inspect rooms, items, or anything listed as a Point of interest
+        else if(inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")){
+            // rooms are inspected differently than items
+            if(inputArr[1].equals("room")){
+                clearConsole();
+                System.out.println(inspectRoom(App.getMap(), getCurrentRoom()));
+                events.enterToContinue();
+            } else {
+                clearConsole();
+                System.out.println(inspectItem(App.getMap(), getCurrentRoom(), inputArr[1]));
+                events.enterToContinue();
+            }
+        }
+
+        // todo debug commands, REMOVE upon release
+        else if(inputArr[0].equals("output-test")){
+            String toSend ="{\"inventory\": [[\"RESURRECTION\"]]}";
+            FileSetter fileSetter = new FileSetter();
+            fileSetter.saveToFile(toSend);
+        }
+
+        // invalid command
+        else {
+            clearConsole();
+            System.out.println("I don't know how to " + inputArr[0] + " anything! Enter a valid COMMAND!");
+            events.enterToContinue();
+        }
+    }
+
+    // Display prologue text
+    public static void prologue() {
+        String text = ""; // empty return string
+
+        try(Reader data = filegetter.getResource("prologue.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            text = sBuilder.toString();
+            String[] lines = text.split(System.getProperty("line.separator"));
+
+            double linesToDisplay = 13;
+            double printLimit = lines.length/linesToDisplay;
+            printLimit = Math.ceil(printLimit);
+
+            int idx = 0;
+            while(printLimit > 0){
+                for(int i = 0; i < linesToDisplay; i++){
+                    if(!lines[idx].equals(null)){
+                        System.out.println(lines[idx]);
+                        idx++;
+                    }
+                    if(idx == lines.length){
+                        break;
+                    }
+                }
+                events.enterToContinue();
+                printLimit--;
+            }
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
+    // Display game Title Card
+    public static void titleCard() throws IOException {
+        String content = ""; // empty return string
+
+        try(Reader title = filegetter.getResource("welcome.txt")) {
+            // load file from resources dir
+
+            BufferedReader reader = new BufferedReader(title);
+
+            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
+            String line = null;                                // empty string for line
+            String ls = System.lineSeparator();                // line separator
+
+            // while there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sB.append(line);                    // append the next line to the SB
+                sB.append(ls);                      // new line
+            }
+
+            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
+            content = sB.toString();                // create new string with sB content
+            System.out.println(content);            // display title card!
+
+        } catch (IOException err) {                 // throw IO Exception if failed
+            throw new RuntimeException(err);
+        }
+
+        System.out.println(content);
+        events.enterForNewGame();                  // user must press enter to continue
+    }
+
+    // Display user commands
+    public static void gameInstructions() throws IOException {
+        String instructions = ""; // empty return string
+
+        try(Reader data = filegetter.getResource("instructions.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            instructions = sBuilder.toString();
+
+            System.out.println(instructions);
+            events.enterForNewGame();                  // user must press enter to continue
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
 
     // restarts game when called
     public static void restart() {
@@ -127,14 +304,11 @@ public class Controller {
         return retRoom; // return new room
     }
 
-
-    /* Todo fix Controller.clearConsole to clear terminal between commands
-
     /*
      * allows player to inspect rooms to find items and exits
      * returns string detailing
      */
-    public static String inspectRoom(RoomsRoot mapObj, String room, String toBeInspected) {
+    public static String inspectRoom(RoomsRoot mapObj, String room) {
         String retDescribe = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
         ArrayList<Room> map = mapObj.rooms;                                      // get a list of all rooms in the map
 
@@ -206,29 +380,11 @@ public class Controller {
         return retDescribe; // return description
     }
 
-    // Todo fix Controller.clearConsole to clear terminal between commands
 
+    //-------------------------------UTILITY METHODS
+
+    // uses Jansi ANSI methods to clear terminal and reset cursor at 0,0
     public static void clearConsole() {
-//        try {
-//            final String os = System.getProperty("os.name");
-//            if (os.contains("Windows")) {
-//                Runtime.getRuntime().exec("cls");
-//            } else {
-//            Runtime.getRuntime().exec("clear");
-//            }
-//        } catch (final Exception e) {
-//            e.printStackTrace();
-//        }
-//        System.out.print("\033[H\033[2J");
-//        System.out.flush();
-//        ProcessBuilder var0 = os.contains("windows") ? new ProcessBuilder(new String[]{"cmd", "/c", "cls"}) : new ProcessBuilder(new String[]{"clear"});
-//        try {
-//            var0.inheritIO().start().waitFor();
-//        } catch (InterruptedException var2) {
-//        } catch (IOException var3) {
-//            var3.printStackTrace();
-//        }
-
         System.out.println( ansi().eraseScreen() );
         System.out.println( ansi().cursor(0,0) );
     }
@@ -236,10 +392,6 @@ public class Controller {
     // Enables the Jansi ANSI support
     public void loadAnsiConsole(){
         AnsiConsole.systemInstall();
-    }
-
-    public void ansiTest(){
-        System.out.println( ansi().eraseScreen().fg(RED).a("Hello").fg(GREEN).a(" World").reset() );
     }
 
     // returns the game map object, RoomsRoot
@@ -252,5 +404,15 @@ public class Controller {
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
+    }
+
+
+    //-------------------------------ACCESSOR METHODS
+    public static String getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public static void setCurrentRoom(String currentRoom) {
+        Controller.currentRoom = currentRoom;
     }
 }
