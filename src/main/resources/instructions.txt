@@ -11,8 +11,10 @@ Note: remember to "CHECK OXYGEN" often as reaching 0% will END YOUR GAME!
 Not all items can be used at all times or in every room. Experiment with your options!
 
 *inspect/look/examine/search [room, item, object] - receive a description of what was inspected, look inside containers
-<inspect> will often reveal details about something you are confused about*radio[name] - <radio> your crew to receive their status and helpful hints
-name: <Douglas>, <Zhang> 
+<inspect> will often reveal details about something you are confused about
+
+*radio[name] - <radio> your crew to receive their status and helpful hints
+names: <Douglas>, <Zhang>
 
 *objectives - review current game objectives
 
