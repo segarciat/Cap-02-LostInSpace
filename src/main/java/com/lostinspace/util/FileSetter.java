@@ -2,34 +2,74 @@ package com.lostinspace.util;
 
 import com.google.gson.Gson;
 import com.lostinspace.model.Inventory;
-import com.lostinspace.model.RoomsRoot;
-
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileSetter {
-    static Gson gson = new Gson();
-    static FileGetter filegetter = new FileGetter();
+    private Gson gson;
+    private FileGetter filegetter;
+    private String resource;
+    OutputStream stream;
 
-    public  void saveToFile(String data) {
-        OutputStream os = null;
+
+    public FileSetter() {
+        setGson();
+        setFilegetter();
+    }
+
+    public void saveToFile(String dataToAdd, String rscDestination) throws IOException{
+
         try {
-            Path source = Paths.get(getClass().getResource("/inventory.json").getPath());
-            os = new FileOutputStream(String.valueOf(source));
-            os.write(data.getBytes(), 0, data.length());
+            Path source = Paths.get(getClass().getResource(rscDestination).getPath());
+            stream = new FileOutputStream(String.valueOf(source));
+            stream.write(dataToAdd.getBytes(), 0, dataToAdd.length());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                os.close();
-                Reader json = filegetter.getResource("inventory.json");
+                assert stream != null;
+                stream.close();
+                Reader json = filegetter.getResource(rscDestination);
                 Inventory retText = gson.fromJson(json, Inventory.class);                 // Convert JSON File to Java Object
                 System.out.println("RESULT: " + retText);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
     }
+
+
+//    public void saveJsonToFile(String dataToAdd, String rscDestination) throws IOException {
+//        Path source = Paths.get(getClass().getResource(rscDestination).getPath());
+//        FileWriter file = new FileWriter("inventory.json");
+//        file.write(dataToAdd);
+//        file.close();
+//        try (FileWriter file = new FileWriter(rscDestination)) {
+//            Writer bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+//        }
+//    }
+
+    public Gson getGson() {
+        return gson;
+    }
+
+    private void setGson() {
+        this.gson = new Gson();
+    }
+
+    public FileGetter getFilegetter() {
+        return filegetter;
+    }
+
+    private void setFilegetter() {
+        this.filegetter = new FileGetter();
+    }
+
+    public String resource() {
+        return resource;
+    }
+
+    private void setResource(String resource) {
+        this.resource = resource;
+    }
+
 }
