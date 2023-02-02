@@ -2,7 +2,7 @@
   "items": [
     {
       "name": "scrambler",
-      "synonyms": [],
+      "synonyms": ["mk39", "broad-band", "scramble"],
       "room": ["Docking Bay"],
       "fullName": "a Mk39 Broad-Band SCRAMBLER",
       "description": "The mk39 high-band frequency scrambler/unscrambler. AKA 'The Garage Door Opener.' \nMakes quick work of electronically locked doors.",
