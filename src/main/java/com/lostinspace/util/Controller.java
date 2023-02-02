@@ -33,9 +33,9 @@ public class Controller {
     static FileGetter filegetter = new FileGetter();                              // FileGetter retrieves resources
     static GameEvents events = new GameEvents();                                  // ref to Game Event Methods
     private Gson gson = new Gson();                                               // Gson object converts JSON objects
-    private List roomsList;                           // create an instance of the game map
-    private List items;
-    private List interactables;
+    private List roomsList;                           // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List items;                               // import instance of list of collectable items
+    private List interactables;                       // import instance of list of interactable objects
 
     // variables for string coloring
     public static final String ANSI_RESET = "\u001B[0m";   // resets the color
