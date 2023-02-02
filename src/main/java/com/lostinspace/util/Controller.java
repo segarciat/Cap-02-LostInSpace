@@ -10,14 +10,11 @@ package com.lostinspace.util;
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
-import org.fusesource.jansi.*;
-
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,8 +112,8 @@ public class Controller {
         // todo debug commands, REMOVE upon release
         else if (inputArr[0].equals("output-test")) {
             String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
-            FileSetter fileSetter = new FileSetter();
-            fileSetter.saveToFile(toSend);
+//            FileSetter fileSetter = new FileSetter();
+//            fileSetter.saveToFile(toSend);
         }
 
         // invalid command
