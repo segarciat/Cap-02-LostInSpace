@@ -17,6 +17,7 @@ import static org.fusesource.jansi.Ansi.Color.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +38,12 @@ public class Controller {
     private List items;                             // import instance of list of collectable items
     private List hiddenItems;                       // import instance of list of items that begin as hidden
     private List interactables;                     // import instance of list of interactable objects
+    private Map<String, String> itemUses;           // map containing descriptions of item use results
 
-    // variables for string coloring
-    public final String ANSI_RESET = "\u001B[0m";   // resets the color
-    public final String ANSI_GREEN = "\u001B[32m";  // color values  |
-    public final String ANSI_BLUE = "\u001B[34m";   //               |
-    public final String ANSI_RED = "\u001B[31m";    //               |
-    public final String ANSI_YELLOW = "\u001B[33m"; //               |
+    // create player
+    private Player player = new Player("Docking Bay", 80.00);
 
     List<Item> inventory = Arrays.asList();         // player inventory, which is initially empty
-    Map<String, String> itemUses;                   // map containing descriptions of item use results
-    String currentRoom = "Docking Bay";             // current string location of player
 
     // todo for testing delete when finished
     public void main(String[] args) {
@@ -210,7 +206,7 @@ public class Controller {
         // movement commands
         else if (inputArr[0].equals("go") || inputArr[0].equals("walk") || inputArr[0].equals("move") || inputArr[0].equals("run")) {
             // check that player is allowed to go in that direction
-            setCurrentRoom(move(getRoomsList(), getCurrentRoom(), inputArr[1]));
+            player.setCurrentRoom(move(getRoomsList(), player.getCurrentRoom(), inputArr[1]));
         }
 
         // inspect rooms, items, or anything listed as a Point of interest
@@ -218,11 +214,11 @@ public class Controller {
             // rooms are inspected differently than items
             if (inputArr[1].equals("room")) {
                 clearConsole();
-                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), getCurrentRoom()));
+                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
                 events.enterToContinue();
             } else {
                 clearConsole();
-                System.out.println(inspectItem(getItems(), getInteractables(), getCurrentRoom(), inputArr[1]));
+                System.out.println(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
                 events.enterToContinue();
             }
         }
@@ -233,13 +229,6 @@ public class Controller {
             clearConsole();
             System.out.println(useItem(getInventory(), getInteractables(), inputArr[1]));
             events.enterToContinue();
-        }
-
-        // todo debug commands, REMOVE upon release
-        else if (inputArr[0].equals("output-test")) {
-            String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
-//            FileSetter fileSetter = new FileSetter();
-//            fileSetter.saveToFile(toSend);
         }
 
         // invalid command
@@ -317,8 +306,12 @@ public class Controller {
         // print what the player is carrying
         System.out.println(ansi().fg(BLUE).a(String.format("\nInventory: %s", itemsInInventory)).reset());
 
+        // round oxygen percentage down to 2 decimal places
+        double roundOff = Math.round(player.getOxygen()*100)/100;
+
         // print remaining oxygen
-        System.out.println(ansi().fg(RED).a(String.format("\nOxygen Level: %f percent", 45.5)).reset());
+        System.out.println(ansi().fg(RED).a(String.format("\nOxygen Level: %.2f" +
+                " percent", roundOff)).reset());
 
         System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
     }
@@ -472,13 +465,17 @@ public class Controller {
         // default return message
         String useDescription = "You're not carrying a  \"" + toBeUsed + "\" right now, nor can you see one.\n\n(Use CHECK INVENTORY or LOOK ROOM if you are looking for an ITEM to use!)";
 
+        // this allows one to retrieve any method using reflection
+//        @SuppressWarnings("unchecked") Class<Controller> clazz = controller.getClass();
+//        Method method = clazz.getMethod(toBeUsed);
+//        method.invoke(controller);
+
         // iterate through inventory list
         for (int i = 0; i < inventory.size(); i++) {
-            System.out.println("toBeUsed: " + toBeUsed + ", " + inventory.get(i).getName());
             // if the item toBeUsed is in the inventory
             if (inventory.get(i).getName().equals(toBeUsed) || inventory.get(i).getSynonyms().contains(toBeUsed)) {
-                if(inventory.get(i).getRoom().equals(getCurrentRoom())){ // check if the item is in the same room
-                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                if(inventory.get(i).getRoom().equals(player.getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(inventory.get(i).getName());        // find description in item use map by key
                 }
             }
         }
@@ -487,8 +484,8 @@ public class Controller {
         for (int i = 0; i < interactables.size(); i++) {
             // if the item toBeUsed is an interactable
             if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
-                if(interactables.get(i).getRoom().contains(getCurrentRoom())){ // check if the item is in the same room
-                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                if(interactables.get(i).getRoom().contains(player.getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(interactables.get(i).getName());        // find description in item use map by key
                 }
             }
         }
@@ -576,14 +573,6 @@ public class Controller {
 
     //-------------------------------ACCESSOR METHODS
 
-    public String getCurrentRoom() {
-        return currentRoom;
-    }
-
-    public void setCurrentRoom(String currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
     public List getRoomsList() {
         return roomsList;
     }
@@ -630,5 +619,9 @@ public class Controller {
 
     public void setItemUses(Map<String, String> itemUses) {
         this.itemUses = itemUses;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
