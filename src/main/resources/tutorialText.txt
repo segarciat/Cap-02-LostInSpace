@@ -1,0 +1,26 @@
+Welcome to Lost in Space!
+
+COMMANDS:
+Type one or two word commands to tell your Captain to take action.
+Spelling counts, so be accurate in your descriptions!
+
+Note: Keywords are CAPITALIZED. To pick up a Large CHEESE, for example, you could type: get cheese.
+
+TYPES OF COMMANDS:
+GO - Requires two words. Moves in a cardinal direction [North, South, East, West]
+Example: go North
+
+LOOK - Requires two words. Use this to examine rooms and what points of interest they contain.
+Example: look room
+
+INSPECT - Requires two words. Use this to examine items and interactable objects.
+Example: look room
+
+GET - Requires two words. Use this to pick up an item that you can currently see.
+Example: get scrambler
+
+Restart - Restart into a new game.
+
+Exit - Exits the game.
+
+Help - Bring up the list of commands for quick reference.

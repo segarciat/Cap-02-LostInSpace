@@ -1,6 +1,7 @@
 {
   "itemUseMap": {
-    "scrambler": "scrambler use",
+    "scrambler":  "scrambler use",
+    "pipes":  "pipes use",
     "key": "key use",
     "component": "component use",
     "tool": "tool use",

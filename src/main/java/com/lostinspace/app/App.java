@@ -1,7 +1,7 @@
 package com.lostinspace.app;
 
 /*
- * Development Main Class | Author: Mike Greene
+ * Development Main Class |
  * Main game logic for dev purposes.
  * Handles all game logic.
  * Calls Controller for player commands
@@ -27,9 +27,9 @@ public class App {
 
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-        //controller.titleCard();                              // display title card
+        controller.titleCard();                              // display title card
 
-        //controller.prologue();                               // display prologue text
+        controller.prologue();                               // display prologue text
 
         controller.gameInstructions();                      // display game instructions
 
@@ -39,12 +39,12 @@ public class App {
 
             map = controller.getRoomsList();                    // gets a ref to list of rooms
             for (int i = 0; i < map.size(); i++) {              // search through all rooms for currentRoom description
-                if (map.get(i).name.equals(controller.getCurrentRoom())) {      // if found...
+                if (map.get(i).name.equals(controller.getPlayer().getCurrentRoom())) {      // if found...
                     description = map.get(i).description;       // ...create string to hold currentRoom's description
                 }
             }
 
-            controller.showStatus(controller.getCurrentRoom(), description);    // create an instance of our player controller
+            controller.showStatus(controller.getPlayer().getCurrentRoom(), description);    // create an instance of our player controller
             String userInput = "";                              // empty string to hold user response
 
 

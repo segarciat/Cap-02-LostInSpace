@@ -13,6 +13,12 @@ import com.lostinspace.model.*;
 import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.Color.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,18 +39,18 @@ public class Controller {
     private final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
-    private final Gson gson = new Gson();                 // Gson object converts JSON objects
-    private List<Room> roomsList;                         // import instance of game map from shipRooms.json (game features 16 distinct areas)
-    private List<Item> items;                             // import instance of list of collectable items
-    private List<HiddenItem> hiddenItems;                       // import instance of list of items that begin as hidden
-    private List<InteractablesList> interactables;                     // import instance of list of interactable objects
+    
+    private Gson gson = new Gson();                 // Gson object converts JSON objects
+    private List roomsList;                         // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List items;                             // import instance of list of collectable items
+    private List hiddenItems;                       // import instance of list of items that begin as hidden
+    private List interactables;                     // import instance of list of interactable objects
+    private Map<String, String> itemUses;           // map containing descriptions of item use results
 
-    // variables for string coloring
-    public final String ANSI_RESET = "\u001B[0m";   // resets the color
-    public final String ANSI_GREEN = "\u001B[32m";  // color values  |
-    public final String ANSI_BLUE = "\u001B[34m";   //               |
-    public final String ANSI_RED = "\u001B[31m";    //               |
-    public final String ANSI_YELLOW = "\u001B[33m"; //               |
+
+    // create player
+    private Player player = new Player("Docking Bay", 80.00);
+
 
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
     Map<String, String> itemUses;                   // map containing descriptions of item use results
@@ -153,7 +159,7 @@ public class Controller {
     public void gameInstructions() {
         String instructions = ""; // empty return string
 
-        try (Reader data = filegetter.getResource("instructions.txt")) {
+        try (Reader data = filegetter.getResource("tutorialText.txt")) {
             // load file from resources dir
             BufferedReader reader = new BufferedReader(data);
             StringBuilder sBuilder = new StringBuilder();
@@ -198,7 +204,7 @@ public class Controller {
         // restart the game
         else if (inputArr[0].equals("help") || inputArr[0].equals("instructions")) {
             clearConsole();
-            gameInstructions();
+            help();
         }
 
         // check for commands that are too short or too long
@@ -215,7 +221,7 @@ public class Controller {
         // movement commands
         else if (inputArr[0].equals("go") || inputArr[0].equals("walk") || inputArr[0].equals("move") || inputArr[0].equals("run")) {
             // check that player is allowed to go in that direction
-            setCurrentRoom(move(getRoomsList(), getCurrentRoom(), inputArr[1]));
+            player.setCurrentRoom(move(getRoomsList(), player.getCurrentRoom(), inputArr[1]));
         }
 
         // inspect rooms, items, or anything listed as a Point of interest
@@ -223,11 +229,11 @@ public class Controller {
             // rooms are inspected differently than items
             if (inputArr[1].equals("room")) {
                 clearConsole();
-                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), getCurrentRoom()));
+                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
                 events.enterToContinue();
             } else {
                 clearConsole();
-                System.out.println(inspectItem(getItems(), getInteractables(), getCurrentRoom(), inputArr[1]));
+                System.out.println(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
                 events.enterToContinue();
             }
         }
@@ -258,18 +264,41 @@ public class Controller {
             events.enterToContinue();
         }
 
-        // todo debug commands, REMOVE upon release
-        else if (inputArr[0].equals("output-test")) {
-            String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
-//            FileSetter fileSetter = new FileSetter();
-//            fileSetter.saveToFile(toSend);
-        }
-
         // invalid command
         else {
             clearConsole();
             System.out.println("I don't know how to " + inputArr[0] + " anything! Enter a valid COMMAND!\n\n(Enter HELP for a list of commands)");
             events.enterToContinue();
+        }
+    }
+
+    // Display commands reminder
+    public void help() {
+        String instructions = ""; // empty return string
+
+        try (Reader data = filegetter.getResource("instructions.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            instructions = sBuilder.toString();
+
+            System.out.println(instructions);
+            events.enterToContinue();                  // user must press enter to continue
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
         }
     }
 
@@ -294,11 +323,11 @@ public class Controller {
      */
     public void showStatus(String location, String description) {
         clearConsole();
-        System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
+        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location
 
-        System.out.println(ANSI_GREEN + description + ANSI_RESET);          // print description of current room
+        System.out.println(ansi().fg(GREEN).a(description).reset());          // print description of current room
 
         String itemsInInventory = "";  // make empty string to hold item names
 
@@ -308,12 +337,16 @@ public class Controller {
         }
 
         // print what the player is carrying
-        System.out.println(ANSI_BLUE + String.format("\nInventory: %s", itemsInInventory) + ANSI_RESET);
+        System.out.println(ansi().fg(BLUE).a(String.format("\nInventory: %s", itemsInInventory)).reset());
+
+        // round oxygen percentage down to 2 decimal places
+        double roundOff = Math.round(player.getOxygen()*100)/100;
 
         // print remaining oxygen
-        System.out.println(ANSI_RED + String.format("\nOxygen Level: %f percent", 45.5) + ANSI_RESET);
+        System.out.println(ansi().fg(RED).a(String.format("\nOxygen Level: %.2f" +
+                " percent", roundOff)).reset());
 
-        System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
+        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
     }
 
     /*
@@ -465,13 +498,17 @@ public class Controller {
         // default return message
         String useDescription = "You're not carrying a  \"" + toBeUsed + "\" right now, nor can you see one.\n\n(Use CHECK INVENTORY or LOOK ROOM if you are looking for an ITEM to use!)";
 
+        // this allows one to retrieve any method using reflection
+//        @SuppressWarnings("unchecked") Class<Controller> clazz = controller.getClass();
+//        Method method = clazz.getMethod(toBeUsed);
+//        method.invoke(controller);
+
         // iterate through inventory list
         for (int i = 0; i < inventory.size(); i++) {
-            System.out.println("toBeUsed: " + toBeUsed + ", " + inventory.get(i).getName());
             // if the item toBeUsed is in the inventory
             if (inventory.get(i).getName().equals(toBeUsed) || inventory.get(i).getSynonyms().contains(toBeUsed)) {
-                if(inventory.get(i).getRoom().equals(getCurrentRoom())){ // check if the item is in the same room
-                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                if(inventory.get(i).getRoom().equals(player.getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(inventory.get(i).getName());        // find description in item use map by key
                 }
             }
         }
@@ -480,8 +517,8 @@ public class Controller {
         for (int i = 0; i < interactables.size(); i++) {
             // if the item toBeUsed is an interactable
             if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
-                if(interactables.get(i).getRoom().contains(getCurrentRoom())){ // check if the item is in the same room
-                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                if(interactables.get(i).getRoom().contains(player.getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(interactables.get(i).getName());        // find description in item use map by key
                 }
             }
         }
@@ -569,14 +606,6 @@ public class Controller {
 
     //-------------------------------ACCESSOR METHODS
 
-    public String getCurrentRoom() {
-        return currentRoom;
-    }
-
-    public void setCurrentRoom(String currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
     public List getRoomsList() {
         return roomsList;
     }
@@ -623,5 +652,9 @@ public class Controller {
 
     public void setItemUses(Map<String, String> itemUses) {
         this.itemUses = itemUses;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
