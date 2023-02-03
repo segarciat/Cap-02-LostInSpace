@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
 import com.lostinspace.util.FileGetter;
-import com.lostinspace.util.FileSetter;
 import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
 import java.io.BufferedReader;
@@ -238,8 +237,8 @@ public class Controller {
         // todo debug commands, REMOVE upon release
         else if (inputArr[0].equals("output-test")) {
             String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
-            FileSetter fileSetter = new FileSetter();
-            fileSetter.saveToFile(toSend);
+//            FileSetter fileSetter = new FileSetter();
+//            fileSetter.saveToFile(toSend);
         }
 
         // invalid command
