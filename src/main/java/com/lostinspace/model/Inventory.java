@@ -1,11 +1,11 @@
 package com.lostinspace.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
-    private ArrayList<ArrayList<Object>> inventory;
+    private List<Object> inventory;
 
-    public ArrayList<ArrayList<Object>> getInventory(){
+    public List<Object> getInventory(){
         return inventory;
     }
 }
