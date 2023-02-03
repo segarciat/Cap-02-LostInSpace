@@ -13,12 +13,6 @@ import com.lostinspace.model.*;
 import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
-import static org.fusesource.jansi.Ansi.Color.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 /*
@@ -47,14 +42,8 @@ public class Controller {
     private List interactables;                     // import instance of list of interactable objects
     private Map<String, String> itemUses;           // map containing descriptions of item use results
 
-
-    // create player
     private Player player = new Player("Docking Bay", 80.00);
-
-
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
-    Map<String, String> itemUses;                   // map containing descriptions of item use results
-    String currentRoom = "Docking Bay";             // current string location of player
 
     // todo for testing delete when finished
     public static void main(String[] args) {
@@ -251,9 +240,29 @@ public class Controller {
                     // and remove the item from the room's item list
                     iter.remove();
                 } else {
-                    System.out.printf("I can't get %s because %s isn't there", inputArr[1], inputArr[1]);
+                    System.out.printf("I can't get %s because %s isn't there!", inputArr[1], inputArr[1]);
                 }
             }
+        }
+
+        else if (inputArr[0].equals("drop") || inputArr[0].equals("release") || inputArr[0].equals("leave")) {
+//            for (Iterator<Item> inventoryIterator = getInventory().iterator() ; inventoryIterator.hasNext() ; ) {
+//                Item inventoryItem = inventoryIterator.next();
+                // if the user input matches the item name AND the item has not been used
+                for (int i = 0; i < getInventory().size(); i++) {
+                    if (inputArr[1].equals(getInventory().get(i).getName())) {
+                        // then it will add that item to the user's inventory list in memory
+                        String itemToRemoveName = getInventory().get(i).getName();
+                        Item removedItem = getInventory().remove(i);
+                        System.out.printf("Dropped %s!\n", itemToRemoveName);
+                        // and remove the item from the room's item list
+                        getItems().add(removedItem);
+                    } else {
+                        System.out.printf("I can't drop %s because %s isn't there!", inputArr[1], inputArr[1]);
+                    }
+                }
+
+//            }
         }
 
         // using items and interactables
