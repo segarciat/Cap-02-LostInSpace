@@ -8,7 +8,7 @@ package com.lostinspace.app;
  */
 
 import com.lostinspace.model.Room;
-import com.lostinspace.util.Controller;
+import com.lostinspace.controller.Controller;
 
 import java.io.*;
 import java.util.*;
@@ -27,9 +27,9 @@ public class App {
 
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-        controller.titleCard();                              // display title card
+        //controller.titleCard();                              // display title card
 
-        controller.prologue();                               // display prologue text
+        //controller.prologue();                               // display prologue text
 
         controller.gameInstructions();                      // display game instructions
 
