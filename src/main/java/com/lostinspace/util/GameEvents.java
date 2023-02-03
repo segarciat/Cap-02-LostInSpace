@@ -1,18 +1,19 @@
 package com.lostinspace.util;
 
+import com.lostinspace.controller.Controller;
+
 import java.io.IOException;
 
 public class GameEvents {
     EventThread evThread = new EventThread();   // instance of EventThread logic.
     Thread th = new Thread(evThread);           // create Thread and attach EventThread obj logic
-    Controller controller = new Controller();   // instance of Controller methods
 
     public void enterForNewGame() throws IOException {
 
         System.out.println("\n\n- Press ENTER to Start a New Game -"); // Tell user how to continue
         System.in.read();                                      // listen for keyboard input
         evThread.proceed = true;       // get out of the evThread loop
-        controller.clearConsole();     // clear the console
+        Controller.clearConsole();     // clear the console
     }
 
     public void enterToContinue() throws IOException {
@@ -20,7 +21,7 @@ public class GameEvents {
         System.out.println("\n\nPress ENTER to Continue--->"); // Tell user how to continue
         System.in.read();                                      // listen for keyboard input
         evThread.proceed = true;       // get out of the evThread loop
-        controller.clearConsole();     // clear the console
+        Controller.clearConsole();     // clear the console
     }
 
     class EventThread extends Thread{

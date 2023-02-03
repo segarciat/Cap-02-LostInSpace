@@ -1,4 +1,4 @@
-package com.lostinspace.util;
+package com.lostinspace.controller;
 
 /*
  * Player Controller Class | Author: Mike Greene
@@ -10,14 +10,15 @@ package com.lostinspace.util;
 import com.google.gson.Gson;
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
+import com.lostinspace.util.FileGetter;
+import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-
 import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -27,26 +28,28 @@ import static org.fusesource.jansi.Ansi.ansi;
  * loads game text/dialogue
  */
 public class Controller {
-    private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
-    static FileGetter filegetter = new FileGetter();                              // FileGetter retrieves resources
-    static GameEvents events = new GameEvents();                                  // ref to Game Event Methods
-    private Gson gson = new Gson();                                               // Gson object converts JSON objects
-    private List roomsList;                           // import instance of game map from shipRooms.json (game features 16 distinct areas)
-    private List items;                               // import instance of list of collectable items
-    private List interactables;                       // import instance of list of interactable objects
+    private final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
+    FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
+    GameEvents events = new GameEvents();           // ref to Game Event Methods
+    private Gson gson = new Gson();                 // Gson object converts JSON objects
+    private List roomsList;                         // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List items;                             // import instance of list of collectable items
+    private List hiddenItems;                       // import instance of list of items that begin as hidden
+    private List interactables;                     // import instance of list of interactable objects
 
     // variables for string coloring
-    public static final String ANSI_RESET = "\u001B[0m";   // resets the color
-    public static final String ANSI_GREEN = "\u001B[32m";  // color values  |
-    public static final String ANSI_BLUE = "\u001B[34m";   //               |
-    public static final String ANSI_RED = "\u001B[31m";    //               |
-    public static final String ANSI_YELLOW = "\u001B[33m"; //               |
+    public final String ANSI_RESET = "\u001B[0m";   // resets the color
+    public final String ANSI_GREEN = "\u001B[32m";  // color values  |
+    public final String ANSI_BLUE = "\u001B[34m";   //               |
+    public final String ANSI_RED = "\u001B[31m";    //               |
+    public final String ANSI_YELLOW = "\u001B[33m"; //               |
 
-    List<String> inventory = Arrays.asList();              // player inventory, which is initially empty   
-    static String currentRoom = "Docking Bay";             // current string location of player
+    List<Item> inventory = Arrays.asList();         // player inventory, which is initially empty
+    Map<String, String> itemUses;                   // map containing descriptions of item use results
+    String currentRoom = "Docking Bay";             // current string location of player
 
     // todo for testing delete when finished
-    public static void main(String[] args) {
+    public void main(String[] args) {
         Controller controller = new Controller();
         try {
             controller.loadGameObjects();
@@ -61,6 +64,119 @@ public class Controller {
 
     //-------------------------------CONTROLLER METHODS
 
+    // Display prologue text
+    public void prologue() {
+        String text = ""; // empty return string
+
+        try (Reader data = filegetter.getResource("prologue.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            text = sBuilder.toString();
+            String[] lines = text.split(System.getProperty("line.separator"));
+
+            double linesToDisplay = 13;
+            double printLimit = lines.length / linesToDisplay;
+            printLimit = Math.ceil(printLimit);
+
+            int idx = 0;
+            while (printLimit > 0) {
+                for (int i = 0; i < linesToDisplay; i++) {
+                    if (!lines[idx].equals(null)) {
+                        System.out.println(lines[idx]);
+                        idx++;
+                    }
+                    if (idx == lines.length) {
+                        break;
+                    }
+                }
+                events.enterToContinue();
+                printLimit--;
+            }
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
+    // Display game Title Card
+    public void titleCard() throws IOException {
+        String content = ""; // empty return string
+
+        try (Reader title = filegetter.getResource("welcome.txt")) {
+            // load file from resources dir
+
+            BufferedReader reader = new BufferedReader(title);
+
+            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
+            String line = null;                                // empty string for line
+            String ls = System.lineSeparator();                // line separator
+
+            // while there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sB.append(line);                    // append the next line to the SB
+                sB.append(ls);                      // new line
+            }
+
+            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
+            content = sB.toString();                // create new string with sB content
+            System.out.println(content);            // display title card!
+
+        } catch (IOException err) {                 // throw IO Exception if failed
+            throw new RuntimeException(err);
+        }
+
+        System.out.println(content);
+        events.enterForNewGame();                  // user must press enter to continue
+    }
+
+    // Display user commands
+    public void gameInstructions() {
+        String instructions = ""; // empty return string
+
+        try (Reader data = filegetter.getResource("instructions.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            instructions = sBuilder.toString();
+
+            System.out.println(instructions);
+            events.enterForNewGame();                  // user must press enter to continue
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
+
+    //--------------------------------PLAYER METHODS
+
+    // commands the player may enter into the console
     public void userCommands(String[] inputArr) throws IOException {
         // SINGLE WORD COMMANDS
         // exit the game
@@ -110,6 +226,14 @@ public class Controller {
             }
         }
 
+        // using items and interactables
+        else if (inputArr[0].equals("use")) {
+            // check that player is allowed to use the item, then display the results
+            clearConsole();
+            System.out.println(useItem(getInventory(), getInteractables(), inputArr[1]));
+            events.enterToContinue();
+        }
+
         // todo debug commands, REMOVE upon release
         else if (inputArr[0].equals("output-test")) {
             String toSend = "{\"inventory\": [[\"RESURRECTION\"]]}";
@@ -125,117 +249,8 @@ public class Controller {
         }
     }
 
-    // Display prologue text
-    public static void prologue() {
-        String text = ""; // empty return string
-
-        try (Reader data = filegetter.getResource("prologue.txt")) {
-            // load file from resources dir
-            BufferedReader reader = new BufferedReader(data);
-            StringBuilder sBuilder = new StringBuilder();
-            String line = null;
-            String ls = System.getProperty("line.separator");
-
-            // while true that there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line);
-                sBuilder.append(ls);
-            }
-
-            // delete the last new line separator
-            sBuilder.deleteCharAt(sBuilder.length() - 1);
-            reader.close();
-            text = sBuilder.toString();
-            String[] lines = text.split(System.getProperty("line.separator"));
-
-            double linesToDisplay = 13;
-            double printLimit = lines.length / linesToDisplay;
-            printLimit = Math.ceil(printLimit);
-
-            int idx = 0;
-            while (printLimit > 0) {
-                for (int i = 0; i < linesToDisplay; i++) {
-                    if (!lines[idx].equals(null)) {
-                        System.out.println(lines[idx]);
-                        idx++;
-                    }
-                    if (idx == lines.length) {
-                        break;
-                    }
-                }
-                events.enterToContinue();
-                printLimit--;
-            }
-
-            // throw IO Exception if failed
-        } catch (IOException err) {
-            err.printStackTrace();
-        }
-    }
-
-    // Display game Title Card
-    public static void titleCard() throws IOException {
-        String content = ""; // empty return string
-
-        try (Reader title = filegetter.getResource("welcome.txt")) {
-            // load file from resources dir
-
-            BufferedReader reader = new BufferedReader(title);
-
-            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
-            String line = null;                                // empty string for line
-            String ls = System.lineSeparator();                // line separator
-
-            // while there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sB.append(line);                    // append the next line to the SB
-                sB.append(ls);                      // new line
-            }
-
-            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
-            content = sB.toString();                // create new string with sB content
-            System.out.println(content);            // display title card!
-
-        } catch (IOException err) {                 // throw IO Exception if failed
-            throw new RuntimeException(err);
-        }
-
-        System.out.println(content);
-        events.enterForNewGame();                  // user must press enter to continue
-    }
-
-    // Display user commands
-    public static void gameInstructions() throws IOException {
-        String instructions = ""; // empty return string
-
-        try (Reader data = filegetter.getResource("instructions.txt")) {
-            // load file from resources dir
-            BufferedReader reader = new BufferedReader(data);
-            StringBuilder sBuilder = new StringBuilder();
-            String line = null;
-            String ls = System.getProperty("line.separator");
-
-            // while true that there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line);
-                sBuilder.append(ls);
-            }
-            // delete the last new line separator
-            sBuilder.deleteCharAt(sBuilder.length() - 1);
-            reader.close();
-            instructions = sBuilder.toString();
-
-            System.out.println(instructions);
-            events.enterForNewGame();                  // user must press enter to continue
-
-            // throw IO Exception if failed
-        } catch (IOException err) {
-            err.printStackTrace();
-        }
-    }
-
     // restarts game when called
-    public static void restart() {
+    public void restart() {
         String[] string = {};
         try {
             App.main(string);
@@ -245,7 +260,7 @@ public class Controller {
     }
 
     // quits the game when called
-    public static void quit() {
+    public void quit() {
         System.exit(0);
     }
 
@@ -261,8 +276,15 @@ public class Controller {
 
         System.out.println(ANSI_GREEN + description + ANSI_RESET);          // print description of current room
 
-        String result = String.join(",", inventory);                // print what the player is carrying
-        System.out.println(ANSI_BLUE + String.format("\nInventory: %s", result) + ANSI_RESET);
+        String itemsInInventory = "";  // make empty string to hold item names
+
+        //iterate through the inventory and add each item to the string
+        for(int i = 0; i < getInventory().size(); i++) {
+            itemsInInventory += " - " + getInventory().get(i).getName();
+        }
+
+        // print what the player is carrying
+        System.out.println(ANSI_BLUE + String.format("\nInventory: %s", itemsInInventory) + ANSI_RESET);
 
         // print remaining oxygen
         System.out.println(ANSI_RED + String.format("\nOxygen Level: %f percent", 45.5) + ANSI_RESET);
@@ -275,7 +297,7 @@ public class Controller {
      * prompts player to INSPECT ROOM when invalid choice is given.
      * returns string which resets currentRoom in App
      */
-    public static String move(List<Room> map, String room, String dir) {
+    public String move(List<Room> map, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
 
         // iterate through map
@@ -376,12 +398,12 @@ public class Controller {
      * allows player to inspect items and pointsOfInterest
      * returns string detailing what was inspected
      */
-    public static String inspectItem(List<Item> items, List<Item> interactables, String room, String toBeInspected) {
+    public String inspectItem(List<Item> items, List<Item> interactables, String room, String toBeInspected) {
         String itemDescription = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
 
         // iterate through items list
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName().equals(toBeInspected)) {  // find the items matching the inspected item
+            if (items.get(i).getName().equals(toBeInspected) || items.get(i).getSynonyms().contains(toBeInspected)) {  // find the items matching the inspected item
                 if (items.get(i).getRoom().contains(room)) {            // if instance of item in the same room
                     if (!items.get(i).isUsed()) {
                         return items.get(i).getDescription();     // then return the unused description
@@ -389,14 +411,14 @@ public class Controller {
                         return items.get(i).getUsedDescription();   // if it has return the used description
                     }
                 }
-            } else{
+            } else {
                 itemDescription = "There is no \"" + toBeInspected + "\".\n\n(Use INSPECT ROOM if you are looking for an item!)";
             }
         }
 
         // iterate through interactables list
         for (int i = 0; i < interactables.size(); i++) {
-            if (interactables.get(i).getName().equals(toBeInspected)) {  // find the interactables matching the inspected item
+            if (interactables.get(i).getName().equals(toBeInspected) || interactables.get(i).getSynonyms().contains(toBeInspected)) {  // find the interactables matching the inspected item
                 if (interactables.get(i).getRoom().contains(room)) {            // if instance of interactable in the same room
                     if (!interactables.get(i).isUsed()) {
                         return interactables.get(i).getDescription();     // then return the unused description
@@ -404,12 +426,45 @@ public class Controller {
                         return interactables.get(i).getUsedDescription();   // if it has return the used description
                     }
                 }
-            } else{
+            } else {
                 itemDescription = "There is no \"" + toBeInspected + "\".\n\n(Use INSPECT ROOM if you are looking for an item!)";
             }
         }
         return itemDescription; // return description
     }
+
+    /*
+     * allows player to use items and pointsOfInterest
+     * returns string detailing what was the result
+     */
+    public String useItem(List<Item> inventory, List<Item> interactables, String toBeUsed) {
+        // default return message
+        String useDescription = "You're not carrying a  \"" + toBeUsed + "\" right now, nor can you see one.\n\n(Use CHECK INVENTORY or LOOK ROOM if you are looking for an ITEM to use!)";
+
+        // iterate through inventory list
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println("toBeUsed: " + toBeUsed + ", " + inventory.get(i).getName());
+            // if the item toBeUsed is in the inventory
+            if (inventory.get(i).getName().equals(toBeUsed) || inventory.get(i).getSynonyms().contains(toBeUsed)) {
+                if(inventory.get(i).getRoom().equals(getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                }
+            }
+        }
+
+        // iterate through interactables list
+        for (int i = 0; i < interactables.size(); i++) {
+            // if the item toBeUsed is an interactable
+            if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
+                if(interactables.get(i).getRoom().contains(getCurrentRoom())){ // check if the item is in the same room
+                    useDescription = getItemUses().get(toBeUsed);        // find description in item use map by key
+                }
+            }
+        }
+
+        return useDescription; // return description of what happened
+    }
+
 
     //-------------------------------UTILITY METHODS
 
@@ -426,13 +481,15 @@ public class Controller {
 
     // returns the items list object
     public void loadGameObjects() throws IOException {
-        setRoomsList(loadMap().getRooms());     // load the rooms list into memory
-        setItems(loadItems().getItems());                  // load the items list into memory
-        setInteractables(loadIteractables().getInteractables());   // load the interactables objects list into memory
+        setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
+        setItems(loadItems().getItems());                        // load the items list into memory
+        setHiddenItems(loadHiddenItems().getHiddenItems());      // load the hidden items list into memory
+        setInteractables(loadIteractables().getInteractables()); // load the interactables list into memory
+        setItemUses(loadItemUseMap().getItemUseMap());           // load the item use map into memory
     }
 
     // returns the game map object, RoomsRoot
-    public RoomsRoot loadMap() throws IOException {
+    public RoomsRoot loadMap() {
         RoomsRoot retText = new RoomsRoot();                                // create empty map object
 
         try (Reader reader = filegetter.getResource("shiprooms.json")) {  // try with
@@ -446,20 +503,40 @@ public class Controller {
     }
 
     // returns the items list object
-    public ItemsList loadItems() throws IOException {
+    public ItemsList loadItems() {
 
         try (Reader reader = filegetter.getResource("items.json")) {  // try with resources
-            return gson.fromJson(reader, ItemsList.class);                     // Convert JSON File to Java Object and return
+            return gson.fromJson(reader, ItemsList.class); // Convert JSON File to Java Object and return
+        } catch (IOException err) {
+            throw new RuntimeException(err);
+        }
+    }
+
+    // returns the hidden items list object
+    public HiddenItemsList loadHiddenItems() {
+
+        try (Reader reader = filegetter.getResource("hiddenitems.json")) {  // try with resources
+            return gson.fromJson(reader, HiddenItemsList.class); // Convert JSON File to Java Object and return
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
     }
 
     // returns the iteractables list object
-    public InteractablesList loadIteractables() throws IOException {
+    public InteractablesList loadIteractables() {
 
         try (Reader reader = filegetter.getResource("interactables.json")) {  // try with resources
-            return gson.fromJson(reader, InteractablesList.class);                             // Convert JSON File to Java Object and return
+            return gson.fromJson(reader, InteractablesList.class); // Convert JSON File to Java Object and return
+        } catch (IOException err) {
+            throw new RuntimeException(err);
+        }
+    }
+
+    // returns the item use map object
+    public ItemUseMap loadItemUseMap() {
+
+        try (Reader reader = filegetter.getResource("itemuses.json")) {  // try with resources
+            return gson.fromJson(reader, ItemUseMap.class);  // Convert JSON File to Java Object and return
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
@@ -467,12 +544,13 @@ public class Controller {
 
 
     //-------------------------------ACCESSOR METHODS
-    public static String getCurrentRoom() {
+
+    public String getCurrentRoom() {
         return currentRoom;
     }
 
-    public static void setCurrentRoom(String currentRoom) {
-        Controller.currentRoom = currentRoom;
+    public void setCurrentRoom(String currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public List getRoomsList() {
@@ -491,11 +569,35 @@ public class Controller {
         this.items = items;
     }
 
+    public List getHiddenItems() {
+        return hiddenItems;
+    }
+
+    public void setHiddenItems(List hiddenItems) {
+        this.hiddenItems = hiddenItems;
+    }
+
     public List getInteractables() {
         return interactables;
     }
 
     public void setInteractables(List interactables) {
         this.interactables = interactables;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    public Map<String, String> getItemUses() {
+        return itemUses;
+    }
+
+    public void setItemUses(Map<String, String> itemUses) {
+        this.itemUses = itemUses;
     }
 }

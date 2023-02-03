@@ -49,6 +49,16 @@
       "description": "A Training MANUAL, depicting the proper use of the HyperThermal Torch TOOL in installing several types of Engine COMPONENTS.",
       "used": false,
       "usedDescription": "You've given the MANUAL to the Chief already."
+    },
+    {
+      "name": "flamethrower",
+      "synonyms": ["m451"],
+      "inside": ["hidden area"],
+      "hidden": true,
+      "fullName": "M451 Dual-Stage Reciprocating Flamethrower",
+      "description": "A state-of-the-art weapon that allows stage adjustment for focused or wide area fields of coverage.\nThe oscillating muzzle modulator delivers an even coverage across the direction of flame.",
+      "used": false,
+      "usedDescription": "The tank is depleted! You'd have to find more butane to use it again. \nThis is useless now."
     }
   ]
 }

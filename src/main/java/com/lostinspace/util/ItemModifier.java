@@ -5,19 +5,20 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 import com.lostinspace.model.Item;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.lostinspace.util.Controller.filegetter;
 
 class ItemModifier {
     Gson gson = new Gson();
     private String jsonFileName;
     private Item item;
     private List<Item> items;
+    FileGetter fileGetter = new FileGetter();
 
     // CTOR
     public ItemModifier(String jsonFile) {
@@ -27,7 +28,7 @@ class ItemModifier {
 
     public void setItemListFromJsonToMemory() throws IOException {
         String resource = getJsonFile();
-        try (Reader reader = filegetter.getResource(resource)) {
+        try (Reader reader = fileGetter.getResource(resource)) {
             var itemListType = new TypeToken<List<Item>>() {
             }.getType();
             setItems(gson.fromJson(reader, itemListType));

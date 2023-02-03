@@ -1,0 +1,21 @@
+{
+  "itemUseMap": {
+    "scrambler": "scrambler use",
+    "key": "key use",
+    "component": "component use",
+    "tool": "tool use",
+    "keycard": "keycard use",
+    "manual": "manual use",
+    "flamethrower": "flamethrower use",
+    "cabinet": "cabinet use",
+    "console": "console use",
+    "ship": "ship use",
+    "rack": "rack use",
+    "poster": "poster use",
+    "locker": "locker use",
+    "cooler": "cooler use",
+    "corpse": "corpse use",
+    "airlock": "airlock use",
+    "library": "library use"
+  }
+}
