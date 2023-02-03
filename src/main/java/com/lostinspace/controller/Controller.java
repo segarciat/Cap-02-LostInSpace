@@ -13,6 +13,7 @@ import com.lostinspace.model.*;
 import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.Color.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -147,7 +148,7 @@ public class Controller {
     public void gameInstructions() {
         String instructions = ""; // empty return string
 
-        try (Reader data = filegetter.getResource("instructions.txt")) {
+        try (Reader data = filegetter.getResource("tutorialText.txt")) {
             // load file from resources dir
             BufferedReader reader = new BufferedReader(data);
             StringBuilder sBuilder = new StringBuilder();
@@ -192,7 +193,7 @@ public class Controller {
         // restart the game
         else if (inputArr[0].equals("help") || inputArr[0].equals("instructions")) {
             clearConsole();
-            gameInstructions();
+            help();
         }
 
         // check for commands that are too short or too long
@@ -249,6 +250,36 @@ public class Controller {
         }
     }
 
+    // Display commands reminder
+    public void help() {
+        String instructions = ""; // empty return string
+
+        try (Reader data = filegetter.getResource("instructions.txt")) {
+            // load file from resources dir
+            BufferedReader reader = new BufferedReader(data);
+            StringBuilder sBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+
+            // while true that there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sBuilder.append(line);
+                sBuilder.append(ls);
+            }
+            // delete the last new line separator
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+            reader.close();
+            instructions = sBuilder.toString();
+
+            System.out.println(instructions);
+            events.enterToContinue();                  // user must press enter to continue
+
+            // throw IO Exception if failed
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
+
     // restarts game when called
     public void restart() {
         String[] string = {};
@@ -270,11 +301,11 @@ public class Controller {
      */
     public void showStatus(String location, String description) {
         clearConsole();
-        System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
+        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location
 
-        System.out.println(ANSI_GREEN + description + ANSI_RESET);          // print description of current room
+        System.out.println(ansi().fg(GREEN).a(description).reset());          // print description of current room
 
         String itemsInInventory = "";  // make empty string to hold item names
 
@@ -284,12 +315,12 @@ public class Controller {
         }
 
         // print what the player is carrying
-        System.out.println(ANSI_BLUE + String.format("\nInventory: %s", itemsInInventory) + ANSI_RESET);
+        System.out.println(ansi().fg(BLUE).a(String.format("\nInventory: %s", itemsInInventory)).reset());
 
         // print remaining oxygen
-        System.out.println(ANSI_RED + String.format("\nOxygen Level: %f percent", 45.5) + ANSI_RESET);
+        System.out.println(ansi().fg(RED).a(String.format("\nOxygen Level: %f percent", 45.5)).reset());
 
-        System.out.println(ANSI_YELLOW + "---------------------------" + ANSI_RESET);
+        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
     }
 
     /*
