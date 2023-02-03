@@ -13,10 +13,12 @@ import com.lostinspace.model.*;
 import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 import org.fusesource.jansi.AnsiConsole;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +33,11 @@ public class Controller {
     private final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
-    private Gson gson = new Gson();                 // Gson object converts JSON objects
-    private List roomsList;                         // import instance of game map from shipRooms.json (game features 16 distinct areas)
-    private List items;                             // import instance of list of collectable items
-    private List hiddenItems;                       // import instance of list of items that begin as hidden
-    private List interactables;                     // import instance of list of interactable objects
+    private final Gson gson = new Gson();                 // Gson object converts JSON objects
+    private List<Room> roomsList;                         // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List<Item> items;                             // import instance of list of collectable items
+    private List<HiddenItem> hiddenItems;                       // import instance of list of items that begin as hidden
+    private List<InteractablesList> interactables;                     // import instance of list of interactable objects
 
     // variables for string coloring
     public final String ANSI_RESET = "\u001B[0m";   // resets the color
@@ -44,12 +46,12 @@ public class Controller {
     public final String ANSI_RED = "\u001B[31m";    //               |
     public final String ANSI_YELLOW = "\u001B[33m"; //               |
 
-    List<Item> inventory = Arrays.asList();         // player inventory, which is initially empty
+    private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
     Map<String, String> itemUses;                   // map containing descriptions of item use results
     String currentRoom = "Docking Bay";             // current string location of player
 
     // todo for testing delete when finished
-    public void main(String[] args) {
+    public static void main(String[] args) {
         Controller controller = new Controller();
         try {
             controller.loadGameObjects();
@@ -58,6 +60,10 @@ public class Controller {
         }
 
         System.out.println(controller.getItems().get(0).getClass());
+
+        for (int i = 0; i < controller.getItems().size(); i++) {
+            System.out.println(controller.getItems().get(i).getName());
+        }
 
     }
 
@@ -223,6 +229,24 @@ public class Controller {
                 clearConsole();
                 System.out.println(inspectItem(getItems(), getInteractables(), getCurrentRoom(), inputArr[1]));
                 events.enterToContinue();
+            }
+        }
+
+        // getting items from rooms
+        else if (inputArr[0].equals("get") || inputArr[0].equals("grab")) {
+            // look into the arraylist of items
+            for (Iterator<Item> iter = getItems().iterator() ; iter.hasNext() ; ) {
+                Item item = iter.next();
+                // if the user input matches the item name AND the item has not been used
+                if (inputArr[1].equals(item.getName()) && !item.isUsed()) {
+                    // then it will add that item to the user's inventory list in memory
+                    getInventory().add(item);
+                    System.out.printf("Got %s!\n", item.getName());
+                    // and remove the item from the room's item list
+                    iter.remove();
+                } else {
+                    System.out.printf("I can't get %s because %s isn't there", inputArr[1], inputArr[1]);
+                }
             }
         }
 
@@ -589,7 +613,7 @@ public class Controller {
         return inventory;
     }
 
-    public void setInventory(List<Item> inventory) {
+    private void setInventory(List<Item> inventory) {
         this.inventory = inventory;
     }
 

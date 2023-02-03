@@ -17,7 +17,7 @@ public class App {
 
     public static String currentRoom = new String();         // current location of Player
     private static Controller controller = new Controller(); // make an instance of controller for player commands
-
+    private static final Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
 
 
@@ -50,7 +50,7 @@ public class App {
 
             // continues until user enters something
             while (userInput.equals("")) {
-                Scanner scan = new Scanner(System.in);          // create Scanner object for user input
+                        // create Scanner object for user input
 
                 System.out.println("Enter a command: ");        // prompt a user response
                 userInput = scan.nextLine();                    // stop for user data entry
