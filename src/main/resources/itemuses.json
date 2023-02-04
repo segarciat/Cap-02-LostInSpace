@@ -5,7 +5,7 @@
       "method": "useScrambler"
     },
     "pipes":  {
-      "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve.\nAfter a brief vibration you recover some oxygen leftover in the local piping.",
+      "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve.\nAfter a brief vibration you recover some oxygen leftover in the local piping.\nAfter a moment, you begin to tell that it would take more oxygen bleeding the lines than you would get back at this point.\n\n--- These PIPES are now EMPTY ---",
       "method": "usePipes"
     },
     "key":  {

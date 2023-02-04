@@ -88,6 +88,7 @@ public class ItemUseMethods {
     public boolean isEasyMode() {
         return easyMode;
     }
+
     public void setEasyMode(boolean easyMode) {
         this.easyMode = easyMode;
     }
