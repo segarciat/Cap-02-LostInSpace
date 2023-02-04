@@ -17,9 +17,8 @@ public class App {
 
     public static String currentRoom = new String();         // current location of Player
     private static Controller controller = new Controller(); // make an instance of controller for player commands
-    private static final Scanner scan = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
-
 
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
@@ -47,11 +46,10 @@ public class App {
             controller.showStatus(controller.getPlayer().getCurrentRoom(), description);    // create an instance of our player controller
             String userInput = "";                              // empty string to hold user response
 
-
             // continues until user enters something
             while (userInput.equals("")) {
-                        // create Scanner object for user input
 
+//                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
                 System.out.println("Enter a command: ");        // prompt a user response
                 userInput = scan.nextLine();                    // stop for user data entry
 
