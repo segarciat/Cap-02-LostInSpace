@@ -15,9 +15,8 @@ import java.util.*;
 
 public class App {
     private static Controller controller = new Controller(); // make an instance of controller for player commands
-    private static final Scanner scan = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
-
 
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
@@ -40,7 +39,6 @@ public class App {
             while (userInput.equals("")) {
                 remindStatus(); // remind user of status
                 System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
-
                 userInput = scan.nextLine();                    // stop for user data entry
                 userInput = userInput.toLowerCase();            // normalizing input
                 String[] inputArr = userInput.split(" "); // create array for split input
