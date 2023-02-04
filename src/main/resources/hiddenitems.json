@@ -31,6 +31,21 @@
       "usedDescription": "You've given the TOOL to the Chief already."
     },
     {
+      "name": "corpse",
+      "synonyms": [
+        "body",
+        "captain",
+        "him",
+        "dead"
+      ],
+      "inside": ["cooler"],
+      "hidden": true,
+      "fullName": "the freighter Captain's CORPSE",
+      "description": "You gag from the smell several times as you look over the body.\nCause of death: blaster shot to the back. You say a few words silently on their behalf.\n\nPeeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
+      "used": false,
+      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
+    },
+    {
       "name": "keycard",
       "synonyms": ["captain's"],
       "inside": ["corpse"],

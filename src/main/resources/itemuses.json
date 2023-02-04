@@ -1,22 +1,76 @@
 {
   "itemUseMap": {
-    "scrambler":  "scrambler use",
-    "pipes":  "pipes use",
-    "key": "key use",
-    "component": "component use",
-    "tool": "tool use",
-    "keycard": "keycard use",
-    "manual": "manual use",
-    "flamethrower": "flamethrower use",
-    "cabinet": "cabinet use",
-    "console": "console use",
-    "ship": "ship use",
-    "rack": "rack use",
-    "poster": "poster use",
-    "locker": "locker use",
-    "cooler": "cooler use",
-    "corpse": "corpse use",
-    "airlock": "airlock use",
-    "library": "library use"
+    "scrambler":  {
+      "useDescription": "You used the Scrambler.",
+      "method": "useScrambler"
+    },
+    "pipes":  {
+      "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve.\nAfter a brief vibration you recover some oxygen leftover in the local piping.",
+      "method": "usePipes"
+    },
+    "key":  {
+      "useDescription": "You used the KEY to UNLOCK the CABINET.",
+      "method": "useKey"
+    },
+    "component":  {
+      "useDescription": "You hand the greasy Engine COMPONENT to Zhang.\n\n\"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\n\"I'll debrief you later.\"\n\n\"Aye, sir.\", Zhang responds,disappointed.",
+      "method": "useComponent"
+    },
+    "tool":  {
+      "useDescription": "The HyperThermal Torch TOOL makes a loud 'clunk' as you set it in front of your CWO2.\n\n\"Perfect, sir! a welding TOOL of this caliber will mend most super-materials that comprise the Spartan.\"\n\n\"I'll leave it to you, then.\"\n\nZhang issues a dutiful salute and returns to work.",
+      "method": "useTool"
+    },
+    "keycard":  {
+      "useDescription": "You used the KEYCARD to UNLOCK the Bridge.",
+      "method": "useKeycard"
+    },
+    "manual":  {
+      "useDescription": "You pull the MANUAL from you field bag and hand it to the Chief. He flips through a few pages.\n\n\"Wow, with illustrations! I believe this should outline the entire procedure, sir. I'll have us void-borne in no time!\"\n\n\"Excellent work. As expected, Chief.\", Douglas chimes in.\n\nZhang beams with pride.",
+      "method": "useManual"
+    },
+    "flamethrower":  {
+      "useDescription": "You used the FLAMETHROWER. HOT DAMN!",
+      "method": "useFlameThrower"
+    },
+    "cabinet":  {
+      "useDescription": "You open the cabinet now that it is UNLOCKED.\nThe HyperThermal Torch TOOL hangs neatly among a row of sparkling socket adapters.\n\nSeems like a few are missing...",
+      "method": "useCabinet"
+    },
+    "console":  {
+      "useDescription": "You use the Reactor CONSOLE.",
+      "method": "useConsole"
+    },
+    "ship":  {
+      "useDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head.\n\"I need to finish my REPAIRS, remember?\"\n\nA flight officer can dream, can't they...?",
+      "method": "useShip"
+    },
+    "rack":  {
+      "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess.\n This should work as the Engine COMPONENT Zhang requested!",
+      "method": "useRack"
+    },
+    "poster":  {
+      "useDescription": "You kneel down to the POSTER and take a look.",
+      "method": "usePoster"
+    },
+    "locker":  {
+      "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak.",
+      "method": "useLocker"
+    },
+    "cooler":  {
+      "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit.\nEven through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch.\n\nWithout proper power, the corpse has more or less become a bloated sack slowly deflating.\nYou see it still wears a uniformed flight suit.",
+      "method": "useCooler"
+    },
+    "corpse":  {
+      "useDescription": "You attend to the CORPSE.",
+      "method": "useCorpse"
+    },
+    "airlock":  {
+      "useDescription": "You attempt to make use of the airlock, but the doors are sealed shut remotely.",
+      "method": "null"
+    },
+    "library":  {
+      "useDescription": "You use the Reactor CONSOLE.",
+      "method": "useLibrary"
+    }
   }
 }

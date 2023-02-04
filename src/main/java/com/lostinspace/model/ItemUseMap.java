@@ -3,9 +3,9 @@ package com.lostinspace.model;
 import java.util.Map;
 
 public class ItemUseMap {
-    private Map<String, String> itemUseMap;
+    private Map<String, Map<String, String>> itemUseMap;
 
-    public Map<String, String> getItemUseMap() {
+    public Map<String,  Map<String, String>> getItemUseMap() {
         return itemUseMap;
     }
 }
