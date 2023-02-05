@@ -1,5 +1,6 @@
 package com.lostinspace.util;
 
+import com.lostinspace.app.App;
 import com.lostinspace.controller.Controller;
 
 import java.io.IOException;
@@ -17,8 +18,7 @@ public class GameEvents {
     }
 
     public void enterToContinue() throws IOException {
-
-        System.out.println("\n\nPress ENTER to Continue--->"); // Tell user how to continue
+        System.out.println("\n\n--- Press ENTER ---"); // Tell user how to continue
         System.in.read();                                      // listen for keyboard input
         evThread.proceed = true;       // get out of the evThread loop
         Controller.clearConsole();     // clear the console

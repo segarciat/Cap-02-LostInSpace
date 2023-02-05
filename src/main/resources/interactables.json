@@ -116,22 +116,6 @@
       "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
     },
     {
-      "name": "corpse",
-      "synonyms": [
-        "body",
-        "captain",
-        "him",
-        "dead"
-      ],
-      "room": [
-        "MedBay"
-      ],
-      "fullName": "the freighter Captain's CORPSE",
-      "description": "Even through the enviro-filters you gag from the smell several times as you look over the body.\nCause of death: blaster shot to the back. You say a few words silently on their behalf.\n\nPeeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
-      "used": false,
-      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
-    },
-    {
       "name": "airlock",
       "synonyms": [],
       "room": [
@@ -151,7 +135,7 @@
       "room": [
         "Cockpit"
       ],
-      "fullName": "",
+      "fullName": "a small LIBRARY of what appear to be pamphlets",
       "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.\nFlipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
       "used": false,
       "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
