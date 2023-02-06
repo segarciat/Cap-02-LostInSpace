@@ -55,23 +55,6 @@ public class Controller {
     private Player player = new Player("Docking Bay", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
-    // todo for testing delete when finished
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        try {
-            controller.loadGameObjects();
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-
-        System.out.println(controller.getItems().get(0).getClass());
-
-        for (int i = 0; i < controller.getItems().size(); i++) {
-            System.out.println(controller.getItems().get(i).getName());
-        }
-
-    }
-
 
     //-------------------------------CONTROLLER METHODS
 
@@ -224,7 +207,7 @@ public class Controller {
             if (inputArr[0].equals("")) {
                 System.out.println("\n\nEMPTY COMMAND!\n\n");
             } else {
-                System.out.println("I don't know how to" + inputArr[0]);
+                System.out.println("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
             }
             events.enterToContinue();
         } else if (inputArr.length > 2) {
@@ -285,7 +268,7 @@ public class Controller {
         // invalid command
         else {
             clearConsole();
-            System.out.println("I don't know how to " + inputArr[0] + " something!");
+            System.out.println("I don't know how to " + inputArr[0] + " something!\n\n!***** Ensure you PRESS ENTER to continue to the Command Prompt before entering Commands! *****!");
             events.enterToContinue();
         }
     }

@@ -22,7 +22,7 @@
     },
     {
       "name": "Junction Hallway 1",
-      "description": "This hallway divides the ship into the stern and bow sectors. \nThe dim red light pervades this area, too, allowing you to barely make out the signage off 3 exits. \nIt seems dumb for everything to be labeled grey, how frustrating. \n\n- To the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door. \n- To the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\". \n- To the East, you spot a final grey stripe on the open bay doors, you can vaguely make out the silhouette of your ship in the distance.",
+      "description": "This hallway divides the ship into the stern and bow sectors. An environ-panel hangs open, the oxygen pipe here has been siphoned. \nThe dim red light pervades this area, too, allowing you to barely make out the signage off 3 exits. \nIt seems dumb for everything to be labeled grey, how frustrating. \n\n- To the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door. \n- To the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\". \n- To the East, you spot a final grey stripe on the open bay doors, you can vaguely make out the silhouette of your ship in the distance.",
       "exits": {
         "east": "Docking Bay",
         "north": "Junction Hallway 2",

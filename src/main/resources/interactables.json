@@ -28,7 +28,7 @@
       "fullName": "the ship reactor's control CONSOLE",
       "description": "The CONSOLE sits mostly darkened, with the exception of one obvious display.\nIt must be in some kind of power-savings mode.",
       "used": false,
-      "usedDescription": "The CONSOLE's displays flash various readings and data transfers. It hums happily now that proper power has been restored to it.\nEvery now and again, it emits a cheery \"BEEP-BOOP\"!"
+      "usedDescription": ""
     },
     {
       "name": "pipes",
@@ -139,6 +139,7 @@
       "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
       "used": false,
       "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
+
     }
   ]
 }
