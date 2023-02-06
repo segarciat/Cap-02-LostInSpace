@@ -217,6 +217,9 @@ public class ItemUseMethods {
         }
     }
 
+    public void useAirlock() {
+        System.out.println("This will be part of an action packed sequence of events in the FINAL VERSION!");
+    }
 
     // ACCESSOR METHODS
     public boolean isEasyMode() {

@@ -46,13 +46,13 @@ public class Controller {
     private Map<String, Map<String, String>> itemUses; // map containing descriptions of item use results
 
     // map containing locked doors and interactables
-    private Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", true, "cabinet", true));
+    private Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", false, "cabinet", true));
 
     // methods that define what happens after using items
     private ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private Player player = new Player("Docking Bay", 80.00);
+    private Player player = new Player("Cockpit", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
 
@@ -614,8 +614,8 @@ public class Controller {
         for (int i = 0; i < interactables.size(); i++) {
             // if the item toBeUsed is an interactable
             if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
-                if (lockedObjects.containsKey(toBeUsed)) {
-                    if (!lockedObjects.get(toBeUsed)) { // check if this interactable is considered locked
+                if (lockedObjects.containsKey(interactables.get(i).getName())) {
+                    if (!lockedObjects.get(interactables.get(i).getName())) { // check if this interactable is considered locked
                         // check if the item is in the same room
                         if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
                             if (!interactables.get(i).isUsed()) {
@@ -623,13 +623,13 @@ public class Controller {
                                 // this allows one to retrieve any method using reflection in the same way as above
                                 try {
                                     @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                    method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
+                                    method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).get("method"));
                                 } catch (NoSuchMethodException err) {
                                     throw new RuntimeException(err);
                                 }
 
                                 try {
-                                    System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                                    System.out.println(itemUses.get(interactables.get(i).getName()).get("useDescription"));
                                     method.invoke(itemUseMethods);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
@@ -652,13 +652,13 @@ public class Controller {
                             // this allows one to retrieve any method using reflection in the same way as above
                             try {
                                 @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
+                                method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).get("method"));
                             } catch (NoSuchMethodException err) {
                                 throw new RuntimeException(err);
                             }
 
                             try {
-                                System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                                System.out.println(itemUses.get(interactables.get(i).getName()).get("useDescription"));
                                 method.invoke(itemUseMethods);
                                 return;
                             } catch (IllegalAccessException | InvocationTargetException err) {
