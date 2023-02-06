@@ -4,9 +4,11 @@ COMMANDS:
 Type one or two word commands to tell your Captain to take action.
 Spelling counts, so be accurate in your descriptions!
 
-Note: Keywords are CAPITALIZED. To pick up a Large CHEESE, for example, you could type: get cheese.
+Note: Keywords are CAPITALIZED. To pick up a Large Cheddar CHEESE, for example, you could type: get cheese.
 
 TYPES OF COMMANDS:
+OBJECTIVES - Display objectives for completing the game.
+
 GO - Requires two words. Moves in a cardinal direction [North, South, East, West]
 Example: go North
 
@@ -19,8 +21,8 @@ Example: look room
 GET - Requires two words. Use this to pick up an item that you can currently see.
 Example: get scrambler
 
-Restart - Restart into a new game.
+RESTART - Restart into a new game.
 
-Exit - Exits the game.
+EXIT - Exits the game.
 
-Help - Bring up the list of commands for quick reference.
+HELP - Bring up the list of commands for quick reference.
