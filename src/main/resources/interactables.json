@@ -62,12 +62,12 @@
     },
     {
       "name": "rack",
-      "synonyms": [],
+      "synonyms": ["parts"],
       "room": [
         "Engine Room"
       ],
       "fullName": "a ship parts RACK affixed with contraband components",
-      "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\nThis place is gonna be a mountain of paperwork...\n\nJust when you're about to give up, you notice a compatible Engine COMPONENT for your ship!",
+      "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\nThis place is gonna be a mountain of paperwork...\n\nJust when you're about to give up the search, you notice a compatible Engine COMPONENT for your ship!",
       "used": false,
       "usedDescription": "the evidence teams are going to be here for weeks, but you have everything you need from here for now."
     },
@@ -95,8 +95,8 @@
       "room": [
         "Crew Quarters"
       ],
-      "fullName": "a personal locker for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
-      "description": "A personal locker for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.\nYou root around through the hanging clothing and personal effects until a folder paper falls to the floor.\n\nYou read it:\n\"Carlos, I know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you.\nDon't tell him I'm the one who changed the lock!\n- Suzanne\"\n\nA KEY clatters to the floor from the folded paper.",
+      "fullName": "a personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
+      "description": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.\n",
       "used": false,
       "usedDescription": "Nothing else of use is inside."
     },
@@ -111,7 +111,7 @@
         "MedBay"
       ],
       "fullName": "a Mortuary COOLER",
-      "description": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them.\nOne still remains sealed...\n(USE COOLER to open it)",
+      "description": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them.\nOne still remains sealed...\n\n(USE COOLER to open it)",
       "used": false,
       "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
     },
@@ -136,7 +136,7 @@
         "Cockpit"
       ],
       "fullName": "a small LIBRARY of what appear to be pamphlets",
-      "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.\nFlipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
+      "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
       "used": false,
       "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
     }

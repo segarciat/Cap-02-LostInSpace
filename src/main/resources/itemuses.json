@@ -9,7 +9,7 @@
       "method": "usePipes"
     },
     "key":  {
-      "useDescription": "You used the KEY to UNLOCK the CABINET.",
+      "useDescription": "You attempt to use the KEY...",
       "method": "useKey"
     },
     "component":  {
@@ -21,7 +21,7 @@
       "method": "useTool"
     },
     "keycard":  {
-      "useDescription": "You used the KEYCARD to UNLOCK the Bridge.",
+      "useDescription": "You attempt to use the KEYCARD...",
       "method": "useKeycard"
     },
     "manual":  {
@@ -33,7 +33,7 @@
       "method": "useFlameThrower"
     },
     "cabinet":  {
-      "useDescription": "You open the cabinet now that it is UNLOCKED.\nThe HyperThermal Torch TOOL hangs neatly among a row of sparkling socket adapters.\n\nSeems like a few are missing...",
+      "useDescription": "...the CABINET door clicks and swings open, UNLOCKED.\n\nThe HyperThermal Torch TOOL hangs neatly among a row of sparkling socket adapters.\n\nSeems like a few are missing...",
       "method": "useCabinet"
     },
     "console":  {
@@ -45,7 +45,7 @@
       "method": "useShip"
     },
     "rack":  {
-      "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess.\n This should work as the Engine COMPONENT Zhang requested!",
+      "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets,\nyou manage to free the power coupler from the mess.\n\nThis should work as the Engine COMPONENT Zhang requested!",
       "method": "useRack"
     },
     "poster":  {
@@ -53,7 +53,7 @@
       "method": "usePoster"
     },
     "locker":  {
-      "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak.",
+      "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak.\nYou root around through the hanging clothing and personal effects until a folder paper falls to the floor.\nYou read it:\n\n\"Carlos,\nI know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you.\nDon't tell him I'm the one who changed the lock!\n- Suzanne\"\n\nA KEY clatters to the floor from the folded paper.",
       "method": "useLocker"
     },
     "cooler":  {
@@ -61,7 +61,7 @@
       "method": "useCooler"
     },
     "corpse":  {
-      "useDescription": "You attend to the CORPSE.",
+      "useDescription": "You attend to the CORPSE.\nYou gag from the smell several times as you look over the body.\nCause of death: blaster shot to the back. You say a few words silently on their behalf.\n\nPeeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
       "method": "useCorpse"
     },
     "airlock":  {
@@ -69,7 +69,7 @@
       "method": "null"
     },
     "library":  {
-      "useDescription": "You use the Reactor CONSOLE.",
+      "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
       "method": "useLibrary"
     }
   }

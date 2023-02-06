@@ -1,5 +1,8 @@
 package com.lostinspace.model;
 
+import com.lostinspace.app.App;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class Item {
@@ -11,9 +14,21 @@ public class Item {
     private boolean used;
     private String usedDescription;
 
-
+    // CTORS
     public Item() {
         super();
+    }
+
+    // CTOR used when a hiddenItem is made visible.
+    // Creates a new item in the current room
+    public Item(HiddenItem hiddenItem){
+        this.name = hiddenItem.getName();
+        this.synonyms = hiddenItem.getSynonyms();
+        this.room = Arrays.asList(App.getController().getPlayer().getCurrentRoom());
+        this.fullName = hiddenItem.getFullName();
+        this.description = hiddenItem.getDescription();
+        this.used = hiddenItem.isUsed();
+        this.usedDescription = hiddenItem.getUsedDescription();
     }
 
     public Item(String name, List<String> synonyms, List<String> room, String fullName, String description, boolean used, String usedDescription) {

@@ -41,9 +41,9 @@
       "inside": ["cooler"],
       "hidden": true,
       "fullName": "the freighter Captain's CORPSE",
-      "description": "You gag from the smell several times as you look over the body.\nCause of death: blaster shot to the back. You say a few words silently on their behalf.\n\nPeeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
+      "description": "The Dead Captain's flight suit is drawn grotesquely taught in some places and hanging oddly loose in others due to the CORPSE rot.",
       "used": false,
-      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
+      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\n\nYou feel guilty, from one Captain to another you apologize to the dead man."
     },
     {
       "name": "keycard",
