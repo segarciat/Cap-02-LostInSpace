@@ -1,23 +1,31 @@
-*go/walk/move[direction] - <move> in selected <direction>
-directions: North, South, East, West
+ /$$        /$$$$$$   /$$$$$$  /$$$$$$$$       /$$$$$$ /$$   /$$        /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$$
+| $$       /$$__  $$ /$$__  $$|__  $$__/      |_  $$_/| $$$ | $$       /$$__  $$| $$__  $$ /$$__  $$ /$$__  $$| $$_____/
+| $$      | $$  \ $$| $$  \__/   | $$           | $$  | $$$$| $$      | $$  \__/| $$  \ $$| $$  \ $$| $$  \__/| $$
+| $$      | $$  | $$|  $$$$$$    | $$           | $$  | $$ $$ $$      |  $$$$$$ | $$$$$$$/| $$$$$$$$| $$      | $$$$$
+| $$      | $$  | $$ \____  $$   | $$           | $$  | $$  $$$$       \____  $$| $$____/ | $$__  $$| $$      | $$__/
+| $$      | $$  | $$ /$$  \ $$   | $$           | $$  | $$\  $$$       /$$  \ $$| $$      | $$  | $$| $$    $$| $$
+| $$$$$$$$|  $$$$$$/|  $$$$$$/   | $$          /$$$$$$| $$ \  $$      |  $$$$$$/| $$      | $$  | $$|  $$$$$$/| $$$$$$$$
+|________/ \______/  \______/    |__/         |______/|__/  \__/       \______/ |__/      |__/  |__/ \______/ |________/
 
-*get/take/grab[item] - add <item> to <inventory>
-item: <inspect> rooms to find <items>
+objectives: check game winning objectives
 
-*check[inventory, oxygen] - look at the <item>(s) being held in your <inventory>
-Note: remember to "CHECK OXYGEN" often as reaching 0% will END YOUR GAME! 
+look room: inspects the current room you're in for items, interactable objects, and exits
 
-*use[item] - <use> an item in your <inventory> or in the same <room> as you
-Not all items can be used at all times or in every room. Experiment with your options!
+inspect item -or- inspect object: receive a description of what was inspected, look inside of containers
+<The inspect command will often reveal details about something you are confused about>
 
-*inspect/look/examine/search [room, item, object] - receive a description of what was inspected, look inside containers
-<inspect> will often reveal details about something you are confused about
+go direction: move in selected direction
+<directions: North, South, East, West>
 
-*radio[name] - <radio> your crew to receive their status and helpful hints
-names: <Douglas>, <Zhang>
+get item: add item to inventory
+<item: inspect rooms and objects to find items>
 
-*objectives - review current game objectives
+use item: use an item in your inventory or an object in the same room as you
+<Not all items can be used at all times or in every room. Experiment with your options!>
 
-*new/restart - restart the game
+restart: restart the game
 
-*quit/exit/escape - quits the current game.
+exit: quits the current game.
+
+easymode: Too hard? Use this command to make the remaining PIPES never run out of Oxygen.
+<Use this command again to turn this feature off>
