@@ -66,7 +66,7 @@
     },
     "airlock":  {
       "useDescription": "You attempt to make use of the airlock, but the doors are sealed shut remotely.",
-      "method": "null"
+      "method": "useAirlock"
     },
     "library":  {
       "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
