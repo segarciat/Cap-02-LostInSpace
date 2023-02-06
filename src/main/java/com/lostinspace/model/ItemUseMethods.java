@@ -22,7 +22,7 @@ public class ItemUseMethods {
     // All are called reflectively via Controller.useItem()
 
     public void useScrambler() {
-        System.out.println("You done used the SCRAMBLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
     }
 
     public void usePipes() {

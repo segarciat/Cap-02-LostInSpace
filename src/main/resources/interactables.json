@@ -82,7 +82,7 @@
       "room": [
         "Power Supplies"
       ],
-      "fullName": "a poster labeling the freighter ship's various sectors",
+      "fullName": "a poster labeling the freighter ship's various sectors (THIS WOULD HAVE BEEN A PART OF THE REACTOR PUZZLE)",
       "description": "Looking closer, you see the poster is actually a useful layout of the freighter, the sectors listed from bow to stern (North to South).\nUnfortunately, the poster is now hanging UPSIDE DOWN.\nThe ship's various sectors are color coded, as well as described in text.\n\nYou examine the UPSIDE DOWN layout:(from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command\n",
       "used": false,
       "usedDescription": "You again examine the UPSIDE DOWN layout: (from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command"
@@ -121,7 +121,7 @@
       "room": [
         "Bridge"
       ],
-      "fullName": "a sealed AIRLOCK door",
+      "fullName": "a sealed AIRLOCK door (THIS WOULD HAVE BEEN A PUZZLE IN THE FINAL VERSION)",
       "description": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
       "used": false,
       "usedDescription": "Hopefully the vacuum actually kills the poor beast..."

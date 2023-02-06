@@ -2,7 +2,7 @@
   "rooms": [
     {
       "name": "Enviro-Field",
-      "description": "This selection vaporizes the player instantly. Game Over.",
+      "description": "This selection vaporizes the player instantly. (THIS WOULD BE AN INSTANT GAME OVER IN THE FINISHED VERSION)",
       "exits": {
         "west": "Docking Bay",
         "north": "",

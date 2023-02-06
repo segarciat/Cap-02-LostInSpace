@@ -37,7 +37,7 @@
       "method": "useCabinet"
     },
     "console":  {
-      "useDescription": "You use the Reactor CONSOLE.",
+      "useDescription": "You use the Reactor CONSOLE. THIS WOULD HAVE BEEN AN EXCITING PUZZLE IN THE FINISHED VERSION",
       "method": "useConsole"
     },
     "ship":  {
