@@ -104,3 +104,7 @@ Used to the neat rows of your military outpost, you slammed the Spartan into sev
 Not your finest hour.
 
     "Are you sure you're ok Captain? Why don't you try a few COMMANDS, make sure nothing is broken?"
+
+
+
+(Try using the command `OBJECTIVES` to radio Zhang and assess the damage)
