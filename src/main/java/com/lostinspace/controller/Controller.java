@@ -188,8 +188,13 @@ public class Controller {
     // commands the player may enter into the console
     public void userCommands(String[] inputArr) throws IOException {
         // SINGLE WORD COMMANDS
+        // display objectives
+        if (inputArr[0].equals("objectives")) {
+            objectives();
+        }
+
         // exit the game
-        if (inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")) {
+        else if (inputArr[0].equals("exit") || inputArr[0].equals("quit") || inputArr[0].equals("escape")) {
             quit();
         }
 
@@ -255,14 +260,11 @@ public class Controller {
             pickUpItem(inputArr[1]);
             events.enterToContinue();
         } else if (inputArr[0].equals("drop") || inputArr[0].equals("release") || inputArr[0].equals("leave")) {
-//            for (Iterator<Item> inventoryIterator = getInventory().iterator() ; inventoryIterator.hasNext() ; ) {
-//                Item inventoryItem = inventoryIterator.next();
-            // if the user input matches the item name AND the item has not been used
+            // iterate through the inventory
             for (int i = 0; i < getInventory().size(); i++) {
-                if (inputArr[1].equals(getInventory().get(i).getName())) {
-                    // then it will add that item to the user's inventory list in memory
-                    String itemToRemoveName = getInventory().get(i).getName();
-                    Item removedItem = getInventory().remove(i);
+                if (inputArr[1].equals(getInventory().get(i).getName())) {     // find name of item to drop
+                    String itemToRemoveName = getInventory().get(i).getName(); // remove item from inventory
+                    Item removedItem = getInventory().remove(i);               //
                     System.out.printf("Dropped %s!\n", itemToRemoveName);
                     // and remove the item from the room's item list
                     getItems().add(removedItem);
@@ -331,6 +333,35 @@ public class Controller {
     // quits the game when called
     public void quit() {
         System.exit(0);
+    }
+
+    // display game winning objectives
+    public void objectives() throws IOException {
+        String content = ""; // empty return string
+
+        try (Reader objectives = filegetter.getResource("gameobjectives.txt")) {
+            // load file from resources dir
+
+            BufferedReader reader = new BufferedReader(objectives);
+
+            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
+            String line = null;                                // empty string for line
+            String ls = System.lineSeparator();                // line separator
+
+            // while there are still lines of characters to read
+            while ((line = reader.readLine()) != null) {
+                sB.append(line);                    // append the next line to the SB
+                sB.append(ls);                      // new line
+            }
+
+            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
+            content = sB.toString();                // create new string with sB content
+            System.out.println(content);            // display title card!
+
+        } catch (IOException err) {                 // throw IO Exception if failed
+            throw new RuntimeException(err);
+        }
+        events.enterForNewGame();                  // user must press enter to continue
     }
 
     /*

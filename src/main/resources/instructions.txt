@@ -7,6 +7,8 @@
 | $$$$$$$$|  $$$$$$/|  $$$$$$/   | $$          /$$$$$$| $$ \  $$      |  $$$$$$/| $$      | $$  | $$|  $$$$$$/| $$$$$$$$
 |________/ \______/  \______/    |__/         |______/|__/  \__/       \______/ |__/      |__/  |__/ \______/ |________/
 
+objectives: check game winning objectives
+
 look room: inspects the current room you're in for items, interactable objects, and exits
 
 inspect item -or- inspect object: receive a description of what was inspected, look inside of containers
