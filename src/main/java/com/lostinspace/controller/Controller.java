@@ -52,7 +52,7 @@ public class Controller {
     private ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private Player player = new Player("Crew Quarters", 80.00);
+    private Player player = new Player("Docking Bay", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
     // todo for testing delete when finished
@@ -149,8 +149,6 @@ public class Controller {
         } catch (IOException err) {                 // throw IO Exception if failed
             throw new RuntimeException(err);
         }
-
-        System.out.println(content);
         events.enterForNewGame();                  // user must press enter to continue
     }
 
