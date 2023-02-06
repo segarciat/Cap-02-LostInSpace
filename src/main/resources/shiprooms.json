@@ -2,7 +2,7 @@
   "rooms": [
     {
       "name": "Enviro-Field",
-      "description": "This selection vaporizes the player instantly. Game Over.",
+      "description": "This selection vaporizes the player instantly. (THIS WOULD BE AN INSTANT GAME OVER IN THE FINISHED VERSION)",
       "exits": {
         "west": "Docking Bay",
         "north": "",
@@ -122,7 +122,7 @@
     },
     {
       "name": "Crew Quarters",
-      "description": "The crew's living quarters are a hodgepodge of about a dozen or so sleeping areas haphazardly arranged.\nYou see only 5 official lockers though, meaning the original crew must have been much smaller... \n\n- To the East, you see the door returning to the hallway.",
+      "description": "The crew's living quarters are a hodgepodge of about a dozen or so sleeping areas haphazardly arranged.\nYou see only 5 official LOCKERs though, meaning the original crew must have been much smaller... \n\n- To the East, you see the door returning to the hallway.",
       "exits": {
         "west": "",
         "north": "",

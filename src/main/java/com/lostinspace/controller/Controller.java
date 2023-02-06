@@ -1,7 +1,7 @@
 package com.lostinspace.controller;
 
 /*
- * Player Controller Class | Author: Mike Greene
+ * Player Controller Class |
  * The player controller script for text adventure Lost in Space.
  * Handles all player commands and their feedback.
  * Handles loading game map into memory.
@@ -15,6 +15,7 @@ import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 
 import org.fusesource.jansi.AnsiConsole;
+
 import static org.fusesource.jansi.Ansi.Color.*;
 
 import java.io.BufferedReader;
@@ -25,7 +26,6 @@ import java.lang.reflect.Method;
 
 import java.util.*;
 
-import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 /*
@@ -38,18 +38,21 @@ public class Controller {
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
-    private Gson gson = new Gson();                 // Gson object converts JSON objects
-    private List<Room> roomsList;                   // import instance of game map from shipRooms.json (game features 16 distinct areas)
-    private List<Item> items;                       // import instance of list of collectable items
-    private List<HiddenItem> hiddenItems;           // import instance of list of items that begin as hidden
-    private List<Item> interactables;               // import instance of list of interactable objects
-    private Map<String, Map<String, String>> itemUses;           // map containing descriptions of item use results
+    private Gson gson = new Gson();                    // Gson object converts JSON objects
+    private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List<Item> items;                          // import instance of list of collectable items
+    private List<HiddenItem> hiddenItems;              // import instance of list of items that begin as hidden
+    private List<Item> interactables;                  // import instance of list of interactable objects
+    private Map<String, Map<String, String>> itemUses; // map containing descriptions of item use results
+
+    // map containing locked doors and interactables
+    private Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", true, "cabinet", true));
 
     // methods that define what happens after using items
     private ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private Player player = new Player("Docking Bay", 80.00);
+    private Player player = new Player("Crew Quarters", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
     // todo for testing delete when finished
@@ -215,9 +218,9 @@ public class Controller {
         // check for commands that are too short or too long
         else if (inputArr.length < 2 || inputArr.length > 2) {
             clearConsole();
-            if(inputArr[0].equals("")){
+            if (inputArr[0].equals("")) {
                 System.out.println("\n\nEMPTY COMMAND!\n\n");
-            } else{
+            } else {
                 System.out.println("I don't know how to" + inputArr[0]);
             }
             events.enterToContinue();
@@ -253,33 +256,29 @@ public class Controller {
             clearConsole();
             pickUpItem(inputArr[1]);
             events.enterToContinue();
-        }
-
-        else if (inputArr[0].equals("drop") || inputArr[0].equals("release") || inputArr[0].equals("leave")) {
+        } else if (inputArr[0].equals("drop") || inputArr[0].equals("release") || inputArr[0].equals("leave")) {
 //            for (Iterator<Item> inventoryIterator = getInventory().iterator() ; inventoryIterator.hasNext() ; ) {
 //                Item inventoryItem = inventoryIterator.next();
-                // if the user input matches the item name AND the item has not been used
-                for (int i = 0; i < getInventory().size(); i++) {
-                    if (inputArr[1].equals(getInventory().get(i).getName())) {
-                        // then it will add that item to the user's inventory list in memory
-                        String itemToRemoveName = getInventory().get(i).getName();
-                        Item removedItem = getInventory().remove(i);
-                        System.out.printf("Dropped %s!\n", itemToRemoveName);
-                        // and remove the item from the room's item list
-                        getItems().add(removedItem);
-                    } else {
-                        System.out.printf("I can't drop %s because %s isn't there!", inputArr[1], inputArr[1]);
-                    }
+            // if the user input matches the item name AND the item has not been used
+            for (int i = 0; i < getInventory().size(); i++) {
+                if (inputArr[1].equals(getInventory().get(i).getName())) {
+                    // then it will add that item to the user's inventory list in memory
+                    String itemToRemoveName = getInventory().get(i).getName();
+                    Item removedItem = getInventory().remove(i);
+                    System.out.printf("Dropped %s!\n", itemToRemoveName);
+                    // and remove the item from the room's item list
+                    getItems().add(removedItem);
+                } else {
+                    System.out.printf("I can't drop %s because %s isn't there!", inputArr[1], inputArr[1]);
                 }
-
-//            }
+            }
         }
 
         // using items and interactables
         else if (inputArr[0].equals("use")) {
             // check that player is allowed to use the item, then display the results
             clearConsole();
-            System.out.println(useItem(getInventory(), getInteractables(), inputArr[1]));
+            useItem(getInventory(), getInteractables(), inputArr[1]);
             events.enterToContinue();
         }
 
@@ -373,7 +372,7 @@ public class Controller {
      * prompts player to INSPECT ROOM when invalid choice is given.
      * returns string which resets currentRoom in App
      */
-    public String move(List<Room> map, String room, String dir) {
+    public String move(List<Room> map, String room, String dir) throws IOException {
         String retRoom = ""; // create empty string to hold return room
 
         // iterate through map
@@ -402,6 +401,7 @@ public class Controller {
                         System.out.println("\nINVALID DIRECTION: " + dir);
                         System.out.println("\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)");
                         retRoom = room;
+                        events.enterToContinue();
                         break;
                 }
 
@@ -410,8 +410,17 @@ public class Controller {
                     System.out.println("\nINVALID DIRECTION: " + dir);
                     System.out.println("\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)");
                     retRoom = room;
+                    events.enterToContinue();
 
                     return retRoom; // return back to starting room
+                }
+                // else, check if this room is locked
+                else if (lockedObjects.containsKey(retRoom.toLowerCase())) {
+                    if (lockedObjects.get(retRoom.toLowerCase())) {
+                        System.out.printf("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
+                        retRoom = room;
+                        events.enterToContinue();
+                    }
                 }
             }
         }
@@ -477,6 +486,20 @@ public class Controller {
     public String inspectItem(List<Item> items, List<Item> interactables, String room, String toBeInspected) {
         String itemDescription = "I cannot INSPECT " + toBeInspected + "!"; // create empty string to hold return description
 
+        // iterate through inventory list
+        for (int i = 0; i < getInventory().size(); i++) {
+            // find the inventory item matching the inspected item
+            if (getInventory().get(i).getName().equals(toBeInspected) || getInventory().get(i).getSynonyms().contains(toBeInspected)) {
+                if (!getInventory().get(i).isUsed()) {
+                    return getInventory().get(i).getDescription();     // then return the unused description
+                } else {
+                    return getInventory().get(i).getUsedDescription(); // if it has return the used description
+                }
+            } else {
+                itemDescription = "There is no \"" + toBeInspected + "\".\n\n(Use INSPECT ROOM if you are looking for an item!)";
+            }
+        }
+
         // iterate through items list
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getName().equals(toBeInspected) || items.get(i).getSynonyms().contains(toBeInspected)) {  // find the items matching the inspected item
@@ -509,34 +532,35 @@ public class Controller {
         return itemDescription; // return description
     }
 
-    public void pickUpItem(String toBePickedUp)throws IOException{
+    /*
+     * allows player to get items and add them to the inventory
+     * using certain interactables will call this automatically
+     */
+    public void pickUpItem(String toBePickedUp) throws IOException {
         // look into the arraylist of items
         for (Iterator<Item> iter = getItems().iterator(); iter.hasNext(); ) {
             Item item = iter.next();
             // if the user input matches the item name AND the item has not been used
-            if (toBePickedUp.equals(item.getName()) && !item.isUsed()) {
+            if (toBePickedUp.equals(item.getName())) {
                 // then it will add that item to the user's inventory list in memory
                 getInventory().add(item);
-                System.out.printf("You picked up the %s!\n", item.getName().toUpperCase());
-                System.out.printf("You stow the %s away in your field bag", item.getName());
+                System.out.printf("\nYou picked up the %s!\n", item.getName().toUpperCase());
+                System.out.printf("You stow the %s away in your field bag", item.getName().toUpperCase());
 
                 // and remove the item from the room's item list
                 iter.remove();
-                events.enterToContinue();
-            } else {
-                System.out.printf("There is no %s that you can see to INSPECT in this ROOM!\n(Some items are hidden, INSPECT objects to find hidden items!)", toBePickedUp.toUpperCase());
-                events.enterToContinue();
+                return;
             }
         }
+        // Default message if nothing is able to be picked up
+        System.out.printf("There is no %s that you can see to GET in this ROOM!\n\n(Some items are hidden, INSPECT objects to find hidden items!)", toBePickedUp.toUpperCase());
     }
 
     /*
      * allows player to use items and pointsOfInterest
      * returns string detailing what was the result
      */
-    public String useItem(List<Item> inventory, List<Item> interactables, String toBeUsed) {
-        // default return message
-        String useDescription = "You're either not carrying a \"" + toBeUsed + "\" right now, or you can't see one in this ROOM.\n\nItems must be in your INVENTORY to use unless you cannot GET the item. [Your SHIP, for example]\nINSPECT objects to find hidden items!";
+    public void useItem(List<Item> inventory, List<Item> interactables, String toBeUsed) throws IOException {
         // instantiate a null Method class object
         Method method;
 
@@ -544,14 +568,13 @@ public class Controller {
         for (int i = 0; i < inventory.size(); i++) {
             // if the item toBeUsed is in the inventory
             if (inventory.get(i).getName().equals(toBeUsed) || inventory.get(i).getSynonyms().contains(toBeUsed)) {
-                // check if the item is in the same room
-                if (inventory.get(i).getRoom().contains(player.getCurrentRoom())) {
-                    // find description in item use map by key
-                    useDescription = getItemUses().get(inventory.get(i).getName()).get("useDescription");
-
+                if (!inventory.get(i).isUsed()) {
+                    inventory.get(i).setUsed(true);
                     // this allows one to retrieve any method using reflection
                     try {
+                        // get meta data from ItemUseMethods class using an instance
                         @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
+                        // reassign method using the .getMethod() method from .getClass() via Java reflection
                         method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
                     } catch (NoSuchMethodException err) {
                         throw new RuntimeException(err);
@@ -559,10 +582,18 @@ public class Controller {
 
                     try {
                         clearConsole();
+                        // display description of use effects to player
+                        System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                        // invoke the method retrieved above, this allows any item object to be used the same way
                         method.invoke(itemUseMethods);
+                        return;
                     } catch (IllegalAccessException | InvocationTargetException err) {
                         throw new RuntimeException(err);
                     }
+                } else {
+                    // if the item has been used already, use different description text
+                    System.out.println(inventory.get(i).getUsedDescription());
+                    return;
                 }
             }
         }
@@ -571,33 +602,92 @@ public class Controller {
         for (int i = 0; i < interactables.size(); i++) {
             // if the item toBeUsed is an interactable
             if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
-                // check if the item is in the same room
-                if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
-                    // find description in item use map by key
-                    useDescription = getItemUses().get(interactables.get(i).getName()).get("useDescription");
+                if (lockedObjects.containsKey(toBeUsed)) {
+                    if (!lockedObjects.get(toBeUsed)) { // check if this interactable is considered locked
+                        // check if the item is in the same room
+                        if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
+                            if (!interactables.get(i).isUsed()) {
+                                interactables.get(i).setUsed(true);
+                                // this allows one to retrieve any method using reflection in the same way as above
+                                try {
+                                    @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
+                                    method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
+                                } catch (NoSuchMethodException err) {
+                                    throw new RuntimeException(err);
+                                }
 
-                    // this allows one to retrieve any method using reflection
-                    try {
-                        @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                        method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
-                    } catch (NoSuchMethodException err) {
-                        throw new RuntimeException(err);
+                                try {
+                                    System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                                    method.invoke(itemUseMethods);
+                                    return;
+                                } catch (IllegalAccessException | InvocationTargetException err) {
+                                    throw new RuntimeException(err);
+                                }
+                            } else {
+                                System.out.println(interactables.get(i).getUsedDescription());
+                                return;
+                            }
+                        }
+                    } else {
+                        System.out.printf("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", toBeUsed);
+                        return;
+                    }
+                } else {
+                    // check if the item is in the same room
+                    if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
+                        if (!interactables.get(i).isUsed()) {
+                            interactables.get(i).setUsed(true);
+                            // this allows one to retrieve any method using reflection in the same way as above
+                            try {
+                                @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
+                                method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
+                            } catch (NoSuchMethodException err) {
+                                throw new RuntimeException(err);
+                            }
+
+                            try {
+                                System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                                method.invoke(itemUseMethods);
+                                return;
+                            } catch (IllegalAccessException | InvocationTargetException err) {
+                                throw new RuntimeException(err);
+                            }
+                        } else {
+                            System.out.println(interactables.get(i).getUsedDescription());
+                            return;
+                        }
                     }
 
-                    try {
-                        method.invoke(itemUseMethods);
-                    } catch (IllegalAccessException | InvocationTargetException err) {
-                        throw new RuntimeException(err);
-                    }
                 }
             }
         }
+        // default error message
+        System.out.println("You're either not carrying a \"" + toBeUsed + "\" right now, or you can't see one in this ROOM.\n\nItems must be in your INVENTORY to use unless you cannot GET the item. [Your SHIP, for example]\nINSPECT objects to find hidden items!");
 
-        return useDescription; // return description of what happened
     }
 
+    // removes item from the lockedObjects map to free up their use by the player
+    public void unlockThis(String toBeUnlocked) {
+        if (lockedObjects.containsKey(toBeUnlocked)) {
+            lockedObjects.put(toBeUnlocked, false);
+        }
+    }
 
     //-------------------------------UTILITY METHODS
+
+    // when a hidden item is made visible, make it a part of the normal itemsList
+    public void itemNotHidden(HiddenItem hiddenItem) {
+        getHiddenItems().remove(hiddenItem); // remove the item to be revealed from the hiddenItem list
+        Item newItem = new Item(hiddenItem); // create new item using hiddenItem info
+        getItems().add(newItem);             // add the new item to the items list
+    }
+
+    // when a hidden interactable item is made visible, make it a part of the normal interactables list
+    public void interactableNotHidden(HiddenItem hiddenItem) {
+        getHiddenItems().remove(hiddenItem);         // remove the item to be revealed from the hiddenItem list
+        Item newInteractable = new Item(hiddenItem); // create new item using hiddenItem info
+        getInteractables().add(newInteractable);     // add the new item to the interactables list
+    }
 
     // uses Jansi ANSI methods to clear terminal and reset cursor at 0,0
     public static void clearConsole() {
@@ -676,11 +766,11 @@ public class Controller {
 
     //-------------------------------ACCESSOR METHODS
 
-    public List getRoomsList() {
+    public List<Room> getRoomsList() {
         return roomsList;
     }
 
-    public void setRoomsList(List roomsList) {
+    public void setRoomsList(List<Room> roomsList) {
         this.roomsList = roomsList;
     }
 
@@ -688,23 +778,23 @@ public class Controller {
         return items;
     }
 
-    public void setItems(List items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
-    public List getHiddenItems() {
+    public List<HiddenItem> getHiddenItems() {
         return hiddenItems;
     }
 
-    public void setHiddenItems(List hiddenItems) {
+    public void setHiddenItems(List<HiddenItem> hiddenItems) {
         this.hiddenItems = hiddenItems;
     }
 
-    public List getInteractables() {
+    public List<Item> getInteractables() {
         return interactables;
     }
 
-    public void setInteractables(List interactables) {
+    public void setInteractables(List<Item> interactables) {
         this.interactables = interactables;
     }
 
