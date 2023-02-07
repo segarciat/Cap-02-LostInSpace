@@ -14,12 +14,12 @@ public class Item {
     private boolean used;
     private String usedDescription;
 
-    // CTORS
+    // Constructor
     public Item() {
         super();
     }
 
-    // CTOR used when a hiddenItem is made visible.
+    // Constructor used when a hiddenItem is made visible.
     // Creates a new item in the current room
     public Item(HiddenItem hiddenItem){
         this.name = hiddenItem.getName();

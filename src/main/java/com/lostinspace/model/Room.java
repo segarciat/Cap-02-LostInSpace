@@ -6,7 +6,6 @@ package com.lostinspace.model;
  * Holds all data for one instance of a room in the game.
  */
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class Room {
@@ -20,15 +19,10 @@ public class Room {
         return exitMap;
     }
 
-
     // ACCESSOR METHODS
     public String getName() { return name; }
 
     public String getDescription() {
         return description;
-    }
-
-    public Exit getExits() {
-        return exits;
     }
 }
