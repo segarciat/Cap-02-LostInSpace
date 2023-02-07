@@ -66,6 +66,7 @@ public class App {
                 roomDescription = rooms.get(i).description;      // ...create string to hold currentRoom's description
             }
         }
+
         // get status for no input, which usually would not exit the while to display showStatus() again
         controller.showStatus(controller.getPlayer().getCurrentRoom(), roomDescription);
     }
