@@ -20,19 +20,6 @@ public class RoomsRoot {
         roomMap = rooms
                 .stream()
                 .collect(Collectors.toUnmodifiableMap(Room::getName, Function.identity()));
-//        for (Room room : rooms) {
-//            room.setExitMap(
-//                    room.getExits()
-//                            .entrySet()
-//                            .stream()
-//                            .filter(entry -> !entry.getValue().trim().isEmpty())
-//                            .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, entry -> roomMap.get(entry.getValue())))
-//            );
-//        }
-    }
-
-    public Map<String, Room> getRoomMap() {
-        return roomMap;
     }
 
     public List<Room> getRooms() {

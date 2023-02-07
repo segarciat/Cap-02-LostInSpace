@@ -1,7 +1,5 @@
 package com.lostinspace.model;
 
-import java.text.DecimalFormat;
-
 public class Player {
     private String currentRoom; // current location of player
 
@@ -11,7 +9,7 @@ public class Player {
      */
     private double oxygen;
 
-    // CTOR
+    // Constructor
     public Player(String currentRoom, double oxygen){
         this.currentRoom = currentRoom;
         this.oxygen = oxygen;
