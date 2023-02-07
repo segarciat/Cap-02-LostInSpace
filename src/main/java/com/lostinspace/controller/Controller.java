@@ -34,7 +34,7 @@ import static org.fusesource.jansi.Ansi.ansi;
  * loads game text/dialogue
  */
 public class Controller {
-    private final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
+    private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
@@ -695,7 +695,17 @@ public class Controller {
     // uses Jansi ANSI methods to clear terminal and reset cursor at 0,0
     public static void clearConsole() {
         System.out.println(ansi().eraseScreen());
-        System.out.println(ansi().cursor(0, 0));
+//        System.out.println(ansi().cursor(0, 0));
+
+        ProcessBuilder var0 = os.contains("windows") ? new ProcessBuilder(new String[]{"cmd", "/c", "cls"}) : new ProcessBuilder(new String[]{"clear"});
+
+        try {
+            var0.inheritIO().start().waitFor();
+        } catch (IOException var3) {
+            var3.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Enables the Jansi ANSI support
