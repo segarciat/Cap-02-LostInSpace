@@ -247,11 +247,11 @@ public class Controller {
                 if (inputArr[1].equals(getInventory().get(i).getName())) {     // find name of item to drop
                     String itemToRemoveName = getInventory().get(i).getName(); // remove item from inventory
                     Item removedItem = getInventory().remove(i);               //
-                    System.out.printf("Dropped %s!\n", itemToRemoveName);
+                    TextPrinter.displayText(String.format("Dropped %s!\n", itemToRemoveName));
                     // and remove the item from the room's item list
                     getItems().add(removedItem);
                 } else {
-                    System.out.printf("I can't drop %s because %s isn't there!", inputArr[1], inputArr[1]);
+                    TextPrinter.displayText(String.format("I can't drop %s because %s isn't there!", inputArr[1], inputArr[1]));
                 }
             }
         }
@@ -546,8 +546,8 @@ public class Controller {
             if (toBePickedUp.equals(item.getName())) {
                 // then it will add that item to the user's inventory list in memory
                 getInventory().add(item);
-                System.out.printf("\nYou picked up the %s!\n", item.getName().toUpperCase());
-                System.out.printf("You stow the %s away in your field bag", item.getName().toUpperCase());
+                TextPrinter.displayText(String.format("\nYou picked up the %s!\n", item.getName().toUpperCase()));
+                TextPrinter.displayText(String.format("You stow the %s away in your field bag", item.getName().toUpperCase()));
 
                 // and remove the item from the room's item list
                 iter.remove();
@@ -555,7 +555,7 @@ public class Controller {
             }
         }
         // Default message if nothing is able to be picked up
-        System.out.printf("There is no %s that you can see to GET in this ROOM!\n\n(Some items are hidden, INSPECT objects to find hidden items!)", toBePickedUp.toUpperCase());
+        TextPrinter.displayText(String.format("There is no %s that you can see to GET in this ROOM!\n\n(Some items are hidden, INSPECT objects to find hidden items!)", toBePickedUp.toUpperCase()));
     }
 
     /*
@@ -631,7 +631,7 @@ public class Controller {
                             }
                         }
                     } else {
-                        System.out.printf("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", toBeUsed);
+                        TextPrinter.displayText(String.format("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", toBeUsed));
                         return;
                     }
                 } else {
