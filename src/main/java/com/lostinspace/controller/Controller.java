@@ -386,19 +386,19 @@ public class Controller {
                 // ...then reassign return room as the room in that direction
                 switch (dir) {
                     case "north":
-                        retRoom = map.get(i).exits.getNorth();
+                        retRoom = map.get(i).getExits().getNorth();
                         break;
 
                     case "south":
-                        retRoom = map.get(i).exits.getSouth();
+                        retRoom = map.get(i).getExits().getSouth();
                         break;
 
                     case "east":
-                        retRoom = map.get(i).exits.getEast();
+                        retRoom = map.get(i).getExits().getEast();
                         break;
 
                     case "west":
-                        retRoom = map.get(i).exits.getWest();
+                        retRoom = map.get(i).getExits().getWest();
                         break;
                     // if an invalid direction is chosen, tell the player
                     default:
@@ -459,17 +459,17 @@ public class Controller {
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getName().equals(room)) {
                 // add each existing exit to the return string
-                if (!rooms.get(i).exits.getNorth().equals("")) {          // ignore non-exits
-                    roomDescription = roomDescription + "- North: " + rooms.get(i).exits.getNorth() + "\n";
+                if (!rooms.get(i).getExits().getNorth().equals("")) {          // ignore non-exits
+                    roomDescription = roomDescription + "- North: " + rooms.get(i).getExits().getNorth() + "\n";
                 }
-                if (!rooms.get(i).exits.getSouth().equals("")) {
-                    roomDescription = roomDescription + "- South: " + rooms.get(i).exits.getSouth() + "\n";
+                if (!rooms.get(i).getExits().getSouth().equals("")) {
+                    roomDescription = roomDescription + "- South: " + rooms.get(i).getExits().getSouth() + "\n";
                 }
-                if (!rooms.get(i).exits.getEast().equals("")) {
-                    roomDescription = roomDescription + "- East: " + rooms.get(i).exits.getEast() + "\n";
+                if (!rooms.get(i).getExits().getEast().equals("")) {
+                    roomDescription = roomDescription + "- East: " + rooms.get(i).getExits().getEast() + "\n";
                 }
-                if (!rooms.get(i).exits.getWest().equals("")) {
-                    roomDescription = roomDescription + "- West: " + rooms.get(i).exits.getWest() + "\n";
+                if (!rooms.get(i).getExits().getWest().equals("")) {
+                    roomDescription = roomDescription + "- West: " + rooms.get(i).getExits().getWest() + "\n";
                 }
 
                 roomDescription = roomDescription + "\n"; // add a new line for formatting
