@@ -13,7 +13,7 @@
       "method": "useKey"
     },
     "component":  {
-      "useDescription": "You hand the greasy Engine COMPONENT to Zhang.\n\n\"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\n\"I'll debrief you later.\"\n\n\"Aye, sir.\", Zhang responds,disappointed.",
+      "useDescription": "You hand the greasy Engine COMPONENT to Zhang.\n\n\"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\n\"I'll debrief you later.\"\n\n\"Aye, sir.\", Zhang responds, disappointed.",
       "method": "useComponent"
     },
     "tool":  {
