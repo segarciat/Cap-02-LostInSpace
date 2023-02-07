@@ -379,8 +379,6 @@ public class Controller {
      * returns string which resets currentRoom in App
      */
     public String move(List<Room> map, String room, String dir) throws IOException {
-        clearConsole();
-
         String retRoom = ""; // create empty string to hold return room
 
         // iterate through map

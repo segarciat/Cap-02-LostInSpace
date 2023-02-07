@@ -58,6 +58,7 @@ public class App {
     }
 
     static void remindStatus() {
+        Controller.clearConsole();
         // no command input requires showStatus() to display details to user again
         String roomDescription = "";                             // create empty string to hold description
         List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
