@@ -17,9 +17,6 @@ inspect item -or- inspect object: receive a description of what was inspected, l
 go direction: move in selected direction
 <directions: North, South, East, West>
 
-get item: add item to inventory
-<item: inspect rooms and objects to find items>
-
 use item: use an item in your inventory or an object in the same room as you
 <Not all items can be used at all times or in every room. Experiment with your options!>
 

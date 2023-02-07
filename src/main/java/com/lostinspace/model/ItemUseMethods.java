@@ -4,6 +4,7 @@ import com.lostinspace.app.App;
 import com.lostinspace.controller.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -130,9 +131,35 @@ public class ItemUseMethods {
     }
 
     public void useShip() {
-        // does nothing right now,
-        // will probably make this the command to use to win the game
-        // once all items are in ship
+        System.out.println("useShip() method is being called...");
+        boolean item1 = false;
+        boolean item2 = false;
+        boolean item3 = false;
+        boolean canUseShip = false;
+
+        for (Item item : getController().getInventory()) {
+            if (item.getName().equals("component")) {
+                item1 = true;
+            }
+            if (item.getName().equals("tool")) {
+                item2 = true;
+            }
+            if (item.getName().equals("manual")) {
+                item3 = true;
+            }
+        }
+
+        if (item1 && item2 && item3) {
+            canUseShip = true;
+        }
+
+        if (canUseShip) {
+            // TODO: END GAME
+            System.out.println("YOU WIN!");
+        } else {
+            throw new IllegalArgumentException("Sorry, you need ALL three items to fix the ship. It is inoperable as " +
+                    "of now.");
+        }
     }
 
     public void useRack() {

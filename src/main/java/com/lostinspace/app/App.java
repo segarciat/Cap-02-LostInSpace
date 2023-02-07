@@ -47,9 +47,10 @@ public class App {
                     String[] inputArr = userInput.split(" "); // create array for split input
 
                     Controller.clearConsole();
-                    remindStatus(); // remind user of status
+
                     //--------------------------------------PLAYER COMMANDS--------------------------------------------//
                     controller.userCommands(inputArr);
+                    remindStatus(); // remind user of status
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -66,6 +67,7 @@ public class App {
                 roomDescription = rooms.get(i).getDescription();      // ...create string to hold currentRoom's description
             }
         }
+
         // get status for no input, which usually would not exit the while to display showStatus() again
         controller.showStatus(controller.getPlayer().getCurrentRoom(), roomDescription);
     }
