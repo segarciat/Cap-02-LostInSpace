@@ -334,7 +334,6 @@ public class Controller {
         } catch (IOException err) {                 // throw IO Exception if failed
             throw new RuntimeException(err);
         }
-        events.enterForNewGame();                  // user must press enter to continue
     }
 
     /*
