@@ -11,9 +11,11 @@ import com.google.gson.Gson;
 
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
+import com.lostinspace.util.Color;
 import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 
+import com.lostinspace.util.TextPrinter;
 import org.fusesource.jansi.AnsiConsole;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -89,7 +91,7 @@ public class Controller {
             while (printLimit > 0) {
                 for (int i = 0; i < linesToDisplay; i++) {
                     if (!lines[idx].equals(null)) {
-                        System.out.println(lines[idx]);
+                        TextPrinter.displayText(lines[idx]);
                         idx++;
                     }
                     if (idx == lines.length) {
@@ -127,7 +129,7 @@ public class Controller {
 
             sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
             content = sB.toString();                // create new string with sB content
-            System.out.println(content);            // display title card!
+            TextPrinter.displayText(content);            // display title card!
 
         } catch (IOException err) {                 // throw IO Exception if failed
             throw new RuntimeException(err);
@@ -156,7 +158,7 @@ public class Controller {
             reader.close();
             instructions = sBuilder.toString();
 
-            System.out.println(instructions);
+            TextPrinter.displayText(instructions);
             events.enterForNewGame();                  // user must press enter to continue
 
             // throw IO Exception if failed
@@ -208,13 +210,13 @@ public class Controller {
         else if (inputArr.length < 2 || inputArr.length > 2) {
             clearConsole();
             if (inputArr[0].equals("")) {
-                System.out.println(ansi().fg(RED).a("\n\nEMPTY COMMAND!\n\n").reset());
+                TextPrinter.displayText("\n\nEMPTY COMMAND!\n\n", Color.RED);
             } else {
-                System.out.println("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
+                TextPrinter.displayText("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
             }
         } else if (inputArr.length > 2) {
             clearConsole();
-            System.out.println(ansi().fg(RED).a("Too many words in your command." + "\nOnly use VALID 2-WORD commands!").reset());
+            TextPrinter.displayText("Too many words in your command." + "\nOnly use VALID 2-WORD commands!", Color.RED);
         }
 
         // MULTI-WORD COMMANDS
@@ -228,10 +230,10 @@ public class Controller {
         else if (inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")) {
             // rooms are inspected differently than items
             if (inputArr[1].equals("room")) {
-                System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
+                TextPrinter.displayText(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
             } else {
                 clearConsole();
-                System.out.println(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
+                TextPrinter.displayText(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
             }
         }
 
@@ -264,7 +266,7 @@ public class Controller {
         // invalid command
         else {
             clearConsole();
-            System.out.println(ansi().fg(RED).a("I don't know how to " + inputArr[0] + " something!\n\n!***** Ensure you PRESS ENTER to continue to the Command Prompt before entering Commands! *****!").reset());
+            TextPrinter.displayText("I don't know how to " + inputArr[0] + " something!\n\n!***** Ensure you PRESS ENTER to continue to the Command Prompt before entering Commands! *****!", Color.RED);
         }
     }
 
@@ -289,7 +291,7 @@ public class Controller {
             reader.close();
             instructions = sBuilder.toString();
 
-            System.out.println(ansi().fg(CYAN).a(instructions).reset());
+            TextPrinter.displayText(instructions, Color.CYAN);
 
             // throw IO Exception if failed
         } catch (IOException err) {
@@ -333,7 +335,7 @@ public class Controller {
 
             sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
             content = sB.toString();                // create new string with sB content
-            System.out.println(content);            // display title card!
+            TextPrinter.displayText(content);            // display title card!
 
         } catch (IOException err) {                 // throw IO Exception if failed
             throw new RuntimeException(err);
@@ -345,11 +347,11 @@ public class Controller {
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
-        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
+        TextPrinter.displayText("--------------------------------", Color.YELLOW);
 
-        System.out.println("You are in the " + location + '\n');            //print the player 's current location
+        TextPrinter.displayText("You are in the " + location + '\n');            //print the player 's current location
 
-        System.out.println(ansi().fg(GREEN).a(description).reset());          // print description of current room
+        TextPrinter.displayText(description, Color.GREEN);          // print description of current room
 
         String itemsInInventory = "";  // make empty string to hold item names
 
@@ -359,16 +361,15 @@ public class Controller {
         }
 
         // print what the player is carrying
-        System.out.println(ansi().fg(BLUE).a(String.format("\nInventory: %s", itemsInInventory)).reset());
+        TextPrinter.displayText(String.format("\nInventory: %s", itemsInInventory), Color.BLUE);
 
         // round oxygen percentage down to 2 decimal places
         double roundOff = Math.round(player.getOxygen() * 100) / 100;
 
         // print remaining oxygen
-        System.out.println(ansi().fg(RED).a(String.format("\nOxygen Level: %.2f" +
-                " percent", roundOff)).reset());
+        TextPrinter.displayText(String.format("\nOxygen Level: %.2f" + " percent", roundOff), Color.RED);
 
-        System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
+        TextPrinter.displayText("--------------------------------", Color.YELLOW);
     }
 
     /*
@@ -403,7 +404,7 @@ public class Controller {
                     // if an invalid direction is chosen, tell the player
                     default:
                         String message = "\nINVALID DIRECTION: " + dir + "\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)";
-                        System.out.println(ansi().fg(RED).a(message).reset());
+                        TextPrinter.displayText(message, Color.RED);
                         retRoom = room;
                         break;
                 }
@@ -412,14 +413,14 @@ public class Controller {
                 if (retRoom.equals("")) {
                     String sb = "\nINVALID DIRECTION: " + dir + "\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)";
                     retRoom = room;
-                    System.out.println(ansi().fg(RED).a(sb).reset());
+                    TextPrinter.displayText(sb, Color.RED);
                     return retRoom; // return back to starting room
                 }
                 // else, check if this room is locked
                 else if (lockedObjects.containsKey(retRoom.toLowerCase())) {
                     if (lockedObjects.get(retRoom.toLowerCase())) {
                         String message = String.format("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
-                        System.out.println(ansi().fg(YELLOW).a(message).reset());
+                        TextPrinter.displayText(message, Color.YELLOW);
                         retRoom = room;
                     }
                 }
@@ -434,7 +435,7 @@ public class Controller {
      */
     public String inspectRoom(List<Item> items, List<Item> interactables, List<Room> rooms, String room) {
         String roomDescription = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
-        System.out.println("Current Room: " + room);
+        TextPrinter.displayText("Current Room: " + room);
         // iterate through room list
         for (int i = 0; i < items.size(); i++) {
             for (int j = 0; j < items.get(i).getRoom().size(); j++) {
@@ -584,7 +585,7 @@ public class Controller {
                     try {
                         clearConsole();
                         // display description of use effects to player
-                        System.out.println(itemUses.get(toBeUsed).get("useDescription"));
+                        TextPrinter.displayText(itemUses.get(toBeUsed).get("useDescription"));
                         // invoke the method retrieved above, this allows any item object to be used the same way
                         method.invoke(itemUseMethods);
                         return;
@@ -593,7 +594,7 @@ public class Controller {
                     }
                 } else {
                     // if the item has been used already, use different description text
-                    System.out.println(inventory.get(i).getUsedDescription());
+                    TextPrinter.displayText(inventory.get(i).getUsedDescription());
                     return;
                 }
             }
@@ -618,14 +619,14 @@ public class Controller {
                                 }
 
                                 try {
-                                    System.out.println(itemUses.get(interactables.get(i).getName()).get("useDescription"));
+                                    TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).get("useDescription"));
                                     method.invoke(itemUseMethods);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
                                     throw new RuntimeException(err);
                                 }
                             } else {
-                                System.out.println(interactables.get(i).getUsedDescription());
+                                TextPrinter.displayText(interactables.get(i).getUsedDescription());
                                 return;
                             }
                         }
@@ -647,14 +648,14 @@ public class Controller {
                             }
 
                             try {
-                                System.out.println(itemUses.get(interactables.get(i).getName()).get("useDescription"));
+                                TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).get("useDescription"));
                                 method.invoke(itemUseMethods);
                                 return;
                             } catch (IllegalAccessException | InvocationTargetException err) {
                                 throw new RuntimeException(err);
                             }
                         } else {
-                            System.out.println(interactables.get(i).getUsedDescription());
+                            TextPrinter.displayText(interactables.get(i).getUsedDescription());
                             return;
                         }
                     }
@@ -663,7 +664,7 @@ public class Controller {
             }
         }
         // default error message
-        System.out.println("You're either not carrying a \"" + toBeUsed + "\" right now, or you can't see one in this ROOM.\n\nItems must be in your INVENTORY to use unless you cannot GET the item. [Your SHIP, for example]\nINSPECT objects to find hidden items!");
+        TextPrinter.displayText("You're either not carrying a \"" + toBeUsed + "\" right now, or you can't see one in this ROOM.\n\nItems must be in your INVENTORY to use unless you cannot GET the item. [Your SHIP, for example]\nINSPECT objects to find hidden items!");
 
     }
 

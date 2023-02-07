@@ -5,7 +5,8 @@ public enum Color {
     GREEN("[32m", "[42m"),
     YELLOW("[33m", "[43m"),
     RED("[31m", "[41m"),
-    CYAN("[36m", "[46m");
+    CYAN("[36m", "[46m"),
+    BLUE("[34m", "[44m");
 
     private final String fontCode;
     private final String backgroundCode;

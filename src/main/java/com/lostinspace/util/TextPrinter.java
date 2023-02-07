@@ -1,6 +1,6 @@
 package com.lostinspace.util;
 
-class TextPrinter {
+public class TextPrinter {
     public static void displayText(String text) {
         System.out.println(text);
     }
