@@ -31,19 +31,23 @@ public class App {
         //controller.gameInstructions();                      // display game instructions
 
 
+        Controller.clearConsole();
+        remindStatus(); // remind user of status
         // breaking this while loop means the game is over
         while (true) {
             String userInput = "";                              // empty string to hold user response
 
+
             // continues until user enters something
             while (userInput.equals("")) {
-                remindStatus(); // remind user of status
+
                 System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
                 userInput = scan.nextLine();                    // stop for user data entry
                 userInput = userInput.toLowerCase();            // normalizing input
                 String[] inputArr = userInput.split(" "); // create array for split input
 
-
+                Controller.clearConsole();
+                remindStatus(); // remind user of status
                 //--------------------------------------PLAYER COMMANDS--------------------------------------------//
                 controller.userCommands(inputArr);
             }

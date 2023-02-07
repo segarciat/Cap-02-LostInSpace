@@ -188,7 +188,6 @@ public class Controller {
 
         // restart the game
         else if (inputArr[0].equals("help") || inputArr[0].equals("instructions")) {
-            clearConsole();
             help();
         }
 
@@ -205,15 +204,13 @@ public class Controller {
         else if (inputArr.length < 2 || inputArr.length > 2) {
             clearConsole();
             if (inputArr[0].equals("")) {
-                System.out.println("\n\nEMPTY COMMAND!\n\n");
+                System.out.println(ansi().fg(RED).a("\n\nEMPTY COMMAND!\n\n"));
             } else {
                 System.out.println("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
             }
-            events.enterToContinue();
         } else if (inputArr.length > 2) {
             clearConsole();
-            System.out.println("Too many words in your command." + "\nOnly use VALID 2-WORD commands!");
-            events.enterToContinue();
+            System.out.println(ansi().fg(RED).a("Too many words in your command." + "\nOnly use VALID 2-WORD commands!").reset());
         }
 
         // MULTI-WORD COMMANDS
@@ -227,13 +224,10 @@ public class Controller {
         else if (inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")) {
             // rooms are inspected differently than items
             if (inputArr[1].equals("room")) {
-                clearConsole();
                 System.out.println(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
-                events.enterToContinue();
             } else {
                 clearConsole();
                 System.out.println(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
-                events.enterToContinue();
             }
         }
 
@@ -241,7 +235,6 @@ public class Controller {
         else if (inputArr[0].equals("get") || inputArr[0].equals("grab")) {
             clearConsole();
             pickUpItem(inputArr[1]);
-            events.enterToContinue();
         } else if (inputArr[0].equals("drop") || inputArr[0].equals("release") || inputArr[0].equals("leave")) {
             // iterate through the inventory
             for (int i = 0; i < getInventory().size(); i++) {
@@ -262,14 +255,12 @@ public class Controller {
             // check that player is allowed to use the item, then display the results
             clearConsole();
             useItem(getInventory(), getInteractables(), inputArr[1]);
-            events.enterToContinue();
         }
 
         // invalid command
         else {
             clearConsole();
-            System.out.println("I don't know how to " + inputArr[0] + " something!\n\n!***** Ensure you PRESS ENTER to continue to the Command Prompt before entering Commands! *****!");
-            events.enterToContinue();
+            System.out.println(ansi().fg(RED).a("I don't know how to " + inputArr[0] + " something!\n\n!***** Ensure you PRESS ENTER to continue to the Command Prompt before entering Commands! *****!").reset());
         }
     }
 
@@ -294,8 +285,7 @@ public class Controller {
             reader.close();
             instructions = sBuilder.toString();
 
-            System.out.println(instructions);
-            events.enterToContinue();                  // user must press enter to continue
+            System.out.println(ansi().fg(CYAN).a(instructions).reset());
 
             // throw IO Exception if failed
         } catch (IOException err) {
@@ -352,7 +342,6 @@ public class Controller {
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
-        clearConsole();
         System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location
@@ -410,28 +399,25 @@ public class Controller {
                         break;
                     // if an invalid direction is chosen, tell the player
                     default:
-                        System.out.println("\nINVALID DIRECTION: " + dir);
-                        System.out.println("\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)");
+                        String message = "\nINVALID DIRECTION: " + dir + "\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)";
+                        System.out.println(ansi().fg(RED).a(message).reset());
                         retRoom = room;
-                        events.enterToContinue();
                         break;
                 }
 
                 // if retRoom is an empty string then there is no exit in that direction
                 if (retRoom.equals("")) {
-                    System.out.println("\nINVALID DIRECTION: " + dir);
-                    System.out.println("\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)");
+                    String sb = "\nINVALID DIRECTION: " + dir + "\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)";
                     retRoom = room;
-                    events.enterToContinue();
-
+                    System.out.println(ansi().fg(RED).a(sb).reset());
                     return retRoom; // return back to starting room
                 }
                 // else, check if this room is locked
                 else if (lockedObjects.containsKey(retRoom.toLowerCase())) {
                     if (lockedObjects.get(retRoom.toLowerCase())) {
-                        System.out.printf("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
+                        String message = String.format("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
+                        System.out.println(ansi().fg(YELLOW).a(message).reset());
                         retRoom = room;
-                        events.enterToContinue();
                     }
                 }
             }
