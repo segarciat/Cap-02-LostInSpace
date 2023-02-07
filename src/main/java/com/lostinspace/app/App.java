@@ -24,32 +24,35 @@ public class App {
 
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-        //controller.titleCard();                              // display title card
+        // controller.titleCard();                              // display title card
 
-        //controller.prologue();                               // display prologue text
+        // controller.prologue();                               // display prologue text
 
-        //controller.gameInstructions();                      // display game instructions
+        // controller.gameInstructions();                      // display game instructions
 
 
         Controller.clearConsole();
         remindStatus(); // remind user of status
         // breaking this while loop means the game is over
         while (true) {
-            String userInput = "";                              // empty string to hold user response
+            try {
+                String userInput = "";                              // empty string to hold user response
 
+                // continues until user enters something
+                while (userInput.equals("")) {
 
-            // continues until user enters something
-            while (userInput.equals("")) {
+                    System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
+                    userInput = scan.nextLine();                    // stop for user data entry
+                    userInput = userInput.toLowerCase();            // normalizing input
+                    String[] inputArr = userInput.split(" "); // create array for split input
 
-                System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
-                userInput = scan.nextLine();                    // stop for user data entry
-                userInput = userInput.toLowerCase();            // normalizing input
-                String[] inputArr = userInput.split(" "); // create array for split input
-
-                Controller.clearConsole();
-                remindStatus(); // remind user of status
-                //--------------------------------------PLAYER COMMANDS--------------------------------------------//
-                controller.userCommands(inputArr);
+                    Controller.clearConsole();
+                    remindStatus(); // remind user of status
+                    //--------------------------------------PLAYER COMMANDS--------------------------------------------//
+                    controller.userCommands(inputArr);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
