@@ -18,7 +18,8 @@
         "north": "",
         "south": "",
         "east": "Enviro-Field"
-      }
+      },
+      "interactables": ["ship"]
     },
     {
       "name": "Junction Hallway 1",
@@ -28,7 +29,8 @@
         "north": "Junction Hallway 2",
         "south": "Cargo Hold",
         "west": ""
-      }
+      },
+      "interactables": ["pipes"]
     },
     {
       "name": "Cargo Hold",
@@ -38,7 +40,8 @@
         "north": "Junction Hallway 1",
         "south": "Reactor Hallway",
         "east": ""
-      }
+      },
+      "interactables": ["cabinet"]
     },
     {
       "name": "Reactor Hallway",
@@ -58,7 +61,8 @@
         "north": "Reactor Hallway",
         "south": "Engine Room Hallway",
         "east": ""
-      }
+      },
+      "interactables": ["console"]
     },
     {
       "name": "Engine Room Hallway",
@@ -68,7 +72,8 @@
         "north": "Reactor Room",
         "south": "",
         "east": "Engine Room"
-      }
+      },
+      "interactables": ["pipes"]
     },
     {
       "name": "Engine Room",
@@ -78,7 +83,8 @@
         "north": "Power Supplies",
         "south": "",
         "east": ""
-      }
+      },
+      "interactables": ["rack"]
     },
     {
       "name": "Power Supplies",
@@ -88,7 +94,8 @@
         "north": "",
         "south": "Engine Room",
         "east": ""
-      }
+      },
+      "interactables": ["poster"]
     },
     {
       "name": "Junction Hallway 2",
@@ -128,7 +135,8 @@
         "north": "",
         "south": "",
         "east": "Command Deck Hallway"
-      }
+      },
+      "interactables": ["locker"]
     },
     {
       "name": "MedBay",
@@ -138,7 +146,8 @@
         "north": "",
         "south": "",
         "east": ""
-      }
+      },
+      "interactables": ["cooler"]
     },
     {
       "name": "Bridge",
@@ -148,7 +157,8 @@
         "north": "Cockpit",
         "south": "Command Deck Hallway",
         "east": ""
-      }
+      },
+      "interactables": ["airlock"]
     },
     {
       "name": "Cockpit",
@@ -158,7 +168,8 @@
         "north": "",
         "south": "Bridge",
         "east": ""
-      }
+      },
+      "interactables": ["library"]
     }
   ]
 }

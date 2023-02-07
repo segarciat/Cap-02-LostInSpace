@@ -63,8 +63,8 @@ public class App {
         String roomDescription = "";                             // create empty string to hold description
         List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
         for (int i = 0; i < rooms.size(); i++) {                 // search through all rooms for currentRoom description
-            if (rooms.get(i).name.equals(controller.getPlayer().getCurrentRoom())) {  // if found...
-                roomDescription = rooms.get(i).description;      // ...create string to hold currentRoom's description
+            if (rooms.get(i).getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
+                roomDescription = rooms.get(i).getDescription();      // ...create string to hold currentRoom's description
             }
         }
 
