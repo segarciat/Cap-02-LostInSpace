@@ -345,8 +345,6 @@ public class Controller {
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
-        clearConsole();
-
         System.out.println(ansi().fg(YELLOW).a("--------------------------------").reset());
 
         System.out.println("You are in the " + location + '\n');            //print the player 's current location

@@ -47,9 +47,10 @@ public class App {
                     String[] inputArr = userInput.split(" "); // create array for split input
 
                     Controller.clearConsole();
-                    remindStatus(); // remind user of status
+
                     //--------------------------------------PLAYER COMMANDS--------------------------------------------//
                     controller.userCommands(inputArr);
+                    remindStatus(); // remind user of status
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -58,7 +59,6 @@ public class App {
     }
 
     static void remindStatus() {
-        Controller.clearConsole();
         // no command input requires showStatus() to display details to user again
         String roomDescription = "";                             // create empty string to hold description
         List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
