@@ -16,9 +16,7 @@ import com.lostinspace.util.FileGetter;
 import com.lostinspace.util.GameEvents;
 
 import com.lostinspace.util.TextPrinter;
-import org.fusesource.jansi.AnsiConsole;
 
-import static org.fusesource.jansi.Ansi.Color.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +26,6 @@ import java.lang.reflect.Method;
 
 import java.util.*;
 
-import static org.fusesource.jansi.Ansi.ansi;
 
 /*
  * handles user commands and their feedback
@@ -689,11 +686,10 @@ public class Controller {
         getInteractables().add(newInteractable);     // add the new item to the interactables list
     }
 
-    // uses Jansi ANSI methods to clear terminal and reset cursor at 0,0
+    /**
+     * Clear console by calling the appropriate system command depending on the OS.
+     */
     public static void clearConsole() {
-        System.out.println(ansi().eraseScreen());
-//        System.out.println(ansi().cursor(0, 0));
-
         ProcessBuilder var0 = os.contains("windows") ? new ProcessBuilder(new String[]{"cmd", "/c", "cls"}) : new ProcessBuilder(new String[]{"clear"});
 
         try {
@@ -703,11 +699,6 @@ public class Controller {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Enables the Jansi ANSI support
-    public void loadAnsiConsole() {
-        AnsiConsole.systemInstall();
     }
 
     // returns the items list object

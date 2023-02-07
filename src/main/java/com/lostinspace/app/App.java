@@ -20,8 +20,6 @@ public class App {
 
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
-        controller.loadAnsiConsole();                        // enables Jansi ANSI support
-
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
         // controller.titleCard();                              // display title card
