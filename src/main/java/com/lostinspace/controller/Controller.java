@@ -55,7 +55,6 @@ public class Controller {
     private Player player = new Player("Docking Bay", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
-
     //-------------------------------CONTROLLER METHODS
 
     // Display prologue text
