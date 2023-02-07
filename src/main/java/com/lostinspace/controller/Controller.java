@@ -52,7 +52,7 @@ public class Controller {
     private ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private Player player = new Player("Cockpit", 80.00);
+    private Player player = new Player("Docking Bay", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
 
