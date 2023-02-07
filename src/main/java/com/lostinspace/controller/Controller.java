@@ -208,7 +208,7 @@ public class Controller {
         else if (inputArr.length < 2 || inputArr.length > 2) {
             clearConsole();
             if (inputArr[0].equals("")) {
-                System.out.println(ansi().fg(RED).a("\n\nEMPTY COMMAND!\n\n"));
+                System.out.println(ansi().fg(RED).a("\n\nEMPTY COMMAND!\n\n").reset());
             } else {
                 System.out.println("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
             }
