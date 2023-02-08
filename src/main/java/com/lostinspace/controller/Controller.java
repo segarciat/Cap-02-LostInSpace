@@ -80,11 +80,7 @@ public class Controller {
                     break;
                 }
             }
-            try {
-                events.enterToContinue();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            events.enterToContinue();
             printLimit--;
         }
     }
@@ -93,21 +89,13 @@ public class Controller {
     public void titleCard(){
 
         TextPrinter.displayText(titleCard);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     // Display user commands
     public void gameInstructions() {
         TextPrinter.displayText(tutorialsText);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
 
@@ -213,11 +201,7 @@ public class Controller {
     // Display commands reminder
     public void help() {
         TextPrinter.displayText(instructions, Color.CYAN);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     // restarts game when called
@@ -238,11 +222,7 @@ public class Controller {
     // display game winning objectives
     public void objectives(){
         TextPrinter.displayText(objectives);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     /*
