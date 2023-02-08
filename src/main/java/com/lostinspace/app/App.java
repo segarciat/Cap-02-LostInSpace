@@ -9,6 +9,7 @@ package com.lostinspace.app;
 
 import com.lostinspace.model.HiddenItem;
 import com.lostinspace.model.Item;
+import com.lostinspace.model.Player;
 import com.lostinspace.model.Room;
 import com.lostinspace.controller.Controller;
 import com.lostinspace.util.Color;
@@ -18,6 +19,7 @@ import java.io.*;
 import java.util.*;
 
 public class App {
+    public static final String INSTANT_GAME_OVER_ROOM = "Enviro-Field";
     private static Controller controller = new Controller(); // make an instance of controller for player commands
     private static Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
@@ -38,8 +40,10 @@ public class App {
                 .findFirst()
                 .get();
 
+        Player player = controller.getPlayer();
+
         // Uncomment the line below to immediately obtain all items needed to win.
-        satisfyAllWinningConditions();
+        // satisfyAllWinningConditions();
 
 
         Controller.clearConsole();
@@ -49,6 +53,9 @@ public class App {
             if (useShipInteractable.isUsed()) {
                 // Exits the loop and entire application.
                 winGameAndExit();
+                break;
+            } else if (!player.hasOxygen() || player.getCurrentRoom().equalsIgnoreCase(INSTANT_GAME_OVER_ROOM)) {
+                loseGameAndExit();
                 break;
             }
             try {
@@ -71,6 +78,18 @@ public class App {
                 TextPrinter.displayText(e.getCause().getMessage(), Color.RED);
                 remindStatus();
             }
+        }
+    }
+
+    private static void loseGameAndExit() {
+        Player player = controller.getPlayer();
+        if (!player.hasOxygen()) {
+            TextPrinter.displayText("You've run out of oxygen! Game over.", Color.RED);
+        } else if (player.getCurrentRoom().equalsIgnoreCase(INSTANT_GAME_OVER_ROOM)) {
+            TextPrinter.displayText(
+                    String.format("You entered the %s and immediately vaporized. Game over.", INSTANT_GAME_OVER_ROOM),
+                    Color.RED
+            );
         }
     }
 
@@ -100,10 +119,10 @@ public class App {
     static void remindStatus() {
         // no command input requires showStatus() to display details to user again
         String roomDescription = "";                             // create empty string to hold description
-        List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
-        for (int i = 0; i < rooms.size(); i++) {                 // search through all rooms for currentRoom description
-            if (rooms.get(i).getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
-                roomDescription = rooms.get(i).getDescription();      // ...create string to hold currentRoom's description
+        Map<String, Room> rooms = controller.getRoomMap();            // gets a ref to list of rooms
+        for (Room room : rooms.values()) {                 // search through all rooms for currentRoom description
+            if (room.getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
+                roomDescription = room.getDescription();      // ...create string to hold currentRoom's description
             }
         }
 

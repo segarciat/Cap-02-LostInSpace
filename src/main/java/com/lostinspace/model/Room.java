@@ -26,4 +26,8 @@ public class Room {
     public Exit getExits() {
         return exits;
     }
+
+    public List<String> getInteractables() {
+        return interactables;
+    }
 }

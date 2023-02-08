@@ -2,16 +2,14 @@ package com.lostinspace.model;
 
 import com.lostinspace.app.App;
 import com.lostinspace.controller.Controller;
-import com.lostinspace.util.TextPrinter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class ItemUseMethods {
-    double oxygenRefill = 25.5; // how much oxygen is restored to player
+    public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
     boolean easyMode = false;   // used to define difficulty settings
 
     // returns the controller instance from main class
@@ -28,7 +26,7 @@ public class ItemUseMethods {
     }
 
     public void usePipes() {
-        getController().getPlayer().refillOxygen(oxygenRefill);
+        getController().getPlayer().refillOxygen(OXYGEN_REFILL);
 
         // read comments below for explanation
         if (easyMode == false) {
