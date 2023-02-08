@@ -505,6 +505,7 @@ public class Controller {
                                     interactable.setUsed(true);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
+                                    TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
                                     // Presumably, an exception means that the use was not successful.
                                     throw new RuntimeException(err);
                                 }
@@ -535,6 +536,7 @@ public class Controller {
                                 interactable.setUsed(true);
                                 return;
                             } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException err) {
+                                TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
                                 throw new RuntimeException(err.getCause());
                             }
                         } else {

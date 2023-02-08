@@ -40,7 +40,8 @@
     "method": "useConsole"
   },
   "ship": {
-    "useDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head.\n\"I need to finish my REPAIRS, remember?\"\n\nA flight officer can dream, can't they...?",
+    "useDescription": "Hopeful, you attempt to ready up the ship...",
+    "failUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head.\n\"I need to finish my REPAIRS, remember?\"\n\nA flight officer can dream, can't they...?",
     "method": "useShip"
   },
   "rack": {
