@@ -24,28 +24,36 @@ public class App {
 
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-        controller.titleCard();                              // display title card
+        // controller.titleCard();                              // display title card
 
-        controller.prologue();                               // display prologue text
+        // controller.prologue();                               // display prologue text
 
-        //controller.gameInstructions();                      // display game instructions
+        // controller.gameInstructions();                      // display game instructions
 
 
+        Controller.clearConsole();
+        remindStatus(); // remind user of status
         // breaking this while loop means the game is over
         while (true) {
-            String userInput = "";                              // empty string to hold user response
+            try {
+                String userInput = "";                              // empty string to hold user response
 
-            // continues until user enters something
-            while (userInput.equals("")) {
-                remindStatus(); // remind user of status
-                System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
-                userInput = scan.nextLine();                    // stop for user data entry
-                userInput = userInput.toLowerCase();            // normalizing input
-                String[] inputArr = userInput.split(" "); // create array for split input
+                // continues until user enters something
+                while (userInput.equals("")) {
 
+                    System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
+                    userInput = scan.nextLine();                    // stop for user data entry
+                    userInput = userInput.toLowerCase();            // normalizing input
+                    String[] inputArr = userInput.split(" "); // create array for split input
 
-                //--------------------------------------PLAYER COMMANDS--------------------------------------------//
-                controller.userCommands(inputArr);
+                    Controller.clearConsole();
+
+                    //--------------------------------------PLAYER COMMANDS--------------------------------------------//
+                    controller.userCommands(inputArr);
+                    remindStatus(); // remind user of status
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -55,10 +63,11 @@ public class App {
         String roomDescription = "";                             // create empty string to hold description
         List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
         for (int i = 0; i < rooms.size(); i++) {                 // search through all rooms for currentRoom description
-            if (rooms.get(i).name.equals(controller.getPlayer().getCurrentRoom())) {  // if found...
-                roomDescription = rooms.get(i).description;      // ...create string to hold currentRoom's description
+            if (rooms.get(i).getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
+                roomDescription = rooms.get(i).getDescription();      // ...create string to hold currentRoom's description
             }
         }
+
         // get status for no input, which usually would not exit the while to display showStatus() again
         controller.showStatus(controller.getPlayer().getCurrentRoom(), roomDescription);
     }

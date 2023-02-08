@@ -18,9 +18,6 @@ Example: look room
 INSPECT - Requires two words. Use this to examine items and interactable objects.
 Example: look room
 
-GET - Requires two words. Use this to pick up an item that you can currently see.
-Example: get scrambler
-
 RESTART - Restart into a new game.
 
 EXIT - Exits the game.
