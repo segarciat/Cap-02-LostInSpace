@@ -1,79 +1,105 @@
-{
-  "hiddenItems": [
-    {
-      "name": "key",
-      "synonyms": [""],
-      "inside": ["locker"],
-      "hidden": true,
-      "fullName": "a CABINET key",
-      "description": "the key to the TOOL CABINET in the Cargo Hold.",
-      "used": false,
-      "usedDescription": "This KEY is useless now."
-    },
-    {
-      "name": "component",
-      "synonyms": ["engine", "part"],
-      "inside": ["rack"],
-      "hidden": true,
-      "fullName": "a compatible Engine COMPONENT for your ship",
-      "description": "The Engine COMPONENT CWO2 Zhang requested in order to repair your ship.\n\nNice work!",
-      "used": false,
-      "usedDescription": "You've given the COMPONENT to the Chief already."
-    },
-    {
-      "name": "tool",
-      "synonyms": ["socket", "wrench"],
-      "inside": ["cabinet"],
-      "hidden": true,
-      "fullName": "a HyperThermal Torch TOOL",
-      "description": "A HyperThermal Torch TOOL used to weld vacuum-hardened starship materials.",
-      "used": false,
-      "usedDescription": "You've given the TOOL to the Chief already."
-    },
-    {
-      "name": "corpse",
-      "synonyms": [
-        "body",
-        "captain",
-        "him",
-        "dead"
-      ],
-      "inside": ["cooler"],
-      "hidden": true,
-      "fullName": "the freighter Captain's CORPSE",
-      "description": "The Dead Captain's flight suit is drawn grotesquely taught in some places and hanging oddly loose in others due to the CORPSE rot.",
-      "used": false,
-      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\n\nYou feel guilty, from one Captain to another you apologize to the dead man."
-    },
-    {
-      "name": "keycard",
-      "synonyms": ["captain's"],
-      "inside": ["corpse"],
-      "hidden": true,
-      "fullName": "a security KEYCARD",
-      "description": "A security KEYCARD that grants access to a ship's Bridge.\nA photo and some personal info about its owner are lasered onto it.\nSeems his name was \"Cpt. Malcolm Reynolds\". The name conjures a forgotten memory in your mind...",
-      "used": false,
-      "usedDescription": "This KEYCARD is useless now."
-    },
-    {
-      "name": "manual",
-      "synonyms": ["training"],
-      "inside": ["library"],
-      "hidden": true,
-      "fullName": "a training MANUAL",
-      "description": "A Training MANUAL, depicting the proper use of the HyperThermal Torch TOOL in installing several types of Engine COMPONENTS.",
-      "used": false,
-      "usedDescription": "You've given the MANUAL to the Chief already."
-    },
-    {
-      "name": "flamethrower",
-      "synonyms": ["m451"],
-      "inside": ["hidden area"],
-      "hidden": true,
-      "fullName": "M451 Dual-Stage Reciprocating Flamethrower",
-      "description": "A state-of-the-art weapon that allows stage adjustment for focused or wide area fields of coverage.\nThe oscillating muzzle modulator delivers an even coverage across the direction of flame.",
-      "used": false,
-      "usedDescription": "The tank is depleted! You'd have to find more butane to use it again. \nThis is useless now."
-    }
-  ]
-}
+[
+  {
+    "name": "key",
+    "synonyms": [
+      ""
+    ],
+    "inside": [
+      "locker"
+    ],
+    "hidden": true,
+    "fullName": "a CABINET key",
+    "description": "the key to the TOOL CABINET in the Cargo Hold.",
+    "used": false,
+    "usedDescription": "This KEY is useless now."
+  },
+  {
+    "name": "component",
+    "synonyms": [
+      "engine",
+      "part"
+    ],
+    "inside": [
+      "rack"
+    ],
+    "hidden": true,
+    "fullName": "a compatible Engine COMPONENT for your ship",
+    "description": "The Engine COMPONENT CWO2 Zhang requested in order to repair your ship.\n\nNice work!",
+    "used": false,
+    "usedDescription": "You've given the COMPONENT to the Chief already."
+  },
+  {
+    "name": "tool",
+    "synonyms": [
+      "socket",
+      "wrench"
+    ],
+    "inside": [
+      "cabinet"
+    ],
+    "hidden": true,
+    "fullName": "a HyperThermal Torch TOOL",
+    "description": "A HyperThermal Torch TOOL used to weld vacuum-hardened starship materials.",
+    "used": false,
+    "usedDescription": "You've given the TOOL to the Chief already."
+  },
+  {
+    "name": "corpse",
+    "synonyms": [
+      "body",
+      "captain",
+      "him",
+      "dead"
+    ],
+    "inside": [
+      "cooler"
+    ],
+    "hidden": true,
+    "fullName": "the freighter Captain's CORPSE",
+    "description": "The Dead Captain's flight suit is drawn grotesquely taught in some places and hanging oddly loose in others due to the CORPSE rot.",
+    "used": false,
+    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\n\nYou feel guilty, from one Captain to another you apologize to the dead man."
+  },
+  {
+    "name": "keycard",
+    "synonyms": [
+      "captain's"
+    ],
+    "inside": [
+      "corpse"
+    ],
+    "hidden": true,
+    "fullName": "a security KEYCARD",
+    "description": "A security KEYCARD that grants access to a ship's Bridge.\nA photo and some personal info about its owner are lasered onto it.\nSeems his name was \"Cpt. Malcolm Reynolds\". The name conjures a forgotten memory in your mind...",
+    "used": false,
+    "usedDescription": "This KEYCARD is useless now."
+  },
+  {
+    "name": "manual",
+    "synonyms": [
+      "training"
+    ],
+    "inside": [
+      "library"
+    ],
+    "hidden": true,
+    "fullName": "a training MANUAL",
+    "description": "A Training MANUAL, depicting the proper use of the HyperThermal Torch TOOL in installing several types of Engine COMPONENTS.",
+    "used": false,
+    "usedDescription": "You've given the MANUAL to the Chief already."
+  },
+  {
+    "name": "flamethrower",
+    "synonyms": [
+      "m451"
+    ],
+    "inside": [
+      "hidden area"
+    ],
+    "hidden": true,
+    "fullName": "M451 Dual-Stage Reciprocating Flamethrower",
+    "description": "A state-of-the-art weapon that allows stage adjustment for focused or wide area fields of coverage.\nThe oscillating muzzle modulator delivers an even coverage across the direction of flame.",
+    "used": false,
+    "usedDescription": "The tank is depleted! You'd have to find more butane to use it again. \nThis is useless now."
+  }
+]

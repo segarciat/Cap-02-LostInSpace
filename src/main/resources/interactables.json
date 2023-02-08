@@ -1,145 +1,144 @@
-{
-  "interactables": [
-    {
-      "name": "cabinet",
-      "synonyms": [
-        "toolshed",
-        "supply",
-        "supplies"
-      ],
-      "room": [
-        "Cargo Hold"
-      ],
-      "fullName": "some kind of supply CABINET",
-      "description": "Looking closer, you see the cabinet houses a complete industrial-capacity warp drive socket set.\n\nThis should most certainly contain the TOOL that Zhang briefed you on!",
-      "used": false,
-      "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside."
-    },
-    {
-      "name": "console",
-      "synonyms": [
-        "reactor",
-        "controls",
-        "computer"
-      ],
-      "room": [
-        "Reactor Room"
-      ],
-      "fullName": "the ship reactor's control CONSOLE",
-      "description": "The CONSOLE sits mostly darkened, with the exception of one obvious display.\nIt must be in some kind of power-savings mode.",
-      "used": false,
-      "usedDescription": ""
-    },
-    {
-      "name": "pipes",
-      "synonyms": [
-        "ducts"
-      ],
-      "room": [
-        "Junction Hallway 1",
-        "Engine Room Hallway",
-        "Cockpit"
-      ],
-      "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES",
-      "description": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to \nsiphon off some nearby gases in them.",
-      "used": false,
-      "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already."
-    },
-    {
-      "name": "ship",
-      "synonyms": [
-        "spartan",
-        "E.D.F.S.",
-        "EDFS"
-      ],
-      "room": [
-        "Docking Bay"
-      ],
-      "fullName": "the E.D.F.S. Spartan, your SHIP",
-      "description": "The E.D.F.S. Spartan rests precariously on its twisted landing struts. Every few seconds her hull groans as Zhang shifts his weight inside. \nShe's seen better days, but you're still breathing. \n\nYou silently mouth words of appreciation.",
-      "used": false,
-      "usedDescription": ""
-    },
-    {
-      "name": "rack",
-      "synonyms": ["parts"],
-      "room": [
-        "Engine Room"
-      ],
-      "fullName": "a ship parts RACK affixed with contraband components",
-      "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\nThis place is gonna be a mountain of paperwork...\n\nJust when you're about to give up the search, you notice a compatible Engine COMPONENT for your ship!",
-      "used": false,
-      "usedDescription": "the evidence teams are going to be here for weeks, but you have everything you need from here for now."
-    },
-    {
-      "name": "poster",
-      "synonyms": [
-        "sign",
-        "paper",
-        "diagram",
-        "layout"
-      ],
-      "room": [
-        "Power Supplies"
-      ],
-      "fullName": "a poster labeling the freighter ship's various sectors (THIS WOULD HAVE BEEN A PART OF THE REACTOR PUZZLE)",
-      "description": "Looking closer, you see the poster is actually a useful layout of the freighter, the sectors listed from bow to stern (North to South).\nUnfortunately, the poster is now hanging UPSIDE DOWN.\nThe ship's various sectors are color coded, as well as described in text.\n\nYou examine the UPSIDE DOWN layout:(from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command\n",
-      "used": false,
-      "usedDescription": "You again examine the UPSIDE DOWN layout: (from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command"
-    },
-    {
-      "name": "locker",
-      "synonyms": [
-        "closet"
-      ],
-      "room": [
-        "Crew Quarters"
-      ],
-      "fullName": "a personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
-      "description": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.\n",
-      "used": false,
-      "usedDescription": "Nothing else of use is inside."
-    },
-    {
-      "name": "cooler",
-      "synonyms": [
-        "mortuary",
-        "fridge",
-        "freezer"
-      ],
-      "room": [
-        "MedBay"
-      ],
-      "fullName": "a Mortuary COOLER",
-      "description": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them.\nOne still remains sealed...\n\n(USE COOLER to open it)",
-      "used": false,
-      "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
-    },
-    {
-      "name": "airlock",
-      "synonyms": [],
-      "room": [
-        "Bridge"
-      ],
-      "fullName": "a sealed AIRLOCK door (THIS WOULD HAVE BEEN A PUZZLE IN THE FINAL VERSION)",
-      "description": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
-      "used": false,
-      "usedDescription": "Hopefully the vacuum actually kills the poor beast..."
-    },
-    {
-      "name": "library",
-      "synonyms": [
-        "manuals",
-        "box"
-      ],
-      "room": [
-        "Cockpit"
-      ],
-      "fullName": "a small LIBRARY of what appear to be pamphlets",
-      "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
-      "used": false,
-      "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
-
-    }
-  ]
-}
+[
+  {
+    "name": "cabinet",
+    "synonyms": [
+      "toolshed",
+      "supply",
+      "supplies"
+    ],
+    "room": [
+      "Cargo Hold"
+    ],
+    "fullName": "some kind of supply CABINET",
+    "description": "Looking closer, you see the cabinet houses a complete industrial-capacity warp drive socket set.\n\nThis should most certainly contain the TOOL that Zhang briefed you on!",
+    "used": false,
+    "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside."
+  },
+  {
+    "name": "console",
+    "synonyms": [
+      "reactor",
+      "controls",
+      "computer"
+    ],
+    "room": [
+      "Reactor Room"
+    ],
+    "fullName": "the ship reactor's control CONSOLE",
+    "description": "The CONSOLE sits mostly darkened, with the exception of one obvious display.\nIt must be in some kind of power-savings mode.",
+    "used": false,
+    "usedDescription": ""
+  },
+  {
+    "name": "pipes",
+    "synonyms": [
+      "ducts"
+    ],
+    "room": [
+      "Junction Hallway 1",
+      "Engine Room Hallway",
+      "Cockpit"
+    ],
+    "fullName": "a panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES",
+    "description": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to \nsiphon off some nearby gases in them.",
+    "used": false,
+    "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already."
+  },
+  {
+    "name": "ship",
+    "synonyms": [
+      "spartan",
+      "E.D.F.S.",
+      "EDFS"
+    ],
+    "room": [
+      "Docking Bay"
+    ],
+    "fullName": "the E.D.F.S. Spartan, your SHIP",
+    "description": "The E.D.F.S. Spartan rests precariously on its twisted landing struts. Every few seconds her hull groans as Zhang shifts his weight inside. \nShe's seen better days, but you're still breathing. \n\nYou silently mouth words of appreciation.",
+    "used": false,
+    "usedDescription": ""
+  },
+  {
+    "name": "rack",
+    "synonyms": [
+      "parts"
+    ],
+    "room": [
+      "Engine Room"
+    ],
+    "fullName": "a ship parts RACK affixed with contraband components",
+    "description": "you spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK.\nThis place is gonna be a mountain of paperwork...\n\nJust when you're about to give up the search, you notice a compatible Engine COMPONENT for your ship!",
+    "used": false,
+    "usedDescription": "the evidence teams are going to be here for weeks, but you have everything you need from here for now."
+  },
+  {
+    "name": "poster",
+    "synonyms": [
+      "sign",
+      "paper",
+      "diagram",
+      "layout"
+    ],
+    "room": [
+      "Power Supplies"
+    ],
+    "fullName": "a poster labeling the freighter ship's various sectors (THIS WOULD HAVE BEEN A PART OF THE REACTOR PUZZLE)",
+    "description": "Looking closer, you see the poster is actually a useful layout of the freighter, the sectors listed from bow to stern (North to South).\nUnfortunately, the poster is now hanging UPSIDE DOWN.\nThe ship's various sectors are color coded, as well as described in text.\n\nYou examine the UPSIDE DOWN layout:(from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command\n",
+    "used": false,
+    "usedDescription": "You again examine the UPSIDE DOWN layout: (from the top)\nSector 6(Orange): Engine Room\nSector 5(Yellow): Reactor\nSector 4(Pink): Cargo\nSector 3(Green): Crew Quarters\nSector 2(Purple): Docking\nSector 1(Blue): Command"
+  },
+  {
+    "name": "locker",
+    "synonyms": [
+      "closet"
+    ],
+    "room": [
+      "Crew Quarters"
+    ],
+    "fullName": "a personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
+    "description": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.\n",
+    "used": false,
+    "usedDescription": "Nothing else of use is inside."
+  },
+  {
+    "name": "cooler",
+    "synonyms": [
+      "mortuary",
+      "fridge",
+      "freezer"
+    ],
+    "room": [
+      "MedBay"
+    ],
+    "fullName": "a Mortuary COOLER",
+    "description": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them.\nOne still remains sealed...\n\n(USE COOLER to open it)",
+    "used": false,
+    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
+  },
+  {
+    "name": "airlock",
+    "synonyms": [],
+    "room": [
+      "Bridge"
+    ],
+    "fullName": "a sealed AIRLOCK door (THIS WOULD HAVE BEEN A PUZZLE IN THE FINAL VERSION)",
+    "description": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
+    "used": false,
+    "usedDescription": "Hopefully the vacuum actually kills the poor beast..."
+  },
+  {
+    "name": "library",
+    "synonyms": [
+      "manuals",
+      "box"
+    ],
+    "room": [
+      "Cockpit"
+    ],
+    "fullName": "a small LIBRARY of what appear to be pamphlets",
+    "description": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
+    "used": false,
+    "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
+  }
+]

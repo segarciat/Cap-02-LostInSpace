@@ -35,6 +35,9 @@ public class Controller {
     public static final String GAMEOBJECTIVES_TXT = "gameobjectives.txt";
     public static final String WELCOME_TXT = "welcome.txt";
     public static final String PROLOGUE_TXT = "prologue.txt";
+    public static final String ITEMS_JSON = "items.json";
+    public static final String HIDDENITEMS_JSON = "hiddenitems.json";
+    public static final String INTERACTABLES_JSON = "interactables.json";
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
@@ -621,12 +624,9 @@ public class Controller {
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
         setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
-        this.items = JSONLoader.loadFromJsonAsList("items.json", Item.class);
-        // setItems(loadItems().getItems());                        // load the items list into memory
-        // this.hiddenItems = JSONLoader.loadFromJsonAsList("hiddenitems.json", HiddenItem.class);
-        setHiddenItems(loadHiddenItems().getHiddenItems());      // load the hidden items list into memory
-        // this.interactables = JSONLoader.loadFromJsonAsList("interactables.json", Item.class);
-        setInteractables(loadIteractables().getInteractables()); // load the interactables list into memory
+        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
+        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDENITEMS_JSON, HiddenItem.class);
+        interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
         setItemUses(loadItemUseMap().getItemUseMap());           // load the item use map into memory
     }
 
@@ -639,36 +639,6 @@ public class Controller {
             retText.createMap();
 
             return retText;                                                 // return game map
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-    }
-
-    // returns the items list object
-    public ItemsList loadItems() {
-
-        try (Reader reader = filegetter.getResource("items.json")) {  // try with resources
-            return gson.fromJson(reader, ItemsList.class); // Convert JSON File to Java Object and return
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-    }
-
-    // returns the hidden items list object
-    public HiddenItemsList loadHiddenItems() {
-
-        try (Reader reader = filegetter.getResource("hiddenitems.json")) {  // try with resources
-            return gson.fromJson(reader, HiddenItemsList.class); // Convert JSON File to Java Object and return
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-    }
-
-    // returns the iteractables list object
-    public InteractablesList loadIteractables() {
-
-        try (Reader reader = filegetter.getResource("interactables.json")) {  // try with resources
-            return gson.fromJson(reader, InteractablesList.class); // Convert JSON File to Java Object and return
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
@@ -699,24 +669,12 @@ public class Controller {
         return items;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
     public List<HiddenItem> getHiddenItems() {
         return hiddenItems;
     }
 
-    public void setHiddenItems(List<HiddenItem> hiddenItems) {
-        this.hiddenItems = hiddenItems;
-    }
-
     public List<Item> getInteractables() {
         return interactables;
-    }
-
-    public void setInteractables(List<Item> interactables) {
-        this.interactables = interactables;
     }
 
     public List<Item> getInventory() {
