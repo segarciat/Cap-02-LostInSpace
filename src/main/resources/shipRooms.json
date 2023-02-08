@@ -1,7 +1,7 @@
 [
   {
     "name": "Enviro-Field",
-    "description": "This selection vaporizes the player instantly. (THIS WOULD BE AN INSTANT GAME OVER IN THE FINISHED VERSION)",
+    "description": "As you enter the room, your body starts to disintegrate...",
     "exits": {
       "west": "Docking Bay",
       "north": "",

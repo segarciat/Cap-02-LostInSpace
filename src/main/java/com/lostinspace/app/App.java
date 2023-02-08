@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.*;
 
 public class App {
+    public static final String INSTANT_GAME_OVER_ROOM = "Enviro-Field";
     private static Controller controller = new Controller(); // make an instance of controller for player commands
     private static Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
@@ -53,7 +54,7 @@ public class App {
                 // Exits the loop and entire application.
                 winGameAndExit();
                 break;
-            } else if (!player.hasOxygen()) {
+            } else if (!player.hasOxygen() || player.getCurrentRoom().equalsIgnoreCase(INSTANT_GAME_OVER_ROOM)) {
                 loseGameAndExit();
                 break;
             }
@@ -81,7 +82,15 @@ public class App {
     }
 
     private static void loseGameAndExit() {
-        TextPrinter.displayText("You've run out of oxygen! Game over.", Color.RED);
+        Player player = controller.getPlayer();
+        if (!player.hasOxygen()) {
+            TextPrinter.displayText("You've run out of oxygen! Game over.", Color.RED);
+        } else if (player.getCurrentRoom().equalsIgnoreCase(INSTANT_GAME_OVER_ROOM)) {
+            TextPrinter.displayText(
+                    String.format("You entered the %s and immediately vaporized. Game over.", INSTANT_GAME_OVER_ROOM),
+                    Color.RED
+            );
+        }
     }
 
     private static void winGameAndExit() {
