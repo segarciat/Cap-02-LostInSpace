@@ -13,6 +13,7 @@ public class Room {
     private String description;                          // description of area
     private Exit exits;                                  // object acts as where each direction will lead player
     private List<String> interactables;
+    private String entryItem;
 
     // ACCESSOR METHODS
     public String getName() {
@@ -29,5 +30,9 @@ public class Room {
 
     public List<String> getInteractables() {
         return interactables;
+    }
+
+    public String getEntryItem() {
+        return entryItem;
     }
 }
