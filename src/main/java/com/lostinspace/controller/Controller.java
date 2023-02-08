@@ -38,6 +38,7 @@ public class Controller {
     public static final String ITEMS_JSON = "items.json";
     public static final String HIDDENITEMS_JSON = "hiddenitems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
+    public static final String SHIPROOMS_JSON = "shiprooms.json";
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
@@ -623,25 +624,11 @@ public class Controller {
         titleCard = TextLoader.loadText(WELCOME_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
-        setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
+        roomsList = JSONLoader.loadFromJsonAsList(SHIPROOMS_JSON, Room.class);
         items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
         hiddenItems = JSONLoader.loadFromJsonAsList(HIDDENITEMS_JSON, HiddenItem.class);
         interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
         setItemUses(loadItemUseMap().getItemUseMap());           // load the item use map into memory
-    }
-
-    // returns the game map object, RoomsRoot
-    public RoomsRoot loadMap() {
-        RoomsRoot retText = new RoomsRoot();                                // create empty map object
-
-        try (Reader reader = filegetter.getResource("shiprooms.json")) {  // try with
-            retText = gson.fromJson(reader, RoomsRoot.class);                 // Convert JSON File to Java Object
-            retText.createMap();
-
-            return retText;                                                 // return game map
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
     }
 
     // returns the item use map object
@@ -659,10 +646,6 @@ public class Controller {
 
     public List<Room> getRoomsList() {
         return roomsList;
-    }
-
-    public void setRoomsList(List<Room> roomsList) {
-        this.roomsList = roomsList;
     }
 
     public List<Item> getItems() {
