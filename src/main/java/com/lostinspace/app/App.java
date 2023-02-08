@@ -7,6 +7,8 @@ package com.lostinspace.app;
  * Calls Controller for player commands
  */
 
+import com.lostinspace.model.HiddenItem;
+import com.lostinspace.model.Item;
 import com.lostinspace.model.Room;
 import com.lostinspace.controller.Controller;
 import com.lostinspace.util.Color;
@@ -30,11 +32,25 @@ public class App {
 
         controller.gameInstructions();                      // display game instructions
 
+        // Once this ship item is "used", player wins.
+        Item useShipInteractable = controller.getInteractables().stream()
+                .filter(i -> i.getName().equalsIgnoreCase("ship"))
+                .findFirst()
+                .get();
+
+        // Uncomment the line below to immediately obtain all items needed to win.
+        // satisfyAllWinningConditions();
+
 
         Controller.clearConsole();
         remindStatus(); // remind user of status
         // breaking this while loop means the game is over
         while (true) {
+            if (useShipInteractable.isUsed()) {
+                // Exits the loop and entire application.
+                winGameAndExit();
+                break;
+            }
             try {
                 String userInput = "";                              // empty string to hold user response
 
@@ -54,6 +70,29 @@ public class App {
             } catch (Exception e) {
                 TextPrinter.displayText(e.getCause().getMessage(), Color.RED);
                 remindStatus();
+            }
+        }
+    }
+
+    private static void winGameAndExit() {
+        TextPrinter.displayText("WIN! The ship has been fixed. Time to fly off...", Color.GREEN);
+    }
+
+    /**
+     * Places necessary items in player inventory and automatically "uses" them.
+     * From here, all that's needed to win is to type "use ship".
+     *
+     */
+    private static void satisfyAllWinningConditions() {
+        List<Item> inventory = controller.getInventory();
+        List<HiddenItem> hiddenItems = controller.getHiddenItems();
+        for (HiddenItem hiddenItem: hiddenItems) {
+            switch (hiddenItem.getName().toLowerCase()) {
+                case "manual":
+                case "tool":
+                case "component":
+                    hiddenItem.setUsed(true);
+                    inventory.add(new Item(hiddenItem));
             }
         }
     }
