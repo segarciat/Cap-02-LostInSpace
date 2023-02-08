@@ -131,7 +131,6 @@ public class ItemUseMethods {
     }
 
     public void useShip() {
-        System.out.println("useShip() method is being called...");
         boolean item1 = false;
         boolean item2 = false;
         boolean item3 = false;

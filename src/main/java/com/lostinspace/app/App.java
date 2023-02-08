@@ -9,6 +9,8 @@ package com.lostinspace.app;
 
 import com.lostinspace.model.Room;
 import com.lostinspace.controller.Controller;
+import com.lostinspace.util.Color;
+import com.lostinspace.util.TextPrinter;
 
 import java.io.*;
 import java.util.*;
@@ -50,7 +52,8 @@ public class App {
                     remindStatus(); // remind user of status
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                TextPrinter.displayText(e.getCause().getMessage(), Color.RED);
+                remindStatus();
             }
         }
     }
