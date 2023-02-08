@@ -26,16 +26,16 @@ import java.util.*;
  */
 public class Controller {
     public static final String INSTRUCTIONS_TXT = "instructions.txt";
-    public static final String ITEMUSES_JSON = "itemuses.json";
+    public static final String ITEM_USES_JSON = "itemUses.json";
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
-    public static final String GAMEOBJECTIVES_TXT = "gameobjectives.txt";
+    public static final String GAME_OBJECTIVES_TXT = "gameObjectives.txt";
     public static final String WELCOME_TXT = "welcome.txt";
     public static final String PROLOGUE_TXT = "prologue.txt";
     public static final String ITEMS_JSON = "items.json";
-    public static final String HIDDENITEMS_JSON = "hiddenitems.json";
+    public static final String HIDDEN_ITEMS_JSON = "hiddenItems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
-    public static final String SHIPROOMS_JSON = "shiprooms.json";
+    public static final String SHIP_ROOMS_JSON = "shipRooms.json";
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
     private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
@@ -612,15 +612,15 @@ public class Controller {
     public void loadGameObjects() {
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
         tutorialsText = TextLoader.loadText(TUTORIAL_TEXT_TXT);
-        objectives = TextLoader.loadText(GAMEOBJECTIVES_TXT);
+        objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
         titleCard = TextLoader.loadText(WELCOME_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
-        roomsList = JSONLoader.loadFromJsonAsList(SHIPROOMS_JSON, Room.class);
+        roomsList = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class);
         items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
-        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDENITEMS_JSON, HiddenItem.class);
+        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
         interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
-        itemUses = JSONLoader.loadFromJsonAsMap(ITEMUSES_JSON, ItemUse.class);
+        itemUses = JSONLoader.loadFromJsonAsMap(ITEM_USES_JSON, ItemUse.class);
     }
 
     //-------------------------------ACCESSOR METHODS
