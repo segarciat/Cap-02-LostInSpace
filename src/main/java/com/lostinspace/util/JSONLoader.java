@@ -2,6 +2,7 @@ package com.lostinspace.util;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lostinspace.app.App;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -33,8 +34,7 @@ public class JSONLoader {
     }
 
     private static <T> T loadFromJson(String jsonFile, Type type) {
-        InputStream is = JSONLoader.class.getClassLoader().getResourceAsStream(jsonFile);
-        try (Reader reader = new InputStreamReader(is)) {
+        try (Reader reader = new InputStreamReader(App.class.getClassLoader().getResourceAsStream(jsonFile))) {
             Gson gson = new Gson();
             return gson.fromJson(reader, type);
         } catch (IOException e) {
