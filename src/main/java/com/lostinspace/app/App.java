@@ -20,15 +20,13 @@ public class App {
 
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
-        controller.loadAnsiConsole();                        // enables Jansi ANSI support
-
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-        // controller.titleCard();                              // display title card
+         controller.titleCard();                              // display title card
 
-        // controller.prologue();                               // display prologue text
+         controller.prologue();                               // display prologue text
 
-        // controller.gameInstructions();                      // display game instructions
+         controller.gameInstructions();                      // display game instructions
 
 
         Controller.clearConsole();
