@@ -22,11 +22,11 @@ public class App {
     public static void main(String[] args) throws IOException {
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
-         controller.titleCard();                              // display title card
+        controller.titleCard();                              // display title card
 
-         controller.prologue();                               // display prologue text
+        controller.prologue();                               // display prologue text
 
-         controller.gameInstructions();                      // display game instructions
+        controller.gameInstructions();                      // display game instructions
 
 
         Controller.clearConsole();
@@ -40,8 +40,7 @@ public class App {
                 while (userInput.equals("")) {
 
                     System.out.println("Enter a Command (HELP for command list): ");        // prompt a user response
-                    userInput = scan.nextLine();                    // stop for user data entry
-                    userInput = userInput.toLowerCase();            // normalizing input
+                    userInput = scan.nextLine().trim().toLowerCase();                       // stop for user data entry and normalize input
                     String[] inputArr = userInput.split(" "); // create array for split input
 
                     Controller.clearConsole();
