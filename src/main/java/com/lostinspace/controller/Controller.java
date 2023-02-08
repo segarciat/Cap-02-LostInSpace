@@ -17,6 +17,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 /*
@@ -25,27 +27,36 @@ import java.util.*;
  * loads game text/dialogue
  */
 public class Controller {
+    // Text files.
     public static final String INSTRUCTIONS_TXT = "instructions.txt";
-    public static final String ITEM_USES_JSON = "itemUses.json";
-    public static final double O_2_CONSUMED = 5.0;
-    private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
     public static final String GAME_OBJECTIVES_TXT = "gameObjectives.txt";
     public static final String WELCOME_TXT = "welcome.txt";
     public static final String PROLOGUE_TXT = "prologue.txt";
+
+    // JSON files
+    public static final String ITEM_USES_JSON = "itemUses.json";
     public static final String ITEMS_JSON = "items.json";
     public static final String HIDDEN_ITEMS_JSON = "hiddenItems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
     public static final String SHIP_ROOMS_JSON = "shipRooms.json";
+
+    // Other constants
+    public static final double O_2_CONSUMED = 5.0;
     public static final double INITIAL_OXYGEN = 80.00;
     public static final String INITIAL_ROOM = "Docking Bay";
+
+    private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
+
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
-    private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private Map<String, Room> roomMap;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
     private List<Item> items;                          // import instance of list of collectable items
     private List<HiddenItem> hiddenItems;              // import instance of list of items that begin as hidden
     private List<Item> interactables;                  // import instance of list of interactable objects
     private Map<String, ItemUse> itemUses; // map containing descriptions of item use results
+
+    // Strings containing text from files.
     private String titleCard;
     private String instructions;
     private String objectives;
@@ -154,14 +165,14 @@ public class Controller {
         // movement commands
         else if (inputArr[0].equals("go") || inputArr[0].equals("walk") || inputArr[0].equals("move") || inputArr[0].equals("run")) {
             // check that player is allowed to go in that direction
-            player.setCurrentRoom(move(getRoomsList(), player.getCurrentRoom(), inputArr[1]));
+            player.setCurrentRoom(move(getRoomMap(), player.getCurrentRoom(), inputArr[1]));
         }
 
         // inspect rooms, items, or anything listed as a Point of interest
         else if (inputArr[0].equals("look") || inputArr[0].equals("inspect") || inputArr[0].equals("examine") || inputArr[0].equals("study") || inputArr[0].equals("investigate")) {
             // rooms are inspected differently than items
             if (inputArr[1].equals("room")) {
-                TextPrinter.displayText(inspectRoom(getItems(), getInteractables(), getRoomsList(), player.getCurrentRoom()));
+                TextPrinter.displayText(inspectRoom(getItems(), getInteractables(), getRoomMap(), player.getCurrentRoom()));
             } else {
                 clearConsole();
                 TextPrinter.displayText(inspectItem(getItems(), getInteractables(), player.getCurrentRoom(), inputArr[1]));
@@ -263,11 +274,11 @@ public class Controller {
      * prompts player to INSPECT ROOM when invalid choice is given.
      * returns string which resets currentRoom in App
      */
-    public String move(List<Room> map, String room, String dir) {
+    public String move(Map<String, Room> map, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
 
         // iterate through map
-        for (Room value : map) {
+        for (Room value : map.values()) {
             // if the direction desired exists as an exit in that room...
             if (value.getName().equals(room)) {
                 // ...then reassign return room as the room in that direction
@@ -324,7 +335,7 @@ public class Controller {
      * allows player to inspect rooms to find items and exits
      * returns string detailing
      */
-    public String inspectRoom(List<Item> items, List<Item> interactables, List<Room> rooms, String room) {
+    public String inspectRoom(List<Item> items, List<Item> interactables, Map<String, Room> rooms, String room) {
         StringBuilder roomDescriptionSB = new StringBuilder("You survey the area. \n\nYou're able to find: \n"); // string holds return description
         TextPrinter.displayText("Current Room: " + room);
         // iterate through room list
@@ -348,7 +359,7 @@ public class Controller {
 
         roomDescriptionSB.append("\nExits: \n");            // then add a header for exits from the room
 
-        for (Room value : rooms) {
+        for (Room value : rooms.values()) {
             if (value.getName().equals(room)) {
                 // add each existing exit to the return string
                 if (!value.getExits().getNorth().equals("")) {          // ignore non-exits
@@ -490,6 +501,8 @@ public class Controller {
             }
         }
 
+        // Room currentRoom = roomsList.stream().filter(r -> r.getName().equalsIgnoreCase(player.getCurrentRoom())).findFirst().get();
+
         // iterate through interactables list
         for (Item interactable : interactables) {
             // if the item toBeUsed is an interactable
@@ -607,7 +620,9 @@ public class Controller {
         titleCard = TextLoader.loadText(WELCOME_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
-        roomsList = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class);
+        roomMap = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
+                .collect(Collectors.toMap(r -> r.getName(), Function.identity()));
+
         items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
         hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
         interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
@@ -616,8 +631,8 @@ public class Controller {
 
     //-------------------------------ACCESSOR METHODS
 
-    public List<Room> getRoomsList() {
-        return roomsList;
+    public Map<String, Room> getRoomMap() {
+        return roomMap;
     }
 
     public List<Item> getItems() {

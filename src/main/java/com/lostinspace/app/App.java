@@ -14,7 +14,6 @@ import com.lostinspace.model.Room;
 import com.lostinspace.controller.Controller;
 import com.lostinspace.util.Color;
 import com.lostinspace.util.TextPrinter;
-import org.w3c.dom.Text;
 
 import java.io.*;
 import java.util.*;
@@ -111,10 +110,10 @@ public class App {
     static void remindStatus() {
         // no command input requires showStatus() to display details to user again
         String roomDescription = "";                             // create empty string to hold description
-        List<Room> rooms = controller.getRoomsList();            // gets a ref to list of rooms
-        for (int i = 0; i < rooms.size(); i++) {                 // search through all rooms for currentRoom description
-            if (rooms.get(i).getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
-                roomDescription = rooms.get(i).getDescription();      // ...create string to hold currentRoom's description
+        Map<String, Room> rooms = controller.getRoomMap();            // gets a ref to list of rooms
+        for (Room room : rooms.values()) {                 // search through all rooms for currentRoom description
+            if (room.getName().equals(controller.getPlayer().getCurrentRoom())) {  // if found...
+                roomDescription = room.getDescription();      // ...create string to hold currentRoom's description
             }
         }
 
