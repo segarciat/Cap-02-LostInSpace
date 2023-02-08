@@ -37,6 +37,8 @@ public class Controller {
     public static final String HIDDEN_ITEMS_JSON = "hiddenItems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
     public static final String SHIP_ROOMS_JSON = "shipRooms.json";
+    public static final double INITIAL_OXYGEN = 80.00;
+    public static final String INITIAL_ROOM = "Docking Bay";
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
     private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
@@ -57,7 +59,7 @@ public class Controller {
     private final ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private final Player player = new Player("Docking Bay", 80.00);
+    private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
     //-------------------------------CONTROLLER METHODS

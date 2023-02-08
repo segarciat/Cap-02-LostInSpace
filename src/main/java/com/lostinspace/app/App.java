@@ -9,10 +9,12 @@ package com.lostinspace.app;
 
 import com.lostinspace.model.HiddenItem;
 import com.lostinspace.model.Item;
+import com.lostinspace.model.Player;
 import com.lostinspace.model.Room;
 import com.lostinspace.controller.Controller;
 import com.lostinspace.util.Color;
 import com.lostinspace.util.TextPrinter;
+import org.w3c.dom.Text;
 
 import java.io.*;
 import java.util.*;
@@ -38,6 +40,8 @@ public class App {
                 .findFirst()
                 .get();
 
+        Player player = controller.getPlayer();
+
         // Uncomment the line below to immediately obtain all items needed to win.
         // satisfyAllWinningConditions();
 
@@ -49,6 +53,9 @@ public class App {
             if (useShipInteractable.isUsed()) {
                 // Exits the loop and entire application.
                 winGameAndExit();
+                break;
+            } else if (!player.hasOxygen()) {
+                loseGameAndExit();
                 break;
             }
             try {
@@ -72,6 +79,10 @@ public class App {
                 remindStatus();
             }
         }
+    }
+
+    private static void loseGameAndExit() {
+        TextPrinter.displayText("You've run out of oxygen! Game over.", Color.RED);
     }
 
     private static void winGameAndExit() {

@@ -45,4 +45,8 @@ public class Player {
     public void setOxygen(double oxygen) {
         this.oxygen = oxygen;
     }
+
+    public boolean hasOxygen() {
+        return oxygen != 0.0;
+    }
 }
