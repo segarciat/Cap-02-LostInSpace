@@ -49,7 +49,7 @@ public class ItemUseMethods {
 
     public void useKey() {
         // get the list of hidden items from the Controller class
-        Map<String, Map<String, String>> itemUses = getController().getItemUses();
+        Map<String, ItemUse> itemUses = getController().getItemUses();
         List<HiddenItem> hiddenItems = getController().getHiddenItems();
         List<Item> interactables = getController().getInteractables();
 
@@ -62,7 +62,7 @@ public class ItemUseMethods {
                     getController().getInventory().get(i).setUsed(true); // flag key as having been used
 
                     // display the description of succeeding to use the key
-                    System.out.println(itemUses.get("cabinet").get("useDescription"));
+                    System.out.println(itemUses.get("cabinet").getUseDescription());
 
                     for (Iterator<Item> iter = interactables.iterator(); iter.hasNext(); ) {
                         Item item = iter.next();

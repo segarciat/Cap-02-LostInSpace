@@ -14,9 +14,7 @@ import com.lostinspace.model.*;
 import com.lostinspace.util.*;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -30,6 +28,7 @@ import java.util.*;
  */
 public class Controller {
     public static final String INSTRUCTIONS_TXT = "instructions.txt";
+    public static final String ITEMUSES_JSON = "itemuses.json";
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
     public static final String GAMEOBJECTIVES_TXT = "gameobjectives.txt";
@@ -42,12 +41,11 @@ public class Controller {
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
-    private Gson gson = new Gson();                    // Gson object converts JSON objects
     private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
     private List<Item> items;                          // import instance of list of collectable items
     private List<HiddenItem> hiddenItems;              // import instance of list of items that begin as hidden
     private List<Item> interactables;                  // import instance of list of interactable objects
-    private Map<String, Map<String, String>> itemUses; // map containing descriptions of item use results
+    private Map<String, ItemUse> itemUses; // map containing descriptions of item use results
     private String titleCard;
     private String instructions;
     private String objectives;
@@ -487,7 +485,7 @@ public class Controller {
                         // get meta data from ItemUseMethods class using an instance
                         @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
                         // reassign method using the .getMethod() method from .getClass() via Java reflection
-                        method = clazz.getMethod(itemUses.get(toBeUsed).get("method"));
+                        method = clazz.getMethod(itemUses.get(toBeUsed).getMethod());
                     } catch (NoSuchMethodException err) {
                         throw new RuntimeException(err);
                     }
@@ -495,7 +493,7 @@ public class Controller {
                     try {
                         clearConsole();
                         // display description of use effects to player
-                        TextPrinter.displayText(itemUses.get(toBeUsed).get("useDescription"));
+                        TextPrinter.displayText(itemUses.get(toBeUsed).getUseDescription());
                         // invoke the method retrieved above, this allows any item object to be used the same way
                         method.invoke(itemUseMethods);
                         return;
@@ -523,13 +521,13 @@ public class Controller {
                                 // this allows one to retrieve any method using reflection in the same way as above
                                 try {
                                     @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                    method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).get("method"));
+                                    method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).getMethod());
                                 } catch (NoSuchMethodException err) {
                                     throw new RuntimeException(err);
                                 }
 
                                 try {
-                                    TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).get("useDescription"));
+                                    TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).getUseDescription());
                                     method.invoke(itemUseMethods);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
@@ -552,13 +550,13 @@ public class Controller {
                             // this allows one to retrieve any method using reflection in the same way as above
                             try {
                                 @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).get("method"));
+                                method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).getMethod());
                             } catch (NoSuchMethodException err) {
                                 throw new RuntimeException(err);
                             }
 
                             try {
-                                TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).get("useDescription"));
+                                TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).getUseDescription());
                                 method.invoke(itemUseMethods);
                                 return;
                             } catch (IllegalAccessException | InvocationTargetException err) {
@@ -628,19 +626,8 @@ public class Controller {
         items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
         hiddenItems = JSONLoader.loadFromJsonAsList(HIDDENITEMS_JSON, HiddenItem.class);
         interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
-        setItemUses(loadItemUseMap().getItemUseMap());           // load the item use map into memory
+        itemUses = JSONLoader.loadFromJsonAsMap(ITEMUSES_JSON, ItemUse.class);
     }
-
-    // returns the item use map object
-    public ItemUseMap loadItemUseMap() {
-
-        try (Reader reader = filegetter.getResource("itemuses.json")) {  // try with resources
-            return gson.fromJson(reader, ItemUseMap.class);  // Convert JSON File to Java Object and return
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-    }
-
 
     //-------------------------------ACCESSOR METHODS
 
@@ -668,12 +655,8 @@ public class Controller {
         this.inventory = inventory;
     }
 
-    public Map<String, Map<String, String>> getItemUses() {
+    public Map<String, ItemUse> getItemUses() {
         return itemUses;
-    }
-
-    public void setItemUses(Map<String, Map<String, String>> itemUses) {
-        this.itemUses = itemUses;
     }
 
     public ItemUseMethods getItemUseMethods() {
