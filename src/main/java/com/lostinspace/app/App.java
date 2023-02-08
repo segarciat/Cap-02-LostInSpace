@@ -24,9 +24,9 @@ public class App {
 
          controller.titleCard();                              // display title card
 
-        // controller.prologue();                               // display prologue text
+         controller.prologue();                               // display prologue text
 
-        // controller.gameInstructions();                      // display game instructions
+         controller.gameInstructions();                      // display game instructions
 
 
         Controller.clearConsole();

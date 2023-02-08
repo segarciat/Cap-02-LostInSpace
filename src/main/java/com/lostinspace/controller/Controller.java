@@ -29,7 +29,12 @@ import java.util.*;
  * loads game text/dialogue
  */
 public class Controller {
+    public static final String INSTRUCTIONS_TXT = "instructions.txt";
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
+    public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
+    public static final String GAMEOBJECTIVES_TXT = "gameobjectives.txt";
+    public static final String WELCOME_TXT = "welcome.txt";
+    public static final String PROLOGUE_TXT = "prologue.txt";
     FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
@@ -59,85 +64,50 @@ public class Controller {
 
     // Display prologue text
     public void prologue() {
-        String text = ""; // empty return string
+        String[] lines = prologue.split(System.getProperty("line.separator"));
 
-        try (Reader data = filegetter.getResource("prologue.txt")) {
-            // load file from resources dir
-            BufferedReader reader = new BufferedReader(data);
-            StringBuilder sBuilder = new StringBuilder();
-            String line = null;
-            String ls = System.getProperty("line.separator");
+        double linesToDisplay = 13;
+        double printLimit = lines.length / linesToDisplay;
+        printLimit = Math.ceil(printLimit);
 
-            // while true that there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line);
-                sBuilder.append(ls);
-            }
-
-            // delete the last new line separator
-            sBuilder.deleteCharAt(sBuilder.length() - 1);
-            reader.close();
-            text = sBuilder.toString();
-            String[] lines = text.split(System.getProperty("line.separator"));
-
-            double linesToDisplay = 13;
-            double printLimit = lines.length / linesToDisplay;
-            printLimit = Math.ceil(printLimit);
-
-            int idx = 0;
-            while (printLimit > 0) {
-                for (int i = 0; i < linesToDisplay; i++) {
-                    if (!lines[idx].equals(null)) {
-                        TextPrinter.displayText(lines[idx]);
-                        idx++;
-                    }
-                    if (idx == lines.length) {
-                        break;
-                    }
+        int idx = 0;
+        while (printLimit > 0) {
+            for (int i = 0; i < linesToDisplay; i++) {
+                if (!lines[idx].equals(null)) {
+                    TextPrinter.displayText(lines[idx]);
+                    idx++;
                 }
-                events.enterToContinue();
-                printLimit--;
+                if (idx == lines.length) {
+                    break;
+                }
             }
-
-            // throw IO Exception if failed
-        } catch (IOException err) {
-            err.printStackTrace();
+            try {
+                events.enterToContinue();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printLimit--;
         }
     }
 
     // Display game Title Card
-    public void titleCard() throws IOException {
-        System.out.println(titleCard);
-        events.enterForNewGame();
+    public void titleCard(){
+
+        TextPrinter.displayText(titleCard);
+        try {
+            events.enterForNewGame();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Display user commands
     public void gameInstructions() {
-        String instructions = ""; // empty return string
-
-        try (Reader data = filegetter.getResource("tutorialText.txt")) {
-            // load file from resources dir
-            BufferedReader reader = new BufferedReader(data);
-            StringBuilder sBuilder = new StringBuilder();
-            String line = null;
-            String ls = System.getProperty("line.separator");
-
-            // while true that there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line);
-                sBuilder.append(ls);
-            }
-            // delete the last new line separator
-            sBuilder.deleteCharAt(sBuilder.length() - 1);
-            reader.close();
-            instructions = sBuilder.toString();
-
-            TextPrinter.displayText(instructions);
-            events.enterForNewGame();                  // user must press enter to continue
-
-            // throw IO Exception if failed
-        } catch (IOException err) {
-            err.printStackTrace();
+        TextPrinter.displayText(tutorialsText);
+        try {
+            events.enterForNewGame();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -246,30 +216,11 @@ public class Controller {
 
     // Display commands reminder
     public void help() {
-        String instructions = ""; // empty return string
-
-        try (Reader data = filegetter.getResource("instructions.txt")) {
-            // load file from resources dir
-            BufferedReader reader = new BufferedReader(data);
-            StringBuilder sBuilder = new StringBuilder();
-            String line = null;
-            String ls = System.getProperty("line.separator");
-
-            // while true that there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sBuilder.append(line);
-                sBuilder.append(ls);
-            }
-            // delete the last new line separator
-            sBuilder.deleteCharAt(sBuilder.length() - 1);
-            reader.close();
-            instructions = sBuilder.toString();
-
-            TextPrinter.displayText(instructions, Color.CYAN);
-
-            // throw IO Exception if failed
-        } catch (IOException err) {
-            err.printStackTrace();
+        TextPrinter.displayText(instructions, Color.CYAN);
+        try {
+            events.enterForNewGame();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -289,30 +240,12 @@ public class Controller {
     }
 
     // display game winning objectives
-    public void objectives() throws IOException {
-        String content = ""; // empty return string
-
-        try (Reader objectives = filegetter.getResource("gameobjectives.txt")) {
-            // load file from resources dir
-
-            BufferedReader reader = new BufferedReader(objectives);
-
-            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
-            String line = null;                                // empty string for line
-            String ls = System.lineSeparator();                // line separator
-
-            // while there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sB.append(line);                    // append the next line to the SB
-                sB.append(ls);                      // new line
-            }
-
-            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
-            content = sB.toString();                // create new string with sB content
-            TextPrinter.displayText(content);            // display title card!
-
-        } catch (IOException err) {                 // throw IO Exception if failed
-            throw new RuntimeException(err);
+    public void objectives(){
+        TextPrinter.displayText(objectives);
+        try {
+            events.enterForNewGame();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -681,11 +614,11 @@ public class Controller {
 
     // returns the items list object
     public void loadGameObjects() throws IOException {
-        instructions = TextLoader.loadText("instructions.txt");
-        tutorialsText = TextLoader.loadText("tutorialText.txt");
-        objectives = TextLoader.loadText("gameobjectives.txt");
-        titleCard = TextLoader.loadText("welcome.txt");
-        prologue = TextLoader.loadText("prologue.txt");
+        instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
+        tutorialsText = TextLoader.loadText(TUTORIAL_TEXT_TXT);
+        objectives = TextLoader.loadText(GAMEOBJECTIVES_TXT);
+        titleCard = TextLoader.loadText(WELCOME_TXT);
+        prologue = TextLoader.loadText(PROLOGUE_TXT);
 
         setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
         setItems(loadItems().getItems());                        // load the items list into memory
