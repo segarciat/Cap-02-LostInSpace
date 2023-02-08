@@ -1,32 +1,46 @@
 package com.lostinspace.model;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class LisGui {
+        private JFrame frame;
+        private ImageIcon bgImage;
+        private JLabel label;
+        private JButton enterGame;
+
 
     public static void main(String[] args) {
-
-//        ImageIcon image = new ImageIcon("/rocket.png");
-
-        //JLabel for string or image
-        JLabel label = new JLabel("Lost In Space"); // creates a label
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.TOP);
-//        label.setIcon(image);
-        label.setForeground(Color.BLUE); // set color of text
-        label.setFont(new Font("SansSerif", Font.ITALIC, 35)); //set font of text
-
-        // JFrame window for GUI for components
-        JFrame frame = new JFrame(); // creates an instance of frame
-        frame.setTitle(" Lost in Space "); // Title of frame
-        frame.add(label);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of application
-//        frame.setResizable(false); // frame cannot be resized
-        frame.setSize(420, 420); // X and Y dimension of the frame
-        frame.getContentPane().setBackground(Color.black); // changes color of background
-        frame.setVisible(true); // shows a visible frame
+        new LisGui();
 
     }
 
+    public LisGui () {
+
+        bgImage = new ImageIcon(this.getClass().getResource("/title_fly.gif"));
+        label = new JLabel(bgImage);
+        label.setSize(720,720);
+
+        enterGame = new JButton("Enter Game"); // set text for "enter game" button
+        enterGame.setBounds(310,550,100,50); // center button within the frame
+        enterGame.addActionListener(new ActionListener() { // created an actionlistener when button is pushed
+            @Override
+            public void actionPerformed(ActionEvent e) { // shows a message when button has been clicked
+                JOptionPane.showMessageDialog(null, "You are now entering the game.");
+            }
+        });
+
+        label.add(enterGame); // adds a button with display of "enter game"
+
+        frame =new JFrame("Lost In Space"); // set text title for gui frame
+        frame.add(label);
+        frame.setSize(720, 720);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        frame.setVisible(true);
+    }
 }
+
