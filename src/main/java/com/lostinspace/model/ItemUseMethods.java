@@ -2,6 +2,7 @@ package com.lostinspace.model;
 
 import com.lostinspace.app.App;
 import com.lostinspace.controller.Controller;
+import com.lostinspace.util.TextPrinter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,7 +132,6 @@ public class ItemUseMethods {
     }
 
     public void useShip() {
-        System.out.println("useShip() method is being called...");
         boolean item1 = false;
         boolean item2 = false;
         boolean item3 = false;
@@ -153,10 +153,7 @@ public class ItemUseMethods {
             canUseShip = true;
         }
 
-        if (canUseShip) {
-            // TODO: END GAME
-            System.out.println("YOU WIN!");
-        } else {
+        if (!canUseShip) {
             throw new IllegalArgumentException("Sorry, you need ALL three items to fix the ship. It is inoperable as " +
                     "of now.");
         }

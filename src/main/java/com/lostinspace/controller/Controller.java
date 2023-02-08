@@ -80,11 +80,7 @@ public class Controller {
                     break;
                 }
             }
-            try {
-                events.enterToContinue();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            events.enterToContinue();
             printLimit--;
         }
     }
@@ -93,21 +89,13 @@ public class Controller {
     public void titleCard(){
 
         TextPrinter.displayText(titleCard);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     // Display user commands
     public void gameInstructions() {
         TextPrinter.displayText(tutorialsText);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
 
@@ -213,11 +201,7 @@ public class Controller {
     // Display commands reminder
     public void help() {
         TextPrinter.displayText(instructions, Color.CYAN);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     // restarts game when called
@@ -238,11 +222,7 @@ public class Controller {
     // display game winning objectives
     public void objectives(){
         TextPrinter.displayText(objectives);
-        try {
-            events.enterForNewGame();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        events.enterToContinue();
     }
 
     /*
@@ -511,7 +491,6 @@ public class Controller {
                         // check if the item is in the same room
                         if (interactable.getRoom().contains(player.getCurrentRoom())) {
                             if (!interactable.isUsed()) {
-                                interactable.setUsed(true);
                                 // this allows one to retrieve any method using reflection in the same way as above
                                 try {
                                     @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
@@ -523,8 +502,11 @@ public class Controller {
                                 try {
                                     TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                     method.invoke(itemUseMethods);
+                                    interactable.setUsed(true);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
+                                    TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
+                                    // Presumably, an exception means that the use was not successful.
                                     throw new RuntimeException(err);
                                 }
                             } else {
@@ -540,7 +522,6 @@ public class Controller {
                     // check if the item is in the same room
                     if (interactable.getRoom().contains(player.getCurrentRoom())) {
                         if (!interactable.isUsed()) {
-                            interactable.setUsed(true);
                             // this allows one to retrieve any method using reflection in the same way as above
                             try {
                                 @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
@@ -552,9 +533,11 @@ public class Controller {
                             try {
                                 TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                 method.invoke(itemUseMethods);
+                                interactable.setUsed(true);
                                 return;
-                            } catch (IllegalAccessException | InvocationTargetException err) {
-                                throw new RuntimeException(err);
+                            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException err) {
+                                TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
+                                throw new RuntimeException(err.getCause());
                             }
                         } else {
                             TextPrinter.displayText(interactable.getUsedDescription());
