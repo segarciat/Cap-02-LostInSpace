@@ -7,8 +7,6 @@ package com.lostinspace.controller;
  * Handles loading game map into memory.
  */
 
-import com.google.gson.Gson;
-
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
 import com.lostinspace.util.*;
@@ -38,7 +36,6 @@ public class Controller {
     public static final String HIDDENITEMS_JSON = "hiddenitems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
     public static final String SHIPROOMS_JSON = "shiprooms.json";
-    FileGetter filegetter = new FileGetter();       // FileGetter retrieves resources
     GameEvents events = new GameEvents();           // ref to Game Event Methods
 
     private List<Room> roomsList;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
@@ -53,13 +50,13 @@ public class Controller {
     private String tutorialsText;
 
     // map containing locked doors and interactables
-    private Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", false, "cabinet", true));
+    private final Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", false, "cabinet", true));
 
     // methods that define what happens after using items
-    private ItemUseMethods itemUseMethods = new ItemUseMethods();
+    private final ItemUseMethods itemUseMethods = new ItemUseMethods();
 
     // create player
-    private Player player = new Player("Docking Bay", 80.00);
+    private final Player player = new Player("Docking Bay", 80.00);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
     //-------------------------------CONTROLLER METHODS
@@ -153,16 +150,13 @@ public class Controller {
         }
 
         // check for commands that are too short or too long
-        else if (inputArr.length < 2 || inputArr.length > 2) {
+        else if (inputArr.length != 2) {
             clearConsole();
             if (inputArr[0].equals("")) {
                 TextPrinter.displayText("\n\nEMPTY COMMAND!\n\n", Color.RED);
             } else {
                 TextPrinter.displayText("I don't know how to simply, \"" + inputArr[0] + "\". I need a target to " + inputArr[0] + "!");
             }
-        } else if (inputArr.length > 2) {
-            clearConsole();
-            TextPrinter.displayText("Too many words in your command." + "\nOnly use VALID 2-WORD commands!", Color.RED);
         }
 
         // MULTI-WORD COMMANDS
@@ -262,18 +256,18 @@ public class Controller {
 
         TextPrinter.displayText(description, Color.GREEN);          // print description of current room
 
-        String itemsInInventory = "";  // make empty string to hold item names
 
         //iterate through the inventory and add each item to the string
+        StringBuilder itemInventorySB = new StringBuilder();
         for (int i = 0; i < getInventory().size(); i++) {
-            itemsInInventory += " - " + getInventory().get(i).getName();
+            itemInventorySB.append(" - ").append( getInventory().get(i).getName());
         }
 
         // print what the player is carrying
-        TextPrinter.displayText(String.format("\nInventory: %s", itemsInInventory), Color.BLUE);
+        TextPrinter.displayText(String.format("\nInventory: %s", itemInventorySB), Color.BLUE);
 
         // round oxygen percentage down to 2 decimal places
-        double roundOff = Math.round(player.getOxygen() * 100) / 100;
+        double roundOff = Math.round(player.getOxygen() * 100) / 100.0;
 
         // print remaining oxygen
         TextPrinter.displayText(String.format("\nOxygen Level: %.2f" + " percent", roundOff), Color.RED);
@@ -286,29 +280,29 @@ public class Controller {
      * prompts player to INSPECT ROOM when invalid choice is given.
      * returns string which resets currentRoom in App
      */
-    public String move(List<Room> map, String room, String dir) throws IOException {
+    public String move(List<Room> map, String room, String dir) {
         String retRoom = ""; // create empty string to hold return room
 
         // iterate through map
-        for (int i = 0; i < map.size(); i++) {
+        for (Room value : map) {
             // if the direction desired exists as an exit in that room...
-            if (map.get(i).getName().equals(room)) {
+            if (value.getName().equals(room)) {
                 // ...then reassign return room as the room in that direction
                 switch (dir) {
                     case "north":
-                        retRoom = map.get(i).getExits().getNorth();
+                        retRoom = value.getExits().getNorth();
                         break;
 
                     case "south":
-                        retRoom = map.get(i).getExits().getSouth();
+                        retRoom = value.getExits().getSouth();
                         break;
 
                     case "east":
-                        retRoom = map.get(i).getExits().getEast();
+                        retRoom = value.getExits().getEast();
                         break;
 
                     case "west":
-                        retRoom = map.get(i).getExits().getWest();
+                        retRoom = value.getExits().getWest();
                         break;
                     // if an invalid direction is chosen, tell the player
                     default:
@@ -343,50 +337,50 @@ public class Controller {
      * returns string detailing
      */
     public String inspectRoom(List<Item> items, List<Item> interactables, List<Room> rooms, String room) {
-        String roomDescription = "You survey the area. \n\nYou're able to find: \n"; // string holds return description
+        StringBuilder roomDescriptionSB = new StringBuilder("You survey the area. \n\nYou're able to find: \n"); // string holds return description
         TextPrinter.displayText("Current Room: " + room);
         // iterate through room list
-        for (int i = 0; i < items.size(); i++) {
-            for (int j = 0; j < items.get(i).getRoom().size(); j++) {
-                if (items.get(i).getRoom().get(j).equals(room)) {              // ensure item is in same room as player
+        for (Item item : items) {
+            for (int j = 0; j < item.getRoom().size(); j++) {
+                if (item.getRoom().get(j).equals(room)) {              // ensure item is in same room as player
                     // first add all items to return
-                    roomDescription = roomDescription + "- " + items.get(i).getFullName() + "\n";
+                    roomDescriptionSB.append( "- ").append(item.getFullName()).append("\n");
                 }
             }
         }
 
-        for (int i = 0; i < interactables.size(); i++) {
-            for (int j = 0; j < interactables.get(i).getRoom().size(); j++) {
-                if (interactables.get(i).getRoom().get(j).equals(room)) {              // ensure item is in same room as player
+        for (Item interactable : interactables) {
+            for (int j = 0; j < interactable.getRoom().size(); j++) {
+                if (interactable.getRoom().get(j).equals(room)) {              // ensure item is in same room as player
                     // first add all items to return
-                    roomDescription = roomDescription + "- " + interactables.get(i).getFullName() + "\n";
+                    roomDescriptionSB.append("- ").append(interactable.getFullName()).append("\n");
                 }
             }
         }
 
-        roomDescription = roomDescription + "\nExits: \n";            // then add a header for exits from the room
+        roomDescriptionSB.append("\nExits: \n");            // then add a header for exits from the room
 
-        for (int i = 0; i < rooms.size(); i++) {
-            if (rooms.get(i).getName().equals(room)) {
+        for (Room value : rooms) {
+            if (value.getName().equals(room)) {
                 // add each existing exit to the return string
-                if (!rooms.get(i).getExits().getNorth().equals("")) {          // ignore non-exits
-                    roomDescription = roomDescription + "- North: " + rooms.get(i).getExits().getNorth() + "\n";
+                if (!value.getExits().getNorth().equals("")) {          // ignore non-exits
+                    roomDescriptionSB.append("- North: ").append(value.getExits().getNorth()).append("\n");
                 }
-                if (!rooms.get(i).getExits().getSouth().equals("")) {
-                    roomDescription = roomDescription + "- South: " + rooms.get(i).getExits().getSouth() + "\n";
+                if (!value.getExits().getSouth().equals("")) {
+                    roomDescriptionSB.append("- South: ").append(value.getExits().getSouth()).append("\n");
                 }
-                if (!rooms.get(i).getExits().getEast().equals("")) {
-                    roomDescription = roomDescription + "- East: " + rooms.get(i).getExits().getEast() + "\n";
+                if (!value.getExits().getEast().equals("")) {
+                    roomDescriptionSB.append("- East: ").append(value.getExits().getEast()).append("\n");
                 }
-                if (!rooms.get(i).getExits().getWest().equals("")) {
-                    roomDescription = roomDescription + "- West: " + rooms.get(i).getExits().getWest() + "\n";
+                if (!value.getExits().getWest().equals("")) {
+                    roomDescriptionSB.append("- West: ").append(value.getExits().getWest()).append("\n");
                 }
 
-                roomDescription = roomDescription + "\n"; // add a new line for formatting
+                roomDescriptionSB.append("\n"); // add a new line for formatting
             }
         }
 
-        return roomDescription;                       // return description
+        return roomDescriptionSB.toString();                       // return description
     }
 
     /*
@@ -411,13 +405,13 @@ public class Controller {
         }
 
         // iterate through items list
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName().equals(toBeInspected) || items.get(i).getSynonyms().contains(toBeInspected)) {  // find the items matching the inspected item
-                if (items.get(i).getRoom().contains(room)) {            // if instance of item in the same room
-                    if (!items.get(i).isUsed()) {
-                        return items.get(i).getDescription();     // then return the unused description
+        for (Item item : items) {
+            if (item.getName().equals(toBeInspected) || item.getSynonyms().contains(toBeInspected)) {  // find the items matching the inspected item
+                if (item.getRoom().contains(room)) {            // if instance of item in the same room
+                    if (!item.isUsed()) {
+                        return item.getDescription();     // then return the unused description
                     } else {
-                        return items.get(i).getUsedDescription();   // if it has return the used description
+                        return item.getUsedDescription();   // if it has return the used description
                     }
                 }
             } else {
@@ -426,13 +420,13 @@ public class Controller {
         }
 
         // iterate through interactables list
-        for (int i = 0; i < interactables.size(); i++) {
-            if (interactables.get(i).getName().equals(toBeInspected) || interactables.get(i).getSynonyms().contains(toBeInspected)) {  // find the interactables matching the inspected item
-                if (interactables.get(i).getRoom().contains(room)) {            // if instance of interactable in the same room
-                    if (!interactables.get(i).isUsed()) {
-                        return interactables.get(i).getDescription();     // then return the unused description
+        for (Item interactable : interactables) {
+            if (interactable.getName().equals(toBeInspected) || interactable.getSynonyms().contains(toBeInspected)) {  // find the interactables matching the inspected item
+                if (interactable.getRoom().contains(room)) {            // if instance of interactable in the same room
+                    if (!interactable.isUsed()) {
+                        return interactable.getDescription();     // then return the unused description
                     } else {
-                        return interactables.get(i).getUsedDescription();   // if it has return the used description
+                        return interactable.getUsedDescription();   // if it has return the used description
                     }
                 }
             } else {
@@ -470,16 +464,16 @@ public class Controller {
      * allows player to use items and pointsOfInterest
      * returns string detailing what was the result
      */
-    public void useItem(List<Item> inventory, List<Item> interactables, String toBeUsed) throws IOException {
+    public void useItem(List<Item> inventory, List<Item> interactables, String toBeUsed) {
         // instantiate a null Method class object
         Method method;
 
         // iterate through inventory list
-        for (int i = 0; i < inventory.size(); i++) {
+        for (Item item : inventory) {
             // if the item toBeUsed is in the inventory
-            if (inventory.get(i).getName().equals(toBeUsed) || inventory.get(i).getSynonyms().contains(toBeUsed)) {
-                if (!inventory.get(i).isUsed()) {
-                    inventory.get(i).setUsed(true);
+            if (item.getName().equals(toBeUsed) || item.getSynonyms().contains(toBeUsed)) {
+                if (!item.isUsed()) {
+                    item.setUsed(true);
                     // this allows one to retrieve any method using reflection
                     try {
                         // get meta data from ItemUseMethods class using an instance
@@ -502,39 +496,39 @@ public class Controller {
                     }
                 } else {
                     // if the item has been used already, use different description text
-                    TextPrinter.displayText(inventory.get(i).getUsedDescription());
+                    TextPrinter.displayText(item.getUsedDescription());
                     return;
                 }
             }
         }
 
         // iterate through interactables list
-        for (int i = 0; i < interactables.size(); i++) {
+        for (Item interactable : interactables) {
             // if the item toBeUsed is an interactable
-            if (interactables.get(i).getName().equals(toBeUsed) || interactables.get(i).getSynonyms().contains(toBeUsed)) {
-                if (lockedObjects.containsKey(interactables.get(i).getName())) {
-                    if (!lockedObjects.get(interactables.get(i).getName())) { // check if this interactable is considered locked
+            if (interactable.getName().equals(toBeUsed) || interactable.getSynonyms().contains(toBeUsed)) {
+                if (lockedObjects.containsKey(interactable.getName())) {
+                    if (!lockedObjects.get(interactable.getName())) { // check if this interactable is considered locked
                         // check if the item is in the same room
-                        if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
-                            if (!interactables.get(i).isUsed()) {
-                                interactables.get(i).setUsed(true);
+                        if (interactable.getRoom().contains(player.getCurrentRoom())) {
+                            if (!interactable.isUsed()) {
+                                interactable.setUsed(true);
                                 // this allows one to retrieve any method using reflection in the same way as above
                                 try {
                                     @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                    method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).getMethod());
+                                    method = clazz.getMethod(itemUses.get(interactable.getName()).getMethod());
                                 } catch (NoSuchMethodException err) {
                                     throw new RuntimeException(err);
                                 }
 
                                 try {
-                                    TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).getUseDescription());
+                                    TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                     method.invoke(itemUseMethods);
                                     return;
                                 } catch (IllegalAccessException | InvocationTargetException err) {
                                     throw new RuntimeException(err);
                                 }
                             } else {
-                                TextPrinter.displayText(interactables.get(i).getUsedDescription());
+                                TextPrinter.displayText(interactable.getUsedDescription());
                                 return;
                             }
                         }
@@ -544,26 +538,26 @@ public class Controller {
                     }
                 } else {
                     // check if the item is in the same room
-                    if (interactables.get(i).getRoom().contains(player.getCurrentRoom())) {
-                        if (!interactables.get(i).isUsed()) {
-                            interactables.get(i).setUsed(true);
+                    if (interactable.getRoom().contains(player.getCurrentRoom())) {
+                        if (!interactable.isUsed()) {
+                            interactable.setUsed(true);
                             // this allows one to retrieve any method using reflection in the same way as above
                             try {
                                 @SuppressWarnings("unchecked") Class<ItemUseMethods> clazz = (Class<ItemUseMethods>) itemUseMethods.getClass();
-                                method = clazz.getMethod(itemUses.get(interactables.get(i).getName()).getMethod());
+                                method = clazz.getMethod(itemUses.get(interactable.getName()).getMethod());
                             } catch (NoSuchMethodException err) {
                                 throw new RuntimeException(err);
                             }
 
                             try {
-                                TextPrinter.displayText(itemUses.get(interactables.get(i).getName()).getUseDescription());
+                                TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                 method.invoke(itemUseMethods);
                                 return;
                             } catch (IllegalAccessException | InvocationTargetException err) {
                                 throw new RuntimeException(err);
                             }
                         } else {
-                            TextPrinter.displayText(interactables.get(i).getUsedDescription());
+                            TextPrinter.displayText(interactable.getUsedDescription());
                             return;
                         }
                     }
@@ -615,7 +609,7 @@ public class Controller {
     }
 
     // returns the items list object
-    public void loadGameObjects() throws IOException {
+    public void loadGameObjects() {
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
         tutorialsText = TextLoader.loadText(TUTORIAL_TEXT_TXT);
         objectives = TextLoader.loadText(GAMEOBJECTIVES_TXT);
