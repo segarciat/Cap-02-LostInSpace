@@ -189,7 +189,8 @@
       "east": ""
     },
     "interactables": [
-      "library"
+      "library",
+      "pipes"
     ]
   }
 ]

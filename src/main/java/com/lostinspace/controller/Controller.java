@@ -502,6 +502,8 @@ public class Controller {
         }
 
         // Room currentRoom = roomsList.stream().filter(r -> r.getName().equalsIgnoreCase(player.getCurrentRoom())).findFirst().get();
+        Room currentRoom = getRoomMap().get(player.getCurrentRoom());
+
 
         // iterate through interactables list
         for (Item interactable : interactables) {
@@ -621,12 +623,38 @@ public class Controller {
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
         roomMap = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
-                .collect(Collectors.toMap(r -> r.getName(), Function.identity()));
+                .collect(Collectors.toMap(Room::getName, Function.identity()));
 
         items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
         hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
-        interactables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
         itemUses = JSONLoader.loadFromJsonAsMap(ITEM_USES_JSON, ItemUse.class);
+
+        // Load all items that can be interacted with.
+        List<Item> loadedInteractables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
+
+        // Using the list of all items that can be interacted with, create one for each room
+        interactables = new ArrayList<>();
+
+        // Each room should have its own separate items
+        for (String roomName: roomMap.keySet()) {
+            List<String> roomInteractables = roomMap.get(roomName).getInteractables();
+            if (roomInteractables == null)
+                continue;
+
+            for (String interactableName: roomInteractables) {
+                // Find the item of matching name.
+                Item item = loadedInteractables.stream().filter(i -> i.getName().equalsIgnoreCase(interactableName)).findFirst().get();
+
+                // Make a copy of it.
+                item = new Item(item);
+
+                // Make its current room list have only the current room.
+                item.setRoom(List.of(roomName));
+
+                // Add it to the list of all interactables
+                interactables.add(item);
+            }
+        }
     }
 
     //-------------------------------ACCESSOR METHODS
