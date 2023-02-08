@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class TextLoader {
+public class TextLoader {
     /**
      * Loads text from a file in the 'resources' folder using the classloader.
      *

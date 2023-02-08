@@ -11,11 +11,7 @@ import com.google.gson.Gson;
 
 import com.lostinspace.app.App;
 import com.lostinspace.model.*;
-import com.lostinspace.util.Color;
-import com.lostinspace.util.FileGetter;
-import com.lostinspace.util.GameEvents;
-
-import com.lostinspace.util.TextPrinter;
+import com.lostinspace.util.*;
 
 
 import java.io.BufferedReader;
@@ -43,6 +39,11 @@ public class Controller {
     private List<HiddenItem> hiddenItems;              // import instance of list of items that begin as hidden
     private List<Item> interactables;                  // import instance of list of interactable objects
     private Map<String, Map<String, String>> itemUses; // map containing descriptions of item use results
+    private String titleCard;
+    private String instructions;
+    private String objectives;
+    private String prologue;
+    private String tutorialsText;
 
     // map containing locked doors and interactables
     private Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", false, "cabinet", true));
@@ -106,31 +107,8 @@ public class Controller {
 
     // Display game Title Card
     public void titleCard() throws IOException {
-        String content = ""; // empty return string
-
-        try (Reader title = filegetter.getResource("welcome.txt")) {
-            // load file from resources dir
-
-            BufferedReader reader = new BufferedReader(title);
-
-            StringBuilder sB = new StringBuilder();            // sB builds title card line by line
-            String line = null;                                // empty string for line
-            String ls = System.lineSeparator();                // line separator
-
-            // while there are still lines of characters to read
-            while ((line = reader.readLine()) != null) {
-                sB.append(line);                    // append the next line to the SB
-                sB.append(ls);                      // new line
-            }
-
-            sB.deleteCharAt(sB.length() - 1);       // delete the last new line separator
-            content = sB.toString();                // create new string with sB content
-            TextPrinter.displayText(content);            // display title card!
-
-        } catch (IOException err) {                 // throw IO Exception if failed
-            throw new RuntimeException(err);
-        }
-        events.enterForNewGame();                  // user must press enter to continue
+        System.out.println(titleCard);
+        events.enterForNewGame();
     }
 
     // Display user commands
@@ -703,6 +681,12 @@ public class Controller {
 
     // returns the items list object
     public void loadGameObjects() throws IOException {
+        instructions = TextLoader.loadText("instructions.txt");
+        tutorialsText = TextLoader.loadText("tutorialText.txt");
+        objectives = TextLoader.loadText("gameobjectives.txt");
+        titleCard = TextLoader.loadText("welcome.txt");
+        prologue = TextLoader.loadText("prologue.txt");
+
         setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
         setItems(loadItems().getItems());                        // load the items list into memory
         setHiddenItems(loadHiddenItems().getHiddenItems());      // load the hidden items list into memory
