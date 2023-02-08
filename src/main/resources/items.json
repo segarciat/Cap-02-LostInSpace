@@ -1,5 +1,4 @@
-{
-  "items": [
+[
     {
       "name": "scrambler",
       "synonyms": [],
@@ -9,5 +8,4 @@
       "used": false,
       "usedDescription": ""
     }
-  ]
-}
+]

@@ -621,8 +621,11 @@ public class Controller {
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
         setRoomsList(loadMap().getRooms());                      // load the rooms list into memory
-        setItems(loadItems().getItems());                        // load the items list into memory
+        this.items = JSONLoader.loadFromJsonAsList("items.json", Item.class);
+        // setItems(loadItems().getItems());                        // load the items list into memory
+        // this.hiddenItems = JSONLoader.loadFromJsonAsList("hiddenitems.json", HiddenItem.class);
         setHiddenItems(loadHiddenItems().getHiddenItems());      // load the hidden items list into memory
+        // this.interactables = JSONLoader.loadFromJsonAsList("interactables.json", Item.class);
         setInteractables(loadIteractables().getInteractables()); // load the interactables list into memory
         setItemUses(loadItemUseMap().getItemUseMap());           // load the item use map into memory
     }
