@@ -39,7 +39,7 @@ public class App {
                 .get();
 
         // Uncomment the line below to immediately obtain all items needed to win.
-        satisfyAllWinningConditions();
+        // satisfyAllWinningConditions();
 
 
         Controller.clearConsole();

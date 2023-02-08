@@ -27,6 +27,7 @@ import java.util.*;
 public class Controller {
     public static final String INSTRUCTIONS_TXT = "instructions.txt";
     public static final String ITEM_USES_JSON = "itemUses.json";
+    public static final double O_2_CONSUMED = 5.0;
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
     public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
     public static final String GAME_OBJECTIVES_TXT = "gameObjectives.txt";
@@ -308,6 +309,11 @@ public class Controller {
                     }
                 }
             }
+        }
+
+        // When retRoom and the currentRoom (room) are distinct, deplete oxygen from player.
+        if (!retRoom.equals(room)) {
+            player.consumeOxygen(O_2_CONSUMED);
         }
         return retRoom; // return new room
     }
