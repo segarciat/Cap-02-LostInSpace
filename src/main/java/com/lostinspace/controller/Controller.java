@@ -244,24 +244,29 @@ public class Controller {
      * current location, inventory, and oxygen levels
      */
     public void showStatus(String location, String description) {
+        // iterate through the inventory and add each item to the string
+        StringBuilder itemInventorySB = new StringBuilder();
+        for (int i = 0; i < getInventory().size(); i++) {
+            if (i == getInventory().size() - 1) {
+                // do not include newline for last item in inventory
+                itemInventorySB.append(" - ").append( getInventory().get(i).getName());
+            } else {
+                itemInventorySB.append(" - ").append( getInventory().get(i).getName()).append("\n");
+            }
+        }
+
+        // round oxygen percentage down to 2 decimal places
+        double roundOff = Math.round(player.getOxygen() * 100) / 100.0;
+
+        // Print to display
         TextPrinter.displayText("--------------------------------", Color.YELLOW);
 
         TextPrinter.displayText("You are in the " + location + '\n');            //print the player 's current location
 
         TextPrinter.displayText(description, Color.GREEN);          // print description of current room
 
-
-        //iterate through the inventory and add each item to the string
-        StringBuilder itemInventorySB = new StringBuilder();
-        for (int i = 0; i < getInventory().size(); i++) {
-            itemInventorySB.append(" - ").append( getInventory().get(i).getName());
-        }
-
         // print what the player is carrying
-        TextPrinter.displayText(String.format("\nInventory: %s", itemInventorySB), Color.BLUE);
-
-        // round oxygen percentage down to 2 decimal places
-        double roundOff = Math.round(player.getOxygen() * 100) / 100.0;
+        TextPrinter.displayText(String.format("\nInventory:\n %s", itemInventorySB), Color.BLUE);
 
         // print remaining oxygen
         TextPrinter.displayText(String.format("\nOxygen Level: %.2f" + " percent", roundOff), Color.RED);
