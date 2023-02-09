@@ -118,10 +118,6 @@ public class Controller {
      */
     // commands the player may enter into the console
     public void userCommands(String[] inputArr) throws IOException {
-        if (inputArr.length == 0) {
-            throw new IllegalArgumentException("No input.");
-        }
-
         // SINGLE WORD COMMANDS
         // display objectives
         if (inputArr[0].equals("objectives")) {
