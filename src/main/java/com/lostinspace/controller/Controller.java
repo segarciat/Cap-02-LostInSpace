@@ -64,7 +64,7 @@ public class Controller {
     private String tutorialsText;
 
     // map containing locked doors and interactables
-    private final Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", false, "cabinet", true));
+    private final Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", true, "cabinet", true));
 
     // methods that define what happens after using items
     private final ItemUseMethods itemUseMethods = new ItemUseMethods();
@@ -328,6 +328,7 @@ public class Controller {
         if (!retRoom.equals(room)) {
             player.consumeOxygen(O_2_CONSUMED);
         }
+
         return retRoom; // return new room
     }
 
