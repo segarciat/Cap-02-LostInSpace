@@ -24,9 +24,11 @@ public class Player {
     }
 
     // consumes a given amount of oxygen, happens when player conducts an action
-    public void consumeOxygen(double o2Consumed){
-        setOxygen( (getOxygen() - o2Consumed) ); // reduce oxygen by o2Consumed
-        if(getOxygen() < 0.00) setOxygen(0.00); // limit empty oxygen to "0.00%"
+    public void consumeOxygen(double o2Consumed, boolean isEasy){
+        if (!isEasy) {
+            setOxygen( (getOxygen() - o2Consumed) ); // reduce oxygen by o2Consumed
+            if(getOxygen() < 0.00) setOxygen(0.00); // limit empty oxygen to "0.00%"
+        }
     }
 
     // ACCESSOR METHODS
