@@ -45,18 +45,18 @@ public class Controller {
     public static final double O_2_CONSUMED = 5.0;
     public static final double INITIAL_OXYGEN = 80.00;
     public static final String INITIAL_ROOM = "Docking Bay";
-
+    public static boolean isEasyMode = false;
     private static final String os = System.getProperty("os.name").toLowerCase(); // identify operating system of user
 
-    GameEvents events = new GameEvents();           // ref to Game Event Methods
+    GameEvents events = new GameEvents();               // ref to Game Event Methods
 
-    private Map<String, Room> roomMap;                      // import instance of game map from shipRooms.json (game features 16 distinct areas)
-    private List<Item> items;                          // import instance of list of collectable items
-    private List<HiddenItem> hiddenItems;              // import instance of list of items that begin as hidden
-    private List<Item> interactables;                  // import instance of list of interactable objects
-    private Map<String, ItemUse> itemUses; // map containing descriptions of item use results
+    private Map<String, Room> roomMap;                  // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private List<Item> items;                           // import instance of list of collectable items
+    private List<HiddenItem> hiddenItems;               // import instance of list of items that begin as hidden
+    private List<Item> interactables;                   // import instance of list of interactable objects
+    private Map<String, ItemUse> itemUses;              // map containing descriptions of item use results
 
-    // Strings containing text from files.
+    // strings containing text from files.
     private String titleCard;
     private String instructions;
     private String objectives;
@@ -73,8 +73,9 @@ public class Controller {
     private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
-    //-------------------------------CONTROLLER METHODS
-
+    /*
+     * DISPLAY BEGINNING GAME CONTENT
+     */
     // Display prologue text
     public void prologue() {
         String[] lines = prologue.split(System.getProperty("line.separator"));
@@ -112,9 +113,9 @@ public class Controller {
         events.enterToContinue();
     }
 
-
-    //--------------------------------PLAYER METHODS
-
+    /*
+     * PLAYER METHODS
+     */
     // commands the player may enter into the console
     public void userCommands(String[] inputArr) throws IOException {
         if (inputArr.length == 0) {
@@ -147,8 +148,14 @@ public class Controller {
         else if (inputArr[0].equals("easymode")) {
             clearConsole();
 
-            // either turns on or turns off easy mode
-            itemUseMethods.setEasyMode(!itemUseMethods.isEasyMode());
+            // If 'easymode' is set to true
+            if (isIsEasyMode()) {
+                setIsEasyMode(false);
+                TextPrinter.displayText("Easy mode deactivated.");
+            } else {
+                setIsEasyMode(true);
+                TextPrinter.displayText("Easy mode activated.");
+            }
         }
 
         // check for commands that are too short or too long
@@ -331,7 +338,7 @@ public class Controller {
 
         // When retRoom and the currentRoom (room) are distinct, deplete oxygen from player.
         if (!retRoom.equals(room)) {
-            player.consumeOxygen(O_2_CONSUMED);
+            player.consumeOxygen(O_2_CONSUMED, isIsEasyMode());
         }
 
         return retRoom; // return new room
@@ -589,8 +596,9 @@ public class Controller {
         }
     }
 
-    //-------------------------------UTILITY METHODS
-
+    /*
+     * UTILITY METHODS
+     */
     // when a hidden item is made visible, make it a part of the normal itemsList
     public void itemNotHidden(HiddenItem hiddenItem) {
         getHiddenItems().remove(hiddenItem); // remove the item to be revealed from the hiddenItem list
@@ -663,8 +671,9 @@ public class Controller {
         }
     }
 
-    //-------------------------------ACCESSOR METHODS
-
+    /*
+     * ACCESSOR METHODS
+     */
     public Map<String, Room> getRoomMap() {
         return roomMap;
     }
@@ -699,5 +708,13 @@ public class Controller {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public static boolean isIsEasyMode() {
+        return isEasyMode;
+    }
+
+    public static void setIsEasyMode(boolean isEasyMode) {
+        Controller.isEasyMode = isEasyMode;
     }
 }

@@ -12,17 +12,17 @@ objectives: check game winning objectives
 look room: inspects the current room you're in for items, interactable objects, and exits
 
 inspect item -or- inspect object: receive a description of what was inspected, look inside of containers
-<The inspect command will often reveal details about something you are confused about>
+<the inspect command will often reveal details about something you are confused about>
 
 go direction: move in selected direction
 <directions: North, South, East, West>
 
 use item: use an item in your inventory or an object in the same room as you
-<Not all items can be used at all times or in every room. Experiment with your options!>
+<not all items can be used at all times or in every room. Experiment with your options!>
 
 restart: restart the game
 
 exit: quits the current game.
 
-easymode: Too hard? Use this command to make the remaining PIPES never run out of Oxygen.
-<Use this command again to turn this feature off>
+easymode: too hard? Use this command to never use oxygen when moving.
+<use this command again to turn this feature off>
