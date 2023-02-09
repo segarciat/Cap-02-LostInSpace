@@ -510,10 +510,6 @@ public class Controller {
             }
         }
 
-        // Room currentRoom = roomsList.stream().filter(r -> r.getName().equalsIgnoreCase(player.getCurrentRoom())).findFirst().get();
-        Room currentRoom = getRoomMap().get(player.getCurrentRoom());
-
-
         // iterate through interactables list
         for (Item interactable : interactables) {
             // if the item toBeUsed is an interactable
@@ -566,6 +562,7 @@ public class Controller {
                                 TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                 method.invoke(itemUseMethods);
                                 interactable.setUsed(true);
+
                                 return;
                             } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException err) {
                                 TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
