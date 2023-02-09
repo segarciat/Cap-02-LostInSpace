@@ -57,7 +57,7 @@
     "method": "useLocker"
   },
   "cooler": {
-    "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit.\nEven through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch.\n\nWithout proper power, the corpse has more or less become a bloated sack slowly deflating.\nYou see it still wears a uniformed flight suit.",
+    "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit.\nEven through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch.\n\nWithout proper power, the CORPSE has more or less become a bloated sack slowly deflating.\nYou see it still wears a uniformed flight suit.",
     "method": "useCooler"
   },
   "corpse": {

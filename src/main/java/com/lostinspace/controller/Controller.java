@@ -252,9 +252,9 @@ public class Controller {
         for (int i = 0; i < getInventory().size(); i++) {
             if (i == getInventory().size() - 1) {
                 // do not include newline for last item in inventory
-                itemInventorySB.append(" - ").append( getInventory().get(i).getName());
+                itemInventorySB.append("- ").append( getInventory().get(i).getName());
             } else {
-                itemInventorySB.append(" - ").append( getInventory().get(i).getName()).append("\n");
+                itemInventorySB.append("- ").append( getInventory().get(i).getName()).append("\n");
             }
         }
 

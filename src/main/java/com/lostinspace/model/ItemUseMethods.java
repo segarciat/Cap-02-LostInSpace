@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ItemUseMethods {
     public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
@@ -123,10 +124,13 @@ public class ItemUseMethods {
      * Player can win if their inventory contains "component", "tool", and "manual".
      */
     public void useShip() {
-        Set<String> winningItems = Set.of("component", "tool", "manual");
-        boolean canUseShip = getController().getInventory().stream()
-                .filter(item -> winningItems.contains(item.getName()))
-                .allMatch(Item::isUsed);
+        Set<String> itemsNeededToWin = Set.of("component", "tool", "manual");
+
+        List<Item>  itemsWithMetConditions = getController().getInventory().stream()
+                .filter(item -> itemsNeededToWin.contains(item.getName()) && item.isUsed())
+                .collect(Collectors.toList());
+
+        boolean canUseShip = itemsWithMetConditions.size() == itemsNeededToWin.size();
 
         if (!canUseShip) {
             throw new IllegalArgumentException("Sorry, you need ALL three items to fix the ship. It is inoperable as " +
