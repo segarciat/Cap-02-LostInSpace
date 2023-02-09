@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ItemUseMethods {
-    double oxygenRefill = 25.5; // how much oxygen is restored to player
+    public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
     boolean easyMode = false;   // used to define difficulty settings
 
     // returns the controller instance from main class
@@ -26,29 +28,18 @@ public class ItemUseMethods {
     }
 
     public void usePipes() {
-        getController().getPlayer().refillOxygen(oxygenRefill);
+        getController().getPlayer().refillOxygen(OXYGEN_REFILL);
 
-        // read comments below for explanation
-        if (easyMode == false) {
-            // interate through interactables list to find the pipes item
-            for (Iterator<Item> iter = getController().getInteractables().iterator(); iter.hasNext(); ) {
-                Item item = iter.next();
-
-                /*
-                 * this removes the currentRoom from the item's room list
-                 * this makes the pipes no longer usable in this room only
-                 * the reason for this is to make oxygen pipes a 1 use item only
-                 * for the sake of difficulty, I've created a boolean that you can set
-                 * to turn this off, called easyMode
-                 */
-                item.getRoom().remove(getController().getPlayer().getCurrentRoom());
-            }
+        // interate through interactables list to find the pipes item
+        for (Item item : getController().getInteractables()) {
+            String currentRoom = getController().getPlayer().getCurrentRoom();
+            item.getRoom().remove(currentRoom);
         }
     }
 
     public void useKey() {
         // get the list of hidden items from the Controller class
-        Map<String, Map<String, String>> itemUses = getController().getItemUses();
+        Map<String, ItemUse> itemUses = getController().getItemUses();
         List<HiddenItem> hiddenItems = getController().getHiddenItems();
         List<Item> interactables = getController().getInteractables();
 
@@ -61,7 +52,7 @@ public class ItemUseMethods {
                     getController().getInventory().get(i).setUsed(true); // flag key as having been used
 
                     // display the description of succeeding to use the key
-                    System.out.println(itemUses.get("cabinet").get("useDescription"));
+                    System.out.println(itemUses.get("cabinet").getUseDescription());
 
                     for (Iterator<Item> iter = interactables.iterator(); iter.hasNext(); ) {
                         Item item = iter.next();
@@ -129,10 +120,22 @@ public class ItemUseMethods {
     public void useConsole() {
     }
 
+    /**
+     * Player can win if their inventory contains "component", "tool", and "manual".
+     */
     public void useShip() {
-        // does nothing right now,
-        // will probably make this the command to use to win the game
-        // once all items are in ship
+        Set<String> itemsNeededToWin = Set.of("component", "tool", "manual");
+
+        List<Item>  itemsWithMetConditions = getController().getInventory().stream()
+                .filter(item -> itemsNeededToWin.contains(item.getName()) && item.isUsed())
+                .collect(Collectors.toList());
+
+        boolean canUseShip = itemsWithMetConditions.size() == itemsNeededToWin.size();
+
+        if (!canUseShip) {
+            throw new IllegalArgumentException("Sorry, you need ALL three items to fix the ship. It is inoperable as " +
+                    "of now.");
+        }
     }
 
     public void useRack() {

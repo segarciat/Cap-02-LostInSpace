@@ -2,6 +2,7 @@ package com.lostinspace.model;
 
 import com.lostinspace.app.App;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,12 +15,16 @@ public class Item {
     private boolean used;
     private String usedDescription;
 
-    // CTORS
+    // Constructor
     public Item() {
         super();
     }
 
-    // CTOR used when a hiddenItem is made visible.
+    public Item(Item item) {
+        this(item.getName(), item.getSynonyms(), item.getRoom(), item.getFullName(), item.getDescription(), item.isUsed(), item.getUsedDescription());
+    }
+
+    // Constructor used when a hiddenItem is made visible.
     // Creates a new item in the current room
     public Item(HiddenItem hiddenItem){
         this.name = hiddenItem.getName();
@@ -33,8 +38,8 @@ public class Item {
 
     public Item(String name, List<String> synonyms, List<String> room, String fullName, String description, boolean used, String usedDescription) {
         this.name = name;
-        this.synonyms = synonyms;
-        this.room = room;
+        this.synonyms = new ArrayList<>(synonyms);
+        this.room = new ArrayList<>(room);
         this.fullName = fullName;
         this.description = description;
         this.used = used;
@@ -71,7 +76,7 @@ public class Item {
     }
 
     public void setRoom(List<String> room) {
-        this.room = room;
+        this.room = new ArrayList<>(room);
     }
 
     public String getDescription() {

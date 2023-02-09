@@ -12,10 +12,6 @@ public class HiddenItem {
     private boolean used;
     private String usedDescription;
 
-    public HiddenItem() {
-        super();
-    }
-
     public HiddenItem(String name, List<String> synonyms, List<String> inside, boolean hidden, String fullName, String description, boolean used, String usedDescription) {
         this.name = name;
         this.synonyms = synonyms;

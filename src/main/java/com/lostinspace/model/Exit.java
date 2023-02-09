@@ -7,12 +7,12 @@ package com.lostinspace.model;
  */
 
 public class Exit{
-    private String west; // all are "" by default in .json file
-    private String east; // some directions will contain the name of the room they lead to
-    private String north;
-    private String south;
+    private final String west; // all are "" by default in .json file
+    private final String east; // some directions will contain the name of the room they lead to
+    private final String north;
+    private final String south;
 
-    // CTOR
+    // Constructor
     public Exit(String north, String south, String east, String west) {
         this.north = north;
         this.south = south;
