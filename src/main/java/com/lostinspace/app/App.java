@@ -20,12 +20,13 @@ import java.util.*;
 
 public class App {
     public static final String INSTANT_GAME_OVER_ROOM = "Enviro-Field";
-    private static Controller controller = new Controller(); // make an instance of controller for player commands
+    private static Controller controller;
     private static Scanner scan = new Scanner(System.in);
     private static List<Room> map;                      // ref to testMap.rooms
 
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
+        controller = new Controller();                       // make an instance of controller for player commands
         controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
         controller.titleCard();                              // display title card
