@@ -269,7 +269,7 @@ public class Controller {
         TextPrinter.displayText(description, Color.GREEN);          // print description of current room
 
         // print what the player is carrying
-        TextPrinter.displayText(String.format("\nInventory:\n %s", itemInventorySB), Color.BLUE);
+        TextPrinter.displayText(String.format("\nInventory:\n%s", itemInventorySB), Color.BLUE);
 
         // print remaining oxygen
         TextPrinter.displayText(String.format("\nOxygen Level: %.2f" + " percent", roundOff), Color.RED);
