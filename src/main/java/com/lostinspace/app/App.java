@@ -80,6 +80,7 @@ public class App {
                 remindStatus();
             }
         }
+        System.exit(0);
     }
 
     private static void loseGameAndExit() {
@@ -96,6 +97,7 @@ public class App {
 
     private static void winGameAndExit() {
         TextPrinter.displayText("WIN! The ship has been fixed. Time to fly off...", Color.GREEN);
+
     }
 
     /**
