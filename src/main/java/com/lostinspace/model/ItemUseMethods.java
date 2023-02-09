@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ItemUseMethods {
     public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
@@ -28,21 +29,10 @@ public class ItemUseMethods {
     public void usePipes() {
         getController().getPlayer().refillOxygen(OXYGEN_REFILL);
 
-        // read comments below for explanation
-        if (easyMode == false) {
-            // interate through interactables list to find the pipes item
-            for (Iterator<Item> iter = getController().getInteractables().iterator(); iter.hasNext(); ) {
-                Item item = iter.next();
-
-                /*
-                 * this removes the currentRoom from the item's room list
-                 * this makes the pipes no longer usable in this room only
-                 * the reason for this is to make oxygen pipes a 1 use item only
-                 * for the sake of difficulty, I've created a boolean that you can set
-                 * to turn this off, called easyMode
-                 */
-                item.getRoom().remove(getController().getPlayer().getCurrentRoom());
-            }
+        // interate through interactables list to find the pipes item
+        for (Item item : getController().getInteractables()) {
+            String currentRoom = getController().getPlayer().getCurrentRoom();
+            item.getRoom().remove(currentRoom);
         }
     }
 
@@ -129,27 +119,14 @@ public class ItemUseMethods {
     public void useConsole() {
     }
 
+    /**
+     * Player can win if their inventory contains "component", "tool", and "manual".
+     */
     public void useShip() {
-        boolean item1 = false;
-        boolean item2 = false;
-        boolean item3 = false;
-        boolean canUseShip = false;
-
-        for (Item item : getController().getInventory()) {
-            if (item.getName().equals("component")) {
-                item1 = true;
-            }
-            if (item.getName().equals("tool")) {
-                item2 = true;
-            }
-            if (item.getName().equals("manual")) {
-                item3 = true;
-            }
-        }
-
-        if (item1 && item2 && item3) {
-            canUseShip = true;
-        }
+        Set<String> winningItems = Set.of("component", "tool", "manual");
+        boolean canUseShip = getController().getInventory().stream()
+                .filter(item -> winningItems.contains(item.getName()))
+                .allMatch(Item::isUsed);
 
         if (!canUseShip) {
             throw new IllegalArgumentException("Sorry, you need ALL three items to fix the ship. It is inoperable as " +
