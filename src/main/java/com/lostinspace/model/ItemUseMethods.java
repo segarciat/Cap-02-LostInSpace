@@ -14,9 +14,13 @@ public class ItemUseMethods {
     public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
     boolean easyMode = false;   // used to define difficulty settings
 
-    // returns the controller instance from main class
-    Controller getController() {
-        Controller controller = App.getController();
+    private final Controller controller;
+
+    public ItemUseMethods(Controller controller) {
+        this.controller = controller;
+    }
+
+    public Controller getController() {
         return controller;
     }
 
@@ -30,7 +34,7 @@ public class ItemUseMethods {
     public void usePipes() {
         getController().getPlayer().refillOxygen(OXYGEN_REFILL);
 
-        // interate through interactables list to find the pipes item
+        // iterate through interactables list to find the pipes item
         for (Item item : getController().getInteractables()) {
             String currentRoom = getController().getPlayer().getCurrentRoom();
             item.getRoom().remove(currentRoom);

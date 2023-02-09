@@ -67,7 +67,7 @@ public class Controller {
     private final Map<String, Boolean> lockedObjects = new HashMap<>(Map.of("bridge", true, "cabinet", true));
 
     // methods that define what happens after using items
-    private final ItemUseMethods itemUseMethods = new ItemUseMethods();
+    private final ItemUseMethods itemUseMethods = new ItemUseMethods(this);
 
     // create player
     private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
