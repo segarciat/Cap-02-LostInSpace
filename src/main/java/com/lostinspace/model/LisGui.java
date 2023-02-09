@@ -25,7 +25,7 @@ public class LisGui {
 
         enterGame = new JButton("Enter Game"); // set text for "enter game" button
         enterGame.setBounds(310,550,100,50); // center button within the frame
-        enterGame.addActionListener(new ActionListener() { // created an actionlistener when button is pushed
+        enterGame.addActionListener(new ActionListener() { // created an action listener when button is pushed
             @Override
             public void actionPerformed(ActionEvent e) { // shows a message when button has been clicked
                 JOptionPane.showMessageDialog(null, "You are now entering the game.");
@@ -37,7 +37,7 @@ public class LisGui {
         frame =new JFrame("Lost In Space"); // set text title for gui frame
         frame.add(label);
         frame.setSize(720, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes window and terminates
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.setVisible(true);
