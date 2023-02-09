@@ -269,7 +269,7 @@ public class Controller {
         TextPrinter.displayText(description, Color.GREEN);          // print description of current room
 
         // print what the player is carrying
-        TextPrinter.displayText(String.format("\nInventory:\n %s", itemInventorySB), Color.BLUE);
+        TextPrinter.displayText(String.format("\nInventory:\n%s", itemInventorySB), Color.BLUE);
 
         // print remaining oxygen
         TextPrinter.displayText(String.format("\nOxygen Level: %.2f" + " percent", roundOff), Color.RED);
@@ -510,10 +510,6 @@ public class Controller {
             }
         }
 
-        // Room currentRoom = roomsList.stream().filter(r -> r.getName().equalsIgnoreCase(player.getCurrentRoom())).findFirst().get();
-        Room currentRoom = getRoomMap().get(player.getCurrentRoom());
-
-
         // iterate through interactables list
         for (Item interactable : interactables) {
             // if the item toBeUsed is an interactable
@@ -566,6 +562,7 @@ public class Controller {
                                 TextPrinter.displayText(itemUses.get(interactable.getName()).getUseDescription());
                                 method.invoke(itemUseMethods);
                                 interactable.setUsed(true);
+
                                 return;
                             } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException err) {
                                 TextPrinter.displayText(itemUses.get(interactable.getName()).getFailUseDescription());
