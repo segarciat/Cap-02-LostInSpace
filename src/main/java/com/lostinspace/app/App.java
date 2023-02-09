@@ -77,7 +77,6 @@ public class App {
                 }
             } catch (Exception e) {
                 TextPrinter.displayText(e.getCause().getMessage(), Color.RED);
-                System.out.println("Exception was thrown");
                 remindStatus();
             }
         }
