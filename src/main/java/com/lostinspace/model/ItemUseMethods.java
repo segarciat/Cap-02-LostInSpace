@@ -28,21 +28,10 @@ public class ItemUseMethods {
     public void usePipes() {
         getController().getPlayer().refillOxygen(OXYGEN_REFILL);
 
-        // read comments below for explanation
-        if (easyMode == false) {
-            // interate through interactables list to find the pipes item
-            for (Iterator<Item> iter = getController().getInteractables().iterator(); iter.hasNext(); ) {
-                Item item = iter.next();
-
-                /*
-                 * this removes the currentRoom from the item's room list
-                 * this makes the pipes no longer usable in this room only
-                 * the reason for this is to make oxygen pipes a 1 use item only
-                 * for the sake of difficulty, I've created a boolean that you can set
-                 * to turn this off, called easyMode
-                 */
-                item.getRoom().remove(getController().getPlayer().getCurrentRoom());
-            }
+        // interate through interactables list to find the pipes item
+        for (Item item : getController().getInteractables()) {
+            String currentRoom = getController().getPlayer().getCurrentRoom();
+            item.getRoom().remove(currentRoom);
         }
     }
 

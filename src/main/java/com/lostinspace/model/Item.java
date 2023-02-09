@@ -76,7 +76,7 @@ public class Item {
     }
 
     public void setRoom(List<String> room) {
-        this.room = room;
+        this.room = new ArrayList<>(room);
     }
 
     public String getDescription() {
