@@ -16,7 +16,6 @@ public class ItemUseMethodsTest {
     @Before
     public void setUp() throws Exception {
         controller = new Controller();
-        controller.loadGameObjects();
 
         // Set starting location to a room with pipes
         player = controller.getPlayer();

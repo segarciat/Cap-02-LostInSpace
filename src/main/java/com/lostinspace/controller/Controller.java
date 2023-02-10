@@ -73,6 +73,10 @@ public class Controller {
     private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
+    public Controller() {
+        loadGameObjects();                              // loads all objects used for game logic into memory
+    }
+
     /*
      * DISPLAY BEGINNING GAME CONTENT
      */
@@ -283,61 +287,21 @@ public class Controller {
      * returns string which resets currentRoom in App
      */
     public String move(Map<String, Room> map, String room, String dir) {
-        String retRoom = ""; // create empty string to hold return room
+        Map<String, String> exits = map.get(player.getCurrentRoom()).getExits();
 
-        // iterate through map
-        for (Room value : map.values()) {
-            // if the direction desired exists as an exit in that room...
-            if (value.getName().equals(room)) {
-                // ...then reassign return room as the room in that direction
-                switch (dir) {
-                    case "north":
-                        retRoom = value.getExits().getNorth();
-                        break;
+        String retRoom = exits.getOrDefault(dir, room);
 
-                    case "south":
-                        retRoom = value.getExits().getSouth();
-                        break;
-
-                    case "east":
-                        retRoom = value.getExits().getEast();
-                        break;
-
-                    case "west":
-                        retRoom = value.getExits().getWest();
-                        break;
-                    // if an invalid direction is chosen, tell the player
-                    default:
-                        String message = "\nINVALID DIRECTION: " + dir + "\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)";
-                        TextPrinter.displayText(message, Color.RED);
-                        retRoom = room;
-                        break;
-                }
-
-                // if retRoom is an empty string then there is no exit in that direction
-                if (retRoom.equals("")) {
-                    String sb = "\nINVALID DIRECTION: " + dir + "\nThere is no EXIT in that DIRECTION. (Hint: INSPECT ROOM if you're lost)";
-                    retRoom = room;
-                    TextPrinter.displayText(sb, Color.RED);
-                    return retRoom; // return back to starting room
-                }
-                // else, check if this room is locked
-                else if (lockedObjects.containsKey(retRoom.toLowerCase())) {
-                    if (lockedObjects.get(retRoom.toLowerCase())) {
-                        String message = String.format("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
-                        TextPrinter.displayText(message, Color.YELLOW);
-                        retRoom = room;
-                    }
-                }
-            }
-        }
-
-        // When retRoom and the currentRoom (room) are distinct, deplete oxygen from player.
-        if (!retRoom.equals(room)) {
+        if (retRoom.equalsIgnoreCase(room)) {
+            String message = "\nINVALID DIRECTION: " + dir + "\nChoose a valid direction. (Hint: INSPECT ROOM if you're lost)";
+            TextPrinter.displayText(message, Color.RED);
+        } else if (lockedObjects.containsKey(retRoom.toLowerCase())) {
+            String message = String.format("\nThe %s is LOCKED!\n\nYou must find a means to open it first.", retRoom);
+            TextPrinter.displayText(message, Color.YELLOW);
+        } else {
             player.consumeOxygen(O_2_CONSUMED, isIsEasyMode());
         }
 
-        return retRoom; // return new room
+        return retRoom;
     }
 
     /*
@@ -370,18 +334,11 @@ public class Controller {
 
         for (Room value : rooms.values()) {
             if (value.getName().equals(room)) {
+
                 // add each existing exit to the return string
-                if (!value.getExits().getNorth().equals("")) {          // ignore non-exits
-                    roomDescriptionSB.append("- North: ").append(value.getExits().getNorth()).append("\n");
-                }
-                if (!value.getExits().getSouth().equals("")) {
-                    roomDescriptionSB.append("- South: ").append(value.getExits().getSouth()).append("\n");
-                }
-                if (!value.getExits().getEast().equals("")) {
-                    roomDescriptionSB.append("- East: ").append(value.getExits().getEast()).append("\n");
-                }
-                if (!value.getExits().getWest().equals("")) {
-                    roomDescriptionSB.append("- West: ").append(value.getExits().getWest()).append("\n");
+                Map<String, String> exits = value.getExits();
+                for (String exit: value.getExits().keySet()) {
+                    roomDescriptionSB.append(String.format("- %s: ", exit.toUpperCase())).append(exits.get(exit)).append(System.lineSeparator());
                 }
 
                 roomDescriptionSB.append("\n"); // add a new line for formatting
