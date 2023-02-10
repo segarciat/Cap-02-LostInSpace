@@ -7,11 +7,12 @@ package com.lostinspace.model;
  */
 
 import java.util.List;
+import java.util.Map;
 
 public class Room {
     private String name;                                 // name of area
     private String description;                          // description of area
-    private Exit exits;                                  // object acts as where each direction will lead player
+    private Map<String, String> exits;                                  // object acts as where each direction will lead player
     private List<String> interactables;
     private String entryItem;
 
@@ -24,7 +25,7 @@ public class Room {
         return description;
     }
 
-    public Exit getExits() {
+    public Map<String, String> getExits() {
         return exits;
     }
 
