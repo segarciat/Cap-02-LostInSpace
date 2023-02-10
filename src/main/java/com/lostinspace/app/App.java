@@ -27,7 +27,6 @@ public class App {
     // GAME LOGIC
     public static void main(String[] args) throws IOException {
         controller = new Controller();                       // make an instance of controller for player commands
-        controller.loadGameObjects();                        // loads all objects used for game logic into memory
 
         controller.titleCard();                              // display title card
 
