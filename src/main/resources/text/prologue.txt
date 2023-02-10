@@ -1,0 +1,74 @@
+It is the year 2352. Mankind has fulfilled its manifest destiny and the solar system is now rife with terrestrial life.
+
+But with new frontiers come new challenges.
+
+That's where YOU come in.
+
+You are Solar Praetor #237. You are the Pilot and Captain of the E.D.F.S. Spartan, a small patrol vessel of the Earth Defense Fleet.
+
+You, your co-pilot Lieutenant Brenda Douglas, and your crew chief Chief-Warrant Officer Jing Zhang are returning to Phobos Praetor Outpost Omega after a standard security patrol through sector 8fz of the inner asteroid belt.
+
+Suddenly, your sensors come to life, an alarm blaring in your helmet while the cockpit is bathed in a red emergency light.
+
+In your other ear, CWO2 Zhang radios you with concern in his voice,
+    "Captain, an unexpected solar flare is wreaking havoc on our relay signals, comms are down, and we 've lost the
+    outpost's real time long range lidar array! over."
+
+You radioed back,
+    "Roger, slowing n-"
+
+You're cut off as suddenly the starboard hull violently begins to destabilize, the ship violently lurching into a new trajectory.
+    "Too late! We've hit something!"
+
+Zhang yells into your ear, you hear panic creep into his voice as he curses,
+    "Dammit! Captain, we've lost the jump drive and the ship is rapidly depressurizing! I can slow it, but we need to
+    land NOW! over."
+
+You bark a quick command,
+    "Brenda, keep her on our current heading and help Jing put out some of these fires in the sub-routines while I figure out where the hell to put her down!"
+
+Brenda yelled back,
+    "Aye, sir"
+
+Douglas replies curtly and gets to work. Dependable as always.
+
+You quickly scan your instruments for any stable body to put the ship down on.
+
+A space station, cavernous asteroid, there had to be something in this Sol-forsaken sector! After a tense moment, the ship's computer pings you with something unexpected: A Freighter Ship!
+
+Strangely, you notice no engine signature from the vessel, but no distress signal either. It could be a Ravager ship... but there isn't time to worry. You need to land now.
+
+You see Lt. Douglas frantically tending to several sub-systems of the ship as you make the call,
+    "Crew, we see a freighter dead in the water about 60 clicks out, sending coords. Since it's moving pretty slow, we're going to match velocity and drift into the docking bay. With no tractor, let's beg the maker there's no security protocol on that atmospheric field... "
+
+A brief moment passes, no one says anything.
+    "...Aye, sir."
+    "...aye, aye, Captain."
+
+You switch the controls to manual override, take a deep breath, and begin your maneuver...
+
+You blink a few times, trying to shake the source of the red light from your eyes. Your vision swims. After a few moments you realize you are being shaken by somebody…
+    "-up!"
+
+You begin to awake from your stupor.
+    "Captain! On your feet!"
+
+The front of your flight suit is yanked as you're forced to sit up, the sting of a slap to your cheek creates a small surge of adrenaline which jolts you back to focus. Douglas kneels in front of you with a concerned look on her face.
+    "You back with us, Sir?"
+
+You nod, your head feels heavy like a morning after shore leave.
+    "What happened?"
+
+Douglas spoke back.
+    "Whatever you pulled back there must have worked, sir" She holds out her arms in a gesture, "We're alive."
+
+Through the fog of sleep you begin to remember, the atmospheric field allowed your ship through into the docking bay with no trouble. Pretty lucky.
+
+What was not so lucky was the complete lack of organization in the bay. Used to the neat rows of your military outpost, you slammed the Spartan into several stacked sections of various parts and cargo then passed out.
+
+Not your finest hour.
+
+You spoke out,
+    "Are you sure you're ok Captain? Why don't you try a few COMMANDS, make sure nothing is broken?"
+
+(Try using the command `OBJECTIVES` to radio Zhang and assess the damage)
