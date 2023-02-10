@@ -1,7 +1,6 @@
 package com.lostinspace.model;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,7 +21,7 @@ public class LisGui {
 
     public LisGui() {
 
-        bgImage = new ImageIcon(this.getClass().getResource("/title_fly.gif"));
+        bgImage = new ImageIcon(this.getClass().getResource("/images_title/title_fly.gif"));
         label = new JLabel(bgImage);
         label.setSize(720, 720);
 

@@ -667,4 +667,20 @@ public class Controller {
     public static void setIsEasyMode(boolean isEasyMode) {
         Controller.isEasyMode = isEasyMode;
     }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public String getPrologue() {
+        return prologue;
+    }
+
+    public String getTutorialsText() {
+        return tutorialsText;
+    }
 }
