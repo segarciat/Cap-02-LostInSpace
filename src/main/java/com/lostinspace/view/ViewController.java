@@ -1,19 +1,19 @@
 package com.lostinspace.view;
 
-import com.lostinspace.model.HiddenItem;
-import com.lostinspace.model.Item;
-import com.lostinspace.model.ItemUse;
-import com.lostinspace.model.Room;
+import com.lostinspace.model.*;
+import com.lostinspace.util.GameEvents;
 import com.lostinspace.util.TextLoader;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 class ViewController {
-    // Text files.
+    // text files
     public static final String INSTRUCTIONS_TXT = "text/instructions.txt";
-    public static final String TUTORIAL_TEXT_TXT = "text/tutorialText.txt";
-    public static final String GAME_OBJECTIVES_TXT = "text/gameObjectives.txt";
+    public static final String TUTORIAL_TXT = "text/tutorial.txt";
+    public static final String GAME_OBJECTIVES_TXT = "text/game.txt";
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
@@ -23,22 +23,29 @@ class ViewController {
     public static final String INTERACTABLES_JSON = "interactables.json";
     public static final String SHIP_ROOMS_JSON = "shipRooms.json";
 
+    // Other constants
+    public static final double O_2_CONSUMED = 5.0;
+    public static final double INITIAL_OXYGEN = 80.00;
+    public static final String INITIAL_ROOM = "Docking Bay";
+    public static boolean isEasyMode = false;
+
+    // maps of rooms, objects
     private Map<String, Room> roomMap;                  // import instance of game map from shipRooms.json (game features 16 distinct areas)
     private List<Item> items;                           // import instance of list of collectable items
     private List<HiddenItem> hiddenItems;               // import instance of list of items that begin as hidden
     private List<Item> interactables;                   // import instance of list of interactable objects
     private Map<String, ItemUse> itemUses;              // map containing descriptions of item use results
 
-    // strings containing text from files.
+    // strings containing text from files
     private String instructions;
     private String objectives;
     private String prologue;
-    private String tutorialsText;
+    private String tutorial;
 
     // returns the items list object
     public void loadGameObjects() {
 //        instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
-//        tutorialsText = TextLoader.loadText(TUTORIAL_TEXT_TXT);
+        tutorial = TextLoader.loadText(TUTORIAL_TXT);
 //        objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
@@ -90,6 +97,8 @@ class ViewController {
     }
 
     public String getTutorialsText() {
-        return tutorialsText;
+        return tutorial;
     }
+
+
 }

@@ -13,7 +13,7 @@ class FrameCreator {
         return bgImageLabel;
     }
 
-    public Iterator<String> createInitialFullScreenText(MainTextArea textArea, Iterator<String> iterator) {
+    public Iterator<String> createInitialFullScreenText(JTextArea textArea, Iterator<String> iterator) {
         StringBuilder nextText = new StringBuilder();
         int lineLimit = 13;
 
@@ -27,7 +27,7 @@ class FrameCreator {
         return iterator;
     }
 
-    public void createSubsequentFullScreenText(MainTextArea textArea, Iterator<String> iterator) {
+    public void createSubsequentFullScreenText(JTextArea textArea, Iterator<String> iterator) {
         StringBuilder nextText = new StringBuilder();
         int lineLimit = 13;
 

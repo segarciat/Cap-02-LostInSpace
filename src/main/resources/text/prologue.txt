@@ -69,6 +69,4 @@ What was not so lucky was the complete lack of organization in the bay. Used to 
 Not your finest hour.
 
 You spoke out,
-    "Are you sure you're ok Captain? Why don't you try a few COMMANDS, make sure nothing is broken?"
-
-(Try using the command `OBJECTIVES` to radio Zhang and assess the damage)
+    "Are you sure you're ok Captain? Why don't you go over a few COMMANDS, make sure your brain's alright?"
