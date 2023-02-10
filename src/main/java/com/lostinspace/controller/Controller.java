@@ -683,4 +683,22 @@ public class Controller {
     public String getTutorialsText() {
         return tutorialsText;
     }
+
+    public List<String> buildPrologueParts() {
+        List<String> prologuePages = new ArrayList<>();
+
+        String[] lines = prologue.split(System.lineSeparator());
+        double linesToDisplay = 13;
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < lines.length; i++) {
+            sb.append(lines[i]).append(System.lineSeparator());
+            if (i > 0 && i % linesToDisplay == 0) {
+                prologuePages.add(sb.toString());
+                sb = new StringBuilder();
+            }
+        }
+
+        return prologuePages;
+    }
 }
