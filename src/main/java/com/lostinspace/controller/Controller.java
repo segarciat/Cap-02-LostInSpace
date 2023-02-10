@@ -73,6 +73,10 @@ public class Controller {
     private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
+    public Controller() {
+        loadGameObjects();                              // loads all objects used for game logic into memory
+    }
+
     /*
      * DISPLAY BEGINNING GAME CONTENT
      */
