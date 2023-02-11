@@ -24,7 +24,7 @@ class ViewController {
     public static final String ITEMS_JSON = "items.json";
     public static final String HIDDEN_ITEMS_JSON = "hiddenItems.json";
     public static final String INTERACTABLES_JSON = "interactables.json";
-    public static final String SHIP_ROOMS_JSON = "shipRooms.json";
+    public static final String SHIP_ROOMS_JSON = "json/rooms_modified.json";
 
     // Other constants
     public static final double O_2_CONSUMED = 5.0;
@@ -33,7 +33,7 @@ class ViewController {
     public static boolean isEasyMode = false;
 
     // maps of rooms, objects
-    private Map<String, Room> roomMap;                  // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private Map<String, Room> roomMap;                  // import instance of game map from rooms.json (game features 16 distinct areas)
     private List<Item> items;                           // import instance of list of collectable items
     private List<HiddenItem> hiddenItems;               // import instance of list of items that begin as hidden
     private List<Item> interactables;                   // import instance of list of interactable objects
@@ -102,6 +102,11 @@ class ViewController {
     /*
      * ACCESSOR METHODS
      */
+
+    public Player getPlayer() {
+        return player;
+    }
+
     public Map<String, Room> getRoomMap() {
         return roomMap;
     }

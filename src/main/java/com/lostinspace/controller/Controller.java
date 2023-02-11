@@ -50,7 +50,7 @@ public class Controller {
 
     GameEvents events = new GameEvents();               // ref to Game Event Methods
 
-    private Map<String, Room> roomMap;                  // import instance of game map from shipRooms.json (game features 16 distinct areas)
+    private Map<String, Room> roomMap;                  // import instance of game map from rooms.json (game features 16 distinct areas)
     private List<Item> items;                           // import instance of list of collectable items
     private List<HiddenItem> hiddenItems;               // import instance of list of items that begin as hidden
     private List<Item> interactables;                   // import instance of list of interactable objects

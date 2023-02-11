@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.model.Room;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,6 +49,7 @@ class AppGUI {
     private JTextArea textArea;
     private JButton skipButton;
     private ActionListener skipButtonAction;
+    private JLabel roomFrame;
     Map<String, JLabel> roomFrames;
 
     // controllers
@@ -59,8 +62,10 @@ class AppGUI {
 
     // font size
     private static final Font MONOSPACE_PLAIN_MED = new Font("Monospaced", Font.PLAIN, 14);
+    private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);
 
     // font colors
+    private static final Color COLOR_WHITE = new Color(255, 255, 255);
     private static final Color COLOR_GREEN = new Color(76, 175, 82);
 
     /*
@@ -82,6 +87,7 @@ class AppGUI {
         textArea = new JTextArea();
         skipButton = new JButton();
         skipButtonAction = e -> {};
+        roomFrame = new JLabel();
 
         frame = new JFrame();
         frame.setTitle(GAME_TITLE);
@@ -332,9 +338,10 @@ class AppGUI {
         skipButton.removeActionListener(skipButtonAction);
         panel.remove(skipButton);
 
-        textArea.setText("HI");
-
         createRooms();
+
+        String startingLocation = controller.getPlayer().getCurrentRoom();
+        frame.setContentPane(roomFrames.get(startingLocation));
     }
 
     /*
@@ -383,7 +390,66 @@ class AppGUI {
                 break;
         }
 
-        return null;
+        roomFrame = new JLabel(bgImageRoom);
+        roomFrame.setSize(WINDOW_SIZE, WINDOW_SIZE);
+        roomFrame.setLayout(new GridBagLayout());
+
+        Map<String, Room> roomMap = controller.getRoomMap();
+
+        // Get room description
+        Room currentRoom = roomMap.get(roomName);
+        JTextArea roomTextArea = new JTextArea(currentRoom.getDescription());
+
+        // Set text area attributes
+        roomTextArea.setForeground(COLOR_GREEN);
+        roomTextArea.setFont(MONOSPACE_BOLD_MED);
+        roomTextArea.setMinimumSize(new Dimension(WINDOW_SIZE, 168));
+        roomTextArea.setLineWrap(true);
+        roomTextArea.setWrapStyleWord(true);
+        roomTextArea.setOpaque(false);
+        roomTextArea.setEditable(false);
+        roomTextArea.setMargin(new Insets(12,24,0,24));
+
+        // Set spacer text area
+        JTextArea spacer = new JTextArea();
+        spacer.setOpaque(false);
+        spacer.setEditable(false);
+
+        // Create layout constraints
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 504;
+        roomFrame.add(spacer, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.ipady = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        roomFrame.add(roomTextArea, gbc);
+
+        // Create direction buttons for each exit
+        Map<String, String> roomExits = currentRoom.getExits();
+
+        JPanel buttonPane = new JPanel();
+        buttonPane.setOpaque(false);
+
+        for (String dir: roomExits.keySet()) {
+            JButton dirBtn = new JButton(String.format("Go %s", dir));
+            dirBtn.addActionListener((e) -> {
+                String exitRoomName = roomExits.get(dir);
+                frame.setContentPane(roomFrames.get(exitRoomName));
+            });
+
+            buttonPane.add(dirBtn);
+        }
+
+        gbc.gridy = 1;
+        roomFrame.add(buttonPane, gbc);
+        return roomFrame;
     }
 
     public Route getRoute() {
