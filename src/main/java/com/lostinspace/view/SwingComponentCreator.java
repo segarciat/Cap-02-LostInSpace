@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.Iterator;
 import java.util.Objects;
 
-class FrameCreator {
+class SwingComponentCreator {
     public JLabel createBGImageLabel(ImageIcon bgImage) {
         // add image to label
         JLabel bgImageLabel = new JLabel(bgImage);

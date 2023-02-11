@@ -45,7 +45,9 @@ class ViewController {
     private String prologue;
     private String tutorial;
 
-    private String currentRoom = "Docking Bay";
+    // create player
+    private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
+    private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
 
     public ViewController() {
         loadGameObjects();
@@ -100,12 +102,24 @@ class ViewController {
     /*
      * ACCESSOR METHODS
      */
-    public String getCurrentRoom() {
-        return currentRoom;
+    public Map<String, Room> getRoomMap() {
+        return roomMap;
     }
 
-    public void setCurrentRoom(String currentRoom) {
-        this.currentRoom = currentRoom;
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public List<HiddenItem> getHiddenItems() {
+        return hiddenItems;
+    }
+
+    public List<Item> getInteractables() {
+        return interactables;
+    }
+
+    public Map<String, ItemUse> getItemUses() {
+        return itemUses;
     }
 
     public String getInstructions() {
@@ -120,7 +134,7 @@ class ViewController {
         return prologue;
     }
 
-    public String getTutorialsText() {
+    public String getTutorial() {
         return tutorial;
     }
 

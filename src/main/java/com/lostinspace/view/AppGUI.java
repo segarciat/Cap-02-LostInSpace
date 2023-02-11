@@ -1,13 +1,14 @@
 package com.lostinspace.view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 class AppGUI {
@@ -19,6 +20,14 @@ class AppGUI {
     private static final String BUTTON_EXIT = "/images_title/exit.png";
     private static final String BUTTON_SKIP = "/images_title/skip.png";
     private static final String LABEL_OBJECTIVE = "/images_title/objective.png";
+    private static final String ROOM_DOCKING_BAY = "/images_room/docking_bay.png";
+    private static final String ROOM_JUNCTION_HALL_1 = "/images_room/junction_hallway_1.png";
+    private static final String ROOM_CARGO_HOLD = "/images_room/cargo_hold.png";
+    private static final String ROOM_REACTOR_HALL = "/images_room/reactor_hallway.png";
+    private static final String ROOM_POWER_SUPPLIES = "/images_room/power_supplies.png";
+    private static final String ROOM_REACTOR_ROOM = "/images_room/reactor_room.png";
+    private static final String ROOM_ENGINE_HALL = "/images_room/engine_hallway_room.png";
+    private static final String ROOM_ENGINE_ROOM = "/images_room/engine_room.png";
 
     // size of objects
     private static final int WINDOW_SIZE = 720;
@@ -38,10 +47,11 @@ class AppGUI {
     private JTextArea textArea;
     private JButton skipButton;
     private ActionListener skipButtonAction;
+    Map<String, JLabel> roomFrames;
 
     // controllers
     private ViewController controller;
-    private FrameCreator frameCreator;
+    private SwingComponentCreator frameCreator;
 
     // other
     private Route route = new Route("Title");               // routing section of story
@@ -53,13 +63,16 @@ class AppGUI {
     // font colors
     private static final Color COLOR_GREEN = new Color(76, 175, 82);
 
+    /*
+     * Main method
+     */
     public static void main(String[] args) {
         AppGUI app = new AppGUI();
         app.execute();
     }
 
     /*
-     * GUI constructor
+     * GUI Constructor
      * Initializes the fields, controllers, and JFrame
      */
     public AppGUI() {
@@ -74,6 +87,7 @@ class AppGUI {
         frame.setTitle(GAME_TITLE);
         setFrameAttributes();
 
+        // Frame key listener for 'enter' key
         frame.addKeyListener(new KeyListener() {
             private boolean isMovingOn = false;
 
@@ -125,9 +139,12 @@ class AppGUI {
         });
 
         controller = new ViewController();
-        this.frameCreator = new FrameCreator();
+        this.frameCreator = new SwingComponentCreator();
     }
 
+    /*
+     * Set frame attributes
+     */
     private void setFrameAttributes() {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);                           // Set frame size
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);               // Closes window and terminates
@@ -136,6 +153,9 @@ class AppGUI {
         frame.setResizable(false);
     }
 
+    /*
+     * Entry into App GUI
+     */
     public void execute() {
         switch(route.getRoute()) {
             case "Title":
@@ -155,6 +175,9 @@ class AppGUI {
         }
     }
 
+    /*
+     * Create title frame
+     */
     private void createTitle() {
         // create timer object
         Timer timer = new Timer(2050, new ActionListener() {
@@ -209,6 +232,9 @@ class AppGUI {
         frame.setVisible(true);
     }
 
+    /*
+     * Create prologue sequence
+     */
     private void createPrologue() {
         // Set background image icon
         bgImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(BACKGROUND_IMAGE)));
@@ -276,6 +302,9 @@ class AppGUI {
         frame.add(panel);
     }
 
+    /*
+     * Create tutorial frame
+     */
     public void createTutorial() {
         // Re-initialize skip button action and re-add
         skipButtonAction = new ActionListener() {
@@ -290,19 +319,71 @@ class AppGUI {
         };
         skipButton.addActionListener(skipButtonAction);
 
-        iterator = controller.getTutorialsText().lines().iterator();                         // Initialize iterator
+        iterator = controller.getTutorial().lines().iterator();                         // Initialize iterator
         // Re-initialize after displaying first 13 lines to avoid pressing the 'enter' key
         iterator = frameCreator.createInitialFullScreenText(textArea, iterator, getRoute());
     }
 
+    /*
+     * Create game
+     */
     private void createGame() {
         // Remove skip button action and button from panel
         skipButton.removeActionListener(skipButtonAction);
         panel.remove(skipButton);
 
-        String currentRoom = controller.getCurrentRoom();
-
         textArea.setText("HI");
+
+        createRooms();
+    }
+
+    /*
+     * Create objects for the game
+     */
+    // Create rooms
+    private void createRooms() {
+        roomFrames = new HashMap<>();
+
+        for (String roomName : controller.getRoomMap().keySet()) {
+            roomFrames.put(roomName, createRoomFrame(roomName));
+        }
+    }
+
+    // create room frames
+    private JLabel createRoomFrame(String roomName) {
+        ImageIcon bgImageRoom = new ImageIcon();
+
+        switch(roomName) {
+            case "Docking Bay":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_DOCKING_BAY)));
+                break;
+            case "Junction Hallway 1":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_JUNCTION_HALL_1)));
+                break;
+            case "Cargo Hold":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_CARGO_HOLD)));
+                break;
+            case "Reactor Hallway":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_REACTOR_HALL)));
+                break;
+            case "Power Supplies":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_POWER_SUPPLIES)));
+                break;
+            case "Reactor Room":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_REACTOR_ROOM)));
+                break;
+            case "Engine Room Hallway":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_ENGINE_HALL)));
+                break;
+            case "Engine Room":
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_ENGINE_ROOM)));
+                break;
+            default:
+                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(BACKGROUND_IMAGE)));
+                break;
+        }
+
+        return null;
     }
 
     public Route getRoute() {
