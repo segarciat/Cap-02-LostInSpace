@@ -58,7 +58,7 @@
   },
   {
     "name": "Reactor Hallway",
-    "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked \"Power Supplies\".\nTo the North, you see the door to the Cargo Hold. To the South, you spot the door to the Reactor Room. To the East, a door marked \"Power Supplies\" hums with the sound of machinery.",
+    "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked \"Power Supplies\".",
     "exits": {
       "north": "Cargo Hold",
       "south": "Reactor Room",

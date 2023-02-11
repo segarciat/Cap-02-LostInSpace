@@ -12,7 +12,8 @@ import java.util.Map;
 public class Room {
     private String name;                                 // name of area
     private String description;                          // description of area
-    private Map<String, String> exits;                                  // object acts as where each direction will lead player
+    private Map<String, String> exits;                   // object acts as where each direction will lead player
+    private Map<String, String> exit_descriptions;       // descriptions of the exits
     private List<String> interactables;
     private String entryItem;
 
@@ -27,6 +28,10 @@ public class Room {
 
     public Map<String, String> getExits() {
         return exits;
+    }
+
+    public Map<String, String> getExit_descriptions() {
+        return exit_descriptions;
     }
 
     public List<String> getInteractables() {

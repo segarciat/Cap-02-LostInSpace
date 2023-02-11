@@ -433,18 +433,31 @@ class AppGUI {
 
         // Create direction buttons for each exit
         Map<String, String> roomExits = currentRoom.getExits();
+        Map<String, String> roomExitDescriptions = currentRoom.getExit_descriptions();
 
         JPanel buttonPane = new JPanel();
         buttonPane.setOpaque(false);
 
-        for (String dir: roomExits.keySet()) {
-            JButton dirBtn = new JButton(String.format("Go %s", dir));
-            dirBtn.addActionListener((e) -> {
-                String exitRoomName = roomExits.get(dir);
-                frame.setContentPane(roomFrames.get(exitRoomName));
+        for (String exit: roomExits.keySet()) {
+            JButton directionButton = new JButton(String.format("Go %s", exit));
+
+            directionButton.addActionListener((e) -> {
+                String exitRoomName = roomExits.get(exit);
+                roomTextArea.setText(roomExitDescriptions.get(exitRoomName));
+
+                // Set time for room transition
+                Timer timer = new Timer(1500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame.setContentPane(roomFrames.get(exitRoomName));
+                    }
+                });
+                timer.setRepeats(false);
+
+                timer.start();
             });
 
-            buttonPane.add(dirBtn);
+            buttonPane.add(directionButton);
         }
 
         gbc.gridy = 1;
