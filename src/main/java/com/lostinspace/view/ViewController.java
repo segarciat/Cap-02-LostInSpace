@@ -2,18 +2,21 @@ package com.lostinspace.view;
 
 import com.lostinspace.model.*;
 import com.lostinspace.util.GameEvents;
+import com.lostinspace.util.JSONLoader;
 import com.lostinspace.util.TextLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class ViewController {
     // text files
     public static final String INSTRUCTIONS_TXT = "text/instructions.txt";
     public static final String TUTORIAL_TXT = "text/tutorial.txt";
-    public static final String GAME_OBJECTIVES_TXT = "text/game.txt";
+    public static final String GAME_OBJECTIVES_TXT = "text/objectives.txt";
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
@@ -42,46 +45,67 @@ class ViewController {
     private String prologue;
     private String tutorial;
 
+    private String currentRoom = "Docking Bay";
+
+    public ViewController() {
+        loadGameObjects();
+    }
+
     // returns the items list object
     public void loadGameObjects() {
-//        instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
+        instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
         tutorial = TextLoader.loadText(TUTORIAL_TXT);
-//        objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
+        objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
-//        roomMap = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
-//                .collect(Collectors.toMap(Room::getName, Function.identity()));
-//
-//        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
-//        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
-//        itemUses = JSONLoader.loadFromJsonAsMap(ITEM_USES_JSON, ItemUse.class);
-//
-//        // Load all items that can be interacted with.
-//        List<Item> loadedInteractables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
-//
-//        // Using the list of all items that can be interacted with, create one for each room
-//        interactables = new ArrayList<>();
-//
-//        // Each room should have its own separate items
-//        for (String roomName: roomMap.keySet()) {
-//            List<String> roomInteractables = roomMap.get(roomName).getInteractables();
-//            if (roomInteractables == null)
-//                continue;
-//
-//            for (String interactableName: roomInteractables) {
-//                // Find the item of matching name.
-//                Item item = loadedInteractables.stream().filter(i -> i.getName().equalsIgnoreCase(interactableName)).findFirst().get();
-//
-//                // Make a copy of it.
-//                item = new Item(item);
-//
-//                // Make its current room list have only the current room.
-//                item.setRoom(List.of(roomName));
-//
-//                // Add it to the list of all interactables
-//                interactables.add(item);
-//            }
-//        }
+        roomMap = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
+                .collect(Collectors.toMap(Room::getName, Function.identity()));
+
+        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
+        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
+        itemUses = JSONLoader.loadFromJsonAsMap(ITEM_USES_JSON, ItemUse.class);
+
+        // Load all items that can be interacted with.
+        List<Item> loadedInteractables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
+
+        // Using the list of all items that can be interacted with, create one for each room
+        interactables = new ArrayList<>();
+
+        // Each room should have its own separate items
+        for (String roomName: roomMap.keySet()) {
+            List<String> roomInteractables = roomMap.get(roomName).getInteractables();
+            if (roomInteractables == null)
+                continue;
+
+            for (String interactableName: roomInteractables) {
+                // Find the item of matching name.
+                Item item = loadedInteractables.stream().filter(i -> i.getName().equalsIgnoreCase(interactableName)).findFirst().get();
+
+                // Make a copy of it.
+                item = new Item(item);
+
+                // Make its current room list have only the current room.
+                item.setRoom(List.of(roomName));
+
+                // Add it to the list of all interactables
+                interactables.add(item);
+            }
+        }
+    }
+
+    public void move() {
+
+    }
+
+    /*
+     * ACCESSOR METHODS
+     */
+    public String getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(String currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public String getInstructions() {

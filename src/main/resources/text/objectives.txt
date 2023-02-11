@@ -1,0 +1,19 @@
+You thumb the radio to open the crew chat.
+
+"Captain! The Spartan is in bad shape! To leave safely, we will need to repair it!
+
+ I am going to need some form of the following in order to complete the repairs:
+
+   - A new power-coupling Engine COMPONENT. It doesn't have to be an exact match, but it must be compatible with our ship class, at least.
+
+   - A welding TOOL capable of cutting through the hardened materials of our ship.
+     She's meant for warp drive, after all.
+
+   - A proper training MANUAL depicting the process using 3rd-party materials.
+     I'm not psychic, ya know!
+
+Once I have the necessary materials, I can have the jump drive ready for take-off in no time.
+
+If you're not sure where to start, I'd head for ENGINEERING first.
+
+We're counting on you, Captain!", you can hear the salute even over the short band.

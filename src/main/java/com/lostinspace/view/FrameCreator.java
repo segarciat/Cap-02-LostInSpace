@@ -13,9 +13,16 @@ class FrameCreator {
         return bgImageLabel;
     }
 
-    public Iterator<String> createInitialFullScreenText(JTextArea textArea, Iterator<String> iterator) {
+    public Iterator<String> createInitialFullScreenText(JTextArea textArea, Iterator<String> iterator, Route route) {
+        int lineLimit;
+
+        if (route.getRoute().equals("Prologue")) {
+            lineLimit = 13;
+        } else {
+            lineLimit = 26;
+        }
+
         StringBuilder nextText = new StringBuilder();
-        int lineLimit = 13;
 
         while (iterator.hasNext() && lineLimit > 0) {
             nextText.append(iterator.next()).append("\n");
