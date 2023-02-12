@@ -448,4 +448,8 @@ class AppGUI {
     private void setTextArea(Iterator <String> iterator) {
         frameCreator.createSubsequentFullScreenText(textArea, iterator);
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }
