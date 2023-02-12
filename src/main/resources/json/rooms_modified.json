@@ -7,7 +7,8 @@
     },
     "exit_descriptions": {
       "Docking Bay": null
-    }
+    },
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Docking Bay",
@@ -22,7 +23,8 @@
     },
     "interactables": [
       "ship"
-    ]
+    ],
+    "image":"/images_room/docking_bay.png"
   },
   {
     "name": "Junction Hallway 1",
@@ -39,7 +41,8 @@
     },
     "interactables": [
       "pipes"
-    ]
+    ],
+    "image":"/images_room/junction_hallway_1.png"
   },
   {
     "name": "Cargo Hold",
@@ -54,7 +57,8 @@
     },
     "interactables": [
       "cabinet"
-    ]
+    ],
+    "image":"/images_room/cargo_hold.png"
   },
   {
     "name": "Reactor Hallway",
@@ -68,7 +72,8 @@
       "Cargo Hold": "To the North, you see the door to the Cargo Hold.",
       "Reactor Room": "To the South, you spot the door to the Reactor Room.",
       "Power Supplies": "To the East, a door marked \"Power Supplies\" hums with the sound of machinery."
-    }
+    },
+    "image":"/images_room/reactor_hallway.png"
   },
   {
     "name": "Reactor Room",
@@ -83,7 +88,8 @@
     },
     "interactables": [
       "console"
-    ]
+    ],
+    "image":"/images_room/reactor_room.png"
   },
   {
     "name": "Engine Room Hallway",
@@ -98,7 +104,8 @@
     },
     "interactables": [
       "pipes"
-    ]
+    ],
+    "image":"/images_room/engine_hallway_room.png"
   },
   {
     "name": "Engine Room",
@@ -113,7 +120,9 @@
     },
     "interactables": [
       "rack"
-    ]
+    ],
+    "image":"/images_room/engine_room.png"
+
   },
   {
     "name": "Power Supplies",
@@ -128,7 +137,8 @@
     },
     "interactables": [
       "poster"
-    ]
+    ],
+    "image":"/images_room/power_supplies.png"
   },
   {
     "name": "Junction Hallway 2",
@@ -142,7 +152,8 @@
       "Sketchy Room": "To the West, you see a door that looks damaged.",
       "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
       "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
-    }
+    },
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Sketchy Room",
@@ -152,7 +163,8 @@
     },
     "exit_descriptions": {
       "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
-    }
+    },
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Command Deck Hallway",
@@ -168,7 +180,8 @@
       "Bridge": "To the North, you see the security doors leading to the Bridge.",
       "MedBay": "To the East, you see the door to the MedBay.",
       "Junction Hallway ": "To the South, you see the door returning to the hallway."
-    }
+    },
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Crew Quarters",
@@ -181,7 +194,8 @@
     },
     "interactables": [
       "locker"
-    ]
+    ],
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "MedBay",
@@ -194,7 +208,8 @@
     },
     "interactables": [
       "cooler"
-    ]
+    ],
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Bridge",
@@ -210,7 +225,8 @@
     "interactables": [
       "airlock"
     ],
-    "entryItem": "keycard"
+    "entryItem": "keycard",
+    "image":"/images_title/background.jpg"
   },
   {
     "name": "Cockpit",
@@ -224,6 +240,7 @@
     "interactables": [
       "library",
       "pipes"
-    ]
+    ],
+    "image":"/images_title/background.jpg"
   }
 ]

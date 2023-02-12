@@ -4,7 +4,8 @@
     "description": "As you enter the room, your body starts to disintegrate...",
     "exits": {
       "west": "Docking Bay"
-    }
+    },
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Docking Bay",
@@ -15,7 +16,8 @@
     },
     "interactables": [
       "ship"
-    ]
+    ],
+    "image":"images_room/docking_bay.png"
   },
   {
     "name": "Junction Hallway 1",
@@ -27,7 +29,8 @@
     },
     "interactables": [
       "pipes"
-    ]
+    ],
+    "image":"images_room/junction_hallway_1.png"
   },
   {
     "name": "Cargo Hold",
@@ -38,7 +41,8 @@
     },
     "interactables": [
       "cabinet"
-    ]
+    ],
+    "image":"images_room/cargo_hold.png"
   },
   {
     "name": "Reactor Hallway",
@@ -47,7 +51,8 @@
       "north": "Cargo Hold",
       "south": "Reactor Room",
       "east": "Power Supplies"
-    }
+    },
+    "image":"images_room/reactor_hallway.png"
   },
   {
     "name": "Reactor Room",
@@ -58,7 +63,8 @@
     },
     "interactables": [
       "console"
-    ]
+    ],
+    "image":"images_room/reactor_room.png"
   },
   {
     "name": "Engine Room Hallway",
@@ -69,7 +75,8 @@
     },
     "interactables": [
       "pipes"
-    ]
+    ],
+    "image":"images_room/engine_hallway_room.png"
   },
   {
     "name": "Engine Room",
@@ -80,7 +87,8 @@
     },
     "interactables": [
       "rack"
-    ]
+    ],
+    "image":"images_room/engine_room.png"
   },
   {
     "name": "Power Supplies",
@@ -91,7 +99,8 @@
     },
     "interactables": [
       "poster"
-    ]
+    ],
+    "image":"images_room/power_supplies.png"
   },
   {
     "name": "Junction Hallway 2",
@@ -100,14 +109,16 @@
       "west": "Sketchy Room",
       "north": "Command Deck Hallway",
       "south": "Junction Hallway 1"
-    }
+    },
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Sketchy Room",
     "description": "You enter what looks to have once been a mess hall. Now it's just a mess. The smell of death and decay lingers in the air.\nYou notice unorganized stacks of cages, filled with various decomposing creatures. You check a nearby manifest tablet.\nIt seems they were smuggling some extremely rare species and then abandoned them here for some reason...but why?\nAs if in answer to your question, you notice the largest cage empty with its bars twisted violently outward.\n\n- To the East, you see the door returning to the hallway,\n  it appears as if something has been pounding on it to get out...",
     "exits": {
       "east": "Junction Hallway 2"
-    }
+    },
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Command Deck Hallway",
@@ -117,7 +128,8 @@
       "north": "Bridge",
       "south": "Junction Hallway 2",
       "east": "MedBay"
-    }
+    },
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Crew Quarters",
@@ -127,7 +139,8 @@
     },
     "interactables": [
       "locker"
-    ]
+    ],
+    "image":"images_room/background.jpg"
   },
   {
     "name": "MedBay",
@@ -137,7 +150,8 @@
     },
     "interactables": [
       "cooler"
-    ]
+    ],
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Bridge",
@@ -149,7 +163,8 @@
     "interactables": [
       "airlock"
     ],
-    "entryItem": "keycard"
+    "entryItem": "keycard",
+    "image":"images_room/background.jpg"
   },
   {
     "name": "Cockpit",
@@ -160,6 +175,7 @@
     "interactables": [
       "library",
       "pipes"
-    ]
+    ],
+    "image":"images_room/background.jpg"
   }
 ]

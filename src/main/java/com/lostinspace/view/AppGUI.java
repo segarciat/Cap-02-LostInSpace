@@ -21,15 +21,7 @@ class AppGUI {
     private static final String BUTTON_START = "/images_title/start.png";
     private static final String BUTTON_EXIT = "/images_title/exit.png";
     private static final String BUTTON_SKIP = "/images_title/skip.png";
-    private static final String LABEL_OBJECTIVE = "/images_title/objective.png";
-    private static final String ROOM_DOCKING_BAY = "/images_room/docking_bay.png";
-    private static final String ROOM_JUNCTION_HALL_1 = "/images_room/junction_hallway_1.png";
-    private static final String ROOM_CARGO_HOLD = "/images_room/cargo_hold.png";
-    private static final String ROOM_REACTOR_HALL = "/images_room/reactor_hallway.png";
-    private static final String ROOM_POWER_SUPPLIES = "/images_room/power_supplies.png";
-    private static final String ROOM_REACTOR_ROOM = "/images_room/reactor_room.png";
-    private static final String ROOM_ENGINE_HALL = "/images_room/engine_hallway_room.png";
-    private static final String ROOM_ENGINE_ROOM = "/images_room/engine_room.png";
+
 
     // size of objects
     private static final int WINDOW_SIZE = 720;
@@ -358,36 +350,11 @@ class AppGUI {
     // create room frames
     private JLabel createRoomFrame(String roomName) {
         ImageIcon bgImageRoom = new ImageIcon();
+        Map<String, Room> roomMap1 = controller.getRoomMap();
+        Room room = roomMap1.get(roomName);
+        String imageFileName = room.getImage();
+        bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(imageFileName)));
 
-        switch(roomName) {
-            case "Docking Bay":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_DOCKING_BAY)));
-                break;
-            case "Junction Hallway 1":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_JUNCTION_HALL_1)));
-                break;
-            case "Cargo Hold":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_CARGO_HOLD)));
-                break;
-            case "Reactor Hallway":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_REACTOR_HALL)));
-                break;
-            case "Power Supplies":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_POWER_SUPPLIES)));
-                break;
-            case "Reactor Room":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_REACTOR_ROOM)));
-                break;
-            case "Engine Room Hallway":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_ENGINE_HALL)));
-                break;
-            case "Engine Room":
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(ROOM_ENGINE_ROOM)));
-                break;
-            default:
-                bgImageRoom = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(BACKGROUND_IMAGE)));
-                break;
-        }
 
         roomFrame = new JLabel(bgImageRoom);
         roomFrame.setSize(WINDOW_SIZE, WINDOW_SIZE);

@@ -16,6 +16,7 @@ public class Room {
     private Map<String, String> exit_descriptions;       // descriptions of the exits
     private List<String> interactables;
     private String entryItem;
+    private String image;
 
     // ACCESSOR METHODS
     public String getName() {
@@ -40,5 +41,9 @@ public class Room {
 
     public String getEntryItem() {
         return entryItem;
+    }
+
+    public String getImage() {
+        return image;
     }
 }
