@@ -8,10 +8,9 @@ import java.util.Objects;
 /**
  * JPanel with a background image.
  *
- * Original author:
+ * Original author: Raymo111
  *
- * Raymo111 on:
- * https://stackoverflow.com/questions/49826647/java-problems-with-gif-in-label
+ * Source: https://stackoverflow.com/questions/49826647/java-problems-with-gif-in-label
  */
 class ImagePanel extends JPanel {
 

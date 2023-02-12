@@ -1,11 +1,10 @@
 package com.lostinspace.view;
 
 import javax.swing.*;
-import java.util.Iterator;
 import java.util.Objects;
 
 class SwingComponentCreator {
-    public JLabel createBGImageLabel(ImageIcon bgImage) {
+    public static JLabel createBGImageLabel(ImageIcon bgImage) {
         // add image to label
         JLabel bgImageLabel = new JLabel(bgImage);
         bgImageLabel.setSize(720, 720);
@@ -13,40 +12,7 @@ class SwingComponentCreator {
         return bgImageLabel;
     }
 
-    public Iterator<String> createInitialFullScreenText(JTextArea textArea, Iterator<String> iterator, Route route) {
-        int lineLimit;
-//        route.getRoute().equals("Prologue")
-        if (Route.PROLOGUE.equals(route)) {
-            lineLimit = 13;
-        } else {
-            lineLimit = 26;
-        }
-
-        StringBuilder nextText = new StringBuilder();
-
-        while (iterator.hasNext() && lineLimit > 0) {
-            nextText.append(iterator.next()).append("\n");
-            lineLimit--;
-        }
-
-        textArea.setText(nextText.toString());
-
-        return iterator;
-    }
-
-    public void createSubsequentFullScreenText(JTextArea textArea, Iterator<String> iterator) {
-        StringBuilder nextText = new StringBuilder();
-        int lineLimit = 13;
-
-        while (iterator.hasNext() && lineLimit > 0) {
-            nextText.append(iterator.next()).append("\n");
-            lineLimit--;
-        }
-
-        textArea.setText(nextText.toString());
-    }
-
-    public JButton createButtonWithText(String text, int x, int y, int w, int h) {
+    public static JButton createButtonWithText(String text, int x, int y, int w, int h) {
         JButton button = new JButton();                           // add image to button
 
         button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
@@ -56,8 +22,8 @@ class SwingComponentCreator {
         return button;
     }
 
-    public JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(imageURL)));
+    public static JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppGUI.class.getResource(imageURL)));
         JButton button = new JButton(imageIcon);                           // add image to button
 
         button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)

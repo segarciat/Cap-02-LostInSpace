@@ -24,7 +24,7 @@ class TitlePanel extends ImagePanel {
 
     private final AppGUI app;
 
-    public TitlePanel(AppGUI app, SwingComponentCreator frameCreator) {
+    public TitlePanel(AppGUI app) {
         super(TITLE_SCREEN_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
         this.app = app;
         JFrame frame = app.getFrame();
@@ -34,10 +34,10 @@ class TitlePanel extends ImagePanel {
                 .getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
 
         // Create button to enter/exit game
-        startGameButton = frameCreator.createButtonWithImage(BUTTON_START, 100, 175, BUTTON_WIDTH,
+        startGameButton = SwingComponentCreator.createButtonWithImage(BUTTON_START, 100, 175, BUTTON_WIDTH,
                 BUTTON_HEIGHT);
 
-        exitGameButton = frameCreator.createButtonWithImage(BUTTON_EXIT, 370, 175, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitGameButton = SwingComponentCreator.createButtonWithImage(BUTTON_EXIT, 370, 175, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         // Create and add action listeners
         startGameButton.addActionListener(new StartButtonAction(this));
@@ -69,8 +69,6 @@ class TitlePanel extends ImagePanel {
 
                 panel.remove(startGameButton);
                 panel.remove(exitGameButton);
-
-                app.getFrame().requestFocus();
 
                 app.execute();
             });
