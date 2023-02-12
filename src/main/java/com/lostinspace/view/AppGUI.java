@@ -278,6 +278,7 @@ class AppGUI {
         // Set text area attributes
         textArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                          // size
         textArea.setEditable(false);                                         // non-editable
+        textArea.setFocusable(false);                                       // prevent from stealing focus on click
         textArea.setOpaque(false);                                           // no background
         textArea.setLineWrap(true);                                          // wrap lines
         textArea.setWrapStyleWord(true);                                     // wrap by word
@@ -408,12 +409,14 @@ class AppGUI {
         roomTextArea.setWrapStyleWord(true);
         roomTextArea.setOpaque(false);
         roomTextArea.setEditable(false);
+        roomTextArea.setFocusable(false);
         roomTextArea.setMargin(new Insets(12,24,0,24));
 
         // Set spacer text area
         JTextArea spacer = new JTextArea();
         spacer.setOpaque(false);
         spacer.setEditable(false);
+        spacer.setFocusable(false);
 
         // Create layout constraints
         GridBagConstraints gbc = new GridBagConstraints();
