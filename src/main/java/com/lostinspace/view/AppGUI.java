@@ -57,7 +57,7 @@ class AppGUI {
     private SwingComponentCreator frameCreator;
 
     // other
-    private Route route = new Route("Title");               // routing section of story
+    private Route route = Route.TITLE;               // routing section of story
     private Iterator<String> iterator;                      // iterator for text
 
     // font size
@@ -112,20 +112,18 @@ class AppGUI {
                         isMovingOn = true;
                     }
 
-                    switch(route.getRoute()) {
-                        case "Title":
-                            break;
-                        case "Prologue":
+                    switch(route) {
+                        case PROLOGUE:
                             if (isMovingOn) {
-                                setRoute(new Route("Tutorial"));
+                                setRoute(Route.TUTORIAL);
                                 execute();
                             } else {
                                 setTextArea(iterator);
                             }
                             break;
-                        case "Tutorial":
+                        case TUTORIAL:
                             if (isMovingOn) {
-                                setRoute(new Route("Game"));
+                                setRoute(Route.GAME);
                                 execute();
                             } else {
                                 setTextArea(iterator);
@@ -163,17 +161,17 @@ class AppGUI {
      * Entry into App GUI
      */
     public void execute() {
-        switch(route.getRoute()) {
-            case "Title":
+        switch(route) {
+            case TITLE:
                 createTitle();
                 break;
-            case "Prologue":
+            case PROLOGUE:
                 createPrologue();
                 break;
-            case "Tutorial":
+            case TUTORIAL:
                 createTutorial();
                 break;
-            case "Game":
+            case GAME:
                 createGame();
                 break;
             default:
@@ -189,7 +187,7 @@ class AppGUI {
         Timer timer = new Timer(2050, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                route.setRoute("Prologue");
+                setRoute(Route.PROLOGUE);
                 execute();
             }
         });
@@ -264,7 +262,7 @@ class AppGUI {
                     iterator = frameCreator.createInitialFullScreenText(textArea, iterator, getRoute());
                 } else {
                     skipButton.removeActionListener(skipButtonAction);
-                    setRoute(new Route("Tutorial"));
+                    setRoute(Route.TUTORIAL);
                     execute();
                 }
 
@@ -317,7 +315,7 @@ class AppGUI {
         skipButtonAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setRoute(new Route("Game"));
+                setRoute(Route.GAME);
                 execute();
 
                 // Set frame as focus

@@ -15,8 +15,8 @@ class SwingComponentCreator {
 
     public Iterator<String> createInitialFullScreenText(JTextArea textArea, Iterator<String> iterator, Route route) {
         int lineLimit;
-
-        if (route.getRoute().equals("Prologue")) {
+//        route.getRoute().equals("Prologue")
+        if (Route.PROLOGUE.equals(route)) {
             lineLimit = 13;
         } else {
             lineLimit = 26;
