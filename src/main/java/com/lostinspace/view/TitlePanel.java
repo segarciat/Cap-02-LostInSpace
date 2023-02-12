@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Objects;
 
 class TitlePanel extends ImagePanel {
@@ -19,8 +21,8 @@ class TitlePanel extends ImagePanel {
     public static final int TRANSITION_DELAY = 2050;
 
     private final Image startMenuTransitionImage;
-    JButton startGameButton;
-    JButton exitGameButton;
+    private final JButton startGameButton;
+    private final JButton exitGameButton;
 
     private final AppGUI app;
 
@@ -49,6 +51,8 @@ class TitlePanel extends ImagePanel {
         this.setLayout(null);
         this.add(startGameButton);
         this.add(exitGameButton);
+
+        frame.addKeyListener(new StartGameOnEnter());
     }
 
     private class StartButtonAction implements ActionListener {
@@ -79,5 +83,21 @@ class TitlePanel extends ImagePanel {
             // Start timer - After time starts, the program will go into the prologue.
             timer.start();
         }
+    }
+
+    private class StartGameOnEnter implements KeyListener {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                startGameButton.doClick();
+                app.getFrame().removeKeyListener(this);
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+        public void keyReleased(KeyEvent e) {}
     }
 }

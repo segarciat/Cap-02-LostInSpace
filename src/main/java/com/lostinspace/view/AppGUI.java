@@ -95,6 +95,7 @@ class AppGUI {
         JPanel titlePanel = new TitlePanel(this);
         frame.setContentPane(titlePanel);
         frame.setVisible(true);
+        frame.requestFocus();
     }
 
     /*
