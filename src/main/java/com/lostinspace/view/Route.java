@@ -1,17 +1,9 @@
 package com.lostinspace.view;
 
-class Route {
-    private String route;
+enum Route {
 
-    public Route(String route) {
-        this.route = route;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
-    }
+    TITLE,
+    PROLOGUE,
+    TUTORIAL,
+    GAME
 }

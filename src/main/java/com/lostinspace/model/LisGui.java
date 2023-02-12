@@ -27,17 +27,7 @@ public class LisGui {
 
         enterGame = new JButton("Enter Game"); // set text for "enter game" button
         enterGame.setBounds(310, 550, 100, 50); // center button within the frame
-        enterGame.addActionListener(new ActionListener() { // created an action listener when button is pushed
-            @Override
-            public void actionPerformed(ActionEvent e) { // shows a message when button has been clicked
-
-                if (enterGame.getText() == "Enter Game") ;
-                {
-                    label.setVisible(false);
-                }
-            }
-        });
-        enterGame.addKeyListener(new KeyListener() {
+        enterGame.addKeyListener(new KeyListener() { // shows a message when enter key is pressed
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -46,9 +36,8 @@ public class LisGui {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    JOptionPane.showMessageDialog(null, "You have pressed Enter key.");
                 }
-
+                label.setVisible(false);
             }
 
             @Override
@@ -57,13 +46,9 @@ public class LisGui {
             }
         });
 
-
-
-
         label.add(enterGame); // adds a button with display of "enter game"
 
         frame = new JFrame("Lost In Space"); // set text title for gui frame
-
         frame.add(label);
         frame.setSize(720, 720);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes window and terminates

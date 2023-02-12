@@ -1,0 +1,246 @@
+[
+  {
+    "name": "Enviro-Field",
+    "description": "As you enter the room, your body starts to disintegrate...",
+    "exits": {
+      "west": "Docking Bay"
+    },
+    "exit_descriptions": {
+      "Docking Bay": null
+    },
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Docking Bay",
+    "description": "You glance around the Docking Bay. It acts as a structure jutting from the starboard side of the ship, providing room for landing and loading. The vast port your ship entered through generates a crackling enviro-field, holding in what little toxic atmosphere that remains. You cannot make out any more details due to the dim emergency lighting.",
+    "exits": {
+      "west": "Junction Hallway 1",
+      "east": "Enviro-Field"
+    },
+    "exit_descriptions": {
+      "Junction Hallway 1": "To the West, you see the bay doors exit.",
+      "Enviro-Field": "To the East, you see the environ-field where your ship traveled through..."
+    },
+    "interactables": [
+      "ship"
+    ],
+    "image":"/images_room/docking_bay.png"
+  },
+  {
+    "name": "Junction Hallway 1",
+    "description": "This hallway divides the ship into the stern and bow sectors. An environ-panel hangs open, the oxygen pipe here has been siphoned. The dim red light pervades this area, too, allowing you to barely make out the signage off 3 exits. It seems dumb for everything to be labeled grey, how frustrating",
+    "exits": {
+      "east": "Docking Bay",
+      "north": "Junction Hallway 2",
+      "south": "Cargo Hold"
+    },
+    "exit_descriptions": {
+      "Docking Bay": "To the East, you spot a final grey stripe on the open bay doors, you can vaguely make out the silhouette of your ship in the distance.\"",
+      "Junction Hallway 2": "To the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door.",
+      "Cargo Hold": "To the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\"."
+    },
+    "interactables": [
+      "pipes"
+    ],
+    "image":"/images_room/junction_hallway_1.png"
+  },
+  {
+    "name": "Cargo Hold",
+    "description": "You enter the Cargo Hold. Immediately the towering rows of crates, equipment, and who knows what else cast great shadows, blocking the dim emergency lighting overhead. You won't be able to see anything clearly without the ship's proper warehouse lighting.",
+    "exits": {
+      "north": "Junction Hallway 1",
+      "south": "Reactor Hallway"
+    },
+    "exit_descriptions": {
+      "Junction Hallway 1": "To the North, you make out the grey stripe leading back to the door to the junction hallway.",
+      "Reactor Hallway": "To the South, you barely spot the grey stripe leading to a door marked \"Reactor Room\""
+    },
+    "interactables": [
+      "cabinet"
+    ],
+    "image":"/images_room/cargo_hold.png"
+  },
+  {
+    "name": "Reactor Hallway",
+    "description": "The hall before the Reactor Room is dim red, a low hum pulses from another door marked \"Power Supplies\".",
+    "exits": {
+      "north": "Cargo Hold",
+      "south": "Reactor Room",
+      "east": "Power Supplies"
+    },
+    "exit_descriptions": {
+      "Cargo Hold": "To the North, you see the door to the Cargo Hold.",
+      "Reactor Room": "To the South, you spot the door to the Reactor Room.",
+      "Power Supplies": "To the East, a door marked \"Power Supplies\" hums with the sound of machinery."
+    },
+    "image":"/images_room/reactor_hallway.png"
+  },
+  {
+    "name": "Reactor Room",
+    "description": "The Reactor Room vibrates with the steady hum of the emergency generators coming through the adjoining wall. A long console sits against the far wall, its displays dimmed out. Seems like it’s in power savings mode.",
+    "exits": {
+      "north": "Reactor Hallway",
+      "south": "Engine Room Hallway"
+    },
+    "exit_descriptions": {
+      "Reactor Hallway": "To the North, you see the door back to the Reactor Hallway.",
+      "Engine Room Hallway": "To the South, the door to \"Engine Room\" sits darkened."
+    },
+    "interactables": [
+      "console"
+    ],
+    "image":"/images_room/reactor_room.png"
+  },
+  {
+    "name": "Engine Room Hallway",
+    "description": "The air in the hall before the Engine Room holds the tang of burning oil, even without the Chief's expertise you can see several clear signs of mechanical neglect. What happened to the crew to allow things to reach this state?",
+    "exits": {
+      "north": "Reactor Room",
+      "east": "Engine Room"
+    },
+    "exit_descriptions": {
+      "Reactor Room": "To the North, the Reactor Room.",
+      "Engine Room": "To the East, you spot the door to the Engine Room."
+    },
+    "interactables": [
+      "pipes"
+    ],
+    "image":"/images_room/engine_hallway_room.png"
+  },
+  {
+    "name": "Engine Room",
+    "description": "The Engine Room is not so much a \"room\" as it is an observation platform now containing a messy makeshift workshop. Rows of engine parts from ships of every capacity line the shelves and hang partially completed from shop chains. A rickety steel railing separates you from the yawning cavern that holds the freighter's industrial capacity jump drives.",
+    "exits": {
+      "west": "Engine Room Hallway",
+      "north": "Power Supplies"
+    },
+    "exit_descriptions": {
+      "Engine Room Hallway": "To the West, you see the door returning to the hallway.",
+      "Power Supplies": "To the North, you see the doors to the Power Supplies are now working."
+    },
+    "interactables": [
+      "rack"
+    ],
+    "image":"/images_room/engine_room.png"
+
+  },
+  {
+    "name": "Power Supplies",
+    "description": "Rows of silent reactor equipment are stained with a layer of dust and grease. In the far corner of the area, an emergency generator glows white hot, the air distorted around it. It's only a matter of time before its core melts down, good thing you're planning on leaving soon!",
+    "exits": {
+      "west": "Reactor Hallway",
+      "south": "Engine Room"
+    },
+    "exit_descriptions": {
+      "Reactor Hallway": "To the West, you see the door returning to the hallway.",
+      "Engine Room": "To the South, you see the electronic doors to the Engine Room."
+    },
+    "interactables": [
+      "poster"
+    ],
+    "image":"/images_room/power_supplies.png"
+  },
+  {
+    "name": "Junction Hallway 2",
+    "description": "This hallway seems to lead to the crew quarters and command deck at the bow of the ship.",
+    "exits": {
+      "west": "Sketchy Room",
+      "north": "Command Deck Hallway",
+      "south": "Junction Hallway 1"
+    },
+    "exit_descriptions": {
+      "Sketchy Room": "To the West, you see a door that looks damaged.",
+      "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
+      "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
+    },
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Sketchy Room",
+    "description": "You enter what looks to have once been a mess hall. Now it's just a mess. The smell of death and decay lingers in the air. You notice unorganized stacks of cages, filled with various decomposing creatures. You check a nearby manifest tablet. It seems they were smuggling some extremely rare species and then abandoned them here for some reason...but why?",
+    "exits": {
+      "east": "Junction Hallway 2"
+    },
+    "exit_descriptions": {
+      "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
+    },
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Command Deck Hallway",
+    "description": "The Command Deck is comprised of the obvious Bridge and Cockpit, but on a ship of this class also features the crew quarters and Medical Bay.",
+    "exits": {
+      "west": "Crew Quarters",
+      "north": "Bridge",
+      "south": "Junction Hallway 2",
+      "east": "MedBay"
+    },
+    "exit_descriptions": {
+      "Crew Quarters": "To the West, you see the door to their Crew Quarters.",
+      "Bridge": "To the North, you see the security doors leading to the Bridge.",
+      "MedBay": "To the East, you see the door to the MedBay.",
+      "Junction Hallway ": "To the South, you see the door returning to the hallway."
+    },
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Crew Quarters",
+    "description": "The crew's living quarters are a hodgepodge of about a dozen or so sleeping areas haphazardly arranged. You see only 5 official LOCKERs though, meaning the original crew must have been much smaller...",
+    "exits": {
+      "east": "Command Deck Hallway"
+    },
+    "exit_descriptions": {
+      "Command Deck Hallway": "To the East, you see the door returning to the hallway."
+    },
+    "interactables": [
+      "locker"
+    ],
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "MedBay",
+    "description": "You enter the fluorescent lighting of the MedBay and immediately notice three patient beds surrounded by medical equipment. All of them are covered with various blood stains. The blood is browning and no longer tacky, these stains are not fresh. Running along the length of the wall is a mortuary COOLER.",
+    "exits": {
+      "west": "Command Deck Hallway"
+    },
+    "exit_descriptions": {
+      "Command Deck Hallway": "To the West, you see the door leading back to the Command Deck Hallway."
+    },
+    "interactables": [
+      "cooler"
+    ],
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Bridge",
+    "description": "The Bridge is in disarray. It looks like several small skirmishes broke out in here, blaster fire pocks the plasti-steel bulkheads of the walls and ceiling and long splashes of gore lie splattered here and there. A large AIRLOCK used for boarding sits secured on the far wall.",
+    "exits": {
+      "north": "Cockpit",
+      "south": "Command Deck Hallway"
+    },
+    "exit_descriptions": {
+      "Cockpit": "To the North, you see the doors to the Cockpit.",
+      "Command Deck Hallway": "To the South, you see the door returning to hallway."
+    },
+    "interactables": [
+      "airlock"
+    ],
+    "entryItem": "keycard",
+    "image":"/images_title/background.jpg"
+  },
+  {
+    "name": "Cockpit",
+    "description": "The controls to a starship of this size are mainly meant for monitoring the ship's auto-pilot as it conducts its routines. Thus, the room features more display screens and readouts rather than any sort of traditional manual controls.",
+    "exits": {
+      "south": "Bridge"
+    },
+    "exit_descriptions": {
+      "Bridge": "To the South, you see the door returning to the Bridge."
+    },
+    "interactables": [
+      "library",
+      "pipes"
+    ],
+    "image":"/images_title/background.jpg"
+  }
+]
