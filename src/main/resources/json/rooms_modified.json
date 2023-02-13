@@ -22,11 +22,8 @@
       "Junction Hallway 1": "To the West, you see the bay doors exit.",
       "Enviro-Field": "To the East, you see the environ-field where your ship traveled through..."
     },
-    "interactables": [
-      "ship"
-    ],
     "items": [
-      "scrambler"
+      "scrambler", "ship"
     ],
     "image":"/images_room/docking_bay.png"
   },
@@ -43,7 +40,7 @@
       "Junction Hallway 2": "To the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door.",
       "Cargo Hold": "To the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\"."
     },
-    "interactables": [
+    "items": [
       "pipes"
     ],
     "image":"/images_room/junction_hallway_1.png"
@@ -59,11 +56,8 @@
       "Junction Hallway 1": "To the North, you make out the grey stripe leading back to the door to the junction hallway.",
       "Reactor Hallway": "To the South, you barely spot the grey stripe leading to a door marked \"Reactor Room\""
     },
-    "interactables": [
-      "cabinet"
-    ],
     "items": [
-      "tool"
+      "tool", "cabinet"
     ],
     "image":"/images_room/cargo_hold.png"
   },
@@ -93,7 +87,7 @@
       "Reactor Hallway": "To the North, you see the door back to the Reactor Hallway.",
       "Engine Room Hallway": "To the South, the door to \"Engine Room\" sits darkened."
     },
-    "interactables": [
+    "items": [
       "console"
     ],
     "image":"/images_room/reactor_room.png"
@@ -109,7 +103,7 @@
       "Reactor Room": "To the North, the Reactor Room.",
       "Engine Room": "To the East, you spot the door to the Engine Room."
     },
-    "interactables": [
+    "items": [
       "pipes"
     ],
     "image":"/images_room/engine_hallway_room.png"
@@ -125,11 +119,8 @@
       "Engine Room Hallway": "To the West, you see the door returning to the hallway.",
       "Power Supplies": "To the North, you see the doors to the Power Supplies are now working."
     },
-    "interactables": [
-      "rack"
-    ],
     "items": [
-      "component"
+      "component", "rack"
     ],
     "image":"/images_room/engine_room.png"
 
@@ -145,7 +136,7 @@
       "Reactor Hallway": "To the West, you see the door returning to the hallway.",
       "Engine Room": "To the South, you see the electronic doors to the Engine Room."
     },
-    "interactables": [
+    "items": [
       "poster"
     ],
     "image":"/images_room/power_supplies.png"
@@ -202,11 +193,8 @@
     "exit_descriptions": {
       "Command Deck Hallway": "To the East, you see the door returning to the hallway."
     },
-    "interactables": [
-      "locker"
-    ],
     "items": [
-      "key"
+      "key", "locker"
     ],
     "image":"/images_room/crew_quarters.png"
   },
@@ -219,11 +207,8 @@
     "exit_descriptions": {
       "Command Deck Hallway": "To the West, you see the door leading back to the Command Deck Hallway."
     },
-    "interactables": [
-      "cooler"
-    ],
     "items": [
-      "corpse"
+      "cooler", "corpse"
     ],
     "image":"/images_room/medbay.png"
   },
@@ -238,7 +223,7 @@
       "Cockpit": "To the North, you see the doors to the Cockpit.",
       "Command Deck Hallway": "To the South, you see the door returning to hallway."
     },
-    "interactables": [
+    "items": [
       "airlock"
     ],
     "entryItem": "keycard",
@@ -253,12 +238,8 @@
     "exit_descriptions": {
       "Bridge": "To the South, you see the door returning to the Bridge."
     },
-    "interactables": [
-      "library",
-      "pipes"
-    ],
     "items": [
-      "manual"
+      "manual", "library", "pipes"
     ],
     "image":"/images_title/background.jpg"
   }
