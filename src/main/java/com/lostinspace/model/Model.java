@@ -26,6 +26,7 @@ public class Model {
     private final Map<String, Item> items;
     private Map<String, Set<Item>> roomItems;
     private final Map<String, Image> roomImages;
+    private final Map<String, Map<String, Rectangle>> roomItemRectangles;
 
     // strings containing text from files
     private final String instructions;
@@ -34,10 +35,6 @@ public class Model {
     private final String tutorial;
 
     private final Player player;
-
-    public static void main(String[] args) {
-        new Model();
-    }
 
     public Model() {
         // Load all text.
@@ -66,11 +63,8 @@ public class Model {
         roomImages = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, room -> ImageLoader.loadImage(room.getImage())));
 
-        // Load room item rectangles form XML/TMX
-        for (Room room: rooms.values()) {
-            Map<String, Rectangle> roomItemRectangles = TMXLoader.getRoomItemRectangles(room);
-            System.out.println(roomItemRectangles);
-        }
+        roomItemRectangles = rooms.values().stream()
+                .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
 
         player = new Player("", 0.0);
     }
@@ -81,6 +75,10 @@ public class Model {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Map<String, Map<String, Rectangle>> getRoomItemRectangles() {
+        return Collections.unmodifiableMap(roomItemRectangles);
     }
 
     public Map<String, Set<Item>> getRoomItems() {
