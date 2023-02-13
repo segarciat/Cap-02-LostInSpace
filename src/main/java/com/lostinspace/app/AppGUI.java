@@ -1,12 +1,16 @@
-package com.lostinspace.view;
+package com.lostinspace.app;
 
 import com.lostinspace.controller.ViewController;
 import com.lostinspace.model.Room;
+import com.lostinspace.view.IntroPanel;
+import com.lostinspace.view.RoomPanel;
+import com.lostinspace.view.Route;
+import com.lostinspace.view.TitlePanel;
 
 import javax.swing.*;
 import java.util.*;
 
-class AppGUI {
+public class AppGUI {
 
     // size of objects
     private static final int FRAME_WIDTH = 736;

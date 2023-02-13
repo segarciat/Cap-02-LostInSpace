@@ -1,5 +1,6 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.AppGUI;
 import com.lostinspace.model.Room;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-class RoomPanel extends ImagePanel{
+public class RoomPanel extends ImagePanel{
 
     // font size
     private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);

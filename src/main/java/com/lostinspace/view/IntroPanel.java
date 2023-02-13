@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.AppGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class IntroPanel extends ImagePanel {
+public class IntroPanel extends ImagePanel {
     private static final String BACKGROUND_IMAGE = "/images_title/background.jpg";
     private static final String BUTTON_SKIP = "/images_title/skip.png";
 
