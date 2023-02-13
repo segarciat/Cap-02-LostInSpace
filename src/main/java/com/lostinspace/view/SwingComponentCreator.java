@@ -5,7 +5,7 @@ import com.lostinspace.app.AppGUI;
 import javax.swing.*;
 import java.util.Objects;
 
-class SwingComponentCreator {
+public class SwingComponentCreator {
     public static JButton createButtonWithText(String text, int x, int y, int w, int h) {
         JButton button = new JButton();                           // add image to button
 

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import java.util.Objects;
 
 public class RoomPanel extends ImagePanel{
     // font size
@@ -21,7 +22,6 @@ public class RoomPanel extends ImagePanel{
 
     private final JTextArea roomTextArea;
     private final AppGUI app;
-
 
     public RoomPanel(AppGUI app, Room room) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
@@ -80,6 +80,15 @@ public class RoomPanel extends ImagePanel{
             buttonPane.add(directionButton);
         }
 
+        if (room.getName().equals("Docking Bay")) {
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.insets = new Insets(0, 0, -24, 288);
+            JButton item = SwingComponentCreator.createButtonWithImage("/images_item/scrambler.png", 216, 264, 48, 48);
+            this.add(item, gbc);
+        }
+
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridy = 1;
         this.add(buttonPane, gbc);
     }
