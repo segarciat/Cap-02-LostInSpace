@@ -1,6 +1,6 @@
 package com.lostinspace.view;
 
-enum Route {
+public enum Route {
     TITLE,
     PROLOGUE,
     GAME
