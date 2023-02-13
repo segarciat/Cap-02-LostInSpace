@@ -1,10 +1,9 @@
-package com.lostinspace.view;
+package com.lostinspace.controller;
 
 import com.lostinspace.model.*;
-import com.lostinspace.view.*;
 import com.lostinspace.util.JSONLoader;
 import com.lostinspace.util.TextLoader;
-import com.lostinspace.view.model.ItemMod;
+import com.lostinspace.model.ItemMod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class ViewController {
+public class ViewController {
     // text files
     public static final String INSTRUCTIONS_TXT = "text/instructions.txt";
     public static final String TUTORIAL_TXT = "text/tutorial.txt";

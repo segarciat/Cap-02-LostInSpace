@@ -1,5 +1,6 @@
 package com.lostinspace.view;
 
+import com.lostinspace.controller.ViewController;
 import com.lostinspace.model.Room;
 
 import javax.swing.*;

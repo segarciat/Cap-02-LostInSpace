@@ -1,4 +1,4 @@
-package com.lostinspace.view.model;
+package com.lostinspace.model;
 
 public class ItemMod {
     private String name;

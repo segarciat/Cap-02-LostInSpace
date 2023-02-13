@@ -17,7 +17,7 @@ public class Model {
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
-    public static final String ITEMS_JSON = "items.json";
+    public static final String ITEMS_JSON = "items_modified.json";
     public static final String SHIP_ROOMS_JSON = "json/rooms_modified.json";
 
     // maps of rooms, objects
