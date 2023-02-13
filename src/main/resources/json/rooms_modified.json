@@ -25,7 +25,8 @@
     "items": [
       "scrambler", "ship"
     ],
-    "image":"/images_room/docking_bay.png"
+    "image":"/images_room/docking_bay.png",
+    "tmx": "/xml/docking_bay.tmx"
   },
   {
     "name": "Junction Hallway 1",
@@ -43,7 +44,8 @@
     "items": [
       "pipes"
     ],
-    "image":"/images_room/junction_hallway_1.png"
+    "image":"/images_room/junction_hallway_1.png",
+    "tmx": "/xml/junction_hallway_1.tmx"
   },
   {
     "name": "Cargo Hold",
@@ -59,7 +61,8 @@
     "items": [
       "tool", "cabinet"
     ],
-    "image":"/images_room/cargo_hold.png"
+    "image":"/images_room/cargo_hold.png",
+    "tmx": "/xml/cargo_hold.tmx"
   },
   {
     "name": "Reactor Hallway",
@@ -74,7 +77,8 @@
       "Reactor Room": "To the South, you spot the door to the Reactor Room.",
       "Power Supplies": "To the East, a door marked \"Power Supplies\" hums with the sound of machinery."
     },
-    "image":"/images_room/reactor_hallway.png"
+    "image":"/images_room/reactor_hallway.png",
+    "tmx": "/xml/reactor_hallway.tmx"
   },
   {
     "name": "Reactor Room",
@@ -90,7 +94,8 @@
     "items": [
       "console"
     ],
-    "image":"/images_room/reactor_room.png"
+    "image":"/images_room/reactor_room.png",
+    "tmx": "/xml/reactor_room.tmx"
   },
   {
     "name": "Engine Room Hallway",
@@ -106,7 +111,8 @@
     "items": [
       "pipes"
     ],
-    "image":"/images_room/engine_hallway_room.png"
+    "image":"/images_room/engine_hallway_room.png",
+    "tmx": "/xml/engine_hallway_room.tmx"
   },
   {
     "name": "Engine Room",
@@ -122,8 +128,8 @@
     "items": [
       "component", "rack"
     ],
-    "image":"/images_room/engine_room.png"
-
+    "image":"/images_room/engine_room.png",
+    "tmx": "/xml/engine_room.tmx"
   },
   {
     "name": "Power Supplies",
@@ -139,7 +145,8 @@
     "items": [
       "poster"
     ],
-    "image":"/images_room/power_supplies.png"
+    "image":"/images_room/power_supplies.png",
+    "tmx": "/xml/power_supplies.tmx"
   },
   {
     "name": "Junction Hallway 2",
@@ -154,7 +161,8 @@
       "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
       "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
     },
-    "image":"/images_room/junction_hallway_2.png"
+    "image":"/images_room/junction_hallway_2.png",
+    "tmx": "/xml/junction_hallway_2.tmx"
   },
   {
     "name": "Sketchy Room",
@@ -165,7 +173,8 @@
     "exit_descriptions": {
       "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
     },
-    "image":"/images_room/sketchy_room.png"
+    "image":"/images_room/sketchy_room.png",
+    "tmx": "/xml/sketchy_room.tmx"
   },
   {
     "name": "Command Deck Hallway",
@@ -182,7 +191,8 @@
       "MedBay": "To the East, you see the door to the MedBay.",
       "Junction Hallway ": "To the South, you see the door returning to the hallway."
     },
-    "image":"/images_room/command_hallway.png"
+    "image":"/images_room/command_hallway.png",
+    "tmx": "/xml/command_hallway.tmx"
   },
   {
     "name": "Crew Quarters",
@@ -196,7 +206,8 @@
     "items": [
       "key", "locker"
     ],
-    "image":"/images_room/crew_quarters.png"
+    "image":"/images_room/crew_quarters.png",
+    "tmx": "/xml/crew_quarters.tmx"
   },
   {
     "name": "MedBay",
@@ -210,7 +221,8 @@
     "items": [
       "cooler", "corpse"
     ],
-    "image":"/images_room/medbay.png"
+    "image":"/images_room/medbay.png",
+    "tmx": "/xml/medbay.tmx"
   },
   {
     "name": "Bridge",
@@ -227,7 +239,8 @@
       "airlock"
     ],
     "entryItem": "keycard",
-    "image":"/images_room/bridge.png"
+    "image":"/images_room/bridge.png",
+    "tmx": "/xml/bridge.tmx"
   },
   {
     "name": "Cockpit",
@@ -241,6 +254,7 @@
     "items": [
       "manual", "library", "pipes"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_title/background.jpg",
+    "tmx": "/xml/docking_bay.tmx"
   }
 ]
