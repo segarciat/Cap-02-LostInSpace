@@ -8,7 +8,8 @@
     "exit_descriptions": {
       "Docking Bay": null
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_title/background.jpg",
+    "items": []
   },
   {
     "name": "Docking Bay",
@@ -23,6 +24,9 @@
     },
     "interactables": [
       "ship"
+    ],
+    "items": [
+      "scrambler"
     ],
     "image":"/images_room/docking_bay.png"
   },
@@ -57,6 +61,9 @@
     },
     "interactables": [
       "cabinet"
+    ],
+    "items": [
+      "tool"
     ],
     "image":"/images_room/cargo_hold.png"
   },
@@ -120,6 +127,9 @@
     },
     "interactables": [
       "rack"
+    ],
+    "items": [
+      "component"
     ],
     "image":"/images_room/engine_room.png"
 
@@ -195,6 +205,9 @@
     "interactables": [
       "locker"
     ],
+    "items": [
+      "key"
+    ],
     "image":"/images_room/crew_quarters.png"
   },
   {
@@ -208,6 +221,9 @@
     },
     "interactables": [
       "cooler"
+    ],
+    "items": [
+      "corpse"
     ],
     "image":"/images_room/medbay.png"
   },
@@ -240,6 +256,9 @@
     "interactables": [
       "library",
       "pipes"
+    ],
+    "items": [
+      "manual"
     ],
     "image":"/images_title/background.jpg"
   }

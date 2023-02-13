@@ -1,0 +1,210 @@
+[
+  {
+    "name": "scrambler",
+    "synonyms": [],
+    "description": "A Mk39 Broad-Band SCRAMBLER",
+    "lookDescription": "The mk39 high-band frequency scrambler/unscrambler. AKA 'The Garage Door Opener.' Makes quick work of electronically locked doors.",
+    "used": false,
+    "useDescription": "RAWR RAWR YOU DEFEATED THE MONSTER!! (NEED TO REVISE)",
+    "failedUseDescription": "You tried using the Mk39 Broad-Band SCRAMBLER, but it failed. You can only use it on electronically locked doors. Make sure the doors you are using it on are powered on.",
+    "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside."
+  },
+  {
+    "name": "cabinet",
+    "synonyms": [
+      "toolshed",
+      "supply",
+      "supplies"
+    ],
+    "description": "Some kind of supply CABINET",
+    "lookDescription": "Looking closer, you see the cabinet houses a complete industrial-capacity warp drive socket set. This should most certainly contain the TOOL that Zhang briefed you on!",
+    "used": false,
+    "useDescription": "...the CABINET door clicks and swings open, UNLOCKED. The HyperThermal Torch TOOL hangs neatly among a row of sparkling socket adapters. Seems like a few are missing...",
+    "failedUseDescription": "",
+    "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside.",
+    "requiredItems": [
+      "key"
+    ]
+  },
+  {
+    "name": "console",
+    "synonyms": [
+      "reactor",
+      "controls",
+      "computer"
+    ],
+    "description": "The ship reactor's control CONSOLE",
+    "lookDescription": "The CONSOLE sits mostly darkened, with the exception of one obvious display. It must be in some kind of power-savings mode.",
+    "used": false,
+    "useDescription": "You use the Reactor CONSOLE. The ship hummed with a loud thunder and the lights of the ship flickered on.",
+    "usedDescription": ""
+  },
+  {
+    "name": "pipes",
+    "synonyms": [
+      "ducts"
+    ],
+    "description": "A panel containing a section of the ship's Atmo-Ducts, maybe there's breathable air inside the PIPES.",
+    "lookDescription": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to siphon off some nearby gases in them.",
+    "used": false,
+    "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve. After a brief vibration you recover some oxygen leftover in the local piping. After a moment, you begin to tell that it would take more oxygen bleeding the lines than you would get back at this point. It seems like the pipes are EMPTY now.",
+    "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already."
+  },
+  {
+    "name": "ship",
+    "synonyms": [
+      "spartan",
+      "E.D.F.S.",
+      "EDFS"
+    ],
+    "description": "The E.D.F.S. Spartan, your SHIP",
+    "lookDescription": "The E.D.F.S. Spartan rests precariously on its twisted landing struts. Every few seconds her hull groans as Zhang shifts his weight inside. She's seen better days, but you're still breathing. You silently mouth words of appreciation.",
+    "used": false,
+    "useDescription": "",
+    "usedDescription": "",
+    "failedUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head. \"I need to finish my REPAIRS, remember?\" A flight officer can dream, can't they...?"
+  },
+  {
+    "name": "rack",
+    "synonyms": [
+      "parts"
+    ],
+    "description": "A ship parts RACK affixed with contraband components",
+    "lookDescription": "You spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK. This place is gonna be a mountain of paperwork... Just when you're about to give up the search, you notice a compatible Engine COMPONENT for your ship!",
+    "used": false,
+    "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess. This should work as the Engine COMPONENT Zhang requested!",
+    "usedDescription": "The evidence teams are going to be here for weeks, but you have everything you need from here for now."
+  },
+  {
+    "name": "poster",
+    "synonyms": [
+      "sign",
+      "paper",
+      "diagram",
+      "layout"
+    ],
+    "description": "A poster labeling the freighter ship's various sectors",
+    "lookDescription": "Looking closer, you see the poster is actually a useful layout of the freighter, the sectors listed from bow to stern (North to South). Unfortunately, the poster is now hanging UPSIDE DOWN. The ship's various sectors are color coded, as well as described in text. You examine the UPSIDE DOWN layout from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command",
+    "used": false,
+    "useDescription": "You kneel down to the POSTER and take a look.",
+    "usedDescription": "You again examine the UPSIDE DOWN layout (from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command"
+  },
+  {
+    "name": "locker",
+    "synonyms": [
+      "closet"
+    ],
+    "description": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
+    "lookDescription": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
+    "used": false,
+    "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak. You root around through the hanging clothing and personal effects until a folder paper falls to the floor. You read it:\n\"Carlos,I know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you. Don't tell him I'm the one who changed the lock! - Suzanne\"\nA KEY clatters to the floor from the folded paper.",
+    "usedDescription": "Nothing else of use is inside."
+  },
+  {
+    "name": "cooler",
+    "synonyms": [
+      "mortuary",
+      "fridge",
+      "freezer"
+    ],
+    "description": "A Mortuary COOLER",
+    "lookDescription": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them. One still remains sealed...\n(USE COOLER to open it).",
+    "used": false,
+    "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit. Even through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch. Without proper power, the CORPSE has more or less become a bloated sack slowly deflating. You see it still wears a uniformed flight suit.",
+    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
+  },
+  {
+    "name": "airlock",
+    "synonyms": [],
+    "description": "A sealed AIRLOCK door",
+    "lookDescription": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
+    "used": false,
+    "useDescription": "You attempt to make use of the airlock, but the doors are sealed shut remotely.",
+    "usedDescription": "Hopefully the vacuum actually kills the poor beast..."
+  },
+  {
+    "name": "library",
+    "synonyms": [
+      "manuals",
+      "box"
+    ],
+    "description": "A small LIBRARY of what appear to be pamphlets",
+    "lookDescription": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
+    "used": false,
+    "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
+    "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
+  },
+  {
+    "name": "key",
+    "synonyms": [],
+    "description": "A CABINET KEY",
+    "lookDescription": "The key to the TOOL CABINET in the Cargo Hold.",
+    "used": false,
+    "useDescription": "You attempt to use the KEY...",
+    "usedDescription": "It looks like it doesn't unlock anything else.",
+    "isHidden": true
+  },
+  {
+    "name": "keycard",
+    "synonyms": [],
+    "description": "A security KEYCARD",
+    "lookDescription": "A security KEYCARD that grants access to a ship's Bridge. A photo and some personal info about its owner are lasered onto it. Seems his name was \"Cpt. Malcolm Reynolds\". The name conjures a forgotten memory in your mind...",
+    "used": false,
+    "useDescription": "You attempt to use the KEYCARD...",
+    "usedDescription": "It looks like it doesn't unlock anything else.",
+    "isHidden": true
+  },
+  {
+    "name": "corpse",
+    "synonyms": [
+      "body",
+      "captain",
+      "him",
+      "dead"
+    ],
+    "description": "The freighter Captain's CORPSE",
+    "lookDescription": "The Dead Captain's flight suit is drawn grotesquely taught in some places and hanging oddly loose in others due to the CORPSE rot.",
+    "used": false,
+    "useDescription": "You attend to the CORPSE. You gag from the smell several times as you look over the body. Cause of death: blaster shot to the back. You say a few words silently on their behalf. Peeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
+    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER. The smell is too much for you to push him back inside. You feel guilty, from one Captain to another you apologize to the dead man.",
+    "isHidden": true
+  },
+  {
+    "name": "component",
+    "synonyms": [
+      "engine",
+      "part"
+    ],
+    "description": "A compatible Engine COMPONENT for your ship",
+    "lookDescription": "The Engine COMPONENT CWO2 Zhang requested in order to repair your ship. Nice work!",
+    "used": false,
+    "useDescription": "You hand the greasy Engine COMPONENT to Zhang. \"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\"I'll debrief you later.\"\n\"Aye, sir.\", Zhang responds, disappointed.",
+    "usedDescription": "You've given the COMPONENT to the Chief already.",
+    "isHidden": true
+  },
+  {
+    "name": "tool",
+    "synonyms": [
+      "socket",
+      "wrench"
+    ],
+    "description": "A HyperThermal Torch TOOL",
+    "lookDescription": "A HyperThermal Torch TOOL used to weld vacuum-hardened starship materials.",
+    "used": false,
+    "useDescription": "The HyperThermal Torch TOOL makes a loud 'clunk' as you set it in front of your CWO2. \"Perfect, sir! a welding TOOL of this caliber will mend most super-materials that comprise the Spartan.\"\n\"I'll leave it to you, then.\"\nZhang issues a dutiful salute and returns to work.",
+    "usedDescription": "You've given the TOOL to the Chief already.",
+    "isHidden": true
+  },
+  {
+    "name": "manual",
+    "synonyms": [
+      "training"
+    ],
+    "description": "A training MANUAL",
+    "lookDescription": "A Training MANUAL, depicting the proper use of the HyperThermal Torch TOOL in installing several types of Engine COMPONENTS.",
+    "used": false,
+    "useDescription": "You pull the MANUAL from you field bag and hand it to the Chief. He flips through a few pages. \"Wow, with illustrations! I believe this should outline the entire procedure, sir. I'll have us void-borne in no time!\" Zhang beams with pride.",
+    "usedDescription": "You've given the MANUAL to the Chief already.",
+    "isHidden": true
+  }
+]
