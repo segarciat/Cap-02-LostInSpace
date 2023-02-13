@@ -99,6 +99,8 @@ class AppGUI {
         createRooms();
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
+
+        controller.test();
     }
 
     /*

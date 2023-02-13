@@ -1,12 +1,12 @@
 package com.lostinspace.view;
 
 import com.lostinspace.model.*;
-import com.lostinspace.util.GameEvents;
+import com.lostinspace.view.*;
 import com.lostinspace.util.JSONLoader;
 import com.lostinspace.util.TextLoader;
+import com.lostinspace.view.model.ItemMod;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -20,10 +20,7 @@ class ViewController {
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
-    public static final String ITEM_USES_JSON = "itemUses.json";
-    public static final String ITEMS_JSON = "items.json";
-    public static final String HIDDEN_ITEMS_JSON = "hiddenItems.json";
-    public static final String INTERACTABLES_JSON = "interactables.json";
+    public static final String ITEMS_JSON = "json/items_modified.json";
     public static final String SHIP_ROOMS_JSON = "json/rooms_modified.json";
 
     // Other constants
@@ -33,11 +30,8 @@ class ViewController {
     public static boolean isEasyMode = false;
 
     // maps of rooms, objects
-    private Map<String, Room> roomMap;                  // import instance of game map from rooms.json (game features 16 distinct areas)
-    private List<Item> items;                           // import instance of list of collectable items
-    private List<HiddenItem> hiddenItems;               // import instance of list of items that begin as hidden
-    private List<Item> interactables;                   // import instance of list of interactable objects
-    private Map<String, ItemUse> itemUses;              // map containing descriptions of item use results
+    private Map<String, Room> roomMap;                     // import instance of game map from rooms.json (game features 16 distinct areas)
+    private List<ItemMod> items;                           // import instance of list of collectable items
 
     // strings containing text from files
     private String instructions;
@@ -63,40 +57,13 @@ class ViewController {
         roomMap = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
                 .collect(Collectors.toMap(Room::getName, Function.identity()));
 
-        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class);
-        hiddenItems = JSONLoader.loadFromJsonAsList(HIDDEN_ITEMS_JSON, HiddenItem.class);
-        itemUses = JSONLoader.loadFromJsonAsMap(ITEM_USES_JSON, ItemUse.class);
-
-        // Load all items that can be interacted with.
-        List<Item> loadedInteractables = JSONLoader.loadFromJsonAsList(INTERACTABLES_JSON, Item.class);
-
-        // Using the list of all items that can be interacted with, create one for each room
-        interactables = new ArrayList<>();
-
-        // Each room should have its own separate items
-        for (String roomName: roomMap.keySet()) {
-            List<String> roomInteractables = roomMap.get(roomName).getInteractables();
-            if (roomInteractables == null)
-                continue;
-
-            for (String interactableName: roomInteractables) {
-                // Find the item of matching name.
-                Item item = loadedInteractables.stream().filter(i -> i.getName().equalsIgnoreCase(interactableName)).findFirst().get();
-
-                // Make a copy of it.
-                item = new Item(item);
-
-                // Make its current room list have only the current room.
-                item.setRoom(List.of(roomName));
-
-                // Add it to the list of all interactables
-                interactables.add(item);
-            }
-        }
+        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, ItemMod.class);
     }
 
-    public void move() {
-
+    public void test() {
+        for (ItemMod item : items) {
+            System.out.println(item.getName());
+        }
     }
 
     /*
@@ -111,20 +78,8 @@ class ViewController {
         return roomMap;
     }
 
-    public List<Item> getItems() {
+    public List<ItemMod> getItems() {
         return items;
-    }
-
-    public List<HiddenItem> getHiddenItems() {
-        return hiddenItems;
-    }
-
-    public List<Item> getInteractables() {
-        return interactables;
-    }
-
-    public Map<String, ItemUse> getItemUses() {
-        return itemUses;
     }
 
     public String getInstructions() {
