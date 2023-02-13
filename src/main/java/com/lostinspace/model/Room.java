@@ -17,6 +17,7 @@ public class Room {
     private List<String> interactables;
     private String entryItem;
     private String image;
+    private String tmx;
 
     // ACCESSOR METHODS
     public String getName() {
@@ -41,6 +42,10 @@ public class Room {
 
     public String getEntryItem() {
         return entryItem;
+    }
+
+    public String getTMX() {
+        return tmx;
     }
 
     public String getImage() {

@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Source: https://stackoverflow.com/questions/49826647/java-problems-with-gif-in-label
  */
-class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
     public ImagePanel(String filename, int width, int height) {
