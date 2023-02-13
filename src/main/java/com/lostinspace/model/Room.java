@@ -6,8 +6,10 @@ package com.lostinspace.model;
  * Holds all data for one instance of a room in the game.
  */
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Room {
     private String name;                                 // name of area
@@ -18,6 +20,7 @@ public class Room {
     private String entryItem;
     private String image;
     private String tmx;
+    private Set<String> items;
 
     // ACCESSOR METHODS
     public String getName() {
@@ -37,6 +40,8 @@ public class Room {
     }
 
     public List<String> getInteractables() {
+        if (interactables == null)
+            interactables = Collections.emptyList();
         return interactables;
     }
 
@@ -50,5 +55,11 @@ public class Room {
 
     public String getImage() {
         return image;
+    }
+
+    public Set<String> getItems() {
+        if (items == null)
+            items = Collections.emptySet();
+        return items;
     }
 }

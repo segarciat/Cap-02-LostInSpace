@@ -18,13 +18,13 @@ public class Model {
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
-    public static final String ITEMS_JSON = "items.json";
+    public static final String ITEMS_JSON = "json/items_modified.json";
     public static final String SHIP_ROOMS_JSON = "json/rooms_modified.json";
 
     // maps of rooms, objects
     private final Map<String, Room> rooms;
-    private final Map<String, Item> items;
-    private Map<String, Set<Item>> roomItems;
+    private final Map<String, ItemMod> items;
+    private final Map<String, Set<ItemMod>> roomItems;
     private final Map<String, Image> roomImages;
     private final Map<String, Map<String, Rectangle>> roomItemRectangles;
 
@@ -47,17 +47,18 @@ public class Model {
         rooms = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
                 .collect(Collectors.toMap(Room::getName, Function.identity()));
 
-        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class).stream()
-                .collect(Collectors.toMap(Item::getName, Function.identity()));
+        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, ItemMod.class).stream()
+                .collect(Collectors.toMap(ItemMod::getName, Function.identity()));
 
 
         // Key: Room name. Value: A set of items for that room
-        /*
+
         roomItems = rooms.values().stream().collect(
-                Collectors.toMap(Room::getName, room -> room.getInteractables().stream()
-                        .map(itemName -> items.get(itemName).clone()).collect(Collectors.toSet()))
+                Collectors.toMap(Room::getName, room -> room.getItems().stream()
+                        .map(itemName -> new ItemMod(items.get(itemName))).collect(Collectors.toSet()))
         );
-         */
+        System.out.println(roomItems.values().stream().mapToInt(Set::size).sum());
+
 
         // Load images for each room.
         roomImages = rooms.values().stream()
@@ -81,7 +82,7 @@ public class Model {
         return Collections.unmodifiableMap(roomItemRectangles);
     }
 
-    public Map<String, Set<Item>> getRoomItems() {
+    public Map<String, Set<ItemMod>> getRoomItems() {
         return Collections.unmodifiableMap(roomItems);
     }
 
@@ -93,7 +94,7 @@ public class Model {
         return Collections.unmodifiableMap(rooms);
     }
 
-    public Map<String, Item> getItems() {
+    public Map<String, ItemMod> getItems() {
         return Collections.unmodifiableMap(items);
     }
 

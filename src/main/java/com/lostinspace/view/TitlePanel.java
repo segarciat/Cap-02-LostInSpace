@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.AppGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
-class TitlePanel extends ImagePanel {
+public class TitlePanel extends ImagePanel {
     private static final String TITLE_SCREEN_IMAGE = "/images_title/title.gif";
     private static final String TITLE_SCREEN_IMAGE_FLY = "/images_title/title_fly.gif";
 

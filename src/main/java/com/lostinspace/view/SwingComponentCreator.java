@@ -1,17 +1,11 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.AppGUI;
+
 import javax.swing.*;
 import java.util.Objects;
 
-class SwingComponentCreator {
-    public static JLabel createBGImageLabel(ImageIcon bgImage) {
-        // add image to label
-        JLabel bgImageLabel = new JLabel(bgImage);
-        bgImageLabel.setSize(720, 720);
-
-        return bgImageLabel;
-    }
-
+public class SwingComponentCreator {
     public static JButton createButtonWithText(String text, int x, int y, int w, int h) {
         JButton button = new JButton();                           // add image to button
 
