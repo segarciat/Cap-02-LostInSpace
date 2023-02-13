@@ -153,7 +153,7 @@
       "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
       "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/junction_hallway_2.png"
   },
   {
     "name": "Sketchy Room",
@@ -164,7 +164,7 @@
     "exit_descriptions": {
       "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/sketchy_room.png"
   },
   {
     "name": "Command Deck Hallway",
@@ -181,7 +181,7 @@
       "MedBay": "To the East, you see the door to the MedBay.",
       "Junction Hallway ": "To the South, you see the door returning to the hallway."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/command_hallway.png"
   },
   {
     "name": "Crew Quarters",
@@ -195,7 +195,7 @@
     "interactables": [
       "locker"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/crew_quarters.png"
   },
   {
     "name": "MedBay",
@@ -209,7 +209,7 @@
     "interactables": [
       "cooler"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/medbay.png"
   },
   {
     "name": "Bridge",
@@ -226,7 +226,7 @@
       "airlock"
     ],
     "entryItem": "keycard",
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/bridge.png"
   },
   {
     "name": "Cockpit",
