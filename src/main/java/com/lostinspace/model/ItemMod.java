@@ -12,6 +12,19 @@ public class ItemMod {
     private String[] requiredItems;
     private boolean isHidden;
 
+    public ItemMod(ItemMod item) {
+        this.name = item.name;
+        this.synonyms = item.synonyms;
+        this.description = item.description;
+        this.lookDescription = item.lookDescription;
+        this.used = item.used;
+        this.useDescription = item.useDescription;
+        this.failedUseDescription = item.failedUseDescription;
+        this.usedDescription = item.usedDescription;
+        this.requiredItems = item.requiredItems;
+        this.isHidden = item.isHidden;
+    }
+
     public String getName() {
         return name;
     }

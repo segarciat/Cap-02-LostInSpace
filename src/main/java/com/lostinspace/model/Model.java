@@ -24,7 +24,7 @@ public class Model {
     // maps of rooms, objects
     private final Map<String, Room> rooms;
     private final Map<String, ItemMod> items;
-    private Map<String, Set<ItemMod>> roomItems;
+    private final Map<String, Set<ItemMod>> roomItems;
     private final Map<String, Image> roomImages;
     private final Map<String, Map<String, Rectangle>> roomItemRectangles;
 
@@ -52,12 +52,13 @@ public class Model {
 
 
         // Key: Room name. Value: A set of items for that room
-        /*
+
         roomItems = rooms.values().stream().collect(
-                Collectors.toMap(Room::getName, room -> room.getInteractables().stream()
-                        .map(itemName -> items.get(itemName).clone()).collect(Collectors.toSet()))
+                Collectors.toMap(Room::getName, room -> room.getItems().stream()
+                        .map(itemName -> new ItemMod(items.get(itemName))).collect(Collectors.toSet()))
         );
-         */
+        System.out.println(roomItems.values().stream().mapToInt(Set::size).sum());
+
 
         // Load images for each room.
         roomImages = rooms.values().stream()
