@@ -17,13 +17,13 @@ public class Model {
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
     // JSON files
-    public static final String ITEMS_JSON = "items_modified.json";
+    public static final String ITEMS_JSON = "json/items_modified.json";
     public static final String SHIP_ROOMS_JSON = "json/rooms_modified.json";
 
     // maps of rooms, objects
     private final Map<String, Room> rooms;
-    private final Map<String, Item> items;
-    private Map<String, Set<Item>> roomItems;
+    private final Map<String, ItemMod> items;
+    private Map<String, Set<ItemMod>> roomItems;
     private final Map<String, Image> roomImages;
 
     // strings containing text from files
@@ -45,8 +45,8 @@ public class Model {
         rooms = JSONLoader.loadFromJsonAsList(SHIP_ROOMS_JSON, Room.class).stream()
                 .collect(Collectors.toMap(Room::getName, Function.identity()));
 
-        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, Item.class).stream()
-                .collect(Collectors.toMap(Item::getName, Function.identity()));
+        items = JSONLoader.loadFromJsonAsList(ITEMS_JSON, ItemMod.class).stream()
+                .collect(Collectors.toMap(ItemMod::getName, Function.identity()));
 
 
         // Key: Room name. Value: A set of items for that room
@@ -72,7 +72,7 @@ public class Model {
         return player;
     }
 
-    public Map<String, Set<Item>> getRoomItems() {
+    public Map<String, Set<ItemMod>> getRoomItems() {
         return Collections.unmodifiableMap(roomItems);
     }
 
@@ -84,7 +84,7 @@ public class Model {
         return Collections.unmodifiableMap(rooms);
     }
 
-    public Map<String, Item> getItems() {
+    public Map<String, ItemMod> getItems() {
         return Collections.unmodifiableMap(items);
     }
 

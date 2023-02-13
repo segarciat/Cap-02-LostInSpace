@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.util.*;
 
 public class AppGUI {
-
     // size of objects
     private static final int FRAME_WIDTH = 736;
     private static final int FRAME_HEIGHT = 758;
@@ -102,10 +101,9 @@ public class AppGUI {
      */
     private void createGame() {
         createRooms();
+
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
-
-        controller.test();
     }
 
     /*

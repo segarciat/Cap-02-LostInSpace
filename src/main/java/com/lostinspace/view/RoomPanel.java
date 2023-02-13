@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 
 public class RoomPanel extends ImagePanel{
-
     // font size
     private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);
 
