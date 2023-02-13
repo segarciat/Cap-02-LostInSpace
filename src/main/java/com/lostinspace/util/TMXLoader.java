@@ -15,31 +15,24 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-class TMXLoader {
-    private static final String XML_FILE = "xml/crew_quarters.tmx";
-
+public class TMXLoader {
     private static final String ITEM_ELEMENT_NAME = "object";
 
-    public static void main(String[] args) {
-        Document document = loadXML(XML_FILE);
-        Map<String, Rectangle> allItems = getAllItems(document);
-        System.out.println(allItems);
-    }
+    /**
+     * Creates a Rectangle for each object in the room.
+     * @param room Room with a TMX file to load from.
+     * @return A map, the key being the item's name, and the value being the rectangle for that item.
+     */
+    public static Map<String, Rectangle> loadRoomItemRectangles(Room room) {
+        // TMX (Tiled Map XML) file that will be parsed.
+        String roomXML = room.getTMX();
 
-    public static Map<String, Rectangle> getRoomItemRectangles(Room room) {
-        Map<String, Rectangle> rectangles = new HashMap<>();
-
-        String roomXML = "";
-        // String roomXML = room.getTMX();
-
+        // Document with parsed XML.
         Document document = loadXML(roomXML);
 
-        return getAllItems(document);
-    }
-
-    public static Map<String, Rectangle> getAllItems(Document document) {
         Map<String, Rectangle> rectangles = new HashMap<>();
 
+        // Nodes in XML with the item information.
         NodeList itemNodes = document.getElementsByTagName(ITEM_ELEMENT_NAME);
         for(int i=0; i<itemNodes.getLength(); i++)
         {
@@ -61,6 +54,11 @@ class TMXLoader {
         return rectangles;
     }
 
+    /**
+     * Loads XML file and parses it as a document.
+     * @param filename The path to the xml file.
+     * @return Document object with the parsed XML.
+     */
     public static Document loadXML(String filename) {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

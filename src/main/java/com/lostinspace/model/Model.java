@@ -2,6 +2,7 @@ package com.lostinspace.model;
 
 import com.lostinspace.util.ImageLoader;
 import com.lostinspace.util.JSONLoader;
+import com.lostinspace.util.TMXLoader;
 import com.lostinspace.util.TextLoader;
 
 import java.awt.*;
@@ -25,6 +26,7 @@ public class Model {
     private final Map<String, Item> items;
     private Map<String, Set<Item>> roomItems;
     private final Map<String, Image> roomImages;
+    private final Map<String, Map<String, Rectangle>> roomItemRectangles;
 
     // strings containing text from files
     private final String instructions;
@@ -61,6 +63,9 @@ public class Model {
         roomImages = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, room -> ImageLoader.loadImage(room.getImage())));
 
+        roomItemRectangles = rooms.values().stream()
+                .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
+
         player = new Player("", 0.0);
     }
 
@@ -70,6 +75,10 @@ public class Model {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Map<String, Map<String, Rectangle>> getRoomItemRectangles() {
+        return Collections.unmodifiableMap(roomItemRectangles);
     }
 
     public Map<String, Set<Item>> getRoomItems() {
