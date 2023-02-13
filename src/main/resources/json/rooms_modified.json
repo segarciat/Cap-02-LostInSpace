@@ -8,7 +8,8 @@
     "exit_descriptions": {
       "Docking Bay": null
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_title/background.jpg",
+    "items": []
   },
   {
     "name": "Docking Bay",
@@ -21,10 +22,11 @@
       "Junction Hallway 1": "To the West, you see the bay doors exit.",
       "Enviro-Field": "To the East, you see the environ-field where your ship traveled through..."
     },
-    "interactables": [
-      "ship"
+    "items": [
+      "scrambler", "ship"
     ],
-    "image":"/images_room/docking_bay.png"
+    "image":"/images_room/docking_bay.png",
+    "tmx": "/xml/docking_bay.tmx"
   },
   {
     "name": "Junction Hallway 1",
@@ -39,10 +41,11 @@
       "Junction Hallway 2": "To the North, you spot a grey stripe labeled with \"Crew Bays\" leading to the door.",
       "Cargo Hold": "To the South, you spot another grey stripe, this one doubled, labeled \"Cargo/Engineering Sector\"."
     },
-    "interactables": [
+    "items": [
       "pipes"
     ],
-    "image":"/images_room/junction_hallway_1.png"
+    "image":"/images_room/junction_hallway_1.png",
+    "tmx": "/xml/junction_hallway_1.tmx"
   },
   {
     "name": "Cargo Hold",
@@ -55,10 +58,11 @@
       "Junction Hallway 1": "To the North, you make out the grey stripe leading back to the door to the junction hallway.",
       "Reactor Hallway": "To the South, you barely spot the grey stripe leading to a door marked \"Reactor Room\""
     },
-    "interactables": [
-      "cabinet"
+    "items": [
+      "tool", "cabinet"
     ],
-    "image":"/images_room/cargo_hold.png"
+    "image":"/images_room/cargo_hold.png",
+    "tmx": "/xml/cargo_hold.tmx"
   },
   {
     "name": "Reactor Hallway",
@@ -73,7 +77,8 @@
       "Reactor Room": "To the South, you spot the door to the Reactor Room.",
       "Power Supplies": "To the East, a door marked \"Power Supplies\" hums with the sound of machinery."
     },
-    "image":"/images_room/reactor_hallway.png"
+    "image":"/images_room/reactor_hallway.png",
+    "tmx": "/xml/reactor_hallway.tmx"
   },
   {
     "name": "Reactor Room",
@@ -86,10 +91,11 @@
       "Reactor Hallway": "To the North, you see the door back to the Reactor Hallway.",
       "Engine Room Hallway": "To the South, the door to \"Engine Room\" sits darkened."
     },
-    "interactables": [
+    "items": [
       "console"
     ],
-    "image":"/images_room/reactor_room.png"
+    "image":"/images_room/reactor_room.png",
+    "tmx": "/xml/reactor_room.tmx"
   },
   {
     "name": "Engine Room Hallway",
@@ -102,10 +108,11 @@
       "Reactor Room": "To the North, the Reactor Room.",
       "Engine Room": "To the East, you spot the door to the Engine Room."
     },
-    "interactables": [
+    "items": [
       "pipes"
     ],
-    "image":"/images_room/engine_hallway_room.png"
+    "image":"/images_room/engine_hallway_room.png",
+    "tmx": "/xml/engine_hallway_room.tmx"
   },
   {
     "name": "Engine Room",
@@ -118,11 +125,11 @@
       "Engine Room Hallway": "To the West, you see the door returning to the hallway.",
       "Power Supplies": "To the North, you see the doors to the Power Supplies are now working."
     },
-    "interactables": [
-      "rack"
+    "items": [
+      "component", "rack"
     ],
-    "image":"/images_room/engine_room.png"
-
+    "image":"/images_room/engine_room.png",
+    "tmx": "/xml/engine_room.tmx"
   },
   {
     "name": "Power Supplies",
@@ -135,10 +142,11 @@
       "Reactor Hallway": "To the West, you see the door returning to the hallway.",
       "Engine Room": "To the South, you see the electronic doors to the Engine Room."
     },
-    "interactables": [
+    "items": [
       "poster"
     ],
-    "image":"/images_room/power_supplies.png"
+    "image":"/images_room/power_supplies.png",
+    "tmx": "/xml/power_supplies.tmx"
   },
   {
     "name": "Junction Hallway 2",
@@ -153,7 +161,8 @@
       "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
       "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/junction_hallway_2.png",
+    "tmx": "/xml/junction_hallway_2.tmx"
   },
   {
     "name": "Sketchy Room",
@@ -164,7 +173,8 @@
     "exit_descriptions": {
       "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/sketchy_room.png",
+    "tmx": "/xml/sketchy_room.tmx"
   },
   {
     "name": "Command Deck Hallway",
@@ -181,7 +191,8 @@
       "MedBay": "To the East, you see the door to the MedBay.",
       "Junction Hallway ": "To the South, you see the door returning to the hallway."
     },
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/command_hallway.png",
+    "tmx": "/xml/command_hallway.tmx"
   },
   {
     "name": "Crew Quarters",
@@ -192,10 +203,11 @@
     "exit_descriptions": {
       "Command Deck Hallway": "To the East, you see the door returning to the hallway."
     },
-    "interactables": [
-      "locker"
+    "items": [
+      "key", "locker"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/crew_quarters.png",
+    "tmx": "/xml/crew_quarters.tmx"
   },
   {
     "name": "MedBay",
@@ -206,10 +218,11 @@
     "exit_descriptions": {
       "Command Deck Hallway": "To the West, you see the door leading back to the Command Deck Hallway."
     },
-    "interactables": [
-      "cooler"
+    "items": [
+      "cooler", "corpse"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/medbay.png",
+    "tmx": "/xml/medbay.tmx"
   },
   {
     "name": "Bridge",
@@ -222,11 +235,12 @@
       "Cockpit": "To the North, you see the doors to the Cockpit.",
       "Command Deck Hallway": "To the South, you see the door returning to hallway."
     },
-    "interactables": [
+    "items": [
       "airlock"
     ],
     "entryItem": "keycard",
-    "image":"/images_title/background.jpg"
+    "image":"/images_room/bridge.png",
+    "tmx": "/xml/bridge.tmx"
   },
   {
     "name": "Cockpit",
@@ -237,10 +251,10 @@
     "exit_descriptions": {
       "Bridge": "To the South, you see the door returning to the Bridge."
     },
-    "interactables": [
-      "library",
-      "pipes"
+    "items": [
+      "manual", "library", "pipes"
     ],
-    "image":"/images_title/background.jpg"
+    "image":"/images_title/background.jpg",
+    "tmx": "/xml/docking_bay.tmx"
   }
 ]
