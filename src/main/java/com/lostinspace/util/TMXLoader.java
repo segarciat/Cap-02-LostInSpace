@@ -15,22 +15,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-class TMXLoader {
-    private static final String XML_FILE = "xml/crew_quarters.tmx";
-
+public class TMXLoader {
     private static final String ITEM_ELEMENT_NAME = "object";
 
-    public static void main(String[] args) {
-        Document document = loadXML(XML_FILE);
-        Map<String, Rectangle> allItems = getAllItems(document);
-        System.out.println(allItems);
-    }
-
     public static Map<String, Rectangle> getRoomItemRectangles(Room room) {
-        Map<String, Rectangle> rectangles = new HashMap<>();
-
-        String roomXML = "";
-        // String roomXML = room.getTMX();
+        String roomXML = room.getTMX();
 
         Document document = loadXML(roomXML);
 
@@ -71,6 +60,7 @@ class TMXLoader {
             e.printStackTrace();
         }
 
+        System.out.println(filename);
         try {
             return builder.parse(TMXLoader.class.getClassLoader().getResourceAsStream(filename));
         } catch (SAXException | IOException e) {

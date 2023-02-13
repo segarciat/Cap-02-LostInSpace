@@ -2,6 +2,7 @@ package com.lostinspace.model;
 
 import com.lostinspace.util.ImageLoader;
 import com.lostinspace.util.JSONLoader;
+import com.lostinspace.util.TMXLoader;
 import com.lostinspace.util.TextLoader;
 
 import java.awt.*;
@@ -34,6 +35,10 @@ public class Model {
 
     private final Player player;
 
+    public static void main(String[] args) {
+        new Model();
+    }
+
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
@@ -60,6 +65,12 @@ public class Model {
         // Load images for each room.
         roomImages = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, room -> ImageLoader.loadImage(room.getImage())));
+
+        // Load room item rectangles form XML/TMX
+        for (Room room: rooms.values()) {
+            Map<String, Rectangle> roomItemRectangles = TMXLoader.getRoomItemRectangles(room);
+            System.out.println(roomItemRectangles);
+        }
 
         player = new Player("", 0.0);
     }
