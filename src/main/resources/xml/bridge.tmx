@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="24" tileheight="24" infinite="0" nextlayerid="11" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="24" tileheight="24" infinite="0" nextlayerid="12" nextobjectid="3">
  <tileset firstgid="1" source="tilemaps/text-large.tsx"/>
  <tileset firstgid="211" source="tilemaps/mini-map_bridge.tsx"/>
  <tileset firstgid="311" source="tilemaps/bridge.tsx"/>
@@ -281,7 +281,10 @@
 181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210
 </data>
  </layer>
- <layer id="3" name="Mini-Map" width="30" height="30">
+ <objectgroup id="11" name="Items">
+  <object id="1" name="airlock" x="672" y="240" width="42" height="138"/>
+ </objectgroup>
+ <layer id="3" name="Mini-Map" width="30" height="30" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,211,212,213,214,215,216,217,218,219,220,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,221,222,223,224,225,226,227,228,229,230,
