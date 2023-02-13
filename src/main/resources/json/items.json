@@ -1,0 +1,11 @@
+[
+    {
+      "name": "scrambler",
+      "synonyms": [],
+      "room": ["Docking Bay"],
+      "fullName": "a Mk39 Broad-Band SCRAMBLER (NOT USED FOR THIS DEMO)",
+      "description": "The mk39 high-band frequency scrambler/unscrambler. AKA 'The Garage Door Opener.' \nMakes quick work of electronically locked doors.",
+      "used": false,
+      "usedDescription": ""
+    }
+]
