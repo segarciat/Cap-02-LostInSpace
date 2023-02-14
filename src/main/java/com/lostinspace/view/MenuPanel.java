@@ -16,7 +16,7 @@ public class MenuPanel {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout(8,8));
 
         // Exit Button
         JButton exitButton = new JButton("Exit");
@@ -38,15 +38,15 @@ public class MenuPanel {
             }
         });
 
-        panel.add(exitButton);
-        panel.add(helpButton);
-        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        helpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setBackground(new Color(0,0,0,0));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(exitButton, BorderLayout.NORTH);
+        panel.add(helpButton, BorderLayout.CENTER);
+//        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        helpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setBackground(new Color(0,0,0,65));
+//        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         frame.add(panel);
-        frame.setSize(200, 200);
+        frame.setSize(100, 100);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
