@@ -16,6 +16,10 @@ public class ItemMod {
     private boolean isHidden;
     private Rectangle rectangle;
 
+    public ItemMod() {
+
+    }
+
     public ItemMod(ItemMod item) {
         this.name = item.name;
         this.synonyms = item.synonyms;

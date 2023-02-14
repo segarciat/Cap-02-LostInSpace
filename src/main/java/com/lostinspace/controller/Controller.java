@@ -70,8 +70,8 @@ public class Controller {
     private final ItemUseMethods itemUseMethods = new ItemUseMethods(this);
 
     // create player
-    private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN);
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
+    private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>());
 
     public Controller() {
         loadGameObjects();                              // loads all objects used for game logic into memory
