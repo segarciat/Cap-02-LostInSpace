@@ -255,7 +255,7 @@
     "items": [
       "manual", "library", "pipes"
     ],
-    "image":"/images_title/background.jpg",
-    "tmx": "xml/docking_bay.tmx"
+    "image":"/images_room/cockpit.png",
+    "tmx": "xml/cockpit.tmx"
   }
 ]

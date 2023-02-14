@@ -135,7 +135,8 @@
     "lookDescription": "An emergency LIBRARY of physical training MANUALs needed for operating and repairing critical infrastructure within the ship.",
     "used": false,
     "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
-    "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here."
+    "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here.",
+    "image": "/images_items/library.png"
   },
   {
     "name": "key",
@@ -209,6 +210,7 @@
     "used": false,
     "useDescription": "You pull the MANUAL from you field bag and hand it to the Chief. He flips through a few pages. \"Wow, with illustrations! I believe this should outline the entire procedure, sir. I'll have us void-borne in no time!\" Zhang beams with pride.",
     "usedDescription": "You've given the MANUAL to the Chief already.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/manual.png"
   }
 ]
