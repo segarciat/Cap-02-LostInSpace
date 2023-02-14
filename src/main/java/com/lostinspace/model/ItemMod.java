@@ -1,6 +1,7 @@
 package com.lostinspace.model;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ItemMod {
     private String name;
@@ -15,6 +16,8 @@ public class ItemMod {
     private String image;
     private boolean isHidden;
     private Rectangle rectangle;
+    private ArrayList<String> itemMethods;
+    private String useLocation;
 
     public ItemMod() {
 
@@ -33,6 +36,8 @@ public class ItemMod {
         this.isHidden = item.isHidden;
         this.image = item.image;
         this.rectangle = item.rectangle;
+        this.itemMethods = item.itemMethods;
+        this.useLocation = item.useLocation;
     }
 
     public String getName() {
@@ -89,5 +94,13 @@ public class ItemMod {
 
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
+    }
+
+    public ArrayList<String> getItemMethods() {
+        return itemMethods;
+    }
+
+    public String getUseLocation() {
+        return useLocation;
     }
 }
