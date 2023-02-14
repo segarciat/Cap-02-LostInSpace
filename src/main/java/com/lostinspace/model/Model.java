@@ -57,8 +57,6 @@ public class Model {
                 Collectors.toMap(Room::getName, room -> room.getItems().stream()
                         .map(itemName -> new ItemMod(items.get(itemName))).collect(Collectors.toSet()))
         );
-        System.out.println(roomItems.values().stream().mapToInt(Set::size).sum());
-
 
         // Load images for each room.
         roomImages = rooms.values().stream()
