@@ -9,7 +9,7 @@
  <tileset firstgid="3886" source="tilemaps/SciFi_Warehouse_E.tsx"/>
  <tileset firstgid="4910" source="tilemaps/SciFi_Warehouse_D.tsx"/>
  <tileset firstgid="5934" source="tilemaps/hallway_2.tsx"/>
- <tileset firstgid="5994" source="tilemaps/mini-map_junction-hallway-2.tsx"/>
+ <tileset firstgid="5994" source="tilemaps/inventory.tsx"/>
  <layer id="4" name="Background" width="30" height="30">
   <data encoding="csv">
 2864,2865,2866,2867,2864,2865,2866,2867,2864,2865,2866,2867,346,347,346,347,346,347,2864,2865,2866,2867,2864,2865,2866,2867,2864,2865,2866,2867,
@@ -248,7 +248,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="1" name="Mini-Map" width="30" height="30" visible="0" offsetx="1.92691" offsety="1.64385">
+ <layer id="1" name="Inventory" width="30" height="30" offsetx="1.92691" offsety="1.64385">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5994,5995,5996,5997,5998,5999,6000,6001,6002,6003,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6004,6005,6006,6007,6008,6009,6010,6011,6012,6013,

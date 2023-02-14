@@ -31,27 +31,24 @@ public class GUIController {
     /*
      * ITEM METHODS
      */
-    private ItemMod getItemByName(String itemName) {
-        boolean isFound = false;
-        ItemMod item = new ItemMod();
-
-        for (String itemString : model.getItems().keySet()) {
-            if (itemString.equals(itemName)) {
-                isFound = true;
-                item = model.getItems().get(itemString);
-            }
-        }
-
-        if (!isFound) {
-            throw new IllegalArgumentException("Item not found");
-        }
-
-        return item;
+    public String lookItem(ItemMod item) {
+        return item.getLookDescription();
     }
 
-    public void getItem(String itemName) {
-        ItemMod item = getItemByName(itemName);
-        itemController.getItem(item);
+    public String getOrUseItem(ItemMod item) {
+        String returnText = "";
+
+        // If item is found in inventory, then right-click will use item
+        if (itemController.checkInInventory(item)) {
+            returnText = "You used the " + item.getName() + ".";
+        } else if (!itemController.checkInInventory(item) && item.getItemMethods().contains("get")) {
+            itemController.getItem(item);
+            returnText = "You added the " + item.getName() + " to your inventory.";
+        } else {
+            returnText = item.getUseDescription();
+        }
+
+        return returnText;
     }
 
     /*
@@ -88,6 +85,4 @@ public class GUIController {
     public Model getModel() {
         return model;
     }
-
-
 }

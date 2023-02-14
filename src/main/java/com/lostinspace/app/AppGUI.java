@@ -166,7 +166,7 @@ public class AppGUI {
 
         for (String roomName: roomMap.keySet()) {
             Room room = roomMap.get(roomName);
-            roomFrames.put(roomName, new RoomPanel(this, room));
+            roomFrames.put(roomName, new RoomPanel(this, room, controller));
         }
     }
 

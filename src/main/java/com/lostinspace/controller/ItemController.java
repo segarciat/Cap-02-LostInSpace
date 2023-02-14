@@ -10,8 +10,23 @@ class ItemController {
         this.player = player;
     }
 
+    public Boolean checkInInventory(ItemMod item) {
+        boolean isFound = false;
+
+        for (ItemMod itemInInventory : player.getInventory()) {
+            if (itemInInventory.getName().equals(item.getName())) {
+                isFound = true;
+                break;
+            }
+        }
+
+        return isFound;
+    }
+
     public void getItem(ItemMod item) {
         // add item to player inventory
         player.addToInventory(item);
     }
+
+
 }

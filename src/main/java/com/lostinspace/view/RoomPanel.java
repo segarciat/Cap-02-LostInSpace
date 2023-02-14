@@ -29,12 +29,13 @@ public class RoomPanel extends ImagePanel {
     private final JTextArea roomTextArea;
     private final AppGUI app;
 
-    public RoomPanel(AppGUI app, Room room) {
+    public RoomPanel(AppGUI app, Room room, GUIController controller) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
 
-        this.controller = new GUIController();
+        this.controller = controller;
         this.app = app;
 
+        // Set up frame attributes
         this.setLayout(null);
         this.setSize(this.getPreferredSize());
 
@@ -50,7 +51,7 @@ public class RoomPanel extends ImagePanel {
         roomTextArea.setOpaque(false);
         roomTextArea.setEditable(false);
         roomTextArea.setFocusable(false);
-        roomTextArea.setMargin(new Insets(12,24,0,24));
+        roomTextArea.setMargin(new Insets(0,24,0,24));
         roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
         this.add(roomTextArea);
 
@@ -79,10 +80,9 @@ public class RoomPanel extends ImagePanel {
         Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());
         for (ItemMod item: itemMods) {
             if (item.getImage() != null) {
-                System.out.println(item.getImage());
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.addActionListener(new ItemButtonClickAction(item));
-                button.addMouseListener(new ItemButtonHoverAction());
+                button.addMouseListener(new ItemButtonHoverAction(item));
 
                 this.add(button);
             }
@@ -123,7 +123,6 @@ public class RoomPanel extends ImagePanel {
     }
 
     private class ItemButtonClickAction implements ActionListener {
-
         private final ItemMod item;
         private ItemButtonClickAction(ItemMod item) {
             this.item = item;
@@ -136,12 +135,28 @@ public class RoomPanel extends ImagePanel {
     }
 
     private class ItemButtonHoverAction implements MouseListener {
+        private final ItemMod item;
+        private ItemButtonHoverAction(ItemMod item) {
+            this.item = item;
+        }
 
         @Override
         public void mouseClicked(MouseEvent e) {}
 
         @Override
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+
+                // Change text area text to the look description of the item
+                String lookDescription = controller.lookItem(item);
+                roomTextArea.setText(lookDescription);
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                String textDescription = controller.getOrUseItem(item);
+                roomTextArea.setText(textDescription);
+
+
+            }
+        }
 
         @Override
         public void mouseReleased(MouseEvent e) {}
@@ -156,6 +171,10 @@ public class RoomPanel extends ImagePanel {
         public void mouseExited(MouseEvent e) {
             JButton button = (JButton) e.getSource();
             button.setBorder(BorderFactory.createEmptyBorder()); // empty border when not hovering
+        }
+
+        private void removeItemFromMap() {
+
         }
     }
 }
