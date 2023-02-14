@@ -1,14 +1,20 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
+import com.lostinspace.model.Item;
+import com.lostinspace.model.ItemMod;
+import com.lostinspace.model.Model;
 import com.lostinspace.model.Room;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Set;
 
 public class RoomPanel extends ImagePanel{
     // font size
@@ -25,7 +31,10 @@ public class RoomPanel extends ImagePanel{
 
     public RoomPanel(AppGUI app, Room room) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.setLayout(new GridBagLayout());
+        // this.setLayout(new GridBagLayout());
+        this.setLayout(null);
+        this.setSize(this.getPreferredSize());
+
         this.app = app;
 
         // Get room description
@@ -41,6 +50,7 @@ public class RoomPanel extends ImagePanel{
         roomTextArea.setEditable(false);
         roomTextArea.setFocusable(false);
         roomTextArea.setMargin(new Insets(12,24,0,24));
+        roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
 
         // Set spacer text area
         JTextArea spacer = new JTextArea();
@@ -55,14 +65,16 @@ public class RoomPanel extends ImagePanel{
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 504;
-        this.add(spacer, gbc);
+        // this.add(spacer, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
-        this.add(roomTextArea, gbc);
+        // this.add(roomTextArea, gbc);
+        this.add(roomTextArea);
+
 
         // Create direction buttons for each exit
         Map<String, String> roomExits = room.getExits();
@@ -70,6 +82,7 @@ public class RoomPanel extends ImagePanel{
 
         JPanel buttonPane = new JPanel();
         buttonPane.setOpaque(false);
+        buttonPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
 
         for (String exit: roomExits.keySet()) {
             JButton directionButton = new JButton(String.format("Go %s", exit));
@@ -80,17 +93,34 @@ public class RoomPanel extends ImagePanel{
             buttonPane.add(directionButton);
         }
 
+        Model model = app.getController().getModel();
+
+        // Add items for this room.
+        Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());
+        for (ItemMod item: itemMods) {
+            if (item.getImage() != null) {
+                JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
+                button.addActionListener(new ItemButtonClickAction(item));
+                button.addMouseListener(new ItemButtonHoverAction());
+
+                this.add(button);
+            }
+        }
+
+        // Display items for this room
         if (room.getName().equals("Docking Bay")) {
             gbc.gridx = 0;
             gbc.gridy = 0;
             gbc.insets = new Insets(0, 0, -24, 288);
             JButton item = SwingComponentCreator.createButtonWithImage("/images_item/scrambler.png", 216, 264, 48, 48);
-            this.add(item, gbc);
+            // this.add(item, gbc);
+            this.add(item);
         }
 
         gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridy = 1;
-        this.add(buttonPane, gbc);
+        // this.add(buttonPane, gbc);
+        this.add(buttonPane);
     }
 
     private class RoomExitAction implements ActionListener {
@@ -108,10 +138,50 @@ public class RoomPanel extends ImagePanel{
 
             // Set time for room transition
             Timer timer = new Timer(ROOM_TRANSITION_DELAY,
-                    e1 -> app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName)));
+                    e1 -> {
+                        app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
+                        app.getFrame().revalidate();
+                    });
             timer.setRepeats(false);
 
             timer.start();
+        }
+    }
+
+    private class ItemButtonClickAction implements ActionListener {
+
+        private final ItemMod item;
+        private ItemButtonClickAction(ItemMod item) {
+            this.item = item;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.printf("clicked on %s\n", item.getName());
+        }
+    }
+
+    private class ItemButtonHoverAction implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {}
+
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            JButton button = (JButton) e.getSource();
+            button.setBorder(new LineBorder(Color.PINK)); // add border color on hover
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            JButton button = (JButton) e.getSource();
+            button.setBorder(BorderFactory.createEmptyBorder()); // empty border when not hovering
         }
     }
 }

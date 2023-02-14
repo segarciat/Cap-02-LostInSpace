@@ -150,7 +150,7 @@
 1736,1737,1738,1739,1740,1741,0,1087,1088,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="9" name="Items">
+ <objectgroup id="9" name="Items" visible="0">
   <object id="2" name="cooler" x="144" y="366" width="48" height="114"/>
   <object id="5" name="corpse" x="240" y="432" width="96" height="48"/>
  </objectgroup>
@@ -222,7 +222,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Text-Blank" width="30" height="30" visible="0">
+ <layer id="5" name="Text-Blank" width="30" height="30">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

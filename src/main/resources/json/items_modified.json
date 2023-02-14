@@ -98,7 +98,8 @@
     "lookDescription": "A personal LOCKER for one of the original crew mates of this ship. Unlike the others, this one seems unlocked.",
     "used": false,
     "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak. You root around through the hanging clothing and personal effects until a folder paper falls to the floor. You read it:\n\"Carlos,I know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you. Don't tell him I'm the one who changed the lock! - Suzanne\"\nA KEY clatters to the floor from the folded paper.",
-    "usedDescription": "Nothing else of use is inside."
+    "usedDescription": "Nothing else of use is inside.",
+    "image": "/images_items/locker.png"
   },
   {
     "name": "cooler",
@@ -111,7 +112,8 @@
     "lookDescription": "A Mortuary COOLER used to store corpses, slowing decomposition. Most of the doors are open, bloody remains hanging from them. One still remains sealed...\n(USE COOLER to open it).",
     "used": false,
     "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit. Even through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch. Without proper power, the CORPSE has more or less become a bloated sack slowly deflating. You see it still wears a uniformed flight suit.",
-    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man."
+    "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man.",
+    "image": "/images_items/cooler.png"
   },
   {
     "name": "airlock",
@@ -120,7 +122,8 @@
     "lookDescription": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
     "used": false,
     "useDescription": "You attempt to make use of the airlock, but the doors are sealed shut remotely.",
-    "usedDescription": "Hopefully the vacuum actually kills the poor beast..."
+    "usedDescription": "Hopefully the vacuum actually kills the poor beast...",
+    "image": "/images_items/airlock.png"
   },
   {
     "name": "library",
@@ -167,7 +170,8 @@
     "used": false,
     "useDescription": "You attend to the CORPSE. You gag from the smell several times as you look over the body. Cause of death: blaster shot to the back. You say a few words silently on their behalf. Peeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
     "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER. The smell is too much for you to push him back inside. You feel guilty, from one Captain to another you apologize to the dead man.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/corpse.png"
   },
   {
     "name": "component",

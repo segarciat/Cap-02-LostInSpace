@@ -17,8 +17,7 @@ public class ImagePanel extends JPanel {
 
     public ImagePanel(String filename, int width, int height) {
         backgroundImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(filename)))
-                .getImage()
-                .getScaledInstance(width, height, Image.SCALE_DEFAULT);
+                .getImage();
     }
 
     public Image getBackgroundImage() {
