@@ -99,6 +99,7 @@ public class RoomPanel extends ImagePanel{
         Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());
         for (ItemMod item: itemMods) {
             if (item.getImage() != null) {
+                System.out.println(item.getImage());
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.addActionListener(new ItemButtonClickAction(item));
                 button.addMouseListener(new ItemButtonHoverAction());
