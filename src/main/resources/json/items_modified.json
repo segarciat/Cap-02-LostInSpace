@@ -7,7 +7,8 @@
     "used": false,
     "useDescription": "RAWR RAWR YOU DEFEATED THE MONSTER!! (NEED TO REVISE)",
     "failedUseDescription": "You tried using the Mk39 Broad-Band SCRAMBLER, but it failed. You can only use it on electronically locked doors. Make sure the doors you are using it on are powered on.",
-    "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside."
+    "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside.",
+    "image": "/images_items/scrambler.png"
   },
   {
     "name": "cabinet",
