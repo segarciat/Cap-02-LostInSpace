@@ -12,23 +12,35 @@ public class OpenDialogAction implements ActionListener {
     private static final java.awt.Color COLOR_GREEN = new Color(76, 175, 82);
 
     private JFrame frame;
-    JTextArea textArea =  new JTextArea();
-    String title;
+    private JTextArea textArea =  new JTextArea();
+    private String title;
+    private JButton closeButton;
+    private JDialog d;
 
     public OpenDialogAction(JFrame frame, String text, String title) {
         this.frame = frame;
         setTextAreaOptions(textArea, text);
         this.title = title;
+        this.closeButton = new JButton("close");
+        this.closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                d.dispose();
+            }
+        });
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         ImagePanel imgPanel = new ImagePanel("/images_title/background.jpg", 720, 720);
-        JDialog d = new JDialog(frame, title);
+        d = new JDialog(frame, title);
         imgPanel.add(textArea);
+        imgPanel.add(closeButton);
         d.setSize(WINDOW_SIZE, WINDOW_SIZE);
         d.setContentPane(imgPanel);
         d.setVisible(true);
+
     }
 
     private static void setTextAreaOptions(JTextArea textArea, String text) {

@@ -1,6 +1,7 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
+import com.lostinspace.util.TextLoader;
 
 import javax.swing.*;
 
@@ -12,6 +13,7 @@ public class MenuPanel extends ImagePanel {
 
 
     public static final String BACKGROUND = "/images_title/background.jpg";
+    public static final String HELP_DIALOG_TITLE = "instructions";
 
     public MenuPanel(AppGUI app) {
         super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
@@ -36,12 +38,15 @@ public class MenuPanel extends ImagePanel {
         JPanel panel = this;
 
         // action listener for help button
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(panel, "Eventually will show help text");
-            }
-        });
+//        helpButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String msg = TextLoader.loadText("text/instructions.txt");
+//                JOptionPane.showMessageDialog(panel,msg);
+//            }
+//        });
+        helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
+        helpButton.setFocusable(false);
 
         // add exit and help button to panel in a box layout with transparent buttons
 //        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
