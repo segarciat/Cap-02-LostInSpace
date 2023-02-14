@@ -83,7 +83,7 @@ public class RoomPanel extends ImagePanel {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.addActionListener(new ItemButtonClickAction(item));
                 button.addMouseListener(new ItemButtonHoverAction(item));
-
+                button.setFocusable(false);
                 this.add(button);
             }
         }
@@ -114,7 +114,6 @@ public class RoomPanel extends ImagePanel {
                 app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
                 roomTextArea.setText(roomDescription);
                 app.getFrame().revalidate();
-//                app.getFrame().requestFocus();
             });
             timer.setRepeats(false);
 
@@ -130,7 +129,7 @@ public class RoomPanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.printf("clicked on %s\n", item.getName());
+
         }
     }
 
@@ -146,15 +145,12 @@ public class RoomPanel extends ImagePanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
-
                 // Change text area text to the look description of the item
                 String lookDescription = controller.lookItem(item);
                 roomTextArea.setText(lookDescription);
             } else if (e.getButton() == MouseEvent.BUTTON3) {
                 String textDescription = controller.getOrUseItem(item);
                 roomTextArea.setText(textDescription);
-
-
             }
         }
 
