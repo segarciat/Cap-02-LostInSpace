@@ -85,5 +85,9 @@ public class GUIController {
         return model.getTutorial();
     }
 
+    public Model getModel() {
+        return model;
+    }
+
 
 }
