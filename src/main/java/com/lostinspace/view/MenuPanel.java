@@ -16,7 +16,8 @@ public class MenuPanel extends ImagePanel {
     public MenuPanel(AppGUI app) {
         super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
 
-        this.setBounds(0, 0, app.getFrame().getWidth(), app.getFrame().getHeight());
+        this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
+        this.setLayout(new GridBagLayout());
 
         // exit Button
         JButton exitButton = new JButton("Exit");
@@ -43,9 +44,13 @@ public class MenuPanel extends ImagePanel {
         });
 
         // add exit and help button to panel in a box layout with transparent buttons
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(exitButton);
-        panel.add(helpButton);
+//        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(helpButton,gbc);
+        gbc.gridy = 1;
+        panel.add(exitButton, gbc);
         exitButton.setBackground(new Color(0, 0, 0, 65));
         helpButton.setBackground(new Color(0, 0, 0, 65));
     }
