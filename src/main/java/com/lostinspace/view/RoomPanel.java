@@ -152,6 +152,8 @@ public class RoomPanel extends ImagePanel {
             } else if (e.getButton() == MouseEvent.BUTTON3) {
                 String textDescription = controller.getOrUseItem(item);
                 roomTextArea.setText(textDescription);
+
+
             }
         }
 
@@ -168,6 +170,10 @@ public class RoomPanel extends ImagePanel {
         public void mouseExited(MouseEvent e) {
             JButton button = (JButton) e.getSource();
             button.setBorder(BorderFactory.createEmptyBorder()); // empty border when not hovering
+        }
+
+        private void removeItemFromMap() {
+
         }
     }
 }
