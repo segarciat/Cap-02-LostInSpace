@@ -1,6 +1,6 @@
 package com.lostinspace.app;
 
-import com.lostinspace.controller.ViewController;
+import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.Room;
 import com.lostinspace.view.IntroPanel;
 import com.lostinspace.view.RoomPanel;
@@ -23,7 +23,7 @@ public class AppGUI {
     Map<String, RoomPanel> roomFrames;
 
     // controllers
-    private final ViewController controller;
+    private final GUIController controller;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
@@ -44,7 +44,7 @@ public class AppGUI {
         frame = new JFrame();
         setFrameAttributes();
 
-        controller = new ViewController();
+        controller = new GUIController();
     }
 
     /*
@@ -136,7 +136,7 @@ public class AppGUI {
         return roomFrames;
     }
 
-    public ViewController getController() {
+    public GUIController getController() {
         return controller;
     }
 }

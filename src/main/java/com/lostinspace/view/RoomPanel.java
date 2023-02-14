@@ -1,6 +1,7 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
+import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.Room;
 
 import javax.swing.*;
@@ -8,9 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
-import java.util.Objects;
 
-public class RoomPanel extends ImagePanel{
+public class RoomPanel extends ImagePanel {
+    private GUIController controller;
+
     // font size
     private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);
 
@@ -25,6 +27,9 @@ public class RoomPanel extends ImagePanel{
 
     public RoomPanel(AppGUI app, Room room) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
+
+        controller = new GUIController();
+
         this.setLayout(new GridBagLayout());
         this.app = app;
 
@@ -58,7 +63,7 @@ public class RoomPanel extends ImagePanel{
         this.add(spacer, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -76,7 +81,8 @@ public class RoomPanel extends ImagePanel{
             String exitRoomName = roomExits.get(exit);
             String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
 
-            directionButton.addActionListener(new RoomExitAction(exitRoomName, exitRoomDescription));
+            directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
+                    exitRoomDescription));
             buttonPane.add(directionButton);
         }
 
@@ -85,19 +91,28 @@ public class RoomPanel extends ImagePanel{
             gbc.gridy = 0;
             gbc.insets = new Insets(0, 0, -24, 288);
             JButton item = SwingComponentCreator.createButtonWithImage("/images_item/scrambler.png", 216, 264, 48, 48);
+            item.addActionListener(new getItemAction("scrambler"));
             this.add(item, gbc);
+            this.setComponentZOrder(item, 0);
         }
 
         gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         this.add(buttonPane, gbc);
+
+        this.setComponentZOrder(spacer, 2);
+        this.setComponentZOrder(roomTextArea, 1);
+        this.setComponentZOrder(roomTextArea, 1);
+        this.setComponentZOrder(buttonPane, 1);
     }
 
     private class RoomExitAction implements ActionListener {
+        private final String roomDescription;
         private final String exitRoomName;
         private final String exitRoomDescription;
 
-        public RoomExitAction(String exitRoomName, String exitRoomDescription) {
+        public RoomExitAction(String roomDescription, String exitRoomName, String exitRoomDescription) {
+            this.roomDescription = roomDescription;
             this.exitRoomName = exitRoomName;
             this.exitRoomDescription = exitRoomDescription;
         }
@@ -107,11 +122,26 @@ public class RoomPanel extends ImagePanel{
             roomTextArea.setText(exitRoomDescription);
 
             // Set time for room transition
-            Timer timer = new Timer(ROOM_TRANSITION_DELAY,
-                    e1 -> app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName)));
+            Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
+                app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
+                roomTextArea.setText(roomDescription);
+            });
             timer.setRepeats(false);
 
             timer.start();
+        }
+    }
+
+    private class getItemAction implements ActionListener {
+        private final String itemName;
+
+        public getItemAction(String itemName) {
+            this.itemName = itemName;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controller.getItem(itemName);
         }
     }
 }

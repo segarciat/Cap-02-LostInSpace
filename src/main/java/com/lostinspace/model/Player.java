@@ -1,5 +1,7 @@
 package com.lostinspace.model;
 
+import java.util.ArrayList;
+
 public class Player {
     private String currentRoom; // current location of player
 
@@ -8,11 +10,13 @@ public class Player {
      * when oxygen == 0.00 the game is over
      */
     private double oxygen;
+    private ArrayList<ItemMod> inventory;
 
     // Constructor
-    public Player(String currentRoom, double oxygen){
+    public Player(String currentRoom, double oxygen, ArrayList<ItemMod> inventory){
         this.currentRoom = currentRoom;
         this.oxygen = oxygen;
+        this.inventory = inventory;
     }
 
     // PLAYER OBJECT METHODS
@@ -50,5 +54,17 @@ public class Player {
 
     public boolean hasOxygen() {
         return oxygen != 0.0;
+    }
+
+    public ArrayList<ItemMod> getInventory() {
+        return inventory;
+    }
+
+    public void addToInventory(ItemMod item) {
+        getInventory().add(item);
+    }
+
+    public void removeFromInventory(ItemMod item) {
+        getInventory().remove(item);
     }
 }
