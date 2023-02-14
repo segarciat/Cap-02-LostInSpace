@@ -1,0 +1,34 @@
+package com.lostinspace.view;
+
+import com.lostinspace.app.AppGUI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
+
+public class SwingComponentCreator {
+    public static JButton createButtonWithText(String text, int x, int y, int w, int h) {
+        JButton button = new JButton();                           // add image to button
+
+        button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
+        button.setBorder(BorderFactory.createEmptyBorder());               // remove borders
+        button.setContentAreaFilled(false);                                // remove inside content of button
+
+        return button;
+    }
+
+    public static JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppGUI.class.getResource(imageURL)));
+        JButton button = new JButton(imageIcon);                           // add image to button
+
+        button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
+        button.setBorder(BorderFactory.createEmptyBorder());               // remove borders
+        button.setContentAreaFilled(false);                                // remove inside content of button
+
+        return button;
+    }
+
+    public static JButton createButtonWithImage(String imageURL, Rectangle r) {
+        return createButtonWithImage(imageURL, (int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+    }
+}
