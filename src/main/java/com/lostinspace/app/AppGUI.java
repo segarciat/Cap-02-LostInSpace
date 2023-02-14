@@ -2,12 +2,11 @@ package com.lostinspace.app;
 
 import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.Room;
-import com.lostinspace.view.IntroPanel;
-import com.lostinspace.view.RoomPanel;
-import com.lostinspace.view.Route;
-import com.lostinspace.view.TitlePanel;
+import com.lostinspace.view.*;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.*;
 
 public class AppGUI {
@@ -108,6 +107,28 @@ public class AppGUI {
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
         frame.revalidate();
+        AppGUI app = this;
+        frame.addKeyListener(new KeyListener() { // shows a message when enter key is pressed
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                    MenuPanel menu = new MenuPanel(app);
+                    frame.add(menu);
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });;
     }
 
     /*
