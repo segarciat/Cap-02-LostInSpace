@@ -3,6 +3,7 @@ package com.lostinspace.view;
 import com.lostinspace.app.AppGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 public class SwingComponentCreator {
@@ -25,5 +26,9 @@ public class SwingComponentCreator {
         button.setContentAreaFilled(false);                                // remove inside content of button
 
         return button;
+    }
+
+    public static JButton createButtonWithImage(String imageURL, Rectangle r) {
+        return createButtonWithImage(imageURL, (int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
     }
 }

@@ -65,6 +65,10 @@ public class Model {
         roomItemRectangles = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
 
+        for (String roomName: roomItems.keySet()) {
+            roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
+        }
+
         player = new Player("", 0.0);
     }
 
