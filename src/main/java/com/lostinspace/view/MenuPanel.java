@@ -27,6 +27,9 @@ public class MenuPanel extends ImagePanel {
         // help Button
         JButton helpButton = new JButton("Help");
 
+        // continue Button
+        JButton continueButton = new JButton("Continue");
+
         // action listener for exit button
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -48,6 +51,17 @@ public class MenuPanel extends ImagePanel {
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
         helpButton.setFocusable(false);
 
+        // action listener for help button
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                app.setRoute(Route.GAME);
+                app.execute();
+            }
+        });
+
+        continueButton.setFocusable(false);
+
         // add exit and help button to panel in a box layout with transparent buttons
 //        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -56,8 +70,11 @@ public class MenuPanel extends ImagePanel {
         panel.add(helpButton,gbc);
         gbc.gridy = 1;
         panel.add(exitButton, gbc);
+        gbc.gridy = 2;
+        panel.add(continueButton, gbc);
         exitButton.setBackground(new Color(0, 0, 0, 65));
         helpButton.setBackground(new Color(0, 0, 0, 65));
+        continueButton.setBackground(new Color(0,0,0, 65));
     }
 }
 //    public static void main(String[] args) {
