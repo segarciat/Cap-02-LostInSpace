@@ -1,5 +1,7 @@
 package com.lostinspace.model;
 
+import java.awt.*;
+
 public class ItemMod {
     private String name;
     private String[] synonyms;
@@ -10,7 +12,9 @@ public class ItemMod {
     private String failedUseDescription;
     private String usedDescription;
     private String[] requiredItems;
+    private String image;
     private boolean isHidden;
+    private Rectangle rectangle;
 
     public ItemMod(ItemMod item) {
         this.name = item.name;
@@ -23,6 +27,8 @@ public class ItemMod {
         this.usedDescription = item.usedDescription;
         this.requiredItems = item.requiredItems;
         this.isHidden = item.isHidden;
+        this.image = item.image;
+        this.rectangle = item.rectangle;
     }
 
     public String getName() {
@@ -67,5 +73,17 @@ public class ItemMod {
 
     public boolean isHidden() {
         return isHidden;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 }

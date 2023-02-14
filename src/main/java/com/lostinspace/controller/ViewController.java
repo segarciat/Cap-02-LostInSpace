@@ -57,5 +57,9 @@ public class ViewController {
         return model.getTutorial();
     }
 
+    public Model getModel() {
+        return model;
+    }
+
 
 }

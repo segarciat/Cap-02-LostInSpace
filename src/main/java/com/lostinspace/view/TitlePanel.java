@@ -66,12 +66,15 @@ public class TitlePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == startGameButton)
+                startGameButton.removeActionListener(this); // so that player can only trigger this action once.
+
             // Change the image.
             setBackgroundImage(startMenuTransitionImage);
 
+            app.setRoute(Route.PROLOGUE);
             // Set timer to change the game route after a short delay.
             Timer timer = new Timer(TRANSITION_DELAY, evt -> {
-                app.setRoute(Route.PROLOGUE);
 
                 panel.remove(startGameButton);
                 panel.remove(exitGameButton);

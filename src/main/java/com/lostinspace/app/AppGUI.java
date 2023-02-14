@@ -12,8 +12,10 @@ import java.util.*;
 
 public class AppGUI {
     // size of objects
-    private static final int FRAME_WIDTH = 736;
-    private static final int FRAME_HEIGHT = 758;
+//    private static final int FRAME_WIDTH = 736;
+//    private static final int FRAME_HEIGHT = 758;
+    private static final int FRAME_WIDTH = 720;
+    private static final int FRAME_HEIGHT = 720;
 
     // titles
     private static final String GAME_TITLE = "Lost In Space";
@@ -84,6 +86,7 @@ public class AppGUI {
     private void createTitle() {
         JPanel titlePanel = new TitlePanel(this);
         frame.setContentPane(titlePanel);
+//        frame.revalidate();
         frame.setVisible(true);
         frame.requestFocus();
     }
@@ -104,6 +107,7 @@ public class AppGUI {
 
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
+        frame.revalidate();
     }
 
     /*
