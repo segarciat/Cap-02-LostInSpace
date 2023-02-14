@@ -81,7 +81,6 @@ public class RoomPanel extends ImagePanel {
         for (ItemMod item: itemMods) {
             if (item.getImage() != null) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
-                button.addActionListener(new ItemButtonClickAction(item));
                 button.addMouseListener(new ItemButtonHoverAction(item));
                 button.setFocusable(false);
                 this.add(button);
@@ -118,18 +117,6 @@ public class RoomPanel extends ImagePanel {
             timer.setRepeats(false);
 
             timer.start();
-        }
-    }
-
-    private class ItemButtonClickAction implements ActionListener {
-        private final ItemMod item;
-        private ItemButtonClickAction(ItemMod item) {
-            this.item = item;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
         }
     }
 
