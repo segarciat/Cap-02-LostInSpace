@@ -67,14 +67,15 @@ public class MenuPanel extends ImagePanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 12, 0);
         panel.add(helpButton,gbc);
         gbc.gridy = 1;
         panel.add(exitButton, gbc);
         gbc.gridy = 2;
         panel.add(continueButton, gbc);
-        exitButton.setBackground(new Color(0, 0, 0, 65));
-        helpButton.setBackground(new Color(0, 0, 0, 65));
-        continueButton.setBackground(new Color(0,0,0, 65));
+//        exitButton.setBackground(new Color(0, 0, 0, 65));
+//        helpButton.setBackground(new Color(0, 0, 0, 65));
+//        continueButton.setBackground(new Color(0,0,0, 65));
     }
 }
 //    public static void main(String[] args) {
