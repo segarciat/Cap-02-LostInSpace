@@ -220,7 +220,7 @@
       "Command Deck Hallway": "To the West, you see the door leading back to the Command Deck Hallway."
     },
     "items": [
-      "cooler", "corpse"
+      "cooler", "corpse", "keycard"
     ],
     "image":"/images_room/medbay.png",
     "tmx": "xml/medbay.tmx"

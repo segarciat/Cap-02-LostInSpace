@@ -10,7 +10,7 @@
  <tileset firstgid="3946" source="tilemaps/SciFi_Warehouse_C.tsx"/>
  <tileset firstgid="4970" source="tilemaps/!$Monster-001.tsx"/>
  <tileset firstgid="5402" source="tilemaps/SciFi_Warehouse_C2.tsx"/>
- <tileset firstgid="6426" source="tilemaps/mini-map_sketchy-room.tsx"/>
+ <tileset firstgid="6426" source="tilemaps/inventory.tsx"/>
  <layer id="3" name="Background" width="30" height="30">
   <data encoding="csv">
 526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,526,527,
@@ -283,7 +283,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Mini-Map" width="30" height="30" visible="0">
+ <layer id="2" name="Inventory" width="30" height="30">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6426,6427,6428,6429,6430,6431,6432,6433,6434,6435,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6436,6437,6438,6439,6440,6441,6442,6443,6444,6445,

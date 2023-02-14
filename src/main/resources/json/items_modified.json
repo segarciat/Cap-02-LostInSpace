@@ -25,7 +25,8 @@
     "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside.",
     "requiredItems": [
       "key"
-    ]
+    ],
+    "image": "/images_items/cabinet.png"
   },
   {
     "name": "console",
@@ -38,7 +39,8 @@
     "lookDescription": "The CONSOLE sits mostly darkened, with the exception of one obvious display. It must be in some kind of power-savings mode.",
     "used": false,
     "useDescription": "You use the Reactor CONSOLE. The ship hummed with a loud thunder and the lights of the ship flickered on.",
-    "usedDescription": ""
+    "usedDescription": "",
+    "image": "/images_items/console.png"
   },
   {
     "name": "pipes",
@@ -49,7 +51,8 @@
     "lookDescription": "Atmo-ducting. This heap isn't producing atmosphere anymore, but if you bleed the lines a bit with your suit you might be able to siphon off some nearby gases in them.",
     "used": false,
     "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve. After a brief vibration you recover some oxygen leftover in the local piping. After a moment, you begin to tell that it would take more oxygen bleeding the lines than you would get back at this point. It seems like the pipes are EMPTY now.",
-    "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already."
+    "usedDescription": "Atmo-ducting. You've siphoned off what you could from here, already.",
+    "image": "/images_items/pipes.png"
   },
   {
     "name": "ship",
@@ -63,7 +66,8 @@
     "used": false,
     "useDescription": "",
     "usedDescription": "",
-    "failedUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head. \"I need to finish my REPAIRS, remember?\" A flight officer can dream, can't they...?"
+    "failedUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head. \"I need to finish my REPAIRS, remember?\" A flight officer can dream, can't they...?",
+    "image": "/images_items/ship.png"
   },
   {
     "name": "rack",
@@ -74,7 +78,8 @@
     "lookDescription": "You spot several contraband parts originating from Praetor-class vessels affixed to a parts RACK. This place is gonna be a mountain of paperwork... Just when you're about to give up the search, you notice a compatible Engine COMPONENT for your ship!",
     "used": false,
     "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess. This should work as the Engine COMPONENT Zhang requested!",
-    "usedDescription": "The evidence teams are going to be here for weeks, but you have everything you need from here for now."
+    "usedDescription": "The evidence teams are going to be here for weeks, but you have everything you need from here for now.",
+    "image": "/images_items/rack.png"
   },
   {
     "name": "poster",
@@ -88,7 +93,8 @@
     "lookDescription": "Looking closer, you see the poster is actually a useful layout of the freighter, the sectors listed from bow to stern (North to South). Unfortunately, the poster is now hanging UPSIDE DOWN. The ship's various sectors are color coded, as well as described in text. You examine the UPSIDE DOWN layout from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command",
     "used": false,
     "useDescription": "You kneel down to the POSTER and take a look.",
-    "usedDescription": "You again examine the UPSIDE DOWN layout (from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command"
+    "usedDescription": "You again examine the UPSIDE DOWN layout (from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command",
+    "image": "/images_items/poster.png"
   },
   {
     "name": "locker",
@@ -147,7 +153,8 @@
     "used": false,
     "useDescription": "You attempt to use the KEY...",
     "usedDescription": "It looks like it doesn't unlock anything else.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/key.png"
   },
   {
     "name": "keycard",
@@ -157,7 +164,8 @@
     "used": false,
     "useDescription": "You attempt to use the KEYCARD...",
     "usedDescription": "It looks like it doesn't unlock anything else.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/keycard.png"
   },
   {
     "name": "corpse",
@@ -186,7 +194,8 @@
     "used": false,
     "useDescription": "You hand the greasy Engine COMPONENT to Zhang. \"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\"I'll debrief you later.\"\n\"Aye, sir.\", Zhang responds, disappointed.",
     "usedDescription": "You've given the COMPONENT to the Chief already.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/component.png"
   },
   {
     "name": "tool",
@@ -199,7 +208,8 @@
     "used": false,
     "useDescription": "The HyperThermal Torch TOOL makes a loud 'clunk' as you set it in front of your CWO2. \"Perfect, sir! a welding TOOL of this caliber will mend most super-materials that comprise the Spartan.\"\n\"I'll leave it to you, then.\"\nZhang issues a dutiful salute and returns to work.",
     "usedDescription": "You've given the TOOL to the Chief already.",
-    "isHidden": true
+    "isHidden": true,
+    "image": "/images_items/tool.png"
   },
   {
     "name": "manual",
