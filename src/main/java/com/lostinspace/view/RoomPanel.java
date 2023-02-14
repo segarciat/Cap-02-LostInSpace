@@ -1,6 +1,7 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
+import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.Item;
 import com.lostinspace.model.ItemMod;
 import com.lostinspace.model.Model;
@@ -16,7 +17,9 @@ import java.awt.event.MouseListener;
 import java.util.Map;
 import java.util.Set;
 
-public class RoomPanel extends ImagePanel{
+public class RoomPanel extends ImagePanel {
+    private GUIController controller;
+
     // font size
     private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);
 
@@ -31,11 +34,12 @@ public class RoomPanel extends ImagePanel{
 
     public RoomPanel(AppGUI app, Room room) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
-        // this.setLayout(new GridBagLayout());
+
+        this.controller = new GUIController();
+        this.app = app;
+
         this.setLayout(null);
         this.setSize(this.getPreferredSize());
-
-        this.app = app;
 
         // Get room description
         roomTextArea = new JTextArea(room.getDescription());
@@ -51,30 +55,7 @@ public class RoomPanel extends ImagePanel{
         roomTextArea.setFocusable(false);
         roomTextArea.setMargin(new Insets(12,24,0,24));
         roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
-
-        // Set spacer text area
-        JTextArea spacer = new JTextArea();
-        spacer.setOpaque(false);
-        spacer.setEditable(false);
-        spacer.setFocusable(false);
-
-        // Create layout constraints
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 504;
-        // this.add(spacer, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.ipady = 0;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        // this.add(roomTextArea, gbc);
         this.add(roomTextArea);
-
 
         // Create direction buttons for each exit
         Map<String, String> roomExits = room.getExits();
@@ -89,7 +70,8 @@ public class RoomPanel extends ImagePanel{
             String exitRoomName = roomExits.get(exit);
             String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
 
-            directionButton.addActionListener(new RoomExitAction(exitRoomName, exitRoomDescription));
+            directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
+                    exitRoomDescription));
             buttonPane.add(directionButton);
         }
 
@@ -108,27 +90,17 @@ public class RoomPanel extends ImagePanel{
             }
         }
 
-        // Display items for this room
-        if (room.getName().equals("Docking Bay")) {
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.insets = new Insets(0, 0, -24, 288);
-            JButton item = SwingComponentCreator.createButtonWithImage("/images_item/scrambler.png", 216, 264, 48, 48);
-            // this.add(item, gbc);
-            this.add(item);
-        }
-
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.gridy = 1;
         // this.add(buttonPane, gbc);
         this.add(buttonPane);
     }
 
     private class RoomExitAction implements ActionListener {
+        private final String roomDescription;
         private final String exitRoomName;
         private final String exitRoomDescription;
 
-        public RoomExitAction(String exitRoomName, String exitRoomDescription) {
+        public RoomExitAction(String roomDescription, String exitRoomName, String exitRoomDescription) {
+            this.roomDescription = roomDescription;
             this.exitRoomName = exitRoomName;
             this.exitRoomDescription = exitRoomDescription;
         }
@@ -138,11 +110,11 @@ public class RoomPanel extends ImagePanel{
             roomTextArea.setText(exitRoomDescription);
 
             // Set time for room transition
-            Timer timer = new Timer(ROOM_TRANSITION_DELAY,
-                    e1 -> {
-                        app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
-                        app.getFrame().revalidate();
-                    });
+            Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
+                app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
+                roomTextArea.setText(roomDescription);
+                app.getFrame().revalidate();
+            });
             timer.setRepeats(false);
 
             timer.start();

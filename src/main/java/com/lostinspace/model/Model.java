@@ -34,7 +34,10 @@ public class Model {
     private final String prologue;
     private final String tutorial;
 
+    // Player class initial parameters
     private final Player player;
+    public static final double INITIAL_OXYGEN = 80.00;
+    public static final String INITIAL_ROOM = "Docking Bay";
 
     public Model() {
         // Load all text.
@@ -65,11 +68,11 @@ public class Model {
         roomItemRectangles = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
 
+        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
+
         for (String roomName: roomItems.keySet()) {
             roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
         }
-
-        player = new Player("", 0.0);
     }
 
     /*
