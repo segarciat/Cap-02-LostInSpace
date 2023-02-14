@@ -2,10 +2,7 @@ package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
 import com.lostinspace.controller.GUIController;
-import com.lostinspace.model.Item;
-import com.lostinspace.model.ItemMod;
-import com.lostinspace.model.Model;
-import com.lostinspace.model.Room;
+import com.lostinspace.model.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -112,6 +109,8 @@ public class RoomPanel extends ImagePanel {
 
             // Set time for room transition
             Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
+                Player player = app.getController().getPlayer();
+                player.setCurrentRoom(exitRoomName);
                 app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
                 roomTextArea.setText(roomDescription);
                 app.getFrame().revalidate();

@@ -23,6 +23,11 @@ public class AppGUI {
     private final JFrame frame;
     Map<String, RoomPanel> roomFrames;
 
+    private TitlePanel titlePanel;
+    private IntroPanel introPanel;
+    private MenuPanel menuPanel;
+    private RoomPanel roomPanel;
+
     // controllers
     private final GUIController controller;
 
@@ -46,6 +51,40 @@ public class AppGUI {
         setFrameAttributes();
 
         controller = new GUIController();
+        createRooms();
+        titlePanel = new TitlePanel(this);
+        menuPanel = new MenuPanel(this);
+        introPanel = new IntroPanel(this);
+
+        frame.addKeyListener(new KeyListener() { // shows a message when enter key is pressed
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    // if the route is game, show the menu
+                    if (Route.GAME.equals(route)) {
+                        setRoute(Route.MENU);
+                        execute();
+
+                    } else if (Route.MENU.equals(route)) {
+                        // if the route is menu, it should hide the menu
+                        setRoute(Route.GAME);
+                        execute();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });;
+
     }
 
     /*
@@ -74,16 +113,23 @@ public class AppGUI {
             case GAME:
                 createGame();
                 break;
+            case MENU:
+                createMenu();
+                break;
             default:
                 break;
         }
+    }
+
+    private void createMenu() {
+        frame.setContentPane(menuPanel);
+        frame.requestFocus();
     }
 
     /*
      * Create title frame
      */
     private void createTitle() {
-        JPanel titlePanel = new TitlePanel(this);
         frame.setContentPane(titlePanel);
 //        frame.revalidate();
         frame.setVisible(true);
@@ -94,41 +140,20 @@ public class AppGUI {
      * Create prologue sequence
      */
     private void createPrologue() {
-        JPanel introPanel = new IntroPanel(this);
         frame.setContentPane(introPanel);
+        frame.requestFocus();
     }
 
     /*
      * Create game
      */
     private void createGame() {
-        createRooms();
 
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
         frame.revalidate();
         AppGUI app = this;
-        frame.addKeyListener(new KeyListener() { // shows a message when enter key is pressed
-            @Override
-            public void keyTyped(KeyEvent e) {
 
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-
-                    MenuPanel menu = new MenuPanel(app);
-                    frame.add(menu);
-                }
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });;
     }
 
     /*
