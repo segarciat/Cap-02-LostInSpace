@@ -59,6 +59,7 @@ public class MenuPanel extends ImagePanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 12, 0);
         panel.add(helpButton,gbc);
         gbc.gridy = 1;
         panel.add(exitButton, gbc);

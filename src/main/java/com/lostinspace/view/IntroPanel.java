@@ -40,6 +40,7 @@ public class IntroPanel extends ImagePanel {
 
         // Create skip button
         skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
+        skipButton.setFocusable(false);
         skipButton.addActionListener(new SkipIntroPage());
 
         // Customize text area.
