@@ -72,6 +72,7 @@ public class RoomPanel extends ImagePanel {
 
             directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
                     exitRoomDescription));
+            directionButton.setFocusable(false);
             buttonPane.add(directionButton);
         }
 
@@ -114,6 +115,7 @@ public class RoomPanel extends ImagePanel {
                 app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
                 roomTextArea.setText(roomDescription);
                 app.getFrame().revalidate();
+//                app.getFrame().requestFocus();
             });
             timer.setRepeats(false);
 
