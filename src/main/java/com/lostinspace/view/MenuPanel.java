@@ -6,16 +6,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuPanel extends ImagePanel {
+public class MenuPanel {
 
     public MenuPanel() {
-        super();
+//        super();
     }
 
     // background transparent
+
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Menu Button");
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+
+        // Exit Button
         JButton exitButton = new JButton("Exit");
+
+        // Help Button
         JButton helpButton = new JButton("Help");
 
         exitButton.addActionListener(new ActionListener() {
@@ -28,24 +34,29 @@ public class MenuPanel extends ImagePanel {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Eventually will show help text");
+                JOptionPane.showMessageDialog(panel, "Eventually will show help text");
             }
         });
 
-        frame.add(exitButton, BorderLayout.CENTER);
-        frame.add(helpButton, BorderLayout.CENTER);
-        frame.setLayout(new FlowLayout());
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel.add(exitButton);
+        panel.add(helpButton);
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        helpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setBackground(new Color(0,0,0,0));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        frame.add(panel);
+        frame.setSize(200, 200);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
 
 
 
-    // Exit Button
 
 
 
 
-    // Help Button
+
+
