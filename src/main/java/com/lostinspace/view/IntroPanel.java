@@ -123,7 +123,7 @@ public class IntroPanel extends ImagePanel {
                 introTextArea.setText(introPageIterator.next());
             } else {
                 app.setRoute(Route.GAME);
-                app.execute();
+                app.update();
             }
         }
     }

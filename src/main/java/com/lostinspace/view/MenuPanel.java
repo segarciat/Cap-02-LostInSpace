@@ -44,7 +44,7 @@ public class MenuPanel extends ImagePanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.setRoute(Route.GAME);
-                app.execute();
+                app.update();
             }
         });
 

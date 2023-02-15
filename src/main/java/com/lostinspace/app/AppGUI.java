@@ -1,7 +1,6 @@
 package com.lostinspace.app;
 
 import com.lostinspace.controller.GUIController;
-import com.lostinspace.model.Model;
 import com.lostinspace.model.Room;
 import com.lostinspace.view.*;
 
@@ -22,10 +21,9 @@ public class AppGUI {
     private final JFrame frame;
     Map<String, RoomPanel> roomFrames;
 
-    private TitlePanel titlePanel;
-    private IntroPanel introPanel;
-    private MenuPanel menuPanel;
-    private RoomPanel roomPanel;
+    private final TitlePanel titlePanel;
+    private final IntroPanel introPanel;
+    private final MenuPanel menuPanel;
 
     // controllers
     private final GUIController controller;
@@ -38,7 +36,7 @@ public class AppGUI {
      */
     public static void main(String[] args) {
         AppGUI app = new AppGUI();
-        app.execute();
+        app.update();
     }
 
     /*
@@ -55,34 +53,7 @@ public class AppGUI {
         menuPanel = new MenuPanel(this);
         introPanel = new IntroPanel(this);
 
-        frame.addKeyListener(new KeyListener() { // shows a message when enter key is pressed
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    // if the route is game, show the menu
-                    if (Route.GAME.equals(route)) {
-                        setRoute(Route.MENU);
-                        execute();
-
-                    } else if (Route.MENU.equals(route)) {
-                        // if the route is menu, it should hide the menu
-                        setRoute(Route.GAME);
-                        execute();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
+        frame.addKeyListener(new MenuToggleAction());
     }
 
     /*
@@ -100,26 +71,26 @@ public class AppGUI {
     /*
      * Entry into App GUI
      */
-    public void execute() {
-        switch(route) {
+    public void update() {
+        switch (route) {
             case TITLE:
-                createTitle();
+                showTitleScreen();
                 break;
             case PROLOGUE:
-                createPrologue();
+                showPrologue();
                 break;
             case GAME:
-                createGame();
+                showGame();
                 break;
             case MENU:
-                createMenu();
+                showMenu();
                 break;
             default:
                 break;
         }
     }
 
-    private void createMenu() {
+    private void showMenu() {
         frame.setContentPane(menuPanel);
         frame.requestFocus();
     }
@@ -127,7 +98,7 @@ public class AppGUI {
     /*
      * Create title frame
      */
-    private void createTitle() {
+    private void showTitleScreen() {
         frame.setContentPane(titlePanel);
 //        frame.revalidate();
         frame.setVisible(true);
@@ -137,7 +108,7 @@ public class AppGUI {
     /*
      * Create prologue sequence
      */
-    private void createPrologue() {
+    private void showPrologue() {
         frame.setContentPane(introPanel);
         frame.requestFocus();
     }
@@ -145,11 +116,10 @@ public class AppGUI {
     /*
      * Create game
      */
-    private void createGame() {
-        String startingLocation = controller.getPlayer().getCurrentRoom();
-        frame.setContentPane(roomFrames.get(startingLocation));
+    private void showGame() {
+        String currentRoomName = controller.getPlayer().getCurrentRoom();
+        frame.setContentPane(roomFrames.get(currentRoomName));
         frame.revalidate();
-        AppGUI app = this;
     }
 
     /*
@@ -160,7 +130,7 @@ public class AppGUI {
 
         Map<String, Room> roomMap = controller.getRoomMap();
 
-        for (String roomName: roomMap.keySet()) {
+        for (String roomName : roomMap.keySet()) {
             Room room = roomMap.get(roomName);
             roomFrames.put(roomName, new RoomPanel(this, room, controller));
         }
@@ -184,5 +154,37 @@ public class AppGUI {
 
     public GUIController getController() {
         return controller;
+    }
+
+    /**
+     * Allows player to toggle (open/close) the menu when pressing ESC key.
+     */
+    private class MenuToggleAction implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                // if the route is game, show the menu
+                if (Route.GAME.equals(route)) {
+                    setRoute(Route.MENU);
+                    update();
+
+                } else if (Route.MENU.equals(route)) {
+                    // if the route is menu, it should hide the menu
+                    setRoute(Route.GAME);
+                    update();
+                }
+
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
     }
 }
