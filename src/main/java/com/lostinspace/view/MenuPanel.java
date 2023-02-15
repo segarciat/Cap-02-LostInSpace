@@ -12,6 +12,7 @@ public class MenuPanel extends ImagePanel {
 
     public static final String BACKGROUND = "/images_title/background.jpg";
     public static final String HELP_DIALOG_TITLE = "instructions";
+    public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
 
     public MenuPanel(AppGUI app) {
         super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
@@ -26,6 +27,10 @@ public class MenuPanel extends ImagePanel {
 
         JButton continueButton = SwingComponentCreator.createButtonWithText("Continue");
 
+        JButton objectiveButton = SwingComponentCreator.createButtonWithText("Objectives");
+
+        JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
+
         // action listener for exit button
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -36,8 +41,19 @@ public class MenuPanel extends ImagePanel {
 
         JPanel panel = this;
 
+        // action Listener for objectives button
+        objectiveButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getObjectives(), OBJECTIVES_DIALOG_TITLE));
+
         // action listener for help button
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
+
+        // action listener for easy mode  button
+        easyModeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(getComponentPopupMenu(),"Easy Mode is activated");
+            }
+        });
 
         // action listener for help button
         continueButton.addActionListener(new ActionListener() {
@@ -53,11 +69,16 @@ public class MenuPanel extends ImagePanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 0, 12, 0);
-        panel.add(helpButton, gbc);
-        gbc.gridy = 1;
-        panel.add(exitButton, gbc);
-        gbc.gridy = 2;
         panel.add(continueButton, gbc);
+        gbc.gridy = 1;
+        panel.add(objectiveButton, gbc);
+        gbc.gridy = 2;
+        panel.add(easyModeButton, gbc);
+        gbc.gridy = 3;
+        panel.add(helpButton, gbc);
+        gbc.gridy = 4;
+        panel.add(exitButton, gbc);
+
     }
 }
 

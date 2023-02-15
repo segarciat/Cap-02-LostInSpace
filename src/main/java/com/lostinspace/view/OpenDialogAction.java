@@ -41,6 +41,7 @@ public class OpenDialogAction implements ActionListener {
         imgPanel.add(closeButton);
         d.setSize(WINDOW_SIZE, WINDOW_SIZE);
         d.setContentPane(imgPanel);
+        d.setLocationRelativeTo(null);
         d.setVisible(true);
 
     }
