@@ -14,20 +14,6 @@ class ItemController {
         this.player = player;
     }
 
-    // Check if item is in inventory
-    public Boolean checkInInventory(ItemMod item) {
-        boolean isFound = false;
-
-        for (ItemMod itemInInventory : player.getInventory()) {
-            if (itemInInventory.getName().equals(item.getName())) {
-                isFound = true;
-                break;
-            }
-        }
-
-        return isFound;
-    }
-
     // Add item to player inventory, then remove from location
     public String getItem(ItemMod item) {
         // Add item to inventory
@@ -63,7 +49,7 @@ class ItemController {
             ItemMod required = model.getItemByName(requiredItem);
 
             // If required item is not in inventory, then display failedUsedDescription
-            if (checkInInventory(required)) {
+            if (model.checkInInventory(required)) {
                 item.setUsed(true);
                 return item.getUseDescription();
             } else {

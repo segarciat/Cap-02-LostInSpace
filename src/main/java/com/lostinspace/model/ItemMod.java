@@ -96,7 +96,7 @@ public class ItemMod {
         this.rectangle = rectangle;
     }
 
-    public String getItemMethods() {
+    public String getItemMethod() {
         return itemMethod;
     }
 

@@ -81,7 +81,7 @@ public class RoomPanel extends ImagePanel {
         for (ItemMod item: itemMods) {
             if (item.getImage() != null) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
-                button.addMouseListener(new ItemButtonHoverAction(item));
+                button.addMouseListener(new ItemButtonHoverAction(item, this, button));
                 button.setFocusable(false);
                 this.add(button);
             }
@@ -121,8 +121,13 @@ public class RoomPanel extends ImagePanel {
 
     private class ItemButtonHoverAction implements MouseListener {
         private final ItemMod item;
-        private ItemButtonHoverAction(ItemMod item) {
+        private final ImagePanel panel;
+        private final JButton button;
+
+        private ItemButtonHoverAction(ItemMod item, ImagePanel panel, JButton button) {
             this.item = item;
+            this.panel = panel;
+            this.button = button;
         }
 
         @Override
@@ -135,13 +140,24 @@ public class RoomPanel extends ImagePanel {
                 String lookDescription = controller.lookItem(item);
                 roomTextArea.setText(lookDescription);
             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                String textDescription = controller.getOrInteractItem(item);
+                String textDescription = "";
+
+                if (item.getItemMethod().equals("get")) {
+                    textDescription = controller.getItem(item);
+                    panel.remove(button);
+                } else if (item.getItemMethod().equals("interact")) {
+                    textDescription = controller.interactItem(item);
+                }
+
                 roomTextArea.setText(textDescription);
             }
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+            // If any item buttons are added or removed, revalidate panel
+            panel.revalidate();
+        }
 
         @Override
         public void mouseEntered(MouseEvent e) {
@@ -153,10 +169,6 @@ public class RoomPanel extends ImagePanel {
         public void mouseExited(MouseEvent e) {
             JButton button = (JButton) e.getSource();
             button.setBorder(BorderFactory.createEmptyBorder()); // empty border when not hovering
-        }
-
-        private void removeItemFromMap() {
-
         }
     }
 }

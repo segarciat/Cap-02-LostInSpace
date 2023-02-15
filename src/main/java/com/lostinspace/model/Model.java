@@ -76,6 +76,23 @@ public class Model {
     }
 
     /*
+     * CHECK METHODS
+     */
+    // Check if item is in inventory
+    public Boolean checkInInventory(ItemMod item) {
+        boolean isFound = false;
+
+        for (ItemMod itemInInventory : player.getInventory()) {
+            if (itemInInventory.getName().equals(item.getName())) {
+                isFound = true;
+                break;
+            }
+        }
+
+        return isFound;
+    }
+
+    /*
      * GETTER OBJECT BY NAME
      */
     public Room getRoomByName(String roomName) {

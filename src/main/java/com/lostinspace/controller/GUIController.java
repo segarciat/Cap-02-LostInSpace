@@ -36,15 +36,24 @@ public class GUIController {
         return item.getLookDescription();
     }
 
-    // Get or interaction with item on the map
-    public String getOrInteractItem(ItemMod item) {
-        if (!itemController.checkInInventory(item) && item.getItemMethods().equals("get")) {       // get item
-            return itemController.getItem(item);
-        } else if (item.getItemMethods().equals("interact")) {                            // interact with item
-            return itemController.interactItem(item);
-        } else {
-            return "";
+    // Get item
+    public String getItem(ItemMod item) {
+        String returnText = "";
+
+        if (!model.checkInInventory(item)) {
+            returnText = itemController.getItem(item);
         }
+
+        return returnText;
+    }
+
+    // Get or interaction with item on the map
+    public String interactItem(ItemMod item) {
+        String returnText = "";
+
+        returnText = itemController.interactItem(item);
+
+        return returnText;
     }
 
     /*
