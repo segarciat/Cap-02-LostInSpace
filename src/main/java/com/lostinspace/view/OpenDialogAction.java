@@ -12,7 +12,7 @@ public class OpenDialogAction implements ActionListener {
     private static final java.awt.Color COLOR_GREEN = new Color(76, 175, 82);
 
     private JFrame frame;
-    private JTextArea textArea =  new JTextArea();
+    private JTextArea textArea = new JTextArea();
     private String title;
     private JButton closeButton;
     private JDialog d;
