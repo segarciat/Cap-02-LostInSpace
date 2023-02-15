@@ -31,7 +31,7 @@ public class RoomPanel extends ImagePanel {
 
     private final Room room;
 
-    public RoomPanel(AppGUI app, Room room, GUIController controller) {
+    public RoomPanel(AppView app, Room room, GUIController controller) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
 
         this.controller = controller;

@@ -33,9 +33,9 @@ public class IntroPanel extends ImagePanel {
     private final Iterator<String> introPageIterator;
 
     private final JButton skipButton;
-    private final AppGUI app;
+    private final AppView app;
 
-    public IntroPanel(AppGUI app) {
+    public IntroPanel(AppView app) {
         super(BACKGROUND_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
         this.app = app;
 
