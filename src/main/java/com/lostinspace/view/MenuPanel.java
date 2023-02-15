@@ -29,6 +29,8 @@ public class MenuPanel extends ImagePanel {
 
         JButton objectiveButton = SwingComponentCreator.createButtonWithText("Objectives");
 
+        JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
+
         // action listener for exit button
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -44,6 +46,14 @@ public class MenuPanel extends ImagePanel {
 
         // action listener for help button
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
+
+        // action listener for easy mode  button
+        easyModeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(getComponentPopupMenu(),"Easy Mode is activated");
+            }
+        });
 
         // action listener for help button
         continueButton.addActionListener(new ActionListener() {
@@ -63,8 +73,10 @@ public class MenuPanel extends ImagePanel {
         gbc.gridy = 1;
         panel.add(objectiveButton, gbc);
         gbc.gridy = 2;
-        panel.add(helpButton, gbc);
+        panel.add(easyModeButton, gbc);
         gbc.gridy = 3;
+        panel.add(helpButton, gbc);
+        gbc.gridy = 4;
         panel.add(exitButton, gbc);
 
     }
