@@ -87,7 +87,6 @@ public class RoomPanel extends ImagePanel {
             }
         }
 
-        // this.add(buttonPane, gbc);
         this.add(buttonPane);
     }
 
@@ -136,7 +135,7 @@ public class RoomPanel extends ImagePanel {
                 String lookDescription = controller.lookItem(item);
                 roomTextArea.setText(lookDescription);
             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                String textDescription = controller.getOrUseItem(item);
+                String textDescription = controller.getOrInteractItem(item);
                 roomTextArea.setText(textDescription);
             }
         }

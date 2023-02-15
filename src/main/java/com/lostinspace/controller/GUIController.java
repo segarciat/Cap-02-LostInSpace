@@ -17,7 +17,7 @@ public class GUIController {
 
     public GUIController() {
         this.model = new Model();
-        this.itemController = new ItemController(model.getPlayer());
+        this.itemController = new ItemController(model, model.getPlayer());
 
         setUp();
     }
@@ -31,24 +31,20 @@ public class GUIController {
     /*
      * ITEM METHODS
      */
+    // Get look description
     public String lookItem(ItemMod item) {
         return item.getLookDescription();
     }
 
-    public String getOrUseItem(ItemMod item) {
-        String returnText = "";
-
-        // If item is found in inventory, then right-click will use item
-        if (itemController.checkInInventory(item)) {
-            returnText = "You used the " + item.getName() + ".";
-        } else if (!itemController.checkInInventory(item) && item.getItemMethods().contains("get")) {
-            itemController.getItem(item);
-            returnText = "You added the " + item.getName() + " to your inventory.";
+    // Get or interaction with item on the map
+    public String getOrInteractItem(ItemMod item) {
+        if (!itemController.checkInInventory(item) && item.getItemMethods().equals("get")) {       // get item
+            return itemController.getItem(item);
+        } else if (item.getItemMethods().equals("interact")) {                            // interact with item
+            return itemController.interactItem(item);
         } else {
-            returnText = item.getUseDescription();
+            return "";
         }
-
-        return returnText;
     }
 
     /*

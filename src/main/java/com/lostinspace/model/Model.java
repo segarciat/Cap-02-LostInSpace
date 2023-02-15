@@ -76,9 +76,35 @@ public class Model {
     }
 
     /*
+     * GETTER OBJECT BY NAME
+     */
+    public Room getRoomByName(String roomName) {
+        Room room = new Room();
+
+        for (String roomString : rooms.keySet()) {
+            if (roomString.equals(roomName)) {
+                room = rooms.get(roomString);
+            }
+        }
+
+        return room;
+    }
+
+    public ItemMod getItemByName(String itemName) {
+        ItemMod item = new ItemMod();
+
+        for (String itemString : items.keySet()) {
+            if (itemString.equals(itemName)) {
+                item = items.get(itemString);
+            }
+        }
+
+        return item;
+    }
+
+    /*
      * ACCESSOR METHODS
      */
-
     public Player getPlayer() {
         return player;
     }
