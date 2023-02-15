@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * View that shows the room that the player is currently in and associated items while playing.
+ */
 public class RoomPanel extends ImagePanel {
     private GUIController controller;
 
@@ -26,6 +29,7 @@ public class RoomPanel extends ImagePanel {
     public static final int ROOM_TRANSITION_DELAY = 1500;
     public static final int TEXTAREA_HEIGHT = 168;
 
+    // The text being shown in the room.
     private final JTextArea roomTextArea;
     private final AppGUI app;
 
@@ -83,7 +87,7 @@ public class RoomPanel extends ImagePanel {
             if (item.getImage() != null && !item.isHidden()) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.setName(item.getName());
-                button.addMouseListener(new ItemButtonHoverAction(item, this, button));
+                button.addMouseListener(new ItemMouseAction(item, this, button));
                 button.setFocusable(false);
                 this.add(button);
             }
@@ -92,6 +96,9 @@ public class RoomPanel extends ImagePanel {
         this.add(buttonPane);
     }
 
+    /**
+     * Action that updates the view (room) upon clicking a cardinal direction button like "Go North" or "Go West".
+     */
     private class RoomExitAction implements ActionListener {
         private final String roomDescription;
         private final String exitRoomName;
@@ -121,12 +128,15 @@ public class RoomPanel extends ImagePanel {
         }
     }
 
-    private class ItemButtonHoverAction implements MouseListener {
+    /**
+     * Action that "item buttons" responds when hovering, left-, or right-clicking (highlighting, GET/USE/LOOK actions).
+     */
+    private class ItemMouseAction implements MouseListener {
         private final ItemMod item;
         private final ImagePanel panel;
         private final JButton button;
 
-        private ItemButtonHoverAction(ItemMod item, ImagePanel panel, JButton button) {
+        private ItemMouseAction(ItemMod item, ImagePanel panel, JButton button) {
             this.item = item;
             this.panel = panel;
             this.button = button;
@@ -202,7 +212,9 @@ public class RoomPanel extends ImagePanel {
 
         }
 
-        // Remove item button from panel
+        /**
+         * Remove item button from panel
+         */
         private void removeButtonFromPanel() {
             panel.remove(button);
 
@@ -211,13 +223,16 @@ public class RoomPanel extends ImagePanel {
             panel.repaint();
         }
 
-        // Add hidden item button to panel (acts as a normal item button)
+        /**
+         * Add hidden item button to panel (acts as a normal item button)
+         * @param hiddenItem
+         */
         private void addHiddenItemToPanel(ItemMod hiddenItem) {
             JButton hiddenItemButton = SwingComponentCreator.createButtonWithImage(hiddenItem.getImage(),
                     hiddenItem.getRectangle());
             hiddenItemButton.setName(hiddenItem.getName());
 
-            hiddenItemButton.addMouseListener(new ItemButtonHoverAction(hiddenItem, panel, hiddenItemButton));
+            hiddenItemButton.addMouseListener(new ItemMouseAction(hiddenItem, panel, hiddenItemButton));
             hiddenItemButton.setFocusable(false);
             panel.add(hiddenItemButton);
 

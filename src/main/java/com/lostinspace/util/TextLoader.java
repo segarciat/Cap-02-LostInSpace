@@ -9,6 +9,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Utility class for loading text from text files.
+ */
 public class TextLoader {
     /**
      * Loads text from a file in the 'resources' folder using the classloader.
@@ -31,6 +34,11 @@ public class TextLoader {
         }
     }
 
+    /**
+     * Reads a line from the BufferedReader stream and returns it.
+     * @param reader The BufferedReader from which to read a line.
+     * @return The line that was read.
+     */
     private static String readLine(BufferedReader reader) {
         try {
             return reader.readLine();

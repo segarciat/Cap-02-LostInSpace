@@ -8,7 +8,11 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+/**
+ * Utility class for loading and parsing json files.
+ */
 public class JSONLoader {
     /**
      * Parse a JSON file in 'resources' containing an array of objects as a List of objects of that type.
@@ -33,8 +37,15 @@ public class JSONLoader {
         return loadFromJson(jsonFile, type);
     }
 
+    /**
+     * Helper method for loading
+     * @param jsonFile Path string of json file in the resources.
+     * @param type The type of the object returned by this method.
+     * @param <T> The type parameter corresponding to the type of the object.
+     * @return An object loaded from JSON of type 'type' (T).
+     */
     private static <T> T loadFromJson(String jsonFile, Type type) {
-        try (Reader reader = new InputStreamReader(App.class.getClassLoader().getResourceAsStream(jsonFile))) {
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(App.class.getClassLoader().getResourceAsStream(jsonFile)))) {
             Gson gson = new Gson();
             return gson.fromJson(reader, type);
         } catch (IOException e) {
