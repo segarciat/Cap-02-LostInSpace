@@ -62,4 +62,8 @@ public class Room {
             items = Collections.emptySet();
         return items;
     }
+
+    public void removeItemFromRoom(String itemName) {
+        getItems().remove(itemName);
+    }
 }
