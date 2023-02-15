@@ -27,7 +27,8 @@
     "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside.",
     "requiredItem": "key",
     "image": "/images_items/cabinet.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "tool"
   },
   {
     "name": "console",
@@ -84,7 +85,8 @@
     "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess. This should work as the Engine COMPONENT Zhang requested!",
     "usedDescription": "The evidence teams are going to be here for weeks, but you have everything you need from here for now.",
     "image": "/images_items/rack.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "component"
   },
   {
     "name": "poster",
@@ -113,7 +115,8 @@
     "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak. You root around through the hanging clothing and personal effects until a folder paper falls to the floor. You read it:\n\"Carlos,I know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you. Don't tell him I'm the one who changed the lock! - Suzanne\"\nA KEY clatters to the floor from the folded paper.",
     "usedDescription": "Nothing else of use is inside.",
     "image": "/images_items/locker.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "key"
   },
   {
     "name": "cooler",
@@ -128,7 +131,8 @@
     "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit. Even through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch. Without proper power, the CORPSE has more or less become a bloated sack slowly deflating. You see it still wears a uniformed flight suit.",
     "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man.",
     "image": "/images_items/cooler.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "corpse"
   },
   {
     "name": "airlock",
@@ -153,7 +157,8 @@
     "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
     "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here.",
     "image": "/images_items/library.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "manual"
   },
   {
     "name": "key",
@@ -196,7 +201,8 @@
     "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER. The smell is too much for you to push him back inside. You feel guilty, from one Captain to another you apologize to the dead man.",
     "isHidden": true,
     "image": "/images_items/corpse.png",
-    "itemMethod": "interact"
+    "itemMethod": "interact",
+    "hiddenItem": "keycard"
   },
   {
     "name": "component",

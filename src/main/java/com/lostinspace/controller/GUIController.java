@@ -56,6 +56,11 @@ public class GUIController {
         return returnText;
     }
 
+    // Get hidden items when an interactble is interacted with
+    public ItemMod getHiddenItem(ItemMod item) {
+        return itemController.getHiddenItem(item, getPlayer().getCurrentRoom());
+    }
+
     /*
      * WIN CONDITION MET
      */

@@ -63,6 +63,7 @@ public class RoomPanel extends ImagePanel {
         buttonPane.setOpaque(false);
         buttonPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
 
+        // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
             JButton directionButton = new JButton(String.format("Go %s", exit));
             String exitRoomName = roomExits.get(exit);
@@ -76,11 +77,12 @@ public class RoomPanel extends ImagePanel {
 
         Model model = app.getController().getModel();
 
-        // Add items for this room.
+        // Add items for this room
         Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());
         for (ItemMod item: itemMods) {
-            if (item.getImage() != null) {
+            if (item.getImage() != null && !item.isHidden()) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
+                button.setName(item.getName());
                 button.addMouseListener(new ItemButtonHoverAction(item, this, button));
                 button.setFocusable(false);
                 this.add(button);
@@ -142,11 +144,34 @@ public class RoomPanel extends ImagePanel {
             } else if (e.getButton() == MouseEvent.BUTTON3) {
                 String textDescription = "";
 
+                /*
+                 * If a player 'gets' an item, the text area is updated to notify the player
+                 * In addition, the item button is removed from the panel
+                 */
                 if (item.getItemMethod().equals("get")) {
                     textDescription = controller.getItem(item);
                     removeButtonFromPanel();
-                } else if (item.getItemMethod().equals("interact")) {
+                }
+                /*
+                 * If a player wants to interact with an item that cannot be placed into the inventory AKA an
+                 * interactable, throw to ItemController and get either useDescription, usedDescription, or
+                 * failedUseDescription
+                 * This is dependent on either the item has been used before AND if there is a requirement to the use
+                 *  of the item
+                 * If the item has a hidden item that is revealed, then add that hidden item as an item button on the
+                 *  panel
+                 * Then, set the original item's hidden item property to null
+                 */
+                else if (item.getItemMethod().equals("interact")) {
                     textDescription = controller.interactItem(item);
+
+                    // If item that was being interacted with has a hidden item, then add it to the panel
+                    // after being interacted with
+                    if (item.getHiddenItem() != null) {
+                        ItemMod hiddenItem = controller.getHiddenItem(item);
+                        addHiddenItemToPanel(hiddenItem);
+                        item.setHiddenItem(null);
+                    }
                 }
 
                 roomTextArea.setText(textDescription);
@@ -170,14 +195,32 @@ public class RoomPanel extends ImagePanel {
         }
 
         // TODO: Add item buttons to the inventory when the player 'gets' an item
+        private void addButtonToInventory() {
 
+        }
+
+        // Remove item button from panel
         private void removeButtonFromPanel() {
             panel.remove(button);
 
             // If any item buttons are added or removed, revalidate panel
             panel.revalidate();
             panel.repaint();
+        }
 
+        // Add hidden item button to panel (acts as a normal item button)
+        private void addHiddenItemToPanel(ItemMod hiddenItem) {
+            JButton hiddenItemButton = SwingComponentCreator.createButtonWithImage(hiddenItem.getImage(),
+                    hiddenItem.getRectangle());
+            hiddenItemButton.setName(hiddenItem.getName());
+
+            hiddenItemButton.addMouseListener(new ItemButtonHoverAction(hiddenItem, panel, hiddenItemButton));
+            hiddenItemButton.setFocusable(false);
+            panel.add(hiddenItemButton);
+
+            // If any item buttons are added or removed, revalidate panel
+            panel.revalidate();
+            panel.repaint();
         }
     }
 }

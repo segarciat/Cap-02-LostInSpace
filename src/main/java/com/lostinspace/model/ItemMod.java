@@ -18,6 +18,7 @@ public class ItemMod {
     private Rectangle rectangle;
     private String itemMethod;
     private String useLocation;
+    private String hiddenItem;
 
     public ItemMod() {
 
@@ -38,6 +39,7 @@ public class ItemMod {
         this.rectangle = item.rectangle;
         this.itemMethod = item.itemMethod;
         this.useLocation = item.useLocation;
+        this.hiddenItem = item.hiddenItem;
     }
 
     public String getName() {
@@ -102,5 +104,13 @@ public class ItemMod {
 
     public String getUseLocation() {
         return useLocation;
+    }
+
+    public void setHiddenItem(String hiddenItem) {
+        this.hiddenItem = hiddenItem;
+    }
+
+    public String getHiddenItem() {
+        return hiddenItem;
     }
 }

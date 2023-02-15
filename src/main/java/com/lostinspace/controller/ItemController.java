@@ -2,6 +2,8 @@ package com.lostinspace.controller;
 
 import com.lostinspace.model.*;
 
+import java.util.Set;
+
 class ItemController {
     private final Model model;
     public ItemController(Model model) {
@@ -25,18 +27,20 @@ class ItemController {
 
     // Interact with item on map
     public String interactItem(ItemMod item) {
+        String itemDescription = "";
+
         /*
          * If item has already been used, then send itemUSEDDescription
          * If not, if item is successfully interacted with, then set to used = true
          */
         if (item.isUsed()) {
-            return item.getUsedDescription();
+            return item.getUsedDescription();               // return early
         }
 
         // If item is 'ship', then check inventory of Officer officerZhang object
         if (item.getName().equals("ship")) {
             if (model.getOfficerZhang().getInventory().size() != 3) {
-                return item.getFailedUseDescription();
+                return item.getFailedUseDescription();      // return early
             } else {
                 // TODO: GO TO WIN CONDITION IN CONTROLLER OR APP
                 GUIController.winGame();
@@ -46,7 +50,7 @@ class ItemController {
         // Check if interactable requires an item
         if (item.getRequiredItem() == null) {
             item.setUsed(true);
-            return item.getUseDescription();
+            itemDescription = item.getUseDescription();
         } else {
             // Get required item for interactable
             String requiredItem = item.getRequiredItem();
@@ -55,22 +59,24 @@ class ItemController {
             // If required item is not in inventory, then display failedUsedDescription
             if (model.checkInInventory(required)) {
                 item.setUsed(true);
-                return item.getUseDescription();
+                itemDescription = item.getUseDescription();
             } else {
-                return item.getFailedUseDescription();
+                itemDescription = item.getFailedUseDescription();
             }
         }
+
+        /*
+         * TODO: Do we need a useLocation for the items since they are automatically used in the console game?
+         * May be useful for only scrambler and the key items for 'using' it to give back to CWO2 Zhang in Docking Bay
+         */
+
+        return itemDescription;
     }
 
-    // Check if an item in the inventory can be used (depends on location)
-    public Boolean canUseItemInInventory(ItemMod item) {
-        boolean canUse = false;
-        String currentLocation = model.getPlayer().getCurrentRoom();
+    // Get hiddenItem as a ItemMod object with Rectangle properties from model class
+    public ItemMod getHiddenItem(ItemMod item, String roomName) {
+        String hiddenItemName = item.getHiddenItem();
 
-        if (item.getUseLocation().equals(currentLocation)) {
-            canUse = true;
-        }
-
-        return canUse;
+        return model.getHiddenItemByName(hiddenItemName, roomName);
     }
 }

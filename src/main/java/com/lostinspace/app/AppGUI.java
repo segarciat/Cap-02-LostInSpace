@@ -1,6 +1,7 @@
 package com.lostinspace.app;
 
 import com.lostinspace.controller.GUIController;
+import com.lostinspace.model.Model;
 import com.lostinspace.model.Room;
 import com.lostinspace.view.*;
 
@@ -11,8 +12,6 @@ import java.util.*;
 
 public class AppGUI {
     // size of objects
-//    private static final int FRAME_WIDTH = 736;
-//    private static final int FRAME_HEIGHT = 758;
     private static final int FRAME_WIDTH = 720;
     private static final int FRAME_HEIGHT = 720;
 
@@ -83,8 +82,7 @@ public class AppGUI {
             public void keyReleased(KeyEvent e) {
 
             }
-        });;
-
+        });
     }
 
     /*
