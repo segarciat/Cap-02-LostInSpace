@@ -1,6 +1,5 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.AppGUI;
 import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.*;
 
@@ -18,26 +17,25 @@ import java.util.Set;
  * View that shows the room that the player is currently in and associated items while playing.
  */
 public class RoomPanel extends ImagePanel {
-    private GUIController controller;
-
     // font size
     private static final Font MONOSPACE_BOLD_MED = new Font("Monospaced", Font.BOLD, 14);
 
     // font colors
-    private static final Color COLOR_GREEN = new Color(76, 175, 82);
     private static final int WINDOW_SIZE = 720;
     public static final int ROOM_TRANSITION_DELAY = 1500;
     public static final int TEXTAREA_HEIGHT = 168;
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
-    private final AppGUI app;
+    private final GUIController controller;
+
+    private final Room room;
 
     public RoomPanel(AppGUI app, Room room, GUIController controller) {
         super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
 
         this.controller = controller;
-        this.app = app;
+        this.room = room;
 
         // Set up frame attributes
         this.setLayout(null);
@@ -54,21 +52,15 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons for each exit
         Map<String, String> roomExits = room.getExits();
-        Map<String, String> roomExitDescriptions = room.getExit_descriptions();
-
-        JPanel buttonPane = new JPanel();
-        buttonPane.setOpaque(false);
-        buttonPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
+        JPanel directionButtonsPane = new JPanel();
+        directionButtonsPane.setOpaque(false);
+        directionButtonsPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
 
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
             JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
-            String exitRoomName = roomExits.get(exit);
-            String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
-
-            directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
-                    exitRoomDescription));
-            buttonPane.add(directionButton);
+            directionButton.addActionListener(new RoomExitAction(exit));
+            directionButtonsPane.add(directionButton);
         }
 
         Model model = app.getController().getModel();
@@ -84,34 +76,31 @@ public class RoomPanel extends ImagePanel {
             }
         }
 
-        this.add(buttonPane);
+        this.add(directionButtonsPane);
     }
 
     /**
      * Action that updates the view (room) upon clicking a cardinal direction button like "Go North" or "Go West".
      */
     private class RoomExitAction implements ActionListener {
-        private final String roomDescription;
-        private final String exitRoomName;
-        private final String exitRoomDescription;
 
-        public RoomExitAction(String roomDescription, String exitRoomName, String exitRoomDescription) {
-            this.roomDescription = roomDescription;
-            this.exitRoomName = exitRoomName;
-            this.exitRoomDescription = exitRoomDescription;
+        private final String direction;
+
+        private RoomExitAction(String direction) {
+            this.direction = direction;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            roomTextArea.setText(exitRoomDescription);
+            String destination = room.getExits().get(direction);
+            String textToDisplayOnExit = room.getExit_descriptions().get(destination);
+            roomTextArea.setText(textToDisplayOnExit);
 
             // Set time for room transition
             Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
-                Player player = app.getController().getPlayer();
-                player.setCurrentRoom(exitRoomName);
-                app.getFrame().setContentPane(app.getRoomFrames().get(exitRoomName));
-                roomTextArea.setText(roomDescription);
-                app.getFrame().revalidate();
+                // Reset back to original room text.
+                roomTextArea.setText(room.getDescription());
+                controller.movePlayer(destination);
             });
             timer.setRepeats(false);
 
@@ -216,7 +205,7 @@ public class RoomPanel extends ImagePanel {
 
         /**
          * Add hidden item button to panel (acts as a normal item button)
-         * @param hiddenItem
+         * @param hiddenItem Item that was previously hidden and will now be shown.
          */
         private void addHiddenItemToPanel(ItemMod hiddenItem) {
             JButton hiddenItemButton = SwingComponentCreator.createButtonWithImage(hiddenItem.getImage(),
