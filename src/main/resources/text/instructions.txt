@@ -13,9 +13,9 @@ use item <left click> : use an item in your inventory or an object in the same r
 
 restart: restart the game
 
-exit <escape to  open "Help Menu" to review help instructions > : quits the current game.
+exit <escape to  open "Help Menu" to review instructions > : quits the current game.
 
 menu : use escape key that provides the "Help Menu" that displays the instructions
 
-easymode: too hard? Use this command to never use oxygen when moving.
-<use this command again to turn this feature off>
+easy mode: too hard? Use this command to never use oxygen when moving.
+<click "Easy Mode button to activate feature">
