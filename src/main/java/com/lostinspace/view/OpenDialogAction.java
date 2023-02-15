@@ -47,15 +47,15 @@ public class OpenDialogAction implements ActionListener {
 
     // Set text area attributes
     private static void setTextAreaOptions(JTextArea textArea, String text) {
-        textArea.setText(text);                        // initial text
-        textArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                          // size
-        textArea.setEditable(false);                                         // non-editable
-        textArea.setFocusable(false);                                       // prevent from stealing focus on click
-        textArea.setOpaque(false);                                           // no background
-        textArea.setLineWrap(true);                                          // wrap lines
-        textArea.setWrapStyleWord(true);                                     // wrap by word
-        textArea.setFont(MONOSPACE_PLAIN_MED);                               // font type
-        textArea.setForeground(COLOR_GREEN);                                 // font color
-        textArea.setMargin(new Insets(0, 140, 0, 140));  // margins
+        textArea.setText(text);                                                  // initial text
+        textArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                              // size
+        textArea.setEditable(false);                                             // non-editable
+        textArea.setFocusable(false);                                            // prevent from stealing focus on click
+        textArea.setOpaque(false);                                               // no background
+        textArea.setLineWrap(true);                                              // wrap lines
+        textArea.setWrapStyleWord(true);                                         // wrap by word
+        textArea.setFont(MONOSPACE_PLAIN_MED);                                   // font type
+        textArea.setForeground(COLOR_GREEN);                                     // font color
+        textArea.setMargin(new Insets(0, 140, 0, 140));    // margins
     }
 }
