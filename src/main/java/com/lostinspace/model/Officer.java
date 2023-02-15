@@ -2,6 +2,9 @@ package com.lostinspace.model;
 
 import java.util.ArrayList;
 
+/*
+ * Object class for CWO2 Zhang
+ */
 public class Officer {
     private ArrayList<ItemMod> inventory;
 
