@@ -12,7 +12,7 @@ public class MenuPanel extends ImagePanel {
     public static final String HELP_DIALOG_TITLE = "instructions";
     public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
 
-    public MenuPanel(AppGUI app) {
+    public MenuPanel(AppView app) {
         super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
 
         this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
