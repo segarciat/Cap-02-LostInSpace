@@ -1,8 +1,10 @@
 package com.lostinspace.model;
 
 import java.awt.*;
-import java.util.ArrayList;
 
+/*
+ * Object class for items_modified.json for the GUI
+ */
 public class ItemMod {
     private String name;
     private String[] synonyms;

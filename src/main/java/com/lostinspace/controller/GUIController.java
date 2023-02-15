@@ -5,7 +5,11 @@ import com.lostinspace.model.ItemMod;
 
 import java.util.Map;
 
+/*
+ * Primary controller class for the GUI
+ */
 public class GUIController {
+    // Create instance of model and other controllers
     private final Model model;
     private final ItemController itemController;
 
@@ -15,10 +19,13 @@ public class GUIController {
     public static final String INITIAL_ROOM = "Docking Bay";
     public static boolean isEasyMode = false;
 
+    // Constructor
     public GUIController() {
+        // Create new instance of model and controllers
         this.model = new Model();
         this.itemController = new ItemController(model);
 
+        // Call set up method
         setUp();
     }
 
@@ -31,12 +38,20 @@ public class GUIController {
     /*
      * ITEM METHODS
      */
-    // Get look description
+    /**
+     * Get look description
+     * @param item ItemMod item player is looking at
+     * @return String
+     */
     public String lookItem(ItemMod item) {
         return item.getLookDescription();
     }
 
-    // Get item
+    /**
+     * Get item
+     * @param item ItemMod item player is getting
+     * @return String
+     */
     public String getItem(ItemMod item) {
         String returnText = "";
 
@@ -47,7 +62,11 @@ public class GUIController {
         return returnText;
     }
 
-    // Get or interaction with item on the map
+    /**
+     * Interact with item on the map
+     * @param item ItemMod item player is interacting with
+     * @return String
+     */
     public String interactItem(ItemMod item) {
         String returnText = "";
 
@@ -57,6 +76,12 @@ public class GUIController {
     }
 
     // Get hidden items when an interactble is interacted with
+
+    /**
+     * Get hidden item object when an interactable item is being interacted with
+     * @param item ItemMod item player is interacting with
+     * @return ItemMod
+     */
     public ItemMod getHiddenItem(ItemMod item) {
         return itemController.getHiddenItem(item, getPlayer().getCurrentRoom());
     }
@@ -65,7 +90,7 @@ public class GUIController {
      * WIN CONDITION MET
      */
     public static void winGame() {
-        System.out.println("YOU WIN THE GAME!");
+        // TODO: Win game condition met, get images, etc for win game panel
     }
 
     /*
