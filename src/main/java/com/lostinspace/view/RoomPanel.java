@@ -51,7 +51,7 @@ public class RoomPanel extends ImagePanel {
         roomTextArea.setOpaque(false);
         roomTextArea.setEditable(false);
         roomTextArea.setFocusable(false);
-        roomTextArea.setMargin(new Insets(0,24,0,24));
+        roomTextArea.setMargin(new Insets(0, 24, 0, 24));
         roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
         this.add(roomTextArea);
 
@@ -61,9 +61,9 @@ public class RoomPanel extends ImagePanel {
 
         JPanel buttonPane = new JPanel();
         buttonPane.setOpaque(false);
-        buttonPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
+        buttonPane.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
 
-        for (String exit: roomExits.keySet()) {
+        for (String exit : roomExits.keySet()) {
             JButton directionButton = new JButton(String.format("Go %s", exit));
             String exitRoomName = roomExits.get(exit);
             String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
@@ -78,7 +78,7 @@ public class RoomPanel extends ImagePanel {
 
         // Add items for this room.
         Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());
-        for (ItemMod item: itemMods) {
+        for (ItemMod item : itemMods) {
             if (item.getImage() != null) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.addActionListener(new ItemButtonClickAction(item));
@@ -123,6 +123,7 @@ public class RoomPanel extends ImagePanel {
 
     private class ItemButtonClickAction implements ActionListener {
         private final ItemMod item;
+
         private ItemButtonClickAction(ItemMod item) {
             this.item = item;
         }
@@ -135,12 +136,14 @@ public class RoomPanel extends ImagePanel {
 
     private class ItemButtonHoverAction implements MouseListener {
         private final ItemMod item;
+
         private ItemButtonHoverAction(ItemMod item) {
             this.item = item;
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {}
+        public void mouseClicked(MouseEvent e) {
+        }
 
         @Override
         public void mousePressed(MouseEvent e) {
@@ -155,7 +158,8 @@ public class RoomPanel extends ImagePanel {
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+        }
 
         @Override
         public void mouseEntered(MouseEvent e) {
