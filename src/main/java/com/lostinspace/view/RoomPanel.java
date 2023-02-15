@@ -44,17 +44,10 @@ public class RoomPanel extends ImagePanel {
         this.setSize(this.getPreferredSize());
 
         // Get room description
-        roomTextArea = new JTextArea(room.getDescription());
-
+        roomTextArea = SwingComponentCreator.createStyledTextArea(room.getDescription());
         // Set text area attributes
-        roomTextArea.setForeground(COLOR_GREEN);
         roomTextArea.setFont(MONOSPACE_BOLD_MED);
         roomTextArea.setMinimumSize(new Dimension(WINDOW_SIZE, TEXTAREA_HEIGHT));
-        roomTextArea.setLineWrap(true);
-        roomTextArea.setWrapStyleWord(true);
-        roomTextArea.setOpaque(false);
-        roomTextArea.setEditable(false);
-        roomTextArea.setFocusable(false);
         roomTextArea.setMargin(new Insets(0,24,0,24));
         roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
         this.add(roomTextArea);
@@ -69,13 +62,12 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
-            JButton directionButton = new JButton(String.format("Go %s", exit));
+            JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
             String exitRoomName = roomExits.get(exit);
             String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
 
             directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
                     exitRoomDescription));
-            directionButton.setFocusable(false);
             buttonPane.add(directionButton);
         }
 
@@ -88,7 +80,6 @@ public class RoomPanel extends ImagePanel {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.setName(item.getName());
                 button.addMouseListener(new ItemMouseAction(item, this, button));
-                button.setFocusable(false);
                 this.add(button);
             }
         }
@@ -233,7 +224,6 @@ public class RoomPanel extends ImagePanel {
             hiddenItemButton.setName(hiddenItem.getName());
 
             hiddenItemButton.addMouseListener(new ItemMouseAction(hiddenItem, panel, hiddenItemButton));
-            hiddenItemButton.setFocusable(false);
             panel.add(hiddenItemButton);
 
             // If any item buttons are added or removed, revalidate panel

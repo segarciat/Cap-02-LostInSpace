@@ -13,17 +13,17 @@ public class OpenDialogAction implements ActionListener {
     private static final java.awt.Color COLOR_GREEN = new Color(76, 175, 82);
 
     // fields for the frame, text area, title, and buttons
-    private JFrame frame;
-    private JTextArea textArea = new JTextArea();
-    private String title;
-    private JButton closeButton;
+    private final JFrame frame;
+    private final JTextArea textArea;
+    private final String title;
+    private final JButton closeButton;
     private JDialog d;
 
     public OpenDialogAction(JFrame frame, String text, String title) {
         this.frame = frame;
-        setTextAreaOptions(textArea, text);
+        textArea = SwingComponentCreator.createStyledTextArea(text);
         this.title = title;
-        this.closeButton = new JButton("close");
+        this.closeButton = SwingComponentCreator.createButtonWithText("Close");
         this.closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

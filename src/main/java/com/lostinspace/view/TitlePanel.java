@@ -96,7 +96,7 @@ public class TitlePanel extends ImagePanel {
                     panel.remove(startGameButton);
                     panel.remove(exitGameButton);
 
-                    app.execute();
+                    app.update();
                 });
 
                 // Happens only once.

@@ -1,7 +1,6 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.AppGUI;
-import com.lostinspace.util.TextLoader;
 
 import javax.swing.*;
 
@@ -21,11 +20,11 @@ public class MenuPanel extends ImagePanel {
         this.setLayout(new GridBagLayout());
 
         // buttons created for menu
-        JButton exitButton = new JButton("Exit");
+        JButton exitButton = SwingComponentCreator.createButtonWithText("Exit");
 
-        JButton helpButton = new JButton("Help");
+        JButton helpButton = SwingComponentCreator.createButtonWithText("Help");
 
-        JButton continueButton = new JButton("Continue");
+        JButton continueButton = SwingComponentCreator.createButtonWithText("Continue");
 
         // action listener for exit button
         exitButton.addActionListener(new ActionListener() {
@@ -39,18 +38,15 @@ public class MenuPanel extends ImagePanel {
 
         // action listener for help button
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
-        helpButton.setFocusable(false);
 
         // action listener for help button
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.setRoute(Route.GAME);
-                app.execute();
+                app.update();
             }
         });
-
-        continueButton.setFocusable(false);
 
         // add exit, help, and continue button to panel in a grid layout with transparent buttons
         GridBagConstraints gbc = new GridBagConstraints();

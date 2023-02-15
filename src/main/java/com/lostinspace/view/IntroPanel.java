@@ -30,9 +30,9 @@ public class IntroPanel extends ImagePanel {
     // font colors
     private static final Color COLOR_GREEN = new Color(76, 175, 82);
 
-    private final JTextArea introTextArea = new JTextArea();
+    private final JTextArea introTextArea;
 
-    private Iterator<String> introPageIterator;
+    private final Iterator<String> introPageIterator;
 
     private final JButton skipButton;
     private final AppGUI app;
@@ -43,11 +43,11 @@ public class IntroPanel extends ImagePanel {
 
         // Create skip button
         skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
-        skipButton.setFocusable(false);
         skipButton.addActionListener(new SkipIntroPage());
 
         // Customize text area.
-        setIntroTextAreaOptions();
+        introPageIterator = introPagesIterator();
+        introTextArea = SwingComponentCreator.createStyledTextArea(introPageIterator.next());
 
         // Set panel attributes
         this.setSize(WINDOW_SIZE, WINDOW_SIZE);
@@ -70,24 +70,6 @@ public class IntroPanel extends ImagePanel {
 
         app.getFrame().addKeyListener(new FlipPageOnKeyPress());
         app.getFrame().requestFocus();
-    }
-
-    /**
-     * Makes text area read-only, non-focusable, of the correct size, with some word wrapping, and to fit in the screen.
-     */
-    private void setIntroTextAreaOptions() {
-        introPageIterator = introPagesIterator();
-        // Set text area attributes
-        introTextArea.setText(introPageIterator.next());                        // initial text
-        introTextArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                          // size
-        introTextArea.setEditable(false);                                         // non-editable
-        introTextArea.setFocusable(false);                                       // prevent from stealing focus on click
-        introTextArea.setOpaque(false);                                           // no background
-        introTextArea.setLineWrap(true);                                          // wrap lines
-        introTextArea.setWrapStyleWord(true);                                     // wrap by word
-        introTextArea.setFont(MONOSPACE_PLAIN_MED);                               // font type
-        introTextArea.setForeground(COLOR_GREEN);                                 // font color
-        introTextArea.setMargin(new Insets(0,140,0,140));  // margins
     }
 
     /**
@@ -141,7 +123,7 @@ public class IntroPanel extends ImagePanel {
                 introTextArea.setText(introPageIterator.next());
             } else {
                 app.setRoute(Route.GAME);
-                app.execute();
+                app.update();
             }
         }
     }
