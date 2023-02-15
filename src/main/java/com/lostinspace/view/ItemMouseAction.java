@@ -34,6 +34,7 @@ class ItemMouseAction implements MouseListener {
             // Change text area text to the look description of the item
             String lookDescription = controller.lookItem(item);
             setRoomAreaText(lookDescription);
+
         } else if (e.getButton() == MouseEvent.BUTTON3) {
             String textDescription = "";
 
@@ -45,6 +46,7 @@ class ItemMouseAction implements MouseListener {
                 textDescription = controller.getItem(item);
                 removeButtonFromPanel();
             }
+
             /*
              * If a player wants to interact with an item that cannot be placed into the inventory AKA an
              * interactable, throw to ItemController and get either useDescription, usedDescription, or
@@ -58,15 +60,23 @@ class ItemMouseAction implements MouseListener {
             else if (item.getItemMethod().equals("interact")) {
                 textDescription = controller.interactItem(item);
 
-                // TODO: Check if required item in inventory
+                // Check if interactable item requires an item
+                if (item.getRequiredItem() != null) {
+                    String requiredItemName = item.getRequiredItem();
+                    ItemMod requiredItem = controller.getModel().getItemByName(requiredItemName);
 
-
-                // If item that was being interacted with has a hidden item, then add it to the panel
-                // after being interacted with
-                if (item.getHiddenItem() != null) {
-                    ItemMod hiddenItem = controller.getHiddenItem(item);
-                    addHiddenItemToPanel(hiddenItem);
-                    item.setHiddenItem(null);
+                    // If required item is in the player's inventory, then reveal hidden item
+                    if (controller.getModel().checkInInventory(requiredItem)) {
+                        // Reveal hidden item
+                        if (item.getHiddenItem() != null) {
+                            revealHiddenItem(item);
+                        }
+                    }
+                } else {
+                    // Reveal hidden item
+                    if (item.getHiddenItem() != null) {
+                        revealHiddenItem(item);
+                    }
                 }
             }
 
@@ -78,12 +88,18 @@ class ItemMouseAction implements MouseListener {
     public void mouseReleased(MouseEvent e) {
     }
 
+    /*
+     * When user's mouse enters the item area rectangle, add border
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         JButton button = (JButton) e.getSource();
         button.setBorder(new LineBorder(Color.PINK)); // add border color on hover
     }
 
+    /*
+     * When user's mouse exits the item area rectangle, remove border
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         JButton button = (JButton) e.getSource();
@@ -116,6 +132,17 @@ class ItemMouseAction implements MouseListener {
         // If any item buttons are added or removed, revalidate panel
         panel.revalidate();
         panel.repaint();
+    }
+
+    /*
+     * If item that was being interacted with has a hidden item, then add it to the panel after being interacted with
+     */
+    private void revealHiddenItem(ItemMod item) {
+        if (item.getHiddenItem() != null) {
+            ItemMod hiddenItem = controller.getHiddenItem(item);
+            addHiddenItemToPanel(hiddenItem);
+            item.setHiddenItem(null);
+        }
     }
 
     /**

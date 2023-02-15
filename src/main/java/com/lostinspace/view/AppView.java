@@ -127,8 +127,6 @@ public class AppView {
 
         for (String roomName : roomMap.keySet()) {
             Room room = roomMap.get(roomName);
-            // TODO: pass in the model so it can get the frame.
-            // model.getRoomImages();
             roomFrames.put(roomName, new RoomPanel(this, room, controller));
         }
     }
