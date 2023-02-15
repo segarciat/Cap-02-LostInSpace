@@ -44,17 +44,10 @@ public class RoomPanel extends ImagePanel {
         this.setSize(this.getPreferredSize());
 
         // Get room description
-        roomTextArea = new JTextArea(room.getDescription());
-
+        roomTextArea = SwingComponentCreator.createStyledTextArea(room.getDescription());
         // Set text area attributes
-        roomTextArea.setForeground(COLOR_GREEN);
         roomTextArea.setFont(MONOSPACE_BOLD_MED);
         roomTextArea.setMinimumSize(new Dimension(WINDOW_SIZE, TEXTAREA_HEIGHT));
-        roomTextArea.setLineWrap(true);
-        roomTextArea.setWrapStyleWord(true);
-        roomTextArea.setOpaque(false);
-        roomTextArea.setEditable(false);
-        roomTextArea.setFocusable(false);
         roomTextArea.setMargin(new Insets(0,24,0,24));
         roomTextArea.setBounds(0, WINDOW_SIZE - TEXTAREA_HEIGHT, WINDOW_SIZE, TEXTAREA_HEIGHT);
         this.add(roomTextArea);
