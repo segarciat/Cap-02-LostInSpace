@@ -39,6 +39,9 @@ public class Model {
     public static final double INITIAL_OXYGEN = 80.00;
     public static final String INITIAL_ROOM = "Docking Bay";
 
+    // CWO2 class
+    private final Officer officerZhang;
+
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
@@ -68,11 +71,12 @@ public class Model {
         roomItemRectangles = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
 
-        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
-
         for (String roomName: roomItems.keySet()) {
             roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
         }
+
+        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
+        this.officerZhang = new Officer(new ArrayList<>());
     }
 
     /*
@@ -124,6 +128,10 @@ public class Model {
      */
     public Player getPlayer() {
         return player;
+    }
+
+    public Officer getOfficerZhang() {
+        return officerZhang;
     }
 
     public Map<String, Map<String, Rectangle>> getRoomItemRectangles() {

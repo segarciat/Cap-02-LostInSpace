@@ -17,7 +17,7 @@ public class GUIController {
 
     public GUIController() {
         this.model = new Model();
-        this.itemController = new ItemController(model, model.getPlayer());
+        this.itemController = new ItemController(model);
 
         setUp();
     }
@@ -54,6 +54,13 @@ public class GUIController {
         returnText = itemController.interactItem(item);
 
         return returnText;
+    }
+
+    /*
+     * WIN CONDITION MET
+     */
+    public static void winGame() {
+        System.out.println("YOU WIN THE GAME!");
     }
 
     /*

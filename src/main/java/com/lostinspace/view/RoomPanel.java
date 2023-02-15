@@ -155,6 +155,8 @@ public class RoomPanel extends ImagePanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
+            // TODO: Add item buttons to the inventory when the player 'gets' an item
+
             // If any item buttons are added or removed, revalidate panel
             panel.revalidate();
         }

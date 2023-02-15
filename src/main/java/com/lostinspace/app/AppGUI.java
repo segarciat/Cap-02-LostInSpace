@@ -148,12 +148,10 @@ public class AppGUI {
      * Create game
      */
     private void createGame() {
-
         String startingLocation = controller.getPlayer().getCurrentRoom();
         frame.setContentPane(roomFrames.get(startingLocation));
         frame.revalidate();
         AppGUI app = this;
-
     }
 
     /*

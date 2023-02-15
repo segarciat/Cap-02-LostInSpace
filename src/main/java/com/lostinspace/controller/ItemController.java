@@ -1,26 +1,20 @@
 package com.lostinspace.controller;
 
-import com.lostinspace.model.ItemMod;
-import com.lostinspace.model.Model;
-import com.lostinspace.model.Player;
-import com.lostinspace.model.Room;
+import com.lostinspace.model.*;
 
 class ItemController {
     private final Model model;
-    private final Player player;
-
-    public ItemController(Model model, Player player) {
+    public ItemController(Model model) {
         this.model = model;
-        this.player = player;
     }
 
     // Add item to player inventory, then remove from location
     public String getItem(ItemMod item) {
         // Add item to inventory
-        player.addToInventory(item);
+        model.getPlayer().addToInventory(item);
 
         // Get current Room object
-        String roomName = player.getCurrentRoom();
+        String roomName = model.getPlayer().getCurrentRoom();
         Room room = model.getRoomByName(roomName);
 
         // Remove item from room
@@ -37,6 +31,16 @@ class ItemController {
          */
         if (item.isUsed()) {
             return item.getUsedDescription();
+        }
+
+        // If item is 'ship', then check inventory of Officer officerZhang object
+        if (item.getName().equals("ship")) {
+            if (model.getOfficerZhang().getInventory().size() != 3) {
+                return item.getFailedUseDescription();
+            } else {
+                // TODO: GO TO WIN CONDITION IN CONTROLLER OR APP
+                GUIController.winGame();
+            }
         }
 
         // Check if interactable requires an item
@@ -61,7 +65,7 @@ class ItemController {
     // Check if an item in the inventory can be used (depends on location)
     public Boolean canUseItemInInventory(ItemMod item) {
         boolean canUse = false;
-        String currentLocation = player.getCurrentRoom();
+        String currentLocation = model.getPlayer().getCurrentRoom();
 
         if (item.getUseLocation().equals(currentLocation)) {
             canUse = true;
