@@ -20,20 +20,6 @@ public class ImagePanel extends JPanel {
                 .getImage();
     }
 
-    public Image getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    /**
-     * Sets the background image and repaints the JPanel.
-     *
-     * @param backgroundImage The new image for the background.
-     */
-    public void setBackgroundImage(Image backgroundImage) {
-        this.backgroundImage = backgroundImage;
-        repaint();
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -59,5 +45,23 @@ public class ImagePanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this));
+    }
+
+    /**
+     * Returns the current background image painted on the panel.
+     * @return The current background image for this panel.
+     */
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    /**
+     * Sets the background image and repaints the JPanel.
+     *
+     * @param backgroundImage The new image for the background.
+     */
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
+        repaint();
     }
 }

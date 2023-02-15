@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * View that shows the introductory portion of the game in the frame, including prologue and instructions.
+ */
 public class IntroPanel extends ImagePanel {
     private static final String BACKGROUND_IMAGE = "/images_title/background.jpg";
     private static final String BUTTON_SKIP = "/images_title/skip.png";
@@ -69,6 +72,9 @@ public class IntroPanel extends ImagePanel {
         app.getFrame().requestFocus();
     }
 
+    /**
+     * Makes text area read-only, non-focusable, of the correct size, with some word wrapping, and to fit in the screen.
+     */
     private void setIntroTextAreaOptions() {
         introPageIterator = introPagesIterator();
         // Set text area attributes
@@ -140,6 +146,9 @@ public class IntroPanel extends ImagePanel {
         }
     }
 
+    /**
+     * Action that allows updating the text in the intro panel by pressing a key, simulating flipping a page.
+     */
     private class FlipPageOnKeyPress implements KeyListener {
         @Override
         public void keyPressed(KeyEvent e) {

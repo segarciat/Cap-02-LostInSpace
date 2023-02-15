@@ -45,6 +45,9 @@ public class Model {
     // CWO2 class
     private final Officer officerZhang;
 
+    /**
+     * Data class with all the application state; it loads the data and provides access to it.
+     */
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
@@ -143,46 +146,93 @@ public class Model {
     /*
      * ACCESSOR METHODS
      */
+
+    /**
+     *
+     * @return The player object of the game.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return The trusty officer that is trying to fix the ship to get us back in orbit.
+     */
     public Officer getOfficerZhang() {
         return officerZhang;
     }
 
+    /**
+     * Key-value pairs. The key is the room's name, the value is a map of of rectangles, with the keys being the name
+     * of the items in the room.
+     * @return Map of rectangles for each of the objects in that room.
+     */
     public Map<String, Map<String, Rectangle>> getRoomItemRectangles() {
         return Collections.unmodifiableMap(roomItemRectangles);
     }
 
+    /**
+     * Key-value pairs, key is the room's name, and value is a set of items for that room.
+     *
+     * @return View of the items in each of the rooms
+     */
     public Map<String, Set<ItemMod>> getRoomItems() {
         return Collections.unmodifiableMap(roomItems);
     }
 
+    /**
+     * Key-value pairs, key is the room's name, and value is the room's image.
+     * @return View of images for the rooms.
+     */
     public Map<String, Image> getRoomImages() {
         return Collections.unmodifiableMap(roomImages);
     }
 
+    /**
+     * Key-value pairs, key is the rooms name, and value is the room object.
+     * @return View of all rooms in the game.
+     */
     public Map<String, Room> getRooms() {
         return Collections.unmodifiableMap(rooms);
     }
 
+    /**
+     * Key-value pairs, key is the item's name, and value is the item object.
+     * @return View of all items available in the game.
+     */
     public Map<String, ItemMod> getItems() {
         return Collections.unmodifiableMap(items);
     }
 
+    /**
+     *
+     * @return Instructions on how to play the game.
+     */
     public String getInstructions() {
         return instructions;
     }
 
+    /**
+     *
+     * @return Text with the objective of the game.
+     */
     public String getObjectives() {
         return objectives;
     }
 
+    /**
+     *
+     * @return Text for the game's prologue.
+     */
     public String getPrologue() {
         return prologue;
     }
 
+    /**
+     *
+     * @return Text teaching player how to play the game.
+     */
     public String getTutorial() {
         return tutorial;
     }
