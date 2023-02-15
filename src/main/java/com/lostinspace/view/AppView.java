@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-public class AppGUI {
+public class AppView {
     // size of objects
     private static final int FRAME_WIDTH = 720;
     private static final int FRAME_HEIGHT = 720;
@@ -36,7 +36,7 @@ public class AppGUI {
      * GUI Constructor
      * Initializes the fields, controllers, and JFrame
      */
-    public AppGUI(GUIController controller, Model model) {
+    public AppView(GUIController controller, Model model) {
         this.controller = controller;
         this.model = model;
 

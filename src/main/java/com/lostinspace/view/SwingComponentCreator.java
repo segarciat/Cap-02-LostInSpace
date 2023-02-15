@@ -38,7 +38,7 @@ public class SwingComponentCreator {
      * @return JButton
      */
     public static JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppGUI.class.getResource(imageURL)));
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppView.class.getResource(imageURL)));
         JButton button = new JButton(imageIcon);                           // add image to button
         button.setFocusable(false);
 

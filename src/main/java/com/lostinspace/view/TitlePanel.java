@@ -31,10 +31,10 @@ public class TitlePanel extends ImagePanel {
     private final JButton exitGameButton;
 
     // Instance of AppGUI
-    private final AppGUI app;
+    private final AppView app;
 
     // Constructor
-    public TitlePanel(AppGUI app) {
+    public TitlePanel(AppView app) {
         super(TITLE_SCREEN_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
         this.app = app;
 

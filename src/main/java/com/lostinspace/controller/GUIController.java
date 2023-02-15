@@ -1,6 +1,6 @@
 package com.lostinspace.controller;
 
-import com.lostinspace.view.AppGUI;
+import com.lostinspace.view.AppView;
 import com.lostinspace.model.*;
 import com.lostinspace.model.ItemMod;
 import com.lostinspace.view.Route;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class GUIController {
     // Create instance of model and other controllers
     private final Model model;
-    private final AppGUI view;
+    private final AppView view;
     private final ItemController itemController;
 
     // Other constants
@@ -26,7 +26,7 @@ public class GUIController {
     public GUIController(Model model) {
         // Create new instance of model and controllers
         this.model = model;
-        this.view = new AppGUI(this, model);
+        this.view = new AppView(this, model);
         this.itemController = new ItemController(model);
 
         // Call set up method
