@@ -4,7 +4,10 @@ import com.lostinspace.util.ImageLoader;
 import com.lostinspace.util.JSONLoader;
 import com.lostinspace.util.TMXLoader;
 import com.lostinspace.util.TextLoader;
+import com.lostinspace.view.RoomPanel;
+import com.lostinspace.view.SwingComponentCreator;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.function.Function;
@@ -39,6 +42,9 @@ public class Model {
     public static final double INITIAL_OXYGEN = 80.00;
     public static final String INITIAL_ROOM = "Docking Bay";
 
+    // CWO2 class
+    private final Officer officerZhang;
+
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
@@ -68,19 +74,81 @@ public class Model {
         roomItemRectangles = rooms.values().stream()
                 .collect(Collectors.toMap(Room::getName, TMXLoader::loadRoomItemRectangles));
 
-        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
-
         for (String roomName: roomItems.keySet()) {
             roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
         }
+
+        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
+        this.officerZhang = new Officer(new ArrayList<>());
+    }
+
+    /*
+     * CHECK METHODS
+     */
+    // Check if item is in inventory
+    public Boolean checkInInventory(ItemMod item) {
+        boolean isFound = false;
+
+        for (ItemMod itemInInventory : player.getInventory()) {
+            if (itemInInventory.getName().equals(item.getName())) {
+                isFound = true;
+                break;
+            }
+        }
+
+        return isFound;
+    }
+
+    /*
+     * GETTER OBJECT BY NAME
+     */
+    public Room getRoomByName(String roomName) {
+        Room room = new Room();
+
+        for (String roomString : rooms.keySet()) {
+            if (roomString.equals(roomName)) {
+                room = rooms.get(roomString);
+            }
+        }
+
+        return room;
+    }
+
+    public ItemMod getItemByName(String itemName) {
+        ItemMod item = new ItemMod();
+
+        for (String itemString : items.keySet()) {
+            if (itemString.equals(itemName)) {
+                item = items.get(itemString);
+            }
+        }
+
+        return item;
+    }
+
+    public ItemMod getHiddenItemByName(String hiddenItemName, String roomName) {
+        Set<ItemMod> itemMods = getRoomItems().get(roomName);
+
+        ItemMod hiddenItem = new ItemMod();
+
+        for (ItemMod itemMod : itemMods) {
+            if (itemMod.getName().equals(hiddenItemName)) {
+                hiddenItem = itemMod;
+            }
+        }
+
+        return hiddenItem;
     }
 
     /*
      * ACCESSOR METHODS
      */
-
     public Player getPlayer() {
         return player;
+    }
+
+    public Officer getOfficerZhang() {
+        return officerZhang;
     }
 
     public Map<String, Map<String, Rectangle>> getRoomItemRectangles() {

@@ -12,12 +12,13 @@ public class ItemMod {
     private String useDescription;
     private String failedUseDescription;
     private String usedDescription;
-    private String[] requiredItems;
+    private String requiredItem;
     private String image;
     private boolean isHidden;
     private Rectangle rectangle;
-    private ArrayList<String> itemMethods;
+    private String itemMethod;
     private String useLocation;
+    private String hiddenItem;
 
     public ItemMod() {
 
@@ -32,12 +33,13 @@ public class ItemMod {
         this.useDescription = item.useDescription;
         this.failedUseDescription = item.failedUseDescription;
         this.usedDescription = item.usedDescription;
-        this.requiredItems = item.requiredItems;
+        this.requiredItem = item.requiredItem;
         this.isHidden = item.isHidden;
         this.image = item.image;
         this.rectangle = item.rectangle;
-        this.itemMethods = item.itemMethods;
+        this.itemMethod = item.itemMethod;
         this.useLocation = item.useLocation;
+        this.hiddenItem = item.hiddenItem;
     }
 
     public String getName() {
@@ -76,8 +78,8 @@ public class ItemMod {
         return usedDescription;
     }
 
-    public String[] getRequiredItems() {
-        return requiredItems;
+    public String getRequiredItem() {
+        return requiredItem;
     }
 
     public boolean isHidden() {
@@ -96,11 +98,19 @@ public class ItemMod {
         this.rectangle = rectangle;
     }
 
-    public ArrayList<String> getItemMethods() {
-        return itemMethods;
+    public String getItemMethod() {
+        return itemMethod;
     }
 
     public String getUseLocation() {
         return useLocation;
+    }
+
+    public void setHiddenItem(String hiddenItem) {
+        this.hiddenItem = hiddenItem;
+    }
+
+    public String getHiddenItem() {
+        return hiddenItem;
     }
 }

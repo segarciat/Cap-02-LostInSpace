@@ -36,6 +36,7 @@ public class ImagePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         int imageWidth = backgroundImage.getWidth(null);
         int imageHeight = backgroundImage.getHeight(null);
 

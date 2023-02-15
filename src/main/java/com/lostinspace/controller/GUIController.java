@@ -17,7 +17,7 @@ public class GUIController {
 
     public GUIController() {
         this.model = new Model();
-        this.itemController = new ItemController(model.getPlayer());
+        this.itemController = new ItemController(model);
 
         setUp();
     }
@@ -31,24 +31,41 @@ public class GUIController {
     /*
      * ITEM METHODS
      */
+    // Get look description
     public String lookItem(ItemMod item) {
         return item.getLookDescription();
     }
 
-    public String getOrUseItem(ItemMod item) {
+    // Get item
+    public String getItem(ItemMod item) {
         String returnText = "";
 
-        // If item is found in inventory, then right-click will use item
-        if (itemController.checkInInventory(item)) {
-            returnText = "You used the " + item.getName() + ".";
-        } else if (!itemController.checkInInventory(item) && item.getItemMethods().contains("get")) {
-            itemController.getItem(item);
-            returnText = "You added the " + item.getName() + " to your inventory.";
-        } else {
-            returnText = item.getUseDescription();
+        if (!model.checkInInventory(item)) {
+            returnText = itemController.getItem(item);
         }
 
         return returnText;
+    }
+
+    // Get or interaction with item on the map
+    public String interactItem(ItemMod item) {
+        String returnText = "";
+
+        returnText = itemController.interactItem(item);
+
+        return returnText;
+    }
+
+    // Get hidden items when an interactble is interacted with
+    public ItemMod getHiddenItem(ItemMod item) {
+        return itemController.getHiddenItem(item, getPlayer().getCurrentRoom());
+    }
+
+    /*
+     * WIN CONDITION MET
+     */
+    public static void winGame() {
+        System.out.println("YOU WIN THE GAME!");
     }
 
     /*
