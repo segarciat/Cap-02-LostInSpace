@@ -1,18 +1,31 @@
 package com.lostinspace.controller;
 
 import com.lostinspace.model.*;
+import com.lostinspace.view.AppView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Controller for ItemMod objects
  */
 class ItemController {
+    private final List<String> POSTER_COLORS = List.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue");
+    private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
+
     // Fields
     private final Model model;
+    private final AppView view;
 
     // Constructor
-    public ItemController(Model model) {
+    public ItemController(Model model, AppView view) {
         // Get model from primary Controller ControllerGUI
         this.model = model;
+        this.view = view;
     }
 
     /**
@@ -62,6 +75,8 @@ class ItemController {
                 // Return early
                 return itemDescription;
             }
+        } else if (item.getName().equalsIgnoreCase("console")) {
+            useConsole();
         }
 
         // Check if interactable requires an item
@@ -85,6 +100,46 @@ class ItemController {
         // TODO: Check if an item can be used in a certain location
 
         return itemDescription;
+    }
+
+    public void useConsole() {
+        // if the player has already used the console, do nothing.
+
+        // Create panel to hold prompt questions and checkboxes.
+        JPanel questionPanel = new JPanel( new FlowLayout( FlowLayout.LEFT) );
+        questionPanel.add( new JLabel( UIManager.getIcon("OptionPane.questionIcon" ) ) );
+
+        // Add the prompt question.
+        JLabel promptLabel = new JLabel("What are the colors on the poster in the ship?");
+        questionPanel.add(promptLabel);
+
+        // Create panel for the boxes
+        JPanel panel = new JPanel( new GridLayout(0, 1) );
+        panel.add(questionPanel);
+
+        // Create random colors to display as choices.
+        List<String> colors = new ArrayList<>(POSTER_COLORS);
+        colors.addAll(WRONG_COLORS);
+        Collections.shuffle(colors);
+
+        // Create checkboxes for each of those colors and add them to the panel..
+        List<JCheckBox> checkBoxes = colors.stream().map(JCheckBox::new).collect(Collectors.toList());
+
+        // Add all checkboxes to the panel.
+        checkBoxes.forEach(panel::add);
+
+        int result = JOptionPane.showConfirmDialog(view.getFrame(),
+                panel,
+                "Console Puzzle",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+        checkBoxes.stream().filter(JCheckBox::isSelected).map(JCheckBox::getText).forEach(System.out::println);
+        System.out.println(result);
+
+        // If you get it wrong.. lose some oxygen
+        // Otherwise, activate room electricity so you can use the scrambler
+//        JOptionPane.showMessageDialog(frame, "What room contains the poster?");
     }
 
     /**

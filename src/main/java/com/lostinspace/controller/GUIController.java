@@ -27,7 +27,7 @@ public class GUIController {
         // Create new instance of model and controllers
         this.model = model;
         this.view = new AppView(this, model);
-        this.itemController = new ItemController(model);
+        this.itemController = new ItemController(model, view);
 
         // Call set up method
         setUp();
@@ -46,13 +46,20 @@ public class GUIController {
         setUp();
     }
 
-
+    /**
+     * Moves the player to a new room and alters their oxygen, according to isEasyMode.
+     * @param destination The new room that the player will be in.
+     */
     public void movePlayer(String destination) {
         Player player = model.getPlayer();
         player.setCurrentRoom(destination);
         view.update();
     }
 
+    /**
+     * Toggles easy mode for the game and returns the new value.
+     * @return Whether the game is now in easy mode or not.
+     */
     public boolean toggleEasyMode() {
         isEasyMode = !isEasyMode;
         return isEasyMode;
