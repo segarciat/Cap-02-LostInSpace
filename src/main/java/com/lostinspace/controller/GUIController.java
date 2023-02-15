@@ -52,6 +52,8 @@ public class GUIController {
      */
     public void movePlayer(String destination) {
         Player player = model.getPlayer();
+        if (!player.getCurrentRoom().equalsIgnoreCase(destination))
+            player.consumeOxygen(O_2_CONSUMED, isEasyMode);
         player.setCurrentRoom(destination);
         view.update();
     }
