@@ -1,7 +1,5 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.AppGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;

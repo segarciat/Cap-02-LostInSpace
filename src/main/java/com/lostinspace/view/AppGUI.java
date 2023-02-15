@@ -1,8 +1,8 @@
-package com.lostinspace.app;
+package com.lostinspace.view;
 
 import com.lostinspace.controller.GUIController;
+import com.lostinspace.model.Model;
 import com.lostinspace.model.Room;
-import com.lostinspace.view.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -27,27 +27,22 @@ public class AppGUI {
 
     // controllers
     private final GUIController controller;
+    private final Model model;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
 
     /*
-     * Main method
-     */
-    public static void main(String[] args) {
-        AppGUI app = new AppGUI();
-        app.update();
-    }
-
-    /*
      * GUI Constructor
      * Initializes the fields, controllers, and JFrame
      */
-    public AppGUI() {
+    public AppGUI(GUIController controller, Model model) {
+        this.controller = controller;
+        this.model = model;
+
         frame = new JFrame();
         setFrameAttributes();
 
-        controller = new GUIController();
         createRooms();
         titlePanel = new TitlePanel(this);
         menuPanel = new MenuPanel(this);
@@ -132,6 +127,8 @@ public class AppGUI {
 
         for (String roomName : roomMap.keySet()) {
             Room room = roomMap.get(roomName);
+            // TODO: pass in the model so it can get the frame.
+            // model.getRoomImages();
             roomFrames.put(roomName, new RoomPanel(this, room, controller));
         }
     }
@@ -146,10 +143,6 @@ public class AppGUI {
 
     public JFrame getFrame() {
         return frame;
-    }
-
-    public Map<String, RoomPanel> getRoomFrames() {
-        return roomFrames;
     }
 
     public GUIController getController() {
