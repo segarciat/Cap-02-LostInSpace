@@ -28,6 +28,7 @@ public class RoomPanel extends ImagePanel {
     // The text being shown in the room.
     private final JTextArea roomTextArea;
     private final GUIController controller;
+    private final JProgressBar oxygenBar;
 
     private final Room room;
 
@@ -36,10 +37,15 @@ public class RoomPanel extends ImagePanel {
 
         this.controller = controller;
         this.room = room;
+        this.oxygenBar = new JProgressBar();
+        oxygenBar.setStringPainted(true);
+        oxygenBar.setBounds(20, 75, 200, 25);
+        updateOxygenBar();
 
         // Set up frame attributes
         this.setLayout(null);
         this.setSize(this.getPreferredSize());
+        this.add(oxygenBar);
 
         // Get room description
         roomTextArea = SwingComponentCreator.createStyledTextArea(room.getDescription());
@@ -79,6 +85,23 @@ public class RoomPanel extends ImagePanel {
     }
 
     /**
+     * Displays the player's current oxygen in a certain color according to the amount.
+     */
+    private void updateOxygenBar() {
+        int oxygen = (int) controller.getPlayer().getOxygen();
+        oxygenBar.setString(String.format("Oxygen: %s", oxygen));
+        oxygenBar.setValue(oxygen);
+        Color color;
+        if (oxygen > 70)
+            color = Color.GREEN;
+        else if (oxygen > 30)
+            color = Color.YELLOW;
+        else
+            color = Color.RED;
+        oxygenBar.setForeground(color);
+    }
+
+    /**
      * Action that updates the view (room) upon clicking a cardinal direction button like "Go North" or "Go West".
      */
     private class RoomExitAction implements ActionListener {
@@ -100,6 +123,7 @@ public class RoomPanel extends ImagePanel {
                 // Reset back to original room text.
                 roomTextArea.setText(room.getDescription());
                 controller.movePlayer(destination);
+                updateOxygenBar();
             });
             timer.setRepeats(false);
 
