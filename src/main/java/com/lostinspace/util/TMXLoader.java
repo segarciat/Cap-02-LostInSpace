@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Utility class for loading and parsing XML.
+ */
 public class TMXLoader {
     private static final String ITEM_ELEMENT_NAME = "object";
 
@@ -40,6 +43,8 @@ public class TMXLoader {
             if(itemNode.getNodeType() == Node.ELEMENT_NODE)
             {
                 Element itemElement = (Element) itemNode;
+
+                // Get the item's attributes.
                 String itemName = itemElement.getAttribute("name");
                 int x = Integer.parseInt(itemElement.getAttribute("x"));
                 int y = Integer.parseInt(itemElement.getAttribute("y"));
@@ -48,6 +53,7 @@ public class TMXLoader {
 
                 Rectangle itemRectangle = new Rectangle(x, y, width, height);
 
+                // Save it in the map.
                 rectangles.put(itemName, itemRectangle);
             }
         }
