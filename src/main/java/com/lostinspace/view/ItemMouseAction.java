@@ -44,6 +44,7 @@ class ItemMouseAction implements MouseListener {
              */
             if (item.getItemMethod().equals("get")) {
                 textDescription = controller.getItem(item);
+                addButtonToInventory(item);
                 removeButtonFromPanel();
             }
 
@@ -119,8 +120,20 @@ class ItemMouseAction implements MouseListener {
     /**
      * Add item button to inventory
      */
-    private void addButtonToInventory() {
+    private void addButtonToInventory(ItemMod item) {
+        // Get inventory size
+        int inventorySize = controller.getPlayer().getInventory().size();
 
+        // Place the image of the item depending on number of items in the inventory
+
+
+        JButton inventoryItemButton = SwingComponentCreator.createButtonWithImage(item.getImage(),
+                item.getRectangle());
+
+        inventoryItemButton.addMouseListener(new ItemMouseAction(controller, item, panel, inventoryItemButton));
+        panel.add(inventoryItemButton);
+
+        repaintPanel();
     }
 
     /**
@@ -129,9 +142,7 @@ class ItemMouseAction implements MouseListener {
     private void removeButtonFromPanel() {
         panel.remove(button);
 
-        // If any item buttons are added or removed, revalidate panel
-        panel.revalidate();
-        panel.repaint();
+        repaintPanel();
     }
 
     /*
@@ -140,8 +151,9 @@ class ItemMouseAction implements MouseListener {
     private void revealHiddenItem(ItemMod item) {
         if (item.getHiddenItem() != null) {
             ItemMod hiddenItem = controller.getHiddenItem(item);
-            addHiddenItemToPanel(hiddenItem);
             item.setHiddenItem(null);
+
+            addHiddenItemToPanel(hiddenItem);
         }
     }
 
@@ -152,12 +164,15 @@ class ItemMouseAction implements MouseListener {
     private void addHiddenItemToPanel(ItemMod hiddenItem) {
         JButton hiddenItemButton = SwingComponentCreator.createButtonWithImage(hiddenItem.getImage(),
                 hiddenItem.getRectangle());
-        hiddenItemButton.setName(hiddenItem.getName());
 
         hiddenItemButton.addMouseListener(new ItemMouseAction(controller, hiddenItem, panel, hiddenItemButton));
         panel.add(hiddenItemButton);
 
-        // If any item buttons are added or removed, revalidate panel
+        repaintPanel();
+    }
+
+    // If any item buttons are added or removed, revalidate panel
+    private void repaintPanel() {
         panel.revalidate();
         panel.repaint();
     }
