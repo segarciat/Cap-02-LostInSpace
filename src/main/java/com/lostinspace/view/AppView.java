@@ -28,6 +28,7 @@ public class AppView {
     // controllers
     private final GUIController controller;
     private final Model model;
+    private RoomPanel currentRoomPanel;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
@@ -113,7 +114,11 @@ public class AppView {
      */
     private void showGame() {
         String currentRoomName = controller.getPlayer().getCurrentRoom();
-        frame.setContentPane(roomFrames.get(currentRoomName));
+        currentRoomPanel = roomFrames.get(currentRoomName);
+
+        currentRoomPanel.updateView();
+
+        frame.setContentPane(currentRoomPanel);
         frame.revalidate();
     }
 
