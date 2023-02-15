@@ -165,6 +165,9 @@ public class RoomPanel extends ImagePanel {
                 else if (item.getItemMethod().equals("interact")) {
                     textDescription = controller.interactItem(item);
 
+                    // TODO: Check if required item in inventory
+
+
                     // If item that was being interacted with has a hidden item, then add it to the panel
                     // after being interacted with
                     if (item.getHiddenItem() != null) {
