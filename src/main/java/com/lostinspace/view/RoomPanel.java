@@ -70,7 +70,6 @@ public class RoomPanel extends ImagePanel {
         for (ItemMod item: itemMods) {
             if (item.getImage() != null && !item.isHidden()) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
-                button.setName(item.getName());
                 button.addMouseListener(new ItemMouseAction(controller, item, this, button));
                 this.add(button);
             }
