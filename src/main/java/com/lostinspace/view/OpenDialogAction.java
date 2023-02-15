@@ -46,6 +46,7 @@ public class OpenDialogAction implements ActionListener {
 
     }
 
+
     // Set text area attributes
     private static void setTextAreaOptions(JTextArea textArea, String text) {
         textArea.setText(text);                                                  // initial text
