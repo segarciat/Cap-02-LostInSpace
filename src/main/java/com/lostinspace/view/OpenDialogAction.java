@@ -23,7 +23,7 @@ public class OpenDialogAction implements ActionListener {
         this.frame = frame;
         setTextAreaOptions(textArea, text);
         this.title = title;
-        this.closeButton = new JButton("close");
+        this.closeButton = SwingComponentCreator.createButtonWithText("Close");
         this.closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

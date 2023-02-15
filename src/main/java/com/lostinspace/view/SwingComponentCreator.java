@@ -17,7 +17,7 @@ public class SwingComponentCreator {
      * @return JButton
      */
     public static JButton createButtonWithText(String text, int x, int y, int w, int h) {
-        JButton button = new JButton();                           // add image to button
+        JButton button = createButtonWithText(text);                           // add image to button
 
         button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
         button.setBorder(BorderFactory.createEmptyBorder());               // remove borders
@@ -38,6 +38,7 @@ public class SwingComponentCreator {
     public static JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
         ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppGUI.class.getResource(imageURL)));
         JButton button = new JButton(imageIcon);                           // add image to button
+        button.setFocusable(false);
 
         button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
         button.setBorder(BorderFactory.createEmptyBorder());               // remove borders
@@ -54,5 +55,16 @@ public class SwingComponentCreator {
      */
     public static JButton createButtonWithImage(String imageURL, Rectangle r) {
         return createButtonWithImage(imageURL, (int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+    }
+
+    /**
+     * Creates a button that will not be focusable.
+     * @param text The text on the bottom.
+     * @return The button created with the text on it.
+     */
+    public static JButton createButtonWithText(String text) {
+        JButton button = new JButton(text);
+        button.setFocusable(false);
+        return button;
     }
 }

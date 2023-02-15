@@ -69,13 +69,12 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
-            JButton directionButton = new JButton(String.format("Go %s", exit));
+            JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
             String exitRoomName = roomExits.get(exit);
             String exitRoomDescription = roomExitDescriptions.get(exitRoomName);
 
             directionButton.addActionListener(new RoomExitAction(room.getDescription(), exitRoomName,
                     exitRoomDescription));
-            directionButton.setFocusable(false);
             buttonPane.add(directionButton);
         }
 
@@ -88,7 +87,6 @@ public class RoomPanel extends ImagePanel {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.setName(item.getName());
                 button.addMouseListener(new ItemMouseAction(item, this, button));
-                button.setFocusable(false);
                 this.add(button);
             }
         }
@@ -233,7 +231,6 @@ public class RoomPanel extends ImagePanel {
             hiddenItemButton.setName(hiddenItem.getName());
 
             hiddenItemButton.addMouseListener(new ItemMouseAction(hiddenItem, panel, hiddenItemButton));
-            hiddenItemButton.setFocusable(false);
             panel.add(hiddenItemButton);
 
             // If any item buttons are added or removed, revalidate panel
