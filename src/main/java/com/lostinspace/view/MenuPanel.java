@@ -49,7 +49,19 @@ public class MenuPanel extends ImagePanel {
         easyModeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(getComponentPopupMenu(),"Easy Mode is activated");
+                boolean isEasyMode = app.getController().toggleEasyMode();
+                // declare a string variable for dialog message
+                String dialogText;
+                // using isEasyMode, assign correct message
+                if (isEasyMode){
+                    dialogText = "Easy Mode is activated";
+                } else {
+                    dialogText = "Easy Mode is deactivated";
+                }
+
+                // pass dialog message to show message dialog method
+                JOptionPane.showMessageDialog(getComponentPopupMenu(),dialogText);
+
             }
         });
 

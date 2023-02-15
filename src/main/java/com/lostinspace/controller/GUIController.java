@@ -55,6 +55,11 @@ public class GUIController {
         view.update();
     }
 
+    public boolean toggleEasyMode() {
+        isEasyMode = !isEasyMode;
+        return isEasyMode;
+    }
+
     /*
      * ITEM METHODS
      */
