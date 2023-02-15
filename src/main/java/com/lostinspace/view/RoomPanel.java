@@ -101,6 +101,10 @@ public class RoomPanel extends ImagePanel {
         oxygenBar.setForeground(color);
     }
 
+    public void updateView() {
+        updateOxygenBar();
+    }
+
     /**
      * Action that updates the view (room) upon clicking a cardinal direction button like "Go North" or "Go West".
      */
@@ -123,7 +127,6 @@ public class RoomPanel extends ImagePanel {
                 // Reset back to original room text.
                 roomTextArea.setText(room.getDescription());
                 controller.movePlayer(destination);
-                updateOxygenBar();
             });
             timer.setRepeats(false);
 
