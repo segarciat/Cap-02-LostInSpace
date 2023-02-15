@@ -11,9 +11,9 @@ go direction: use mouse to <left click> provided directions
 use item <left click> : use an item in your inventory or an object in the same room as you
 <not all items can be used at all times or in every room. Experiment with your options!>
 
-restart: restart the game
+restart: <press "esc" key into open "HELP MENU"  to review options : restarts the current game
 
-exit <escape to  open "Help Menu" to review instructions > : quits the current game.
+exit < "esc" key  to  open "Help Menu" to review instructions > : quits the current game.
 
 menu : use escape key that provides the "Help Menu" that displays the instructions
 

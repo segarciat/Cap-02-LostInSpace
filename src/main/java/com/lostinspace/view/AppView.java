@@ -106,6 +106,7 @@ public class AppView {
      */
     private void showPrologue() {
         frame.setContentPane(introPanel);
+        introPanel.allowPageSkipOnKeyPress();
         frame.requestFocus();
     }
 
