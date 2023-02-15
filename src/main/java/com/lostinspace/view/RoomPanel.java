@@ -144,7 +144,7 @@ public class RoomPanel extends ImagePanel {
 
                 if (item.getItemMethod().equals("get")) {
                     textDescription = controller.getItem(item);
-                    panel.remove(button);
+                    removeButtonFromPanel();
                 } else if (item.getItemMethod().equals("interact")) {
                     textDescription = controller.interactItem(item);
                 }
@@ -155,10 +155,6 @@ public class RoomPanel extends ImagePanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            // TODO: Add item buttons to the inventory when the player 'gets' an item
-
-            // If any item buttons are added or removed, revalidate panel
-            panel.revalidate();
         }
 
         @Override
@@ -171,6 +167,17 @@ public class RoomPanel extends ImagePanel {
         public void mouseExited(MouseEvent e) {
             JButton button = (JButton) e.getSource();
             button.setBorder(BorderFactory.createEmptyBorder()); // empty border when not hovering
+        }
+
+        // TODO: Add item buttons to the inventory when the player 'gets' an item
+
+        private void removeButtonFromPanel() {
+            panel.remove(button);
+
+            // If any item buttons are added or removed, revalidate panel
+            panel.revalidate();
+            panel.repaint();
+
         }
     }
 }
