@@ -23,7 +23,7 @@ class ItemController {
     public static final String MANUAL = "manual";
     public static final String PIPES = "pipes";
     public static final double O_2_CONSUMED_PIPES = 25.0;
-    private final List<String> POSTER_COLORS = Stream.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue").sorted().collect(Collectors.toList());
+    private final List<String> POSTER_COLORS = Stream.of("Orange", "Pink", "Green", "Blue", "Purple", "Yellow").sorted().collect(Collectors.toList());
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
     // Fields

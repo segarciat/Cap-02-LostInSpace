@@ -249,5 +249,14 @@
     "image": "/images_items/manual.png",
     "itemMethod": "get",
     "useLocation": "Docking Bay"
+  },
+  {
+    "name": "monster",
+    "synonyms": [
+      "beast"
+    ],
+    "description": "A humongous purple dinosaur-like beast with a mind-controller headset",
+    "lookDescription": "The beast growled with a low voice and snarled. It was defending the room to the cockpit... how should I get past it?",
+    "image": "/images_items/monster.png"
   }
 ]
