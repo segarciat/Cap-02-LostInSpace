@@ -49,6 +49,8 @@ public class MenuPanel extends ImagePanel {
         // action listener for restart button
         restartButton.addActionListener(e -> GUIApp.main(null));
 
+
+
         // action listener for easy mode  button
         easyModeButton.addActionListener(new ActionListener() {
             @Override
@@ -57,14 +59,14 @@ public class MenuPanel extends ImagePanel {
                 // declare a string variable for dialog message
                 String dialogText;
                 // using isEasyMode, assign correct message
-                if (isEasyMode){
+                if (isEasyMode) {
                     dialogText = "Easy Mode is activated";
                 } else {
                     dialogText = "Easy Mode is deactivated";
                 }
 
                 // pass dialog message to show message dialog method
-                JOptionPane.showMessageDialog(getComponentPopupMenu(),dialogText);
+                JOptionPane.showMessageDialog(getComponentPopupMenu(), dialogText);
 
             }
         });

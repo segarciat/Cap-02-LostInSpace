@@ -188,7 +188,7 @@ public class RoomPanel extends ImagePanel {
         oxygenBar.setValue(oxygen);
         Color color;
         if (oxygen > 70)
-            color = Color.GREEN;
+            color = new Color(53,76,175, 83);
         else if (oxygen > 30)
             color = Color.YELLOW;
         else
