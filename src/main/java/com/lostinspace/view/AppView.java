@@ -41,6 +41,8 @@ public class AppView {
         this.controller = controller;
         this.model = model;
 
+        changeLookAndFeel();
+
         frame = new JFrame();
         setFrameAttributes();
 
@@ -50,6 +52,17 @@ public class AppView {
         introPanel = new IntroPanel(this);
 
         frame.addKeyListener(new MenuToggleAction());
+    }
+
+    /**
+     * For Mac user's, the look and feel will match windows format
+     */
+    private void changeLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+
+        }
     }
 
     /*
