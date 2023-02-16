@@ -102,6 +102,11 @@ public class Model {
         return isFound;
     }
 
+    /**
+     * Returns an ItemMod item from the inventory
+     * @param itemName String itemName of the item you want to retrieve from the inventory
+     * @return ItemMod item
+     */
     public ItemMod returnItemFromInventory(String itemName) {
         boolean isFound = false;
         ItemMod itemFound = new ItemMod();
@@ -115,7 +120,7 @@ public class Model {
         }
 
         if (!isFound) {
-            throw new IllegalArgumentException("Item not found in inventory");
+            throw new IllegalArgumentException("Item not found in inventory.");
         }
 
         return itemFound;
