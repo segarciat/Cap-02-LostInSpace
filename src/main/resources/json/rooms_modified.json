@@ -190,7 +190,7 @@
       "Crew Quarters": "To the West, you see the door to their Crew Quarters.",
       "Bridge": "To the North, you see the security doors leading to the Bridge.",
       "MedBay": "To the East, you see the door to the MedBay.",
-      "Junction Hallway ": "To the South, you see the door returning to the hallway."
+      "Junction Hallway 2": "To the South, you see the door returning to the hallway."
     },
     "image":"/images_room/command_hallway.png",
     "tmx": "xml/command_hallway.tmx"

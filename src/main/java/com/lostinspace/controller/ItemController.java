@@ -35,6 +35,7 @@ class ItemController {
 
     /**
      * Add item to player inventory, then remove from location
+     *
      * @param item ItemMod item player is getting
      * @return String
      */
@@ -54,10 +55,13 @@ class ItemController {
 
     /**
      * Interact with item on the map
+     *
      * @param item ItemMod item player is interacting with
      * @return String indicating whether was already used, or if the item was just used successfully.
      */
     public String interactItem(ItemMod item) {
+        String textDescription = "";
+
         /*
          * If item has already been used, then return early itemUSEDDescription
          * If not, if item is successfully interacted with, then set to used = true
@@ -65,17 +69,35 @@ class ItemController {
         if (item.isUsed())
             return item.getUsedDescription();
 
-        // Player has what is required, if any.
-        boolean hasRequiredItem = item.getRequiredItem() == null || model.checkInInventory(item.getRequiredItem());
-        if (!hasRequiredItem)
-            return item.getFailedUseDescription();
+        // Check if interactable requires an item and if player has it
+        if (item.getRequiredItem() == null) {
+            item.setUsed(true);
+            return item.getUseDescription();
+        } else {
+            // Get required item for interactable
+            String requiredItemName = item.getRequiredItem();
+            ItemMod requiredItemInInventory = new ItemMod();
 
-        // Player is in the location the item must be used, if any.
-        boolean canUseHere =  item.getUseLocation() == null || model.getPlayer().getCurrentRoom().equals(item.getUseLocation());
-        if (!canUseHere)
-            return item.getFailedUseDescription();
+            /*
+             * Must return item from inventory to get the 'same' object from the inventory panel
+             * If model.getItemByName() method is used, the object is not the same
+             */
+            try {
+                requiredItemInInventory = model.returnItemFromInventory(requiredItemName);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
 
-        switch(item.getName()) {
+            // If required item is not in inventory, then display failedUsedDescription
+            if (model.checkInInventory(requiredItemInInventory.getName()) && requiredItemInInventory.isUsed()) {
+                item.setUsed(true);
+                textDescription = item.getUseDescription();
+            } else {
+                textDescription = item.getFailedUseDescription();
+            }
+        }
+
+        switch (item.getName()) {
             case SHIP:
                 useShip();
                 break;
@@ -90,8 +112,9 @@ class ItemController {
                 break;
         }
 
-        return item.isUsed() ? item.getUseDescription(): item.getFailedUseDescription();
+        return textDescription;
     }
+
 
     private void useShip() {
         if (model.getOfficerZhang().getInventory().size() == 3) {
@@ -104,15 +127,15 @@ class ItemController {
         // if the player has already used the console, do nothing.
 
         // Create panel to hold prompt questions and checkboxes.
-        JPanel questionPanel = new JPanel( new FlowLayout( FlowLayout.LEFT) );
-        questionPanel.add( new JLabel( UIManager.getIcon("OptionPane.questionIcon" ) ) );
+        JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        questionPanel.add(new JLabel(UIManager.getIcon("OptionPane.questionIcon")));
 
         // Add the prompt question.
         JLabel promptLabel = new JLabel("What are the colors on the poster in the ship?");
         questionPanel.add(promptLabel);
 
         // Create panel for the boxes
-        JPanel panel = new JPanel( new GridLayout(0, 1) );
+        JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(questionPanel);
 
         // Create random colors to display as choices.
@@ -168,7 +191,8 @@ class ItemController {
     /**
      * Get hiddenItem as a ItemMod object with Rectangle properties from model class to pass back to RoomPanel to
      * create the JButton
-     * @param item ItemMod item player is interacting with
+     *
+     * @param item     ItemMod item player is interacting with
      * @param roomName Room name of the current location of the player
      * @return ItemMod hiddenItem
      */
@@ -176,5 +200,36 @@ class ItemController {
         String hiddenItemName = item.getHiddenItem();
 
         return model.getHiddenItemByName(hiddenItemName, roomName);
+    }
+
+    /**
+     * Use the item the player clicks on
+     *
+     * @param inventoryItem ItemMod item player wants to use
+     * @return String
+     */
+    public String useInventoryItem(ItemMod inventoryItem) {
+        String textDescription = "";
+
+        /*
+         * If item has already been used, then return early itemUSEDDescription
+         * If not, if item is successfully interacted with, then set to used = true
+         */
+        if (inventoryItem.isUsed()) {
+            return inventoryItem.getUsedDescription();
+        }
+
+        // Check current location of the player
+        String currentLocation = model.getPlayer().getCurrentRoom();
+
+        // Check if item can be used
+        if (!currentLocation.equals(inventoryItem.getUseLocation())) {
+            textDescription = "You cannot use " + inventoryItem.getName() + " right now. It may have a use somewhere else.";
+        } else {
+            inventoryItem.setUsed(true);
+            textDescription = inventoryItem.getUseDescription();
+        }
+
+        return textDescription;
     }
 }
