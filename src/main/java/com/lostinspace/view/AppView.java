@@ -24,6 +24,7 @@ public class AppView {
     private final TitlePanel titlePanel;
     private final IntroPanel introPanel;
     private final MenuPanel menuPanel;
+    private final MapPanel mapPanel;
 
     // controllers
     private final GUIController controller;
@@ -48,8 +49,9 @@ public class AppView {
         titlePanel = new TitlePanel(this);
         menuPanel = new MenuPanel(this);
         introPanel = new IntroPanel(this);
+        mapPanel = new MapPanel(this);
 
-        frame.addKeyListener(new MenuToggleAction());
+        frame.addKeyListener(new KeyToggleAction());
     }
 
     /*
@@ -81,6 +83,9 @@ public class AppView {
             case MENU:
                 showMenu();
                 break;
+            case MAP:
+                showMap();
+                break;
             default:
                 break;
         }
@@ -88,6 +93,11 @@ public class AppView {
 
     private void showMenu() {
         frame.setContentPane(menuPanel);
+        frame.requestFocus();
+    }
+
+    private void showMap() {
+        frame.setContentPane(mapPanel);
         frame.requestFocus();
     }
 
@@ -161,7 +171,7 @@ public class AppView {
     /**
      * Allows player to toggle (open/close) the menu when pressing ESC key.
      */
-    private class MenuToggleAction implements KeyListener {
+    private class KeyToggleAction implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
         }
@@ -180,6 +190,16 @@ public class AppView {
                     update();
                 }
 
+            } else if (e.getKeyCode() == KeyEvent.VK_M) {
+                // if the route is game, show the map
+                if (Route.GAME.equals(route)) {
+                    setRoute(Route.MAP);
+                    update();
+                } else if (Route.MAP.equals(route)) {
+                    // if the route is map, it should hide the map
+                    setRoute(Route.GAME);
+                    update();
+                }
             }
 
         }
