@@ -10,7 +10,8 @@
     "usedDescription": "The scrambler has no use to you anymore.",
     "image": "/images_items/scrambler.png",
     "itemMethod": "get",
-    "useLocation": "Command Deck Hallway"
+    "requiredItem": "console",
+    "useLocation": "Bridge"
   },
   {
     "name": "cabinet",
@@ -139,13 +140,9 @@
     "name": "airlock",
     "synonyms": [],
     "description": "A sealed AIRLOCK door",
-    "lookDescription": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly SEALED.",
+    "lookDescription": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly sealed. It seems like the doors are shut remotely.",
     "used": false,
-    "useDescription": "You attempt to make use of the airlock, but the doors are sealed shut remotely.",
-    "usedDescription": "Hopefully the vacuum actually kills the poor beast...",
-    "requiredItem": "scrambler",
-    "image": "/images_items/airlock.png",
-    "itemMethod": "interact"
+    "image": "/images_items/airlock.png"
   },
   {
     "name": "library",
