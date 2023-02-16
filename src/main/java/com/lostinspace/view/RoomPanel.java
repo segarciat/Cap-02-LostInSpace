@@ -28,6 +28,7 @@ public class RoomPanel extends ImagePanel {
     public static final int ROOM_TRANSITION_DELAY = 1500;
     public static final String ENVIRO_FIELD = "Enviro-Field";
     public static final Color THEME_COLOR = new Color( 76, 175, 83);
+    public static final Color WARNING_OXYGEN_COLOR = new Color(246, 190, 0);
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
@@ -197,7 +198,7 @@ public class RoomPanel extends ImagePanel {
         if (oxygen > 70)
             color = THEME_COLOR;
         else if (oxygen > 30)
-            color = new Color(246,190,0);
+            color = WARNING_OXYGEN_COLOR;
         else
             color = Color.RED;
         oxygenBar.setForeground(color);
