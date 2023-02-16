@@ -7,6 +7,8 @@ Using Items: Use your mouse to <right-click> on the highlighted items, you will 
 
 Opening the Options Menu: Press the "ESC" key to open the options menu
 
+Opening the Map: Press the "M" key to open the map of the game
+
 
 OPTIONS MENU
 Objectives: Check the winning conditions of the game
