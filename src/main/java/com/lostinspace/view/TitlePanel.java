@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.util.ImageLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,8 +44,7 @@ public class TitlePanel extends ImagePanel {
         JFrame frame = app.getFrame();
 
         // Set the transition image after the player presses the "START" button
-        startMenuTransitionImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(TITLE_SCREEN_IMAGE_FLY)))
-                .getImage()
+        startMenuTransitionImage = ImageLoader.loadImage(TITLE_SCREEN_IMAGE_FLY)
                 .getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
 
         // Create button to enter/exit game
