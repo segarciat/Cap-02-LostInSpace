@@ -19,7 +19,7 @@ public class AppView {
 
     // java swing components
     private final JFrame frame;
-    Map<String, RoomPanel> roomFrames;
+    private Map<String, RoomPanel> roomFrames;
 
     private final TitlePanel titlePanel;
     private final IntroPanel introPanel;
@@ -96,7 +96,6 @@ public class AppView {
      */
     private void showTitleScreen() {
         frame.setContentPane(titlePanel);
-//        frame.revalidate();
         frame.setVisible(true);
         frame.requestFocus();
     }
@@ -149,9 +148,15 @@ public class AppView {
         return frame;
     }
 
+    public Map<String, RoomPanel> getRoomFrames() {
+        return Collections.unmodifiableMap(roomFrames);
+    }
+
     public GUIController getController() {
         return controller;
     }
+
+
 
     /**
      * Allows player to toggle (open/close) the menu when pressing ESC key.

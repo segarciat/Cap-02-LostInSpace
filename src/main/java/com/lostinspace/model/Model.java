@@ -89,7 +89,7 @@ public class Model {
      * CHECK METHODS
      */
     // Check if item is in inventory
-    public boolean checkInInventory(String itemName) {
+    public boolean inventoryContains(String itemName) {
         boolean isFound = false;
 
         for (ItemMod itemInInventory : player.getInventory()) {
@@ -105,25 +105,12 @@ public class Model {
     /**
      * Returns an ItemMod item from the inventory
      * @param itemName String itemName of the item you want to retrieve from the inventory
-     * @return ItemMod item
+     * @return ItemMod in the player's inventory, or null if not found.
      */
     public ItemMod returnItemFromInventory(String itemName) {
-        boolean isFound = false;
-        ItemMod itemFound = new ItemMod();
-
-        for (ItemMod itemInInventory : player.getInventory()) {
-            if (itemInInventory.getName().equals(itemName)) {
-                isFound = true;
-                itemFound = itemInInventory;
-                break;
-            }
-        }
-
-        if (!isFound) {
-            throw new IllegalArgumentException("Item not found in inventory.");
-        }
-
-        return itemFound;
+        return player.getInventory().stream()
+                .filter(item -> item.getName().equals(itemName)).findFirst()
+                .orElse(null);
     }
 
     /*
