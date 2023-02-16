@@ -66,7 +66,6 @@ public class IntroPanel extends ImagePanel {
         gbc.weighty = 1.0;
         this.add(introTextArea, gbc);
 
-        app.getFrame().addKeyListener(new FlipPageOnKeyPress());
         app.getFrame().requestFocus();
     }
 
@@ -112,6 +111,10 @@ public class IntroPanel extends ImagePanel {
         introPages.addAll(tutorialPages);
 
         return introPages.iterator();
+    }
+
+    public void allowPageSkipOnKeyPress() {
+        app.getFrame().addKeyListener(new FlipPageOnKeyPress());
     }
 
     private class SkipIntroPage implements ActionListener {

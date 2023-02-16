@@ -1,10 +1,14 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.App;
+import com.lostinspace.app.GUIApp;
+
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MenuPanel extends ImagePanel {
 
@@ -29,6 +33,8 @@ public class MenuPanel extends ImagePanel {
 
         JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
 
+        JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
+
         // action listener for exit button
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -44,6 +50,16 @@ public class MenuPanel extends ImagePanel {
 
         // action listener for help button
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
+
+        // action listener for restart button
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] string = {};
+                GUIApp.main(string);
+            }
+
+        });
 
         // action listener for easy mode  button
         easyModeButton.addActionListener(new ActionListener() {
@@ -87,8 +103,9 @@ public class MenuPanel extends ImagePanel {
         gbc.gridy = 3;
         panel.add(helpButton, gbc);
         gbc.gridy = 4;
+        panel.add(restartButton, gbc);
+        gbc.gridy = 5;
         panel.add(exitButton, gbc);
-
     }
 }
 
