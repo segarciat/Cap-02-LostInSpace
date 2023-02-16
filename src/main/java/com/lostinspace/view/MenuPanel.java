@@ -22,7 +22,7 @@ public class MenuPanel extends ImagePanel {
         this.setLayout(new GridBagLayout());
 
         // buttons created for menu
-        JButton exitButton = SwingComponentCreator.createButtonWithText("Exit");
+        JButton exitButton = SwingComponentCreator.createExitButton();
 
         JButton helpButton = SwingComponentCreator.createButtonWithText("Help");
 
@@ -32,10 +32,8 @@ public class MenuPanel extends ImagePanel {
 
         JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
 
-        JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
+        JButton restartButton = SwingComponentCreator.createRestartButton(app);
 
-        // action listener for exit button
-        exitButton.addActionListener(e -> System.exit(0));
 
         JPanel panel = this;
 
@@ -45,9 +43,6 @@ public class MenuPanel extends ImagePanel {
         // action listener for help button
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
 
-        // action listener for restart button
-        restartButton.addActionListener(e -> GUIApp.main(null));
-
         // action listener for easy mode  button
         easyModeButton.addActionListener(new ActionListener() {
             @Override
@@ -56,15 +51,14 @@ public class MenuPanel extends ImagePanel {
                 // declare a string variable for dialog message
                 String dialogText;
                 // using isEasyMode, assign correct message
-                if (isEasyMode){
+                if (isEasyMode) {
                     dialogText = "Easy Mode is activated";
                 } else {
                     dialogText = "Easy Mode is deactivated";
                 }
 
                 // pass dialog message to show message dialog method
-                JOptionPane.showMessageDialog(getComponentPopupMenu(),dialogText);
-
+                JOptionPane.showMessageDialog(app.getFrame(), dialogText);
             }
         });
 

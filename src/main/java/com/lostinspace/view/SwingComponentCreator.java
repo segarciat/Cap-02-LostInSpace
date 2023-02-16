@@ -1,7 +1,11 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.GUIApp;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class SwingComponentCreator {
@@ -88,5 +92,34 @@ public class SwingComponentCreator {
         textArea.setForeground(COLOR_GREEN);                                     // font color
         textArea.setMargin(new Insets(30, 80, 0, 80));    // margins
         return textArea;
+    }
+
+    /**
+     * Create a restart and exit button for Help options area
+     * @param app text within the options
+     * @return button with text
+     */
+
+    public static JButton createRestartButton(AppView app) {
+        JButton button = createButtonWithText("Restart");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUIApp.main(null);
+                app.getFrame().dispose();
+            }
+        });
+        return button;
+    }
+
+    public static JButton createExitButton() {
+        JButton button = createButtonWithText("Exit");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        return button;
     }
 }

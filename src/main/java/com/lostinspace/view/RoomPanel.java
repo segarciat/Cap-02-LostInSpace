@@ -27,6 +27,8 @@ public class RoomPanel extends ImagePanel {
     // other
     public static final int ROOM_TRANSITION_DELAY = 1500;
     public static final String ENVIRO_FIELD = "Enviro-Field";
+    public static final Color THEME_COLOR = new Color( 76, 175, 83);
+    public static final Color WARNING_OXYGEN_COLOR = new Color(246, 190, 0);
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
@@ -77,14 +79,11 @@ public class RoomPanel extends ImagePanel {
                 // Add the oxygen bar
                 this.add(oxygenBar);
             } else {
-                // If the room IS the Enviro-Field, then add restart and exit buttons
-                JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
-                restartButton.addActionListener(e -> GUIApp.main(null));
+                JButton restartButton = SwingComponentCreator.createRestartButton(view);
                 directionButtonsPane.add(restartButton);
 
-                JButton exitButton = SwingComponentCreator.createButtonWithText("Exit");
-                exitButton.addActionListener(e -> System.exit(0));
-                // action listener for exit button
+                JButton exitButton = SwingComponentCreator.createExitButton();
+
                 directionButtonsPane.add(exitButton);
             }
 
@@ -193,12 +192,13 @@ public class RoomPanel extends ImagePanel {
     private void updateOxygenBar() {
         int oxygen = (int) controller.getPlayer().getOxygen();
         oxygenBar.setString(String.format("Oxygen: %s", oxygen));
+        oxygenBar.setBackground(Color.BLACK);
         oxygenBar.setValue(oxygen);
         Color color;
         if (oxygen > 70)
-            color = Color.GREEN;
+            color = THEME_COLOR;
         else if (oxygen > 30)
-            color = Color.YELLOW;
+            color = WARNING_OXYGEN_COLOR;
         else
             color = Color.RED;
         oxygenBar.setForeground(color);
