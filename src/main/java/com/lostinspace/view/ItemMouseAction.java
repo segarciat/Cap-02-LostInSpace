@@ -8,7 +8,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 /**
  * Action that "item buttons" responds when hovering, left-, or right-clicking (highlighting, GET/USE/LOOK actions).
@@ -61,37 +60,9 @@ class ItemMouseAction implements MouseListener {
              */
             else if (item.getItemMethod().equals("interact")) {
                 textDescription = controller.interactItem(item);
-                ItemMod requiredItemInInventory = new ItemMod();
-
-                // Check if interactable item requires an item
-                if (item.getRequiredItem() != null) {
-                    String requiredItemName = item.getRequiredItem();
-
-                    /*
-                     * Must return item from inventory to get the 'same' object from the inventory panel
-                     * If model.getItemByName() method is used, the object is not the same
-                     */
-                    try {
-                        requiredItemInInventory = controller.getModel().returnItemFromInventory(requiredItemName);
-                    } catch (IllegalArgumentException exception) {
-                        System.out.println(exception.getMessage());
-                    }
-
-                    // If required item in the player's inventory has been used, then reveal the hidden item
-                    if (requiredItemInInventory.isUsed()) {
-                        // Reveal hidden item
-                        if (item.getHiddenItem() != null) {
-                            revealHiddenItem(item);
-                        }
-                    }
-                } else {
-                    // Reveal hidden item
-                    if (item.getHiddenItem() != null) {
-                        revealHiddenItem(item);
-                    }
-                }
+                if (item.isUsed() && item.getHiddenItem() != null)
+                    revealHiddenItem(item);
             }
-
             setRoomAreaText(textDescription);
         }
     }

@@ -32,8 +32,8 @@ public class RoomPanel extends ImagePanel {
 
     private final Room room;
 
-    public RoomPanel(AppView app, Room room, GUIController controller) {
-        super(room.getImage(), app.getFrame().getWidth(), app.getFrame().getHeight());
+    public RoomPanel(AppView view, Room room, GUIController controller) {
+        super(room.getImage(), view.getFrame().getWidth(), view.getFrame().getHeight());
 
         this.controller = controller;
         this.room = room;
@@ -65,11 +65,11 @@ public class RoomPanel extends ImagePanel {
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
             JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
-            directionButton.addActionListener(new RoomExitAction(controller, exit, this, room));
+            directionButton.addActionListener(new RoomExitAction(view, room, exit));
             directionButtonsPane.add(directionButton);
         }
 
-        Model model = app.getController().getModel();
+        Model model = view.getController().getModel();
 
         // Add items for this room
         Set<ItemMod> itemMods = model.getRoomItems().get(room.getName());

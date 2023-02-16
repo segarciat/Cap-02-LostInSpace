@@ -19,6 +19,11 @@ class ItemController {
     public static final String CONSOLE = "console";
     public static final String SCRAMBLER = "scrambler";
     public static final String AIRLOCK = "airlock";
+    public static final String COMPONENT = "component";
+    public static final String
+            TOOL = "tool";
+    public static final String
+            MANUAL = "manual";
     private final List<String> POSTER_COLORS = List.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue");
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
@@ -60,8 +65,6 @@ class ItemController {
      * @return String indicating whether was already used, or if the item was just used successfully.
      */
     public String interactItem(ItemMod item) {
-        String textDescription = "";
-
         /*
          * If item has already been used, then return early itemUSEDDescription
          * If not, if item is successfully interacted with, then set to used = true
@@ -69,34 +72,12 @@ class ItemController {
         if (item.isUsed())
             return item.getUsedDescription();
 
+        ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
+        // An item is need and it has not been used.
+        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
+            return item.getFailedUseDescription();
+
         // Check if interactable requires an item and if player has it
-        if (item.getRequiredItem() == null) {
-            item.setUsed(true);
-            return item.getUseDescription();
-        } else {
-            // Get required item for interactable
-            String requiredItemName = item.getRequiredItem();
-            ItemMod requiredItemInInventory = new ItemMod();
-
-            /*
-             * Must return item from inventory to get the 'same' object from the inventory panel
-             * If model.getItemByName() method is used, the object is not the same
-             */
-            try {
-                requiredItemInInventory = model.returnItemFromInventory(requiredItemName);
-            } catch (IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
-            }
-
-            // If required item is not in inventory, then display failedUsedDescription
-            if (model.checkInInventory(requiredItemInInventory.getName()) && requiredItemInInventory.isUsed()) {
-                item.setUsed(true);
-                textDescription = item.getUseDescription();
-            } else {
-                textDescription = item.getFailedUseDescription();
-            }
-        }
-
         switch (item.getName()) {
             case SHIP:
                 useShip();
@@ -106,13 +87,22 @@ class ItemController {
                 break;
             case CONSOLE:
                 useConsole(item);
+                break;
             case AIRLOCK:
                 useAirlock(item);
+                break;
+//            case COMPONENT:
+//            case TOOL:
+//            case MANUAL:
+//                model.getOfficerZhang().addItemToInventory(item);
+//                item.setUsed(true);
+//                break;
             default:
+                item.setUsed(true);
                 break;
         }
 
-        return textDescription;
+        return item.isUsed()? item.getUseDescription(): item.getFailedUseDescription();
     }
 
 
