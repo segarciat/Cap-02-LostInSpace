@@ -75,8 +75,10 @@ class ItemController {
                 // Return early
                 return itemDescription;
             }
-        } else if (item.getName().equalsIgnoreCase("console")) {
-            useConsole();
+        } else if (item.getName().equals("console")) {
+            boolean isCorrect = useConsole();
+            item.setUsed(isCorrect);
+            return isCorrect? item.getUseDescription(): item.getFailedUseDescription();
         }
 
         // Check if interactable requires an item
@@ -102,7 +104,7 @@ class ItemController {
         return itemDescription;
     }
 
-    public void useConsole() {
+    public boolean useConsole() {
         // if the player has already used the console, do nothing.
 
         // Create panel to hold prompt questions and checkboxes.
@@ -134,12 +136,13 @@ class ItemController {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE
         );
-        checkBoxes.stream().filter(JCheckBox::isSelected).map(JCheckBox::getText).forEach(System.out::println);
-        System.out.println(result);
 
-        // If you get it wrong.. lose some oxygen
-        // Otherwise, activate room electricity so you can use the scrambler
-//        JOptionPane.showMessageDialog(frame, "What room contains the poster?");
+        List<String> userResponse = checkBoxes.stream()
+                .filter(JCheckBox::isSelected)
+                .map(JCheckBox::getText)
+                .collect(Collectors.toList());
+
+        return userResponse.equals(POSTER_COLORS);
     }
 
     /**

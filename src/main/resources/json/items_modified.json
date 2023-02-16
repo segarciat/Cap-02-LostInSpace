@@ -42,6 +42,7 @@
     "used": false,
     "useDescription": "You use the Reactor CONSOLE. The ship hummed with a loud thunder and the lights of the ship flickered on.",
     "usedDescription": "You already powered on the ship. Good job!",
+    "failedUseDescription": "You press the colored buttons... but nothing happens.",
     "image": "/images_items/console.png",
     "itemMethod": "interact"
   },
