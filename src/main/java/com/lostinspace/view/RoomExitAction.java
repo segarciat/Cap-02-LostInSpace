@@ -51,12 +51,21 @@ public class RoomExitAction implements ActionListener {
         String textToDisplayOnExit = room.getExit_descriptions().get(destination);
         currentRoomPanel.getRoomTextArea().setText(textToDisplayOnExit);
 
+        // Hide button
+        RoomPanel roomPanel = view.getRoomFrames().get(room.getName());
+        roomPanel.getDirectionButtonsPane().setVisible(false);
+        roomPanel.repaint();
+
         // Set time for room transition
         Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
             // Reset back to original room text.
             currentRoomPanel.getRoomTextArea().setText(room.getDescription());
             // Updating the view will update the player's location.
             view.update();
+
+            roomPanel.getDirectionButtonsPane().setVisible(true);
+
+            roomPanel.repaint();
         });
         timer.setRepeats(false);
 

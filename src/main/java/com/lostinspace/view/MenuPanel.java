@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MenuPanel extends ImagePanel {
-
     public static final String BACKGROUND = "/images_title/background.jpg";
     public static final String HELP_DIALOG_TITLE = "instructions";
     public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
