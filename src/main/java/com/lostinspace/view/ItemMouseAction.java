@@ -61,11 +61,21 @@ class ItemMouseAction implements MouseListener {
              */
             else if (item.getItemMethod().equals("interact")) {
                 textDescription = controller.interactItem(item);
+                ItemMod requiredItemInInventory = new ItemMod();
 
                 // Check if interactable item requires an item
                 if (item.getRequiredItem() != null) {
                     String requiredItemName = item.getRequiredItem();
-                    ItemMod requiredItemInInventory = controller.getModel().returnItemFromInventory(requiredItemName);
+
+                    /*
+                     * Must return item from inventory to get the 'same' object from the inventory panel
+                     * If model.getItemByName() method is used, the object is not the same
+                     */
+                    try {
+                        requiredItemInInventory = controller.getModel().returnItemFromInventory(requiredItemName);
+                    } catch (IllegalArgumentException exception) {
+                        System.out.println(exception.getMessage());
+                    }
 
                     // If required item in the player's inventory has been used, then reveal the hidden item
                     if (requiredItemInInventory.isUsed()) {

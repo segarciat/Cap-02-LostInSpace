@@ -1,22 +1,41 @@
 package com.lostinspace.controller;
 
 import com.lostinspace.model.*;
+import com.lostinspace.view.AppView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Controller for ItemMod objects
  */
 class ItemController {
+    public static final String SHIP = "ship";
+    public static final String CONSOLE = "console";
+    public static final String SCRAMBLER = "scrambler";
+    public static final String AIRLOCK = "airlock";
+    private final List<String> POSTER_COLORS = List.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue");
+    private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
+
     // Fields
     private final Model model;
+    private final AppView view;
 
     // Constructor
-    public ItemController(Model model) {
+    public ItemController(Model model, AppView view) {
         // Get model from primary Controller ControllerGUI
         this.model = model;
+        this.view = view;
     }
 
     /**
      * Add item to player inventory, then remove from location
+     *
      * @param item ItemMod item player is getting
      * @return String
      */
@@ -36,8 +55,9 @@ class ItemController {
 
     /**
      * Interact with item on the map
+     *
      * @param item ItemMod item player is interacting with
-     * @return String
+     * @return String indicating whether was already used, or if the item was just used successfully.
      */
     public String interactItem(ItemMod item) {
         String textDescription = "";
@@ -46,40 +66,30 @@ class ItemController {
          * If item has already been used, then return early itemUSEDDescription
          * If not, if item is successfully interacted with, then set to used = true
          */
-        if (item.isUsed()) {
+        if (item.isUsed())
             return item.getUsedDescription();
-        }
 
-        // If item is 'ship', then check inventory of Officer officerZhang object to check for win game condition
-        if (item.getName().equals("ship")) {
-            if (model.getOfficerZhang().getInventory().size() != 3) {
-                // Return early
-                return item.getFailedUseDescription();
-            } else {
-                // The player has met win game condition, send back to ControllerGUI
-                GUIController.winGame();
-
-                // Return early
-                return textDescription;
-            }
-        }
-
-        // Check if interactable requires an item
+        // Check if interactable requires an item and if player has it
         if (item.getRequiredItem() == null) {
             item.setUsed(true);
-            textDescription = item.getUseDescription();
+            return item.getUseDescription();
         } else {
             // Get required item for interactable
             String requiredItemName = item.getRequiredItem();
+            ItemMod requiredItemInInventory = new ItemMod();
 
             /*
              * Must return item from inventory to get the 'same' object from the inventory panel
              * If model.getItemByName() method is used, the object is not the same
              */
-            ItemMod requiredItemInInventory = model.returnItemFromInventory(requiredItemName);
+            try {
+                requiredItemInInventory = model.returnItemFromInventory(requiredItemName);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
 
             // If required item is not in inventory, then display failedUsedDescription
-            if (model.checkInInventory(requiredItemInInventory) && requiredItemInInventory.isUsed()) {
+            if (model.checkInInventory(requiredItemInInventory.getName()) && requiredItemInInventory.isUsed()) {
                 item.setUsed(true);
                 textDescription = item.getUseDescription();
             } else {
@@ -87,13 +97,102 @@ class ItemController {
             }
         }
 
+        switch (item.getName()) {
+            case SHIP:
+                useShip();
+                break;
+            case SCRAMBLER:
+                useScrambler(item);
+                break;
+            case CONSOLE:
+                useConsole(item);
+            case AIRLOCK:
+                useAirlock(item);
+            default:
+                break;
+        }
+
         return textDescription;
+    }
+
+
+    private void useShip() {
+        if (model.getOfficerZhang().getInventory().size() == 3) {
+            // The player has met win game condition, send back to ControllerGUI
+            GUIController.winGame();
+        }
+    }
+
+    public void useConsole(ItemMod item) {
+        // if the player has already used the console, do nothing.
+
+        // Create panel to hold prompt questions and checkboxes.
+        JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        questionPanel.add(new JLabel(UIManager.getIcon("OptionPane.questionIcon")));
+
+        // Add the prompt question.
+        JLabel promptLabel = new JLabel("What are the colors on the poster in the ship?");
+        questionPanel.add(promptLabel);
+
+        // Create panel for the boxes
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(questionPanel);
+
+        // Create random colors to display as choices.
+        List<String> colors = new ArrayList<>(POSTER_COLORS);
+        colors.addAll(WRONG_COLORS);
+        Collections.shuffle(colors);
+
+        // Create checkboxes for each of those colors and add them to the panel.
+        List<JCheckBox> checkBoxes = colors.stream().map(JCheckBox::new).collect(Collectors.toList());
+
+        // Add all checkboxes to the panel.
+        checkBoxes.forEach(panel::add);
+
+        int result = JOptionPane.showConfirmDialog(view.getFrame(),
+                panel,
+                "Console Puzzle",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        List<String> userResponse = checkBoxes.stream()
+                .filter(JCheckBox::isSelected)
+                .map(JCheckBox::getText)
+                .collect(Collectors.toList());
+
+        item.setUsed(userResponse.equals(POSTER_COLORS));
+    }
+
+    public void useScrambler(ItemMod item) {
+        // Ensure console was turned on (used)
+        boolean powerIsOn = model.getRoomItems().values().stream()
+                .flatMap(Collection::stream)
+                .filter(i -> i.getName().equals(CONSOLE))
+                .findFirst()
+                .get()
+                .isUsed();
+
+        item.setUsed(powerIsOn);
+    }
+
+    private void useAirlock(ItemMod item) {
+        // Ensure console was turned on (used)
+        boolean scramblerWasUsed = model.getRoomItems().values().stream()
+                .flatMap(Collection::stream)
+                .filter(i -> i.getName().equals(SCRAMBLER))
+                .findFirst()
+                .get()
+                .isUsed();
+
+        item.setUsed(scramblerWasUsed);
     }
 
     /**
      * Get hiddenItem as a ItemMod object with Rectangle properties from model class to pass back to RoomPanel to
      * create the JButton
-     * @param item ItemMod item player is interacting with
+     *
+     * @param item     ItemMod item player is interacting with
      * @param roomName Room name of the current location of the player
      * @return ItemMod hiddenItem
      */
@@ -105,10 +204,11 @@ class ItemController {
 
     /**
      * Use the item the player clicks on
+     *
      * @param inventoryItem ItemMod item player wants to use
      * @return String
      */
-    public String useItem(ItemMod inventoryItem) {
+    public String useInventoryItem(ItemMod inventoryItem) {
         String textDescription = "";
 
         /*
