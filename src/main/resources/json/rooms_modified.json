@@ -1,7 +1,7 @@
 [
   {
     "name": "Enviro-Field",
-    "description": "As you enter the room, your body starts to disintegrate...",
+    "description": "As you enter the room, your body starts to disintegrate... you cannot continue...",
     "exits": {
       "west": "Docking Bay"
     },

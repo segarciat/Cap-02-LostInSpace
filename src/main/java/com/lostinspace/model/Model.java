@@ -39,8 +39,6 @@ public class Model {
 
     // Player class initial parameters
     private final Player player;
-    public static final double INITIAL_OXYGEN = 80.00;
-    public static final String INITIAL_ROOM = "Docking Bay";
 
     // CWO2 class
     private final Officer officerZhang;
@@ -81,7 +79,7 @@ public class Model {
             roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
         }
 
-        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
+        this.player = new Player("", 0, new ArrayList<>(0));
         this.officerZhang = new Officer(new ArrayList<>());
     }
 
