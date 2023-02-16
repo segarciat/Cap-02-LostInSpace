@@ -70,6 +70,11 @@ class ItemController {
         if (!hasRequiredItem)
             return item.getFailedUseDescription();
 
+        // Player is in the location the item must be used, if any.
+        boolean canUseHere =  item.getUseLocation() == null || model.getPlayer().getCurrentRoom().equals(item.getUseLocation());
+        if (!canUseHere)
+            return item.getFailedUseDescription();
+
         switch(item.getName()) {
             case SHIP:
                 useShip();
