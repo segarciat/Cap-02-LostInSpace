@@ -33,6 +33,7 @@ public class RoomPanel extends ImagePanel {
     private final GUIController controller;
     private final JPanel inventoryButtonsPane;
     private final JProgressBar oxygenBar;
+    private final JPanel directionButtonsPane;
 
     private final Room room;
 
@@ -61,7 +62,7 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons for each exit
         Map<String, String> roomExits = room.getExits();
-        JPanel directionButtonsPane = new JPanel();
+        directionButtonsPane = new JPanel();
         directionButtonsPane.setOpaque(false);
         directionButtonsPane.setBounds(0, WINDOW_SIZE -TEXTAREA_HEIGHT - 64, WINDOW_SIZE, 48);
 
@@ -109,6 +110,10 @@ public class RoomPanel extends ImagePanel {
 
         this.add(inventoryButtonsPane);
         this.add(directionButtonsPane);
+    }
+
+    public JPanel getDirectionButtonsPane() {
+        return directionButtonsPane;
     }
 
     /*

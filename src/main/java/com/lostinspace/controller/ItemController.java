@@ -21,6 +21,8 @@ class ItemController {
     public static final String COMPONENT = "component";
     public static final String TOOL = "tool";
     public static final String MANUAL = "manual";
+    public static final String PIPES = "pipes";
+    public static final double O_2_CONSUMED_PIPES = 25.0;
     private final List<String> POSTER_COLORS = Stream.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue").sorted().collect(Collectors.toList());
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
@@ -82,6 +84,9 @@ class ItemController {
             case CONSOLE:
                 useConsole(item);
                 break;
+            case PIPES:
+                usePipes(item);
+                break;
 //            case COMPONENT:
 //            case TOOL:
 //            case MANUAL:
@@ -101,6 +106,11 @@ class ItemController {
             // The player has met win game condition, send back to ControllerGUI
             GUIController.winGame();
         }
+    }
+
+    private void usePipes(ItemMod item) {
+        model.getPlayer().refillOxygen(O_2_CONSUMED_PIPES);
+        item.setUsed(true);
     }
 
     public void useConsole(ItemMod item) {

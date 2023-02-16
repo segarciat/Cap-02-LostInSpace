@@ -11,6 +11,7 @@ import java.util.Map;
  * Primary controller class for the GUI
  */
 public class GUIController {
+    public static final String ENVIRO_FIELD = "Enviro-Field";
     // Create instance of model and other controllers
     private final Model model;
     private final AppView view;
@@ -68,15 +69,13 @@ public class GUIController {
          */
         if (requiredItemName != null && (requiredItemOwnedByPlayer == null || !requiredItemOwnedByPlayer.isUsed())) {
             destinationName = currentRoomName; // stay in this room.
-        } else {
+        } else if (player.getOxygen() == 0) {
             // If the player's oxygen is 0, then move them to the Enviro-Field (end-game)
-            if (player.getOxygen() == 0) {
-                player.setCurrentRoom("Enviro-Field");
-            } else {
-                // If player's oxygen is > 0, then move them to the destination
-                player.consumeOxygen(O_2_CONSUMED, isEasyMode);
-                player.setCurrentRoom(destinationName);
-            }
+            player.setCurrentRoom(ENVIRO_FIELD);
+        } else {
+            // If player's oxygen is > 0, then move them to the destination
+            player.consumeOxygen(O_2_CONSUMED, isEasyMode);
+            player.setCurrentRoom(destinationName);
         }
 
         return !currentRoomName.equalsIgnoreCase(destinationName);
