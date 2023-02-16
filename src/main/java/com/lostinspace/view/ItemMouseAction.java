@@ -66,6 +66,7 @@ class ItemMouseAction implements MouseListener {
                 if (item.isUsed() && item.getHiddenItem() != null)
                     revealHiddenItem(item);
             }
+            panel.updateView();
             setRoomAreaText(textDescription);
         }
     }
