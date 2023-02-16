@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OpenDialogAction implements ActionListener {
+    private static final String BUTTON_CLOSE = "/images_title/close.png";
+    private static final int BUTTON_WIDTH = 250;
+    private static final int BUTTON_HEIGHT = 40;
 
     // window settings, font text, font color
     private static final int WINDOW_SIZE = 720;
@@ -21,9 +24,11 @@ public class OpenDialogAction implements ActionListener {
 
     public OpenDialogAction(JFrame frame, String text, String title) {
         this.frame = frame;
-        textArea = SwingComponentCreator.createStyledTextArea(text);
         this.title = title;
-        this.closeButton = SwingComponentCreator.createButtonWithText("Close");
+
+        textArea = SwingComponentCreator.createStyledTextArea(text);
+
+        this.closeButton = SwingComponentCreator.createButtonWithImage(BUTTON_CLOSE, 235, 620, BUTTON_WIDTH, BUTTON_HEIGHT);
         this.closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,28 +41,19 @@ public class OpenDialogAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ImagePanel imgPanel = new ImagePanel("/images_title/background.jpg", 720, 720);
+        imgPanel.setLayout(null);
+
         d = new JDialog(frame, title);
-        imgPanel.add(textArea);
-        imgPanel.add(closeButton);
         d.setSize(WINDOW_SIZE, WINDOW_SIZE);
         d.setContentPane(imgPanel);
         d.setLocationRelativeTo(frame);
         d.setVisible(true);
 
-    }
+        imgPanel.add(textArea);
+        imgPanel.add(closeButton);
 
-
-    // Set text area attributes
-    private static void setTextAreaOptions(JTextArea textArea, String text) {
-        textArea.setText(text);                                                  // initial text
-        textArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                              // size
-        textArea.setEditable(false);                                             // non-editable
-        textArea.setFocusable(false);                                            // prevent from stealing focus on click
-        textArea.setOpaque(false);                                               // no background
-        textArea.setLineWrap(true);                                              // wrap lines
-        textArea.setWrapStyleWord(true);                                         // wrap by word
-        textArea.setFont(MONOSPACE_PLAIN_MED);                                   // font type
-        textArea.setForeground(COLOR_GREEN);                                     // font color
-        textArea.setMargin(new Insets(0, 140, 0, 140));    // margins
+        // Set Z-order to ensure the close button is at the top, so the button can be pressed
+        imgPanel.setComponentZOrder(textArea, 1);
+        imgPanel.setComponentZOrder(closeButton, 0);
     }
 }

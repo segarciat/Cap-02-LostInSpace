@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class Model {
     // text files
     public static final String INSTRUCTIONS_TXT = "text/instructions.txt";
-    public static final String TUTORIAL_TXT = "text/tutorial.txt";
     public static final String GAME_OBJECTIVES_TXT = "text/objectives.txt";
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
@@ -49,7 +48,7 @@ public class Model {
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
-        tutorial = TextLoader.loadText(TUTORIAL_TXT);
+        tutorial = TextLoader.loadText(INSTRUCTIONS_TXT);
         objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
