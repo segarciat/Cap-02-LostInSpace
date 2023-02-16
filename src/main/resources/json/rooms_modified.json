@@ -237,7 +237,8 @@
       "Command Deck Hallway": "To the South, you see the door returning to hallway."
     },
     "items": [
-      "airlock"
+      "airlock",
+      "monster"
     ],
     "entryItem": "keycard",
     "image":"/images_room/bridge.png",
