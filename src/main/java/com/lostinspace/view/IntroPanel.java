@@ -40,31 +40,22 @@ public class IntroPanel extends ImagePanel {
         this.app = app;
 
         // Create skip button
-        skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
+        skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 620, BUTTON_WIDTH, BUTTON_HEIGHT);
         skipButton.addActionListener(new SkipIntroPage());
 
-        // Customize text area.
+        // Customize text area
         introPageIterator = introPagesIterator();
         introTextArea = SwingComponentCreator.createStyledTextArea(introPageIterator.next());
+        introTextArea.setMargin(new Insets(30, 80, 0, 80));
 
         // Set panel attributes
         this.setSize(WINDOW_SIZE, WINDOW_SIZE);
         this.setOpaque(false);
-        this.setLayout(new GridBagLayout());
+        this.setLayout(null);
 
-        // Add components to panel.
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(30, 0, 0, 0);
-        this.add(skipButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(0,0,0,0);
-        gbc.weighty = 1.0;
-        this.add(introTextArea, gbc);
+        // Add components
+        this.add(skipButton);
+        this.add(introTextArea);
 
         app.getFrame().requestFocus();
     }
