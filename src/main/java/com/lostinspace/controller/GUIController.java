@@ -87,7 +87,7 @@ public class GUIController {
     public String getItem(ItemMod item) {
         String textDescription = "";
 
-        if (!model.checkInInventory(item.getName())) {
+        if (!model.inventoryContains(item.getName())) {
             textDescription = itemController.getItem(item);
         }
 
@@ -100,11 +100,7 @@ public class GUIController {
      * @return String
      */
     public String interactItem(ItemMod item) {
-        String textDescription = "";
-
-        textDescription = itemController.interactItem(item);
-
-        return textDescription;
+        return itemController.interactItem(item);
     }
 
     /**
