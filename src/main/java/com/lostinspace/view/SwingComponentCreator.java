@@ -22,8 +22,7 @@ public class SwingComponentCreator {
         JButton button = createButtonWithText(text);                           // add image to button
 
         button.setBounds(x, y, w, h);                                      // set bounds (x, y, w, h)
-        button.setBorder(BorderFactory.createEmptyBorder());               // remove borders
-        button.setContentAreaFilled(false);                                // remove inside content of button
+        button.setFocusable(false);
 
         return button;
     }
@@ -87,7 +86,7 @@ public class SwingComponentCreator {
         textArea.setWrapStyleWord(true);                                         // wrap by word
         textArea.setFont(MONOSPACE_PLAIN_MED);                                   // font type
         textArea.setForeground(COLOR_GREEN);                                     // font color
-        textArea.setMargin(new Insets(0, 140, 0, 140));    // margins
+        textArea.setMargin(new Insets(30, 80, 0, 80));    // margins
         return textArea;
     }
 }

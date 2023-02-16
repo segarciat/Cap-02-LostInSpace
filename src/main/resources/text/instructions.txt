@@ -1,21 +1,18 @@
-objectives: check game winning objectives
+COMMANDS
+Moving Between Rooms: Use your mouse to <left-click> on the desired direction button
 
-look room <right click>: inspects the current room you're in for items, interactable objects, and exits
+Looking at Items: Use your mouse to <left-click> on highlighted items, you will receive a description of the item
 
-inspect item -or- inspect object: receive a description of what was inspected, look inside of containers
-<the inspect command will often reveal details about something you are confused about>
+Using Items: Use your mouse to <right-click> on the highlighted items, you will receive a use description of the item
 
-go direction: use mouse to <left click> provided directions
-<directions: go North,  go South, go East, go West>
+Opening the Options Menu: Press the "ESC" key to open the options menu
 
-use item <left click> : use an item in your inventory or an object in the same room as you
-<not all items can be used at all times or in every room. Experiment with your options!>
 
-restart: <press "esc" key into open "HELP MENU"  to review options : restarts the current game
+OPTIONS MENU
+Objectives: Check the winning conditions of the game
 
-exit < "esc" key  to  open "Help Menu" to review instructions > : quits the current game.
+Easy Mode: Too hard? Set game to easy mode to never use oxygen while moving to different rooms. Click on the "Easy Mode" button to activate/deactivate the feature
 
-menu : use "esc" key that provides the "Help Menu" that displays the instructions
+Restart: Restarts the current game
 
-easy mode: too hard? Use this command to never use oxygen when moving.
-<press "esc" to enter "HELP MENU". Click "Easy Mode button to activate/deactivate feature">
+Exit: Quits the current game

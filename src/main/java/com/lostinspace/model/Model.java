@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class Model {
     // text files
     public static final String INSTRUCTIONS_TXT = "text/instructions.txt";
-    public static final String TUTORIAL_TXT = "text/tutorial.txt";
     public static final String GAME_OBJECTIVES_TXT = "text/objectives.txt";
     public static final String PROLOGUE_TXT = "text/prologue.txt";
 
@@ -39,8 +38,6 @@ public class Model {
 
     // Player class initial parameters
     private final Player player;
-    public static final double INITIAL_OXYGEN = 80.00;
-    public static final String INITIAL_ROOM = "Docking Bay";
 
     // CWO2 class
     private final Officer officerZhang;
@@ -51,7 +48,7 @@ public class Model {
     public Model() {
         // Load all text.
         instructions = TextLoader.loadText(INSTRUCTIONS_TXT);
-        tutorial = TextLoader.loadText(TUTORIAL_TXT);
+        tutorial = TextLoader.loadText(INSTRUCTIONS_TXT);
         objectives = TextLoader.loadText(GAME_OBJECTIVES_TXT);
         prologue = TextLoader.loadText(PROLOGUE_TXT);
 
@@ -81,7 +78,7 @@ public class Model {
             roomItems.get(roomName).forEach(item -> item.setRectangle(roomItemRectangles.get(roomName).get(item.getName())));
         }
 
-        this.player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>(0));
+        this.player = new Player("", 0, new ArrayList<>(0));
         this.officerZhang = new Officer(new ArrayList<>());
     }
 

@@ -49,7 +49,6 @@ public class RoomPanel extends ImagePanel {
         // Set up frame attributes
         this.setLayout(null);
         this.setSize(this.getPreferredSize());
-        this.add(oxygenBar);
 
         // Get room description
         roomTextArea = SwingComponentCreator.createStyledTextArea(room.getDescription());
@@ -68,12 +67,16 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
-            if  (! room.getName().equals(ENVIRO_FIELD)) {
+            // If the room is NOT the Enviro-Field
+            if  (!room.getName().equals(ENVIRO_FIELD)) {
                 JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
                 directionButton.addActionListener(new RoomExitAction(view, room, exit));
                 directionButtonsPane.add(directionButton);
 
+                // Add the oxygen bar
+                this.add(oxygenBar);
             } else {
+                // If the room IS the Enviro-Field, then add restart and exit buttons
                 JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
                 restartButton.addActionListener(e -> GUIApp.main(null));
                 directionButtonsPane.add(restartButton);
