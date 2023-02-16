@@ -1,10 +1,13 @@
 package com.lostinspace.view;
 
+import com.lostinspace.app.GUIApp;
 import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +26,7 @@ public class RoomPanel extends ImagePanel {
 
     // other
     public static final int ROOM_TRANSITION_DELAY = 1500;
+    public static final String ENVIRO_FIELD = "Enviro-Field";
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
@@ -64,9 +68,22 @@ public class RoomPanel extends ImagePanel {
 
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
-            JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
-            directionButton.addActionListener(new RoomExitAction(view, room, exit));
-            directionButtonsPane.add(directionButton);
+            if  (! room.getName().equals(ENVIRO_FIELD)) {
+                JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
+                directionButton.addActionListener(new RoomExitAction(view, room, exit));
+                directionButtonsPane.add(directionButton);
+
+            } else {
+                JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
+                restartButton.addActionListener(e -> GUIApp.main(null));
+                directionButtonsPane.add(restartButton);
+
+                JButton exitButton = SwingComponentCreator.createButtonWithText("Exit");
+                exitButton.addActionListener(e -> System.exit(0));
+                // action listener for exit button
+                directionButtonsPane.add(exitButton);
+            }
+
         }
 
         Model model = view.getController().getModel();

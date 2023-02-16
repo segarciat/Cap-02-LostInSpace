@@ -36,12 +36,7 @@ public class MenuPanel extends ImagePanel {
         JButton restartButton = SwingComponentCreator.createButtonWithText("Restart");
 
         // action listener for exit button
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exitButton.addActionListener(e -> System.exit(0));
 
         JPanel panel = this;
 
@@ -52,14 +47,7 @@ public class MenuPanel extends ImagePanel {
         helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
 
         // action listener for restart button
-        restartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String[] string = {};
-                GUIApp.main(string);
-            }
-
-        });
+        restartButton.addActionListener(e -> GUIApp.main(null));
 
         // action listener for easy mode  button
         easyModeButton.addActionListener(new ActionListener() {
