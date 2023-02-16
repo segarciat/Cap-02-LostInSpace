@@ -8,7 +8,7 @@
     "exit_descriptions": {
       "Docking Bay": null
     },
-    "image":"/images_title/background.jpg",
+    "image":"/images_room/enviro_field.png",
     "items": [],
     "tmx": "xml/sketchy_room.tmx"
   },
