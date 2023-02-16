@@ -87,7 +87,7 @@ public class GUIController {
     public String getItem(ItemMod item) {
         String returnText = "";
 
-        if (!model.checkInInventory(item)) {
+        if (!model.checkInInventory(item.getName())) {
             returnText = itemController.getItem(item);
         }
 
