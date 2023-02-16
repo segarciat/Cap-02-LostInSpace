@@ -4,12 +4,9 @@ import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.*;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,12 +19,15 @@ public class RoomPanel extends ImagePanel {
 
     // font colors
     private static final int WINDOW_SIZE = 720;
-    public static final int ROOM_TRANSITION_DELAY = 1500;
     public static final int TEXTAREA_HEIGHT = 168;
+
+    // other
+    public static final int ROOM_TRANSITION_DELAY = 1500;
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
     private final GUIController controller;
+    private final JPanel inventoryButtonsPane;
     private final JProgressBar oxygenBar;
 
     private final Room room;
@@ -65,7 +65,7 @@ public class RoomPanel extends ImagePanel {
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
             JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
-            directionButton.addActionListener(new RoomExitAction(exit));
+            directionButton.addActionListener(new RoomExitAction(controller, exit, this, room));
             directionButtonsPane.add(directionButton);
         }
 
@@ -81,7 +81,85 @@ public class RoomPanel extends ImagePanel {
             }
         }
 
+        // Create inventory item button pane
+        inventoryButtonsPane = new JPanel();
+        inventoryButtonsPane.setLayout(null);
+        inventoryButtonsPane.setOpaque(false);
+        inventoryButtonsPane.setBounds(WINDOW_SIZE - 245, 5, 225, 215);
+
+        this.add(inventoryButtonsPane);
         this.add(directionButtonsPane);
+    }
+
+    /*
+     * Updates the display for the inventory
+     */
+    private void updateInventory() {
+        removeInventoryItems();
+
+        ArrayList<ItemMod> playerInventory = controller.getPlayer().getInventory();
+
+        for (int i = 0; i <  playerInventory.size(); i++) {
+            ItemMod item = playerInventory.get(i);
+
+            createInventoryItem(item, i);
+        }
+    }
+
+    /*
+     * Creates each inventory item button and adds to the inventoryButtonsPane
+     */
+    private void createInventoryItem(ItemMod item, int index) {
+        // Place the image of the item depending on number of items in the inventory and index
+        Rectangle item1Area = new Rectangle(40, 35, 48, 48);
+        Rectangle item2Area = new Rectangle(132, 35, 48, 48);
+        Rectangle item3Area = new Rectangle(40, 95, 48, 48);
+        Rectangle item4Area = new Rectangle(132, 95, 48, 48);
+        Rectangle item5Area = new Rectangle(40, 155, 48, 48);
+        Rectangle item6Area = new Rectangle(132, 155, 48, 48);
+
+        Rectangle itemArea = new Rectangle();
+
+        /*
+         * Depending on how many items are in the inventory, place the new item the same spot
+         * The item is added to the player's inventory BEFORE this method is called
+         * Example: If the player has 0 items and picks up 1 item, then place the new item in spot 1
+         */
+        switch(index) {
+            case 0:
+                itemArea = item1Area;
+                break;
+            case 1:
+                itemArea = item2Area;
+                break;
+            case 2:
+                itemArea = item3Area;
+                break;
+            case 3:
+                itemArea = item4Area;
+                break;
+            case 4:
+                itemArea = item5Area;
+                break;
+            case 5:
+                itemArea = item6Area;
+                break;
+            default:
+                break;
+        }
+
+        JButton inventoryItemButton = SwingComponentCreator.createButtonWithImage(item.getImage(), itemArea);
+        inventoryItemButton.addMouseListener(new InventoryItemAction(controller, item, this));
+        inventoryButtonsPane.add(inventoryItemButton);
+    }
+
+    /*
+     * Remove items from the inventory, then reimplement the buttons for persistence on screen
+     */
+    private void removeInventoryItems() {
+        for (Component itemButton : inventoryButtonsPane.getComponents()) {
+            inventoryButtonsPane.remove(itemButton);
+        }
     }
 
     /**
@@ -103,35 +181,7 @@ public class RoomPanel extends ImagePanel {
 
     public void updateView() {
         updateOxygenBar();
-    }
-
-    /**
-     * Action that updates the view (room) upon clicking a cardinal direction button like "Go North" or "Go West".
-     */
-    private class RoomExitAction implements ActionListener {
-
-        private final String direction;
-
-        private RoomExitAction(String direction) {
-            this.direction = direction;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String destination = room.getExits().get(direction);
-            String textToDisplayOnExit = room.getExit_descriptions().get(destination);
-            roomTextArea.setText(textToDisplayOnExit);
-
-            // Set time for room transition
-            Timer timer = new Timer(ROOM_TRANSITION_DELAY, e1 -> {
-                // Reset back to original room text.
-                roomTextArea.setText(room.getDescription());
-                controller.movePlayer(destination);
-            });
-            timer.setRepeats(false);
-
-            timer.start();
-        }
+        updateInventory();
     }
 
     public JTextArea getRoomTextArea() {

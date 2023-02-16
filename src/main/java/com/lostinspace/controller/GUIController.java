@@ -46,7 +46,6 @@ public class GUIController {
         setUp();
     }
 
-
     public void movePlayer(String destination) {
         Player player = model.getPlayer();
         if (!player.getCurrentRoom().equalsIgnoreCase(destination))
@@ -78,13 +77,13 @@ public class GUIController {
      * @return String
      */
     public String getItem(ItemMod item) {
-        String returnText = "";
+        String textDescription = "";
 
         if (!model.checkInInventory(item)) {
-            returnText = itemController.getItem(item);
+            textDescription = itemController.getItem(item);
         }
 
-        return returnText;
+        return textDescription;
     }
 
     /**
@@ -93,14 +92,12 @@ public class GUIController {
      * @return String
      */
     public String interactItem(ItemMod item) {
-        String returnText = "";
+        String textDescription = "";
 
-        returnText = itemController.interactItem(item);
+        textDescription = itemController.interactItem(item);
 
-        return returnText;
+        return textDescription;
     }
-
-    // Get hidden items when an interactable is interacted with
 
     /**
      * Get hidden item object when an interactable item is being interacted with
@@ -109,6 +106,15 @@ public class GUIController {
      */
     public ItemMod getHiddenItem(ItemMod item) {
         return itemController.getHiddenItem(item, getPlayer().getCurrentRoom());
+    }
+
+    /**
+     * Use the item the player clicks on
+     * @param item ItemMod item player wants to use
+     * @return String
+     */
+    public String useItem(ItemMod item) {
+        return itemController.useItem(item);
     }
 
     /*

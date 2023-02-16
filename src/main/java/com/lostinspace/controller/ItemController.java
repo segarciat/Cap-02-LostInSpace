@@ -40,7 +40,7 @@ class ItemController {
      * @return String
      */
     public String interactItem(ItemMod item) {
-        String itemDescription = "";
+        String textDescription = "";
 
         /*
          * If item has already been used, then return early itemUSEDDescription
@@ -60,31 +60,34 @@ class ItemController {
                 GUIController.winGame();
 
                 // Return early
-                return itemDescription;
+                return textDescription;
             }
         }
 
         // Check if interactable requires an item
         if (item.getRequiredItem() == null) {
             item.setUsed(true);
-            itemDescription = item.getUseDescription();
+            textDescription = item.getUseDescription();
         } else {
             // Get required item for interactable
-            String requiredItem = item.getRequiredItem();
-            ItemMod required = model.getItemByName(requiredItem);
+            String requiredItemName = item.getRequiredItem();
+
+            /*
+             * Must return item from inventory to get the 'same' object from the inventory panel
+             * If model.getItemByName() method is used, the object is not the same
+             */
+            ItemMod requiredItemInInventory = model.returnItemFromInventory(requiredItemName);
 
             // If required item is not in inventory, then display failedUsedDescription
-            if (model.checkInInventory(required)) {
+            if (model.checkInInventory(requiredItemInInventory) && requiredItemInInventory.isUsed()) {
                 item.setUsed(true);
-                itemDescription = item.getUseDescription();
+                textDescription = item.getUseDescription();
             } else {
-                itemDescription = item.getFailedUseDescription();
+                textDescription = item.getFailedUseDescription();
             }
         }
 
-        // TODO: Check if an item can be used in a certain location
-
-        return itemDescription;
+        return textDescription;
     }
 
     /**
@@ -98,5 +101,35 @@ class ItemController {
         String hiddenItemName = item.getHiddenItem();
 
         return model.getHiddenItemByName(hiddenItemName, roomName);
+    }
+
+    /**
+     * Use the item the player clicks on
+     * @param inventoryItem ItemMod item player wants to use
+     * @return String
+     */
+    public String useItem(ItemMod inventoryItem) {
+        String textDescription = "";
+
+        /*
+         * If item has already been used, then return early itemUSEDDescription
+         * If not, if item is successfully interacted with, then set to used = true
+         */
+        if (inventoryItem.isUsed()) {
+            return inventoryItem.getUsedDescription();
+        }
+
+        // Check current location of the player
+        String currentLocation = model.getPlayer().getCurrentRoom();
+
+        // Check if item can be used
+        if (!currentLocation.equals(inventoryItem.getUseLocation())) {
+            textDescription = "You cannot use " + inventoryItem.getName() + " right now. It may have a use somewhere else.";
+        } else {
+            inventoryItem.setUsed(true);
+            textDescription = inventoryItem.getUseDescription();
+        }
+
+        return textDescription;
     }
 }

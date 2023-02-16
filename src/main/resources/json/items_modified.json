@@ -10,7 +10,7 @@
     "usedDescription": "The scrambler has no use to you anymore.",
     "image": "/images_items/scrambler.png",
     "itemMethod": "get",
-    "useLocation": "Command Desk Hallway"
+    "useLocation": "Command Deck Hallway"
   },
   {
     "name": "cabinet",

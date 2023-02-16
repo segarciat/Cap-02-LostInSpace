@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 /**
  * Action that "item buttons" responds when hovering, left-, or right-clicking (highlighting, GET/USE/LOOK actions).
@@ -64,10 +65,10 @@ class ItemMouseAction implements MouseListener {
                 // Check if interactable item requires an item
                 if (item.getRequiredItem() != null) {
                     String requiredItemName = item.getRequiredItem();
-                    ItemMod requiredItem = controller.getModel().getItemByName(requiredItemName);
+                    ItemMod requiredItemInInventory = controller.getModel().returnItemFromInventory(requiredItemName);
 
-                    // If required item is in the player's inventory, then reveal hidden item
-                    if (controller.getModel().checkInInventory(requiredItem)) {
+                    // If required item in the player's inventory has been used, then reveal the hidden item
+                    if (requiredItemInInventory.isUsed()) {
                         // Reveal hidden item
                         if (item.getHiddenItem() != null) {
                             revealHiddenItem(item);
@@ -116,21 +117,56 @@ class ItemMouseAction implements MouseListener {
         textArea.setText(text);
     }
 
-    // TODO: Add item buttons to the inventory when the player 'gets' an item
     /**
      * Add item button to inventory
+     * This is only for immediate addition to the inventory panel
+     * This button will be removed when the player switches room and will be recreated in the RoomPanel updateView
+     * method
      */
     private void addButtonToInventory(ItemMod item) {
         // Get inventory size
         int inventorySize = controller.getPlayer().getInventory().size();
 
         // Place the image of the item depending on number of items in the inventory
+        Rectangle item1Area = new Rectangle(515, 40, 48, 48);
+        Rectangle item2Area = new Rectangle(607, 40, 48, 48);
+        Rectangle item3Area = new Rectangle(515, 100, 48, 48);
+        Rectangle item4Area = new Rectangle(607, 100, 48, 48);
+        Rectangle item5Area = new Rectangle(515, 160, 48, 48);
+        Rectangle item6Area = new Rectangle(607, 160, 48, 48);
 
+        Rectangle itemArea = new Rectangle();
 
-        JButton inventoryItemButton = SwingComponentCreator.createButtonWithImage(item.getImage(),
-                item.getRectangle());
+        /*
+         * Depending on how many items are in the inventory, place the new item the same spot
+         * The item is added to the player's inventory BEFORE this method is called
+         * Example: If the player has 0 items and picks up 1 item, then place the new item in spot 1
+         */
+        switch(inventorySize) {
+            case 1:
+                itemArea = item1Area;
+                break;
+            case 2:
+                itemArea = item2Area;
+                break;
+            case 3:
+                itemArea = item3Area;
+                break;
+            case 4:
+                itemArea = item4Area;
+                break;
+            case 5:
+                itemArea = item5Area;
+                break;
+            case 6:
+                itemArea = item6Area;
+                break;
+            default:
+                break;
+        }
 
-        inventoryItemButton.addMouseListener(new ItemMouseAction(controller, item, panel, inventoryItemButton));
+        JButton inventoryItemButton = SwingComponentCreator.createButtonWithImage(item.getImage(), itemArea);
+        inventoryItemButton.addMouseListener(new InventoryItemAction(controller, item, panel));
         panel.add(inventoryItemButton);
 
         repaintPanel();
