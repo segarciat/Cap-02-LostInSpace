@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
  * Controller for ItemMod objects
@@ -17,14 +18,10 @@ import java.util.stream.Collectors;
 class ItemController {
     public static final String SHIP = "ship";
     public static final String CONSOLE = "console";
-    public static final String SCRAMBLER = "scrambler";
-    public static final String AIRLOCK = "airlock";
     public static final String COMPONENT = "component";
-    public static final String
-            TOOL = "tool";
-    public static final String
-            MANUAL = "manual";
-    private final List<String> POSTER_COLORS = List.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue");
+    public static final String TOOL = "tool";
+    public static final String MANUAL = "manual";
+    private final List<String> POSTER_COLORS = Stream.of("Orange", "Yellow", "Pink", "Green", "Purple", "Blue").sorted().collect(Collectors.toList());
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
     // Fields
@@ -73,7 +70,7 @@ class ItemController {
             return item.getUsedDescription();
 
         ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
-        // An item is need and it has not been used.
+        // An item is needed, and it has not been used.
         if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
             return item.getFailedUseDescription();
 
@@ -82,14 +79,8 @@ class ItemController {
             case SHIP:
                 useShip();
                 break;
-            case SCRAMBLER:
-                useScrambler(item);
-                break;
             case CONSOLE:
                 useConsole(item);
-                break;
-            case AIRLOCK:
-                useAirlock(item);
                 break;
 //            case COMPONENT:
 //            case TOOL:
@@ -104,7 +95,6 @@ class ItemController {
 
         return item.isUsed()? item.getUseDescription(): item.getFailedUseDescription();
     }
-
 
     private void useShip() {
         if (model.getOfficerZhang().getInventory().size() == 3) {
@@ -149,33 +139,10 @@ class ItemController {
         List<String> userResponse = checkBoxes.stream()
                 .filter(JCheckBox::isSelected)
                 .map(JCheckBox::getText)
+                .sorted()
                 .collect(Collectors.toList());
 
         item.setUsed(userResponse.equals(POSTER_COLORS));
-    }
-
-    public void useScrambler(ItemMod item) {
-        // Ensure console was turned on (used)
-        boolean powerIsOn = model.getRoomItems().values().stream()
-                .flatMap(Collection::stream)
-                .filter(i -> i.getName().equals(CONSOLE))
-                .findFirst()
-                .get()
-                .isUsed();
-
-        item.setUsed(powerIsOn);
-    }
-
-    private void useAirlock(ItemMod item) {
-        // Ensure console was turned on (used)
-        boolean scramblerWasUsed = model.getRoomItems().values().stream()
-                .flatMap(Collection::stream)
-                .filter(i -> i.getName().equals(SCRAMBLER))
-                .findFirst()
-                .get()
-                .isUsed();
-
-        item.setUsed(scramblerWasUsed);
     }
 
     /**
@@ -199,7 +166,7 @@ class ItemController {
      * @return String
      */
     public String useInventoryItem(ItemMod inventoryItem) {
-        String textDescription = "";
+        String textDescription;
 
         /*
          * If item has already been used, then return early itemUSEDDescription
@@ -209,12 +176,21 @@ class ItemController {
             return inventoryItem.getUsedDescription();
         }
 
+        // See if there is a required item.
+        ItemMod requiredItem = model.getRoomItems().values().stream()
+                .flatMap(Collection::stream)
+                .filter(i -> i.getName().equals(inventoryItem.getRequiredItem()))
+                .findFirst()
+                .orElse(null);
+
         // Check current location of the player
         String currentLocation = model.getPlayer().getCurrentRoom();
 
         // Check if item can be used
         if (!currentLocation.equals(inventoryItem.getUseLocation())) {
             textDescription = "You cannot use " + inventoryItem.getName() + " right now. It may have a use somewhere else.";
+        } else if (requiredItem != null && !requiredItem.isUsed()) {
+            textDescription = inventoryItem.getFailedUseDescription();
         } else {
             inventoryItem.setUsed(true);
             textDescription = inventoryItem.getUseDescription();
