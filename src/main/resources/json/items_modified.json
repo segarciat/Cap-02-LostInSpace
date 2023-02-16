@@ -5,7 +5,7 @@
     "description": "A MK39 Broad-Band SCRAMBLER",
     "lookDescription": "The MK39 high-band frequency scrambler/unscrambler. AKA 'The Garage Door Opener.' Makes quick work of electronically locked doors.",
     "used": false,
-    "useDescription": "RAWR RAWR YOU OPENED THE AIRLOCK ELECTRONICALLY AND SUCKED THE MONSNTER INTO SPACE !!! YOU DEFEATED THE MONSTER!! (NEED TO REVISE)",
+    "useDescription": "You smash the power button on the scrambler. The scrambler beeped twice, indicating it's ready to open an electronically locked item. You point your scrambler to the airlock and grip onto the desk in front of you so you don't get sucked out. The airlock sounded a loud CLICK CLICK CLICK and suddenly opened! The opening created a huge vacuum sucking out the monster...",
     "failedUseDescription": "You tried using the Mk39 Broad-Band SCRAMBLER, but it failed. You can only use it on electronically locked doors. Make sure the doors you are using it on are powered on.",
     "usedDescription": "The scrambler has no use to you anymore.",
     "image": "/images_items/scrambler.png",

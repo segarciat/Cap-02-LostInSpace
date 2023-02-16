@@ -87,12 +87,6 @@ class ItemController {
             case PIPES:
                 usePipes(item);
                 break;
-//            case COMPONENT:
-//            case TOOL:
-//            case MANUAL:
-//                model.getOfficerZhang().addItemToInventory(item);
-//                item.setUsed(true);
-//                break;
             default:
                 item.setUsed(true);
                 break;
@@ -203,6 +197,13 @@ class ItemController {
             textDescription = inventoryItem.getFailedUseDescription();
         } else {
             inventoryItem.setUsed(true);
+
+            // Add item to Officer inventory
+            if (inventoryItem.getName().equals("tool") || inventoryItem.getName().equals("component") || inventoryItem.getName().equals(
+                    "manual")) {
+                model.getOfficerZhang().addItemToInventory(inventoryItem);
+            }
+
             textDescription = inventoryItem.getUseDescription();
         }
 
