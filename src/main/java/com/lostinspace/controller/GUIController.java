@@ -48,14 +48,32 @@ public class GUIController {
 
     /**
      * Moves the player to a new room and alters their oxygen, according to isEasyMode.
-     * @param destination The new room that the player will be in.
+     * @param destinationName The new room that the player will be in.
+     * @return whether or not the player moved.
      */
-    public void movePlayer(String destination) {
+    public boolean movePlayer(String destinationName) {
         Player player = model.getPlayer();
-        if (!player.getCurrentRoom().equalsIgnoreCase(destination))
+
+        String currentRoomName = player.getCurrentRoom();
+
+        // See can move.
+        Room destinationRoom = model.getRooms().get(destinationName);
+        String requiredItemName = destinationRoom.getEntryItem();
+        ItemMod requiredItemOwnedByPlayer = model.returnItemFromInventory(requiredItemName);
+
+        /*
+         * Check if the entry item has been used
+         * If the item has not been used, then notify the player they cannot move to that location
+         * If the item has been used, the player can proceed
+         */
+        if (requiredItemName != null && (requiredItemOwnedByPlayer == null || !requiredItemOwnedByPlayer.isUsed())) {
+            destinationName = currentRoomName; // stay in this room.
+        } else {
             player.consumeOxygen(O_2_CONSUMED, isEasyMode);
-        player.setCurrentRoom(destination);
-        view.update();
+            player.setCurrentRoom(destinationName);
+        }
+
+        return !currentRoomName.equalsIgnoreCase(destinationName);
     }
 
     /**
