@@ -255,6 +255,7 @@
     "items": [
       "manual", "library", "pipes"
     ],
+    "entryItem": "scrambler",
     "image":"/images_room/cockpit.png",
     "tmx": "xml/cockpit.tmx"
   }

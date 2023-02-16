@@ -36,6 +36,9 @@ class ItemMouseAction implements MouseListener {
             setRoomAreaText(lookDescription);
 
         } else if (e.getButton() == MouseEvent.BUTTON3) {
+            if (item.getItemMethod() == null)
+                return;
+
             String textDescription = "";
 
             /*
