@@ -33,11 +33,11 @@ public class IntroPanel extends ImagePanel {
     private final Iterator<String> introPageIterator;
 
     private final JButton skipButton;
-    private final AppView app;
+    private final AppView view;
 
-    public IntroPanel(AppView app) {
-        super(BACKGROUND_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.app = app;
+    public IntroPanel(AppView view) {
+        super(BACKGROUND_IMAGE, view.getFrame().getWidth(), view.getFrame().getHeight());
+        this.view = view;
 
         // Create skip button
         skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 620, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -57,7 +57,7 @@ public class IntroPanel extends ImagePanel {
         this.add(skipButton);
         this.add(introTextArea);
 
-        app.getFrame().requestFocus();
+        view.getFrame().requestFocus();
     }
 
     /**
@@ -95,8 +95,8 @@ public class IntroPanel extends ImagePanel {
     public Iterator<String> introPagesIterator() {
         java.util.List<String> introPages = new ArrayList<>();
 
-        java.util.List<String> prologuePages = splitIntoPages(app.getController().getPrologue(), 13);
-        List<String> tutorialPages = splitIntoPages(app.getController().getTutorial(), 26);
+        java.util.List<String> prologuePages = splitIntoPages(view.getController().getPrologue(), 13);
+        List<String> tutorialPages = splitIntoPages(view.getController().getTutorial(), 26);
 
         introPages.addAll(prologuePages);
         introPages.addAll(tutorialPages);
@@ -105,7 +105,7 @@ public class IntroPanel extends ImagePanel {
     }
 
     public void allowPageSkipOnKeyPress() {
-        app.getFrame().addKeyListener(new FlipPageOnKeyPress());
+        view.getFrame().addKeyListener(new FlipPageOnKeyPress());
     }
 
     private class SkipIntroPage implements ActionListener {
@@ -114,8 +114,8 @@ public class IntroPanel extends ImagePanel {
             if (introPageIterator.hasNext()) {
                 introTextArea.setText(introPageIterator.next());
             } else {
-                app.setRoute(Route.GAME);
-                app.update();
+                view.setRoute(Route.GAME);
+                view.update();
             }
         }
     }
@@ -129,8 +129,8 @@ public class IntroPanel extends ImagePanel {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
                 skipButton.doClick();
 
-            if (!introPageIterator.hasNext() && Route.GAME.equals(app.getRoute())) {
-                app.getFrame().removeKeyListener(this);
+            if (!introPageIterator.hasNext() && Route.GAME.equals(view.getRoute())) {
+                view.getFrame().removeKeyListener(this);
             }
         }
 

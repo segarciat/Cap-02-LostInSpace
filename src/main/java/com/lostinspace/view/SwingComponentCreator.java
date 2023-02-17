@@ -97,17 +97,17 @@ public class SwingComponentCreator {
 
     /**
      * Create a restart and exit button for Help options area
-     * @param app text within the options
+     * @param view text within the options
      * @return button with text
      */
 
-    public static JButton createRestartButton(AppView app) {
+    public static JButton createRestartButton(AppView view) {
         JButton button = createButtonWithText("Restart");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GUIApp.main(null);
-                app.getFrame().dispose();
+                view.getFrame().dispose();
             }
         });
         return button;

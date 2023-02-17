@@ -1,14 +1,10 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.GUIApp;
 import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -25,8 +21,7 @@ public class RoomPanel extends ImagePanel {
     public static final int TEXTAREA_HEIGHT = 168;
 
     // other
-    public static final int ROOM_TRANSITION_DELAY = 1500;
-    public static final String ENVIRO_FIELD = "Enviro-Field";
+    public static final String GAME_OVER_ROOM = "Enviro-Field";
     public static final Color THEME_COLOR = new Color( 76, 175, 83);
     public static final Color WARNING_OXYGEN_COLOR = new Color(246, 190, 0);
 
@@ -37,13 +32,10 @@ public class RoomPanel extends ImagePanel {
     private final JProgressBar oxygenBar;
     private final JPanel directionButtonsPane;
 
-    private final Room room;
-
     public RoomPanel(AppView view, Room room, GUIController controller) {
         super(room.getImage(), view.getFrame().getWidth(), view.getFrame().getHeight());
 
         this.controller = controller;
-        this.room = room;
         this.oxygenBar = new JProgressBar();
         oxygenBar.setStringPainted(true);
         oxygenBar.setBounds(20, 75, 200, 25);
@@ -71,7 +63,7 @@ public class RoomPanel extends ImagePanel {
         // Create direction buttons and add to panel
         for (String exit: roomExits.keySet()) {
             // If the room is NOT the Enviro-Field
-            if  (!room.getName().equals(ENVIRO_FIELD)) {
+            if  (!room.getName().equals(GAME_OVER_ROOM)) {
                 JButton directionButton = SwingComponentCreator.createButtonWithText(String.format("Go %s", exit));
                 directionButton.addActionListener(new RoomExitAction(view, room, exit));
                 directionButtonsPane.add(directionButton);

@@ -36,12 +36,12 @@ public class TitlePanel extends ImagePanel {
     private final AppView app;
 
     // Constructor
-    public TitlePanel(AppView app) {
-        super(TITLE_SCREEN_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.app = app;
+    public TitlePanel(AppView view) {
+        super(TITLE_SCREEN_IMAGE, view.getFrame().getWidth(), view.getFrame().getHeight());
+        this.app = view;
 
         // Get frame from the AppGUI
-        JFrame frame = app.getFrame();
+        JFrame frame = view.getFrame();
 
         // Set the transition image after the player presses the "START" button
         startMenuTransitionImage = ImageLoader.loadImage(TITLE_SCREEN_IMAGE_FLY)

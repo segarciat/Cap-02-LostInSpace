@@ -1,24 +1,20 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.App;
-import com.lostinspace.app.GUIApp;
-
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class MenuPanel extends ImagePanel {
     public static final String BACKGROUND = "/images_title/background.jpg";
     public static final String HELP_DIALOG_TITLE = "instructions";
     public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
 
-    public MenuPanel(AppView app) {
-        super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
+    public MenuPanel(AppView view) {
+        super(BACKGROUND, view.getFrame().getWidth(), view.getFrame().getHeight());
 
-        this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
+        this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(new GridBagLayout());
 
         // buttons created for menu
@@ -32,22 +28,22 @@ public class MenuPanel extends ImagePanel {
 
         JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
 
-        JButton restartButton = SwingComponentCreator.createRestartButton(app);
+        JButton restartButton = SwingComponentCreator.createRestartButton(view);
 
 
         JPanel panel = this;
 
         // action Listener for objectives button
-        objectiveButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getObjectives(), OBJECTIVES_DIALOG_TITLE));
+        objectiveButton.addActionListener(new OpenDialogAction(view.getFrame(), view.getController().getObjectives(), OBJECTIVES_DIALOG_TITLE));
 
         // action listener for help button
-        helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
+        helpButton.addActionListener(new OpenDialogAction(view.getFrame(), view.getController().getInstructions(), HELP_DIALOG_TITLE));
 
         // action listener for easy mode  button
         easyModeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean isEasyMode = app.getController().toggleEasyMode();
+                boolean isEasyMode = view.getController().toggleEasyMode();
                 // declare a string variable for dialog message
                 String dialogText;
                 // using isEasyMode, assign correct message
@@ -58,7 +54,7 @@ public class MenuPanel extends ImagePanel {
                 }
 
                 // pass dialog message to show message dialog method
-                JOptionPane.showMessageDialog(app.getFrame(), dialogText);
+                JOptionPane.showMessageDialog(view.getFrame(), dialogText);
             }
         });
 
@@ -66,8 +62,8 @@ public class MenuPanel extends ImagePanel {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.setRoute(Route.GAME);
-                app.update();
+                view.setRoute(Route.GAME);
+                view.update();
             }
         });
 
