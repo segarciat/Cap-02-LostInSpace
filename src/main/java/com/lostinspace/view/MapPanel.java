@@ -11,9 +11,9 @@ class MapPanel extends ImagePanel {
     private static final int BUTTON_WIDTH = 250;
     private static final int BUTTON_HEIGHT = 40;
 
-    public MapPanel(AppView app) {
-        super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
+    public MapPanel(AppView view) {
+        super(BACKGROUND);
+        this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(null);
 
         JPanel panel = this;
@@ -23,8 +23,8 @@ class MapPanel extends ImagePanel {
         closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.setRoute(Route.GAME);
-                app.update();
+                view.setRoute(Route.GAME);
+                view.update();
             }
         });
 
