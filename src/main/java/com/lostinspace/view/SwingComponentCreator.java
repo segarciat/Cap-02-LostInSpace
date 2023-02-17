@@ -107,7 +107,7 @@ public class SwingComponentCreator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GUIApp.main(null);
-                view.getFrame().dispose();
+                view.close();
             }
         });
         return button;
