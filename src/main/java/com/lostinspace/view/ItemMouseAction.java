@@ -76,8 +76,16 @@ class ItemMouseAction implements MouseListener {
              */
             else if (item.getItemMethod().equals("interact")) {
                 textDescription = controller.interactItem(item);
-                if (item.isUsed() && item.getHiddenItem() != null)
-                    revealHiddenItem(item);
+
+                ItemMod requiredItemInInventory = controller.getModel().returnItemFromInventory(item.getRequiredItem());
+
+                if (item.getRequiredItem() == null) {
+                    if (item.isUsed() && item.getHiddenItem() != null)
+                        revealHiddenItem(item);
+                } else if (requiredItemInInventory != null) {
+                    if (requiredItemInInventory.isUsed() && item.getHiddenItem() != null)
+                        revealHiddenItem(item);
+                }
             }
 
             panel.updateView();
