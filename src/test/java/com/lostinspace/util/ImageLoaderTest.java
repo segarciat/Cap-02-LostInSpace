@@ -11,12 +11,12 @@ public class ImageLoaderTest {
 
     @Test(expected = RuntimeException.class)
     public void loadImage_shouldThrowRunTimeException_whenImageDoesNotExist() {
-        ImageLoader.loadImage("fake.png");
+        ImageLoader.loadImage("test_img/fake.png");
     }
 
     @Test
     public void loadImage_shouldSuccessfullyLoadImage_whenImageExists() {
-        String filename = "/images_items/airlock.png";
+        String filename = "test_img/airlock.png";
         try {
             Image image = ImageLoader.loadImage(filename);
             assertNotNull(image);
