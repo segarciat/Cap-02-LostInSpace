@@ -3,7 +3,9 @@ package com.lostinspace.view;
 import com.lostinspace.controller.GUIController;
 import com.lostinspace.model.Model;
 import com.lostinspace.model.Room;
+import com.lostinspace.util.SoundLoader;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,6 +18,7 @@ public class AppView {
 
     // titles
     private static final String GAME_TITLE = "Lost In Space";
+    public static final String GAME_BACKGROUND_MUSIC_FILE = "sound/space-chillout.wav";
 
     // java swing components
     private final JFrame frame;
@@ -31,6 +34,9 @@ public class AppView {
     private final GUIController controller;
     private final Model model;
     private RoomPanel currentRoomPanel;
+
+    // Music to play
+    Clip gameMusicClip;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
@@ -55,6 +61,8 @@ public class AppView {
         mapPanel = new MapPanel(this);
 
         frame.addKeyListener(new KeyToggleAction());
+        gameMusicClip = SoundLoader.loadMusic(GAME_BACKGROUND_MUSIC_FILE);
+        gameMusicClip.start();
     }
 
     /**
@@ -111,6 +119,7 @@ public class AppView {
     private void showMenu() {
         frame.setContentPane(menuPanel);
         frame.requestFocus();
+        gameMusicClip.stop();
     }
 
     private void showMap() {
@@ -147,6 +156,9 @@ public class AppView {
 
         frame.setContentPane(currentRoomPanel);
         frame.revalidate();
+
+        if (!gameMusicClip.isActive())
+            gameMusicClip.start();
     }
 
     /*
@@ -178,6 +190,10 @@ public class AppView {
     }
 
     public void setRoute(Route route) {
+        if (Route.PROLOGUE.equals(this.route) && Route.GAME.equals(route)) {
+            gameMusicClip.start();
+            gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
         this.route = route;
     }
 
