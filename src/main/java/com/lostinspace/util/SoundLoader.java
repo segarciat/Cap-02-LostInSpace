@@ -5,7 +5,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 
 public class SoundLoader {
-
     public static Clip loadMusic(String filename) {
         BufferedInputStream audioStream = new BufferedInputStream(SoundLoader.class.getClassLoader().getResourceAsStream(filename));
         try {

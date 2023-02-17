@@ -6,6 +6,7 @@ import com.lostinspace.model.Room;
 import com.lostinspace.util.SoundLoader;
 
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -36,7 +37,9 @@ public class AppView {
     private RoomPanel currentRoomPanel;
 
     // Music to play
-    Clip gameMusicClip;
+    private Clip gameMusicClip;
+    private FloatControl volumeControl;
+    private final double MUSIC_VOLUME_INCREMENTS;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
@@ -63,6 +66,8 @@ public class AppView {
         frame.addKeyListener(new KeyToggleAction());
         gameMusicClip = SoundLoader.loadMusic(GAME_BACKGROUND_MUSIC_FILE);
         gameMusicClip.start();
+        volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+        MUSIC_VOLUME_INCREMENTS = 0.05;
     }
 
     /**
@@ -245,6 +250,19 @@ public class AppView {
                     setRoute(Route.GAME);
                     update();
                 }
+            } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (gameMusicClip != null) {
+                    volumeControl.setValue(volumeControl.getValue() + (float) MUSIC_VOLUME_INCREMENTS);
+                    // volumeControl.setValue(dB);
+                }
+                // increase volume.
+            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                volumeControl.setValue(volumeControl.getValue() - (float) MUSIC_VOLUME_INCREMENTS);
+                // decrease volume.
+            } else if (e.getKeyCode() == KeyEvent.VK_LEFT && gameMusicClip.isActive()) {
+                gameMusicClip.stop();
+            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && !gameMusicClip.isActive()) {
+                gameMusicClip.start();
             }
 
         }
