@@ -17,6 +17,9 @@ public class OpenDialogAction implements ActionListener {
     private final JFrame frame;
     private final JTextArea textArea;
     private final String title;
+
+
+
     private final JButton closeButton;
     public JDialog d;
 
@@ -54,5 +57,33 @@ public class OpenDialogAction implements ActionListener {
         // Set Z-order to ensure the close button is at the top, so the button can be pressed
         imgPanel.setComponentZOrder(textArea, 1);
         imgPanel.setComponentZOrder(closeButton, 0);
+    }
+
+    // getters and setters for Unit testing (private on working code)
+    public JButton getCloseButton() {
+        return closeButton;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public JDialog getD() {
+        return d;
+    }
+
+    public void setD(JDialog d) {
+        this.d = d;
+    }
+    public static int getWindowSize(){
+        return WINDOW_SIZE;
     }
 }
