@@ -83,17 +83,16 @@ class ItemController {
             case PIPES:
                 usePipes(item);
                 break;
-            default:
-                item.setUsed(true);
-                break;
         }
 
         ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
         // An item is needed, and it has not been used
-        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
+        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed())) {
             return item.getFailedUseDescription();
-
-        return item.isUsed()? item.getUseDescription(): item.getFailedUseDescription();
+        } else {
+            item.setUsed(true);
+            return item.getUseDescription();
+        }
     }
 
     /**
