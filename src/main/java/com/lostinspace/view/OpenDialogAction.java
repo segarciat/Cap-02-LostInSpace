@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OpenDialogAction implements ActionListener {
-    private static final String BUTTON_CLOSE = "/images_title/close.png";
+    private static final String BUTTON_CLOSE = "images_title/close.png";
     private static final int BUTTON_WIDTH = 250;
     private static final int BUTTON_HEIGHT = 40;
 
     // window settings, font text, font color
     private static final int WINDOW_SIZE = 720;
-    public static final String DIALOG_BACKGROUND = "/images_title/background.jpg";
+    public static final String DIALOG_BACKGROUND = "images_title/background.jpg";
 
     // fields for the frame, text area, title, and buttons
     private final JFrame frame;

@@ -13,16 +13,16 @@ import java.util.Objects;
 // Creates the title JPanel for the starting panel of the game
 public class TitlePanel extends ImagePanel {
     // Background image paths
-    private static final String TITLE_SCREEN_IMAGE = "/images_title/title.gif";
-    private static final String TITLE_SCREEN_IMAGE_FLY = "/images_title/title_fly.gif";
+    private static final String TITLE_SCREEN_IMAGE = "images_title/title.gif";
+    private static final String TITLE_SCREEN_IMAGE_FLY = "images_title/title_fly.gif";
 
     // Button width and height
     private static final int BUTTON_WIDTH = 250;
     private static final int BUTTON_HEIGHT = 40;
 
     // Button image path
-    private static final String BUTTON_START = "/images_title/start.png";
-    private static final String BUTTON_EXIT = "/images_title/exit.png";
+    private static final String BUTTON_START = "images_title/start.png";
+    private static final String BUTTON_EXIT = "images_title/exit.png";
 
     // Transition delay time for transitioning
     public static final int TRANSITION_DELAY = 2050;

@@ -14,8 +14,8 @@ import java.util.List;
  * View that shows the introductory portion of the game in the frame, including prologue and instructions.
  */
 public class IntroPanel extends ImagePanel {
-    private static final String BACKGROUND_IMAGE = "/images_title/background.jpg";
-    private static final String BUTTON_SKIP = "/images_title/skip.png";
+    private static final String BACKGROUND_IMAGE = "images_title/background.jpg";
+    private static final String BUTTON_SKIP = "images_title/skip.png";
 
     private static final int WINDOW_SIZE = 720;
 

@@ -8,7 +8,7 @@
     "exit_descriptions": {
       "Docking Bay": null
     },
-    "image":"/images_room/enviro_field.png",
+    "image":"images_room/enviro_field.png",
     "items": [],
     "tmx": "xml/sketchy_room.tmx"
   },
@@ -26,7 +26,7 @@
     "items": [
       "scrambler", "ship"
     ],
-    "image":"/images_room/docking_bay.png",
+    "image":"images_room/docking_bay.png",
     "tmx": "xml/docking_bay.tmx"
   },
   {
@@ -45,7 +45,7 @@
     "items": [
       "pipes"
     ],
-    "image":"/images_room/junction_hallway_1.png",
+    "image":"images_room/junction_hallway_1.png",
     "tmx": "xml/junction_hallway_1.tmx"
   },
   {
@@ -62,7 +62,7 @@
     "items": [
       "tool", "cabinet"
     ],
-    "image":"/images_room/cargo_hold.png",
+    "image":"images_room/cargo_hold.png",
     "tmx": "xml/cargo_hold.tmx"
   },
   {
@@ -78,7 +78,7 @@
       "Reactor Room": "To the South, you spot the door to the Reactor Room.",
       "Power Supplies": "To the East, a door marked \"Power Supplies\" hums with the sound of machinery."
     },
-    "image":"/images_room/reactor_hallway.png",
+    "image":"images_room/reactor_hallway.png",
     "tmx": "xml/reactor_hallway.tmx"
   },
   {
@@ -95,7 +95,7 @@
     "items": [
       "console"
     ],
-    "image":"/images_room/reactor_room.png",
+    "image":"images_room/reactor_room.png",
     "tmx": "xml/reactor_room.tmx"
   },
   {
@@ -112,7 +112,7 @@
     "items": [
       "pipes"
     ],
-    "image":"/images_room/engine_hallway_room.png",
+    "image":"images_room/engine_hallway_room.png",
     "tmx": "xml/engine_hallway_room.tmx"
   },
   {
@@ -129,7 +129,7 @@
     "items": [
       "component", "rack"
     ],
-    "image":"/images_room/engine_room.png",
+    "image":"images_room/engine_room.png",
     "tmx": "xml/engine_room.tmx"
   },
   {
@@ -146,7 +146,7 @@
     "items": [
       "poster"
     ],
-    "image":"/images_room/power_supplies.png",
+    "image":"images_room/power_supplies.png",
     "tmx": "xml/power_supplies.tmx"
   },
   {
@@ -162,7 +162,7 @@
       "Command Deck Hallway": "To the North, you see the doors to the Command Deck.",
       "Junction Hallway 1": "To the South, you see the door returning to Junction Hallway 1."
     },
-    "image":"/images_room/junction_hallway_2.png",
+    "image":"images_room/junction_hallway_2.png",
     "tmx": "xml/junction_hallway_2.tmx"
   },
   {
@@ -174,7 +174,7 @@
     "exit_descriptions": {
       "Junction Hallway 2": "To the East, you see the door returning to the hallway, it appears as if something has been pounding on it to get out... As if in answer to your question, you notice the largest cage empty with its bars twisted violently outward."
     },
-    "image":"/images_room/sketchy_room.png",
+    "image":"images_room/sketchy_room.png",
     "tmx": "xml/sketchy_room.tmx"
   },
   {
@@ -192,7 +192,7 @@
       "MedBay": "To the East, you see the door to the MedBay.",
       "Junction Hallway 2": "To the South, you see the door returning to the hallway."
     },
-    "image":"/images_room/command_hallway.png",
+    "image":"images_room/command_hallway.png",
     "tmx": "xml/command_hallway.tmx"
   },
   {
@@ -207,7 +207,7 @@
     "items": [
       "key", "locker"
     ],
-    "image":"/images_room/crew_quarters.png",
+    "image":"images_room/crew_quarters.png",
     "tmx": "xml/crew_quarters.tmx"
   },
   {
@@ -222,7 +222,7 @@
     "items": [
       "cooler", "corpse", "keycard"
     ],
-    "image":"/images_room/medbay.png",
+    "image":"images_room/medbay.png",
     "tmx": "xml/medbay.tmx"
   },
   {
@@ -241,7 +241,7 @@
       "monster"
     ],
     "entryItem": "keycard",
-    "image":"/images_room/bridge.png",
+    "image":"images_room/bridge.png",
     "tmx": "xml/bridge.tmx"
   },
   {
@@ -257,7 +257,7 @@
       "manual", "library", "pipes"
     ],
     "entryItem": "scrambler",
-    "image":"/images_room/cockpit.png",
+    "image":"images_room/cockpit.png",
     "tmx": "xml/cockpit.tmx"
   }
 ]
