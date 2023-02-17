@@ -32,7 +32,6 @@ public class GUIController {
         this.itemController = new ItemController(model, view);
 
         // Call set up method
-        setUp();
 
         // Cheat mode for satisfying winning condition
 //        cheatMode();
