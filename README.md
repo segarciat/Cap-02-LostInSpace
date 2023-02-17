@@ -1,5 +1,5 @@
 
-#Lost In Space
+# Lost In Space
 
 A story turned console game originally developed by Michael Green, 
 Scott Carpenter, and Hitesh Ahir. The GUI version was created by Sergio Garcia,
