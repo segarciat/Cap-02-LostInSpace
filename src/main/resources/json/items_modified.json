@@ -8,7 +8,7 @@
     "useDescription": "You smash the power button on the scrambler. The scrambler beeped twice, indicating it's ready to open an electronically locked item. You point your scrambler to the airlock and grip onto the desk in front of you so you don't get sucked out. The airlock sounded a loud CLICK CLICK CLICK and suddenly opened! The opening created a huge vacuum sucking out the monster...",
     "failedUseDescription": "You tried using the Mk39 Broad-Band SCRAMBLER, but it failed. You can only use it on electronically locked doors. Make sure the doors you are using it on are powered on.",
     "usedDescription": "The scrambler has no use to you anymore.",
-    "image": "/images_items/scrambler.png",
+    "image": "images_items/scrambler.png",
     "itemMethod": "get",
     "requiredItem": "console",
     "useLocation": "Bridge"
@@ -27,7 +27,7 @@
     "failedUseDescription": "It seems like the cabinet is locked... you'll need a key to get in.",
     "usedDescription": "The cabinet door hangs open. There isn't anything else of use inside.",
     "requiredItem": "key",
-    "image": "/images_items/cabinet.png",
+    "image": "images_items/cabinet.png",
     "itemMethod": "interact",
     "hiddenItem": "tool"
   },
@@ -44,7 +44,7 @@
     "useDescription": "You use the Reactor CONSOLE. The ship hummed with a loud thunder and the lights of the ship flickered on.",
     "failedUseDescription": "It seems like you weren't able to complete the puzzle. The ship remains powered off.",
     "usedDescription": "You already powered on the ship. Good job!",
-    "image": "/images_items/console.png",
+    "image": "images_items/console.png",
     "itemMethod": "interact"
   },
   {
@@ -57,7 +57,7 @@
     "used": false,
     "useDescription": "You remove the input hose from your envirosuit and reattach it to the valve. After a brief vibration you recover some oxygen leftover in the local piping. After a moment, you begin to tell that it would take more oxygen bleeding the lines than you would get back at this point. It seems like the pipes are EMPTY now.",
     "usedDescription": "You've siphoned off what you could from here, already. No more oxygen is available.",
-    "image": "/images_items/pipes.png",
+    "image": "images_items/pipes.png",
     "itemMethod": "interact"
   },
   {
@@ -73,7 +73,7 @@
     "useDescription": "The engine shakes for a few moments before firing up with a load roar, blasting hot air through the thrusts. You and your remaining crew members hopped on board to quickly leave before anymore trouble arises. You look out the window, watching as the freighter ship becomes smaller and smaller.",
     "usedDescription": "",
     "failedUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head. \"I need to finish my REPAIRS, remember?\"\n\nA flight officer can dream, can't they...?",
-    "image": "/images_items/ship.png",
+    "image": "images_items/ship.png",
     "itemMethod": "interact"
   },
   {
@@ -86,7 +86,7 @@
     "used": false,
     "useDescription": "You dig through the greasy, dirty parts. After untangling a nest of wires and mounting brackets, you manage to free the power coupler from the mess. This should work as the Engine COMPONENT Zhang requested!",
     "usedDescription": "The evidence teams are going to be here for weeks, but you have everything you need from here for now.",
-    "image": "/images_items/rack.png",
+    "image": "images_items/rack.png",
     "itemMethod": "interact",
     "hiddenItem": "component"
   },
@@ -103,7 +103,7 @@
     "used": false,
     "useDescription": "You kneel down to the POSTER and take a look.",
     "usedDescription": "You again examine the UPSIDE DOWN layout (from the top):\nSector 6(Orange): Engine Room, Sector 5(Yellow): Reactor, Sector 4(Pink): Cargo, Sector 3(Green): Crew Quarters, Sector 2(Purple): Docking, Sector 1(Blue): Command",
-    "image": "/images_items/poster.png",
+    "image": "images_items/poster.png",
     "itemMethod": "interact"
   },
   {
@@ -116,7 +116,7 @@
     "used": false,
     "useDescription": "You open the LOCKER. Its door swings wide with a rusty squeak. You root around through the hanging clothing and personal effects until a folder paper falls to the floor. You read it:\n\"Carlos,I know you think Smitty has been stealing your socket heads from your TOOL CABINET, but this is paranoid even for you. Don't tell him I'm the one who changed the lock! - Suzanne\"\nA KEY clatters to the floor from the folded paper.",
     "usedDescription": "Nothing else of use is inside.",
-    "image": "/images_items/locker.png",
+    "image": "images_items/locker.png",
     "itemMethod": "interact",
     "hiddenItem": "key"
   },
@@ -132,7 +132,7 @@
     "used": false,
     "useDescription": "You wrench open the jammed door to the Mortuary COOLER. After a few pulls, you quickly slide a stretcher free from the unit. Even through the enviro-filters, the smell punches you in the face. You turn your head and empty the contents of your stomach into your waste pouch. Without proper power, the CORPSE has more or less become a bloated sack slowly deflating. You see it still wears a uniformed flight suit.",
     "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER.\nThe smell is too much for you to push him back inside.\nYou feel guilty, from one Captain to another you apologize to the dead man.",
-    "image": "/images_items/cooler.png",
+    "image": "images_items/cooler.png",
     "itemMethod": "interact",
     "hiddenItem": "corpse"
   },
@@ -142,7 +142,7 @@
     "description": "A sealed AIRLOCK door",
     "lookDescription": "The AIRLOCK used for boarding parties to/from the Bridge. Its thick reinforced doors remain tightly sealed. It seems like the doors are shut remotely.",
     "used": false,
-    "image": "/images_items/airlock.png"
+    "image": "images_items/airlock.png"
   },
   {
     "name": "library",
@@ -155,7 +155,7 @@
     "used": false,
     "useDescription": "You open the LIBRARY. Flipping through an index, you notice the MANUAL for the Engine COMPONENT that Zhang requested!",
     "usedDescription": "You only need the MANUAL for your Engine COMPONENT. You can leave the rest here.",
-    "image": "/images_items/library.png",
+    "image": "images_items/library.png",
     "itemMethod": "interact",
     "hiddenItem": "manual"
   },
@@ -168,7 +168,7 @@
     "useDescription": "You attempt to use the KEY... the cabinet unlocked!",
     "usedDescription": "It looks like it doesn't unlock anything else.",
     "isHidden": true,
-    "image": "/images_items/key.png",
+    "image": "images_items/key.png",
     "itemMethod": "get",
     "useLocation": "Cargo Hold"
   },
@@ -181,7 +181,7 @@
     "useDescription": "You attempt to use the KEYCARD... the bridge doors light up. You're able to walk through now.",
     "usedDescription": "It looks like it doesn't unlock anything else.",
     "isHidden": true,
-    "image": "/images_items/keycard.png",
+    "image": "images_items/keycard.png",
     "itemMethod": "get",
     "useLocation": "Command Deck Hallway"
   },
@@ -199,7 +199,7 @@
     "useDescription": "You attend to the CORPSE. You gag from the smell several times as you look over the body. Cause of death: blaster shot to the back. You say a few words silently on their behalf. Peeking inside the Captain's flight suit, you see a KEYCARD poking out from a inside pocket.",
     "usedDescription": "The Dead Captain's CORPSE lies bloated on the stretcher you pulled from the COOLER. The smell is too much for you to push him back inside. You feel guilty, from one Captain to another you apologize to the dead man.",
     "isHidden": true,
-    "image": "/images_items/corpse.png",
+    "image": "images_items/corpse.png",
     "itemMethod": "interact",
     "hiddenItem": "keycard"
   },
@@ -215,7 +215,7 @@
     "useDescription": "You hand the greasy Engine COMPONENT to Zhang. \"Excellent work, Captain! How in system did you find a Praetorian-class power coupler in this wreck?\"\n\"I'll debrief you later.\"\n\"Aye, sir.\", Zhang responds, disappointed.",
     "usedDescription": "You've given the COMPONENT to the Chief already.",
     "isHidden": true,
-    "image": "/images_items/component.png",
+    "image": "images_items/component.png",
     "itemMethod": "get",
     "useLocation": "Docking Bay"
   },
@@ -231,7 +231,7 @@
     "useDescription": "The HyperThermal Torch TOOL makes a loud 'clunk' as you set it in front of your CWO2. \"Perfect, sir! a welding TOOL of this caliber will mend most super-materials that comprise the Spartan.\"\n\"I'll leave it to you, then.\"\nZhang issues a dutiful salute and returns to work.",
     "usedDescription": "You've given the TOOL to the Chief already.",
     "isHidden": true,
-    "image": "/images_items/tool.png",
+    "image": "images_items/tool.png",
     "itemMethod": "get",
     "useLocation": "Docking Bay"
   },
@@ -246,7 +246,7 @@
     "useDescription": "You pull the MANUAL from you field bag and hand it to the Chief. He flips through a few pages. \"Wow, with illustrations! I believe this should outline the entire procedure, sir. I'll have us void-borne in no time!\" Zhang beams with pride.",
     "usedDescription": "You've given the MANUAL to the Chief already.",
     "isHidden": true,
-    "image": "/images_items/manual.png",
+    "image": "images_items/manual.png",
     "itemMethod": "get",
     "useLocation": "Docking Bay"
   },
@@ -257,6 +257,6 @@
     ],
     "description": "A humongous purple dinosaur-like beast with a mind-controller headset",
     "lookDescription": "The beast growled with a low voice and snarled. It was defending the room to the cockpit... how should I get past it?",
-    "image": "/images_items/monster.png"
+    "image": "images_items/monster.png"
   }
 ]

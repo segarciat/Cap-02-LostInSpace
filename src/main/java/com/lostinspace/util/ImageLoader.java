@@ -19,7 +19,7 @@ public class ImageLoader {
      * @return An Image object created from the filename.
      */
     public static Image loadImage(String filename) {
-        try(InputStream inputStream = ImageLoader.class.getResourceAsStream(filename)) {
+        try(InputStream inputStream = ImageLoader.class.getClassLoader().getResourceAsStream(filename)) {
             if (filename.matches(GIF_REGEX)) {
                 byte[] imageBytes = inputStream.readAllBytes();
                 return Toolkit.getDefaultToolkit().createImage(imageBytes);

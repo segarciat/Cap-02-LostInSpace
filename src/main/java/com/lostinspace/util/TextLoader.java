@@ -21,7 +21,7 @@ public class TextLoader {
      */
     public static String loadText(String filename) {
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(Objects.requireNonNull(ConsoleApp.class.getClassLoader().getResourceAsStream(filename))))
+                new InputStreamReader(TextLoader.class.getClassLoader().getResourceAsStream(filename)))
         ) {
 
             String separator = System.lineSeparator();
