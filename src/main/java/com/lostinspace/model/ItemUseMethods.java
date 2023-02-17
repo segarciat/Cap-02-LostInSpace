@@ -1,7 +1,6 @@
 package com.lostinspace.model;
 
-import com.lostinspace.app.App;
-import com.lostinspace.controller.Controller;
+import com.lostinspace.controller.ConsoleController;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -14,14 +13,14 @@ public class ItemUseMethods {
     public static final double OXYGEN_REFILL = 25.5; // how much oxygen is restored to player
     boolean easyMode = false;   // used to define difficulty settings
 
-    private final Controller controller;
+    private final ConsoleController consoleController;
 
-    public ItemUseMethods(Controller controller) {
-        this.controller = controller;
+    public ItemUseMethods(ConsoleController consoleController) {
+        this.consoleController = consoleController;
     }
 
-    public Controller getController() {
-        return controller;
+    public ConsoleController getController() {
+        return consoleController;
     }
 
     // LIST OF METHODS ATTACHED TO THE USE OF GAME ITEMS

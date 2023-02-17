@@ -6,5 +6,6 @@ public enum Route {
     PROLOGUE,
     GAME,
     MENU,
-    MAP
+    MAP,
+    WIN
 }

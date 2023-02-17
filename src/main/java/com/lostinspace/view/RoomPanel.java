@@ -24,6 +24,7 @@ public class RoomPanel extends ImagePanel {
     public static final String GAME_OVER_ROOM = "Enviro-Field";
     public static final Color THEME_COLOR = new Color( 76, 175, 83);
     public static final Color WARNING_OXYGEN_COLOR = new Color(246, 190, 0);
+    private final int INVENTORY_SIZE = 48;
 
     // The text being shown in the room.
     private final JTextArea roomTextArea;
@@ -88,7 +89,8 @@ public class RoomPanel extends ImagePanel {
         for (ItemMod item: itemMods) {
             if (item.getImage() != null && !item.isHidden()) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
-                button.addMouseListener(new ItemMouseAction(controller, item, this, button));
+                button.addMouseListener(new ItemMouseAction(view, controller, item, this, button));
+                button.setName(item.getName());
                 this.add(button);
             }
         }
@@ -105,6 +107,27 @@ public class RoomPanel extends ImagePanel {
 
     public JPanel getDirectionButtonsPane() {
         return directionButtonsPane;
+    }
+
+    /**
+     * Removes a single item from the room with the given name.
+     * @param itemName The name of the item to remove.
+     */
+    public void removeItemFromRoom(String itemName) {
+        for (Component component: getComponents()) {
+            if (component.getName() != null && component.getName().equals(itemName)) {
+                this.remove(component);
+                break;
+            }
+        }
+        repaintPanel();
+    }
+
+
+    // If any item buttons are added or removed, revalidate panel
+    public void repaintPanel() {
+        this.revalidate();
+        this.repaint();
     }
 
     /*
@@ -127,12 +150,12 @@ public class RoomPanel extends ImagePanel {
      */
     private void createInventoryItem(ItemMod item, int index) {
         // Place the image of the item depending on number of items in the inventory and index
-        Rectangle item1Area = new Rectangle(40, 35, 48, 48);
-        Rectangle item2Area = new Rectangle(132, 35, 48, 48);
-        Rectangle item3Area = new Rectangle(40, 95, 48, 48);
-        Rectangle item4Area = new Rectangle(132, 95, 48, 48);
-        Rectangle item5Area = new Rectangle(40, 155, 48, 48);
-        Rectangle item6Area = new Rectangle(132, 155, 48, 48);
+        Rectangle item1Area = new Rectangle(40, 35, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item2Area = new Rectangle(132, 35, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item3Area = new Rectangle(40, 95, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item4Area = new Rectangle(132, 95, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item5Area = new Rectangle(40, 155, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item6Area = new Rectangle(132, 155, INVENTORY_SIZE, INVENTORY_SIZE);
 
         Rectangle itemArea = new Rectangle();
 
