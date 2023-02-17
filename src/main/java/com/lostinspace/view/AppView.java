@@ -38,8 +38,7 @@ public class AppView {
 
     // Music to play
     private Clip gameMusicClip;
-    private FloatControl volumeControl;
-    private final double MUSIC_VOLUME_INCREMENTS;
+    private int currentVolume = 10;
 
     // other
     private Route route = Route.TITLE;               // routing section of story
@@ -66,8 +65,6 @@ public class AppView {
         frame.addKeyListener(new KeyToggleAction());
         gameMusicClip = SoundLoader.loadMusic(GAME_BACKGROUND_MUSIC_FILE);
         gameMusicClip.start();
-        volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
-        MUSIC_VOLUME_INCREMENTS = 0.05;
     }
 
     /**
@@ -251,14 +248,17 @@ public class AppView {
                     update();
                 }
             } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                // Increase volume
                 if (gameMusicClip != null) {
-                    volumeControl.setValue(volumeControl.getValue() + (float) MUSIC_VOLUME_INCREMENTS);
-                    // volumeControl.setValue(dB);
+                    if (!(currentVolume++ > 20)) {
+                        setVolume(currentVolume++);
+                    }
                 }
-                // increase volume.
             } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                volumeControl.setValue(volumeControl.getValue() - (float) MUSIC_VOLUME_INCREMENTS);
-                // decrease volume.
+                // Decrease volume
+                if (!(currentVolume-- < 1)) {
+                    setVolume(currentVolume--);
+                }
             } else if (e.getKeyCode() == KeyEvent.VK_LEFT && gameMusicClip.isActive()) {
                 gameMusicClip.stop();
             } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && !gameMusicClip.isActive()) {
@@ -270,6 +270,17 @@ public class AppView {
         @Override
         public void keyReleased(KeyEvent e) {
 
+        }
+    }
+
+    private void setVolume(int volume) {
+        // the actual range is -80.0 to 6.0206 dB. this conversion allows for a range of 1-20 and is adjusted
+        float dB = ((float) volume / 20 * 46) - 40;
+        if (gameMusicClip != null) {
+            FloatControl volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+            if (volumeControl != null) {
+                volumeControl.setValue(dB);
+            }
         }
     }
 }

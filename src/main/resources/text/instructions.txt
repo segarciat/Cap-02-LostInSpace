@@ -1,20 +1,25 @@
 COMMANDS
-Moving Between Rooms: Use your mouse to <left-click> on the desired direction button
-
-Looking at Items: Use your mouse to <left-click> on highlighted items, you will receive a description of the item
-
-Using Items: Use your mouse to <right-click> on the highlighted items, you will receive a use description of the item
-
-Opening the Options Menu: Press the "ESC" key to open the options menu
-
-Opening the Map: Press the "M" key to open the map of the game
-
+    * Moving Between Rooms: Use your mouse to <left-click> on the
+      desired direction button
+    * Looking at Items: Use your mouse to <left-click> on highlighted
+      items, you will receive a description of the item
+    * Using Items: Use your mouse to <right-click> on the highlighted
+      items, you will receive a use description of the item
+    * Opening the Options Menu: Press the "ESC" key to open the
+      options menu
+    * Opening the Map: Press the "M" key to open the map of the game
 
 OPTIONS MENU
-Objectives: Check the winning conditions of the game
+    * Objectives: Check the winning conditions of the game
+    * Easy Mode: Too hard? Set game to easy mode to never use oxygen
+      while moving to different rooms. Click on the "Easy Mode"
+      button to activate/deactivate the feature
+    * Restart: Restarts the current game
+    * Exit: Quits the current game
 
-Easy Mode: Too hard? Set game to easy mode to never use oxygen while moving to different rooms. Click on the "Easy Mode" button to activate/deactivate the feature
-
-Restart: Restarts the current game
-
-Exit: Quits the current game
+MUSIC
+You can control the music by pressing these keys...
+    * "UP" Arrow: Increases volume
+    * "DOWN" Arrow: Decreases volume
+    * "LEFT" Arrow: Pause music
+    * "RIGHT" Arrow: Play music
