@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.util.ImageLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -15,9 +17,8 @@ import java.util.Objects;
 public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
-    public ImagePanel(String filename, int width, int height) {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(filename)))
-                .getImage();
+    public ImagePanel(String filename) {
+        backgroundImage = ImageLoader.loadImage(filename);
     }
 
     @Override

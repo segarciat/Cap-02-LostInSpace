@@ -1,6 +1,7 @@
 package com.lostinspace.view;
 
 import com.lostinspace.app.GUIApp;
+import com.lostinspace.util.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,7 @@ public class SwingComponentCreator {
      * @return JButton
      */
     public static JButton createButtonWithImage(String imageURL, int x, int y, int w, int h) {
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(AppView.class.getResource(imageURL)));
+        ImageIcon imageIcon = new ImageIcon(ImageLoader.loadImage(imageURL));
         JButton button = new JButton(imageIcon);                           // add image to button
         button.setFocusable(false);
 
@@ -96,17 +97,17 @@ public class SwingComponentCreator {
 
     /**
      * Create a restart and exit button for Help options area
-     * @param app text within the options
+     * @param view text within the options
      * @return button with text
      */
 
-    public static JButton createRestartButton(AppView app) {
+    public static JButton createRestartButton(AppView view) {
         JButton button = createButtonWithText("Restart");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GUIApp.main(null);
-                app.getFrame().dispose();
+                view.getFrame().dispose();
             }
         });
         return button;
