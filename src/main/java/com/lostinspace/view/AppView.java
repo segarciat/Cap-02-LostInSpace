@@ -20,6 +20,7 @@ public class AppView {
     // titles
     private static final String GAME_TITLE = "Lost In Space";
     public static final String GAME_BACKGROUND_MUSIC_FILE = "sound/space-chillout.wav";
+    public static final String WIN_MUSIC = "sound/win.wav";
 
     // java swing components
     private final JFrame frame;
@@ -174,6 +175,10 @@ public class AppView {
         winPanel = new WinPanel(this);
         frame.setContentPane(winPanel);
         frame.requestFocus();
+        gameMusicClip = SoundLoader.loadMusic(WIN_MUSIC);
+        gameMusicClip.start();
+        gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
     }
 
     /*
