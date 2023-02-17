@@ -45,7 +45,7 @@ public class JSONLoader {
      * @return An object loaded from JSON of type 'type' (T).
      */
     private static <T> T loadFromJson(String jsonFile, Type type) {
-        try (Reader reader = new InputStreamReader(Objects.requireNonNull(ConsoleApp.class.getClassLoader().getResourceAsStream(jsonFile)))) {
+        try (Reader reader = new InputStreamReader(JSONLoader.class.getClassLoader().getResourceAsStream(jsonFile))) {
             Gson gson = new Gson();
             return gson.fromJson(reader, type);
         } catch (IOException e) {

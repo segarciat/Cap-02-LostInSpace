@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class MapPanel extends ImagePanel {
-    private static final String BACKGROUND = "/images_title/map.png";
-    private static final String BUTTON_CLOSE = "/images_title/close.png";
+    private static final String BACKGROUND = "images_title/map.png";
+    private static final String BUTTON_CLOSE = "images_title/close.png";
     private static final int BUTTON_WIDTH = 250;
     private static final int BUTTON_HEIGHT = 40;
 
