@@ -1,7 +1,6 @@
 package com.lostinspace.util;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +10,8 @@ import java.io.InputStream;
  */
 public class ImageLoader {
 
+    public static final String GIF_REGEX = "(?i)(.*\\.gif)";
+
     /**
      * Loads an image from the resources given by the filename.
      *
@@ -18,13 +19,15 @@ public class ImageLoader {
      * @return An Image object created from the filename.
      */
     public static Image loadImage(String filename) {
-        /*
         try(InputStream inputStream = ImageLoader.class.getResourceAsStream(filename)) {
-            return new ImageIcon(ImageIO.read(inputStream)).getImage();
+            if (filename.matches(GIF_REGEX)) {
+                byte[] imageBytes = inputStream.readAllBytes();
+                return Toolkit.getDefaultToolkit().createImage(imageBytes);
+            } else {
+                return ImageIO.read(inputStream);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-         */
-        return new ImageIcon(ImageLoader.class.getResource(filename)).getImage();
     }
 }
