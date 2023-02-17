@@ -68,6 +68,11 @@ public class AppView {
         gameMusicClip.start();
     }
 
+    public void close() {
+        frame.dispose();
+        gameMusicClip.close();
+    }
+
     /**
      * For Mac user's, the look and feel will match windows format
      */
@@ -122,7 +127,7 @@ public class AppView {
     private void showMenu() {
         frame.setContentPane(menuPanel);
         frame.requestFocus();
-        gameMusicClip.stop();
+
     }
 
     private void showMap() {
@@ -159,9 +164,6 @@ public class AppView {
 
         frame.setContentPane(currentRoomPanel);
         frame.revalidate();
-
-        if (!gameMusicClip.isActive())
-            gameMusicClip.start();
     }
 
     /*
@@ -235,11 +237,12 @@ public class AppView {
                 if (Route.GAME.equals(route)) {
                     setRoute(Route.MENU);
                     update();
-
+                     gameMusicClip.stop();
                 } else if (Route.MENU.equals(route)) {
                     // if the route is menu, it should hide the menu
                     setRoute(Route.GAME);
                     update();
+                    gameMusicClip.start();
                 }
 
             } else if (e.getKeyCode() == KeyEvent.VK_M) {

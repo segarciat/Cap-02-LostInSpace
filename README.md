@@ -1,4 +1,4 @@
-# Maven project template
+
 #Lost In Space
 
 A story turned console game originally developed by Michael Green, 
@@ -10,10 +10,14 @@ ship. The objective is to repair the spartan ship and safely return to your
 designated mission. 
 
 
-Game idea credits:
+# Attributions:
 
-Psychronic:
-https://psychronic.itch.io/galacti-chrons-sci-fi-warehouse-tileset
+- Psychronic: We used their [galactic chrons scifi tileset](https://psychronic.itch.io/galacti-chrons-sci-fi-warehouse-tileset) for most of the game art.
 
-Flaming Teddy Productions:
-https://www.deviantart.com/hydrasis/art/Hospital-part-1-452991936
+- Flaming Teddy Productions: We used their [hospital tileset](https://www.deviantart.com/hydrasis/art/Hospital-part-1-452991936) in the Medbay room.
+
+- penguinmusic: We used their [Space Chillout](https://pixabay.com/users/penguinmusic-24940186/) soundtrack for the game.
+
+- GeoffreyBurch: We used their [Resonant Victory - GLBML](https://pixabay.com/users/geoffreyburch-5739114/) soundtrack for the winning screen.
+
+If you notice any content that was not correctly attributed or not attributed at all, please let us know!
