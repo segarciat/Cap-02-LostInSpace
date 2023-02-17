@@ -1,6 +1,6 @@
 package com.lostinspace.util;
 
-import com.lostinspace.app.App;
+import com.lostinspace.app.ConsoleApp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class TextLoader {
      */
     public static String loadText(String filename) {
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(Objects.requireNonNull(App.class.getClassLoader().getResourceAsStream(filename))))
+                new InputStreamReader(Objects.requireNonNull(ConsoleApp.class.getClassLoader().getResourceAsStream(filename))))
         ) {
 
             String separator = System.lineSeparator();
