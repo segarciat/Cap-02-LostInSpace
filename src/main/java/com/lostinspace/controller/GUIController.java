@@ -35,7 +35,7 @@ public class GUIController {
         setUp();
 
         // Cheat mode for satisfying winning condition
-        cheatMode();
+//        cheatMode();
     }
 
     // Set up initial parameters for the game
@@ -47,8 +47,6 @@ public class GUIController {
     }
 
     private void cheatMode() {
-        List<ItemMod> inventory = model.getOfficerZhang().getInventory();
-
         String[] keyItems = new String[] {"component", "tool", "manual"};
 
         for (String item : keyItems) {
@@ -200,5 +198,9 @@ public class GUIController {
 
     public Model getModel() {
         return model;
+    }
+
+    public ItemController getItemController() {
+        return itemController;
     }
 }
