@@ -175,7 +175,7 @@ public class AppView {
         gameMusicClip = SoundLoader.loadMusic(WIN_MUSIC);
         gameMusicClip.start();
         gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
-        volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+        setVolume(currentVolume);
     }
 
     /*
