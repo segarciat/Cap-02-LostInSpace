@@ -7,7 +7,7 @@ package com.lostinspace.controller;
  * Handles loading game map into memory.
  */
 
-import com.lostinspace.app.App;
+import com.lostinspace.app.ConsoleApp;
 import com.lostinspace.model.*;
 import com.lostinspace.util.*;
 
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * stores inventory data
  * loads game text/dialogue
  */
-public class Controller {
+public class ConsoleController {
     // Text files.
     public static final String INSTRUCTIONS_TXT = "instructions.txt";
     public static final String TUTORIAL_TEXT_TXT = "tutorialText.txt";
@@ -73,7 +73,7 @@ public class Controller {
     private List<Item> inventory = new ArrayList<>();  // player inventory, which is initially empty
     private final Player player = new Player(INITIAL_ROOM, INITIAL_OXYGEN, new ArrayList<>());
 
-    public Controller() {
+    public ConsoleController() {
         loadGameObjects();                              // loads all objects used for game logic into memory
     }
 
@@ -229,7 +229,7 @@ public class Controller {
     public void restart() {
         String[] string = {};
         try {
-            App.main(string);
+            ConsoleApp.main(string);
         } catch (IOException err) {
             err.printStackTrace();
         }
@@ -665,7 +665,7 @@ public class Controller {
     }
 
     public static void setIsEasyMode(boolean isEasyMode) {
-        Controller.isEasyMode = isEasyMode;
+        ConsoleController.isEasyMode = isEasyMode;
     }
 
     public String getInstructions() {

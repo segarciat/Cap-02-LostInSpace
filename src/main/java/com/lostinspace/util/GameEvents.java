@@ -1,6 +1,6 @@
 package com.lostinspace.util;
 
-import com.lostinspace.controller.Controller;
+import com.lostinspace.controller.ConsoleController;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class GameEvents {
     public void enterToContinue() {
         System.out.println("\n\n--- Press ENTER ---"); // Tell user how to continue
         scanner.nextLine(); // consume line of input
-        Controller.clearConsole();     // clear the console
+        ConsoleController.clearConsole();     // clear the console
     }
 }
 

@@ -1,6 +1,6 @@
 package com.lostinspace.model;
 
-import com.lostinspace.controller.Controller;
+import com.lostinspace.controller.ConsoleController;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,15 +10,15 @@ public class ItemUseMethodsTest {
     private static final String ROOM_WITH_PIPES = "Cockpit";
     private static final String ROOM_WITHOUT_PIPES = "Docking Bay";
     private static final String PIPES = "pipes";
-    private Controller controller;
+    private ConsoleController consoleController;
     private Player player;
 
     @Before
     public void setUp() throws Exception {
-        controller = new Controller();
+        consoleController = new ConsoleController();
 
         // Set starting location to a room with pipes
-        player = controller.getPlayer();
+        player = consoleController.getPlayer();
         player.setCurrentRoom(ROOM_WITH_PIPES);
     }
 
@@ -31,7 +31,7 @@ public class ItemUseMethodsTest {
         double expected = 35.5;
 
         // use the pipes
-        controller.useItem(controller.getInventory(), controller.getInteractables(), PIPES);
+        consoleController.useItem(consoleController.getInventory(), consoleController.getInteractables(), PIPES);
 
         // Make sure player's oxygen increased as expected.
         assertEquals(
@@ -50,7 +50,7 @@ public class ItemUseMethodsTest {
         double expected = 100;
 
         // use the pipes
-        controller.useItem(controller.getInventory(), controller.getInteractables(), PIPES);
+        consoleController.useItem(consoleController.getInventory(), consoleController.getInteractables(), PIPES);
 
         // Make sure player's oxygen increased as expected.
         assertEquals(
@@ -69,10 +69,10 @@ public class ItemUseMethodsTest {
         double expected = 65.5;
 
         // use the pipes
-        controller.useItem(controller.getInventory(), controller.getInteractables(), PIPES);
+        consoleController.useItem(consoleController.getInventory(), consoleController.getInteractables(), PIPES);
 
         // use them again
-        controller.useItem(controller.getInventory(), controller.getInteractables(), PIPES);
+        consoleController.useItem(consoleController.getInventory(), consoleController.getInteractables(), PIPES);
 
         // Make sure player's oxygen increased as expected.
         assertEquals(
@@ -93,7 +93,7 @@ public class ItemUseMethodsTest {
         double expected = 40;
 
         // use the pipes
-        controller.useItem(controller.getInventory(), controller.getInteractables(), PIPES);
+        consoleController.useItem(consoleController.getInventory(), consoleController.getInteractables(), PIPES);
 
         // Make sure player's oxygen increased as expected.
         assertEquals(

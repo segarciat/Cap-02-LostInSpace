@@ -1,6 +1,6 @@
 package com.lostinspace.model;
 
-import com.lostinspace.app.App;
+import com.lostinspace.app.ConsoleApp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class Item {
     public Item(HiddenItem hiddenItem){
         this.name = hiddenItem.getName();
         this.synonyms = hiddenItem.getSynonyms();
-        this.room = Arrays.asList(App.getController().getPlayer().getCurrentRoom());
+        this.room = Arrays.asList(ConsoleApp.getController().getPlayer().getCurrentRoom());
         this.fullName = hiddenItem.getFullName();
         this.description = hiddenItem.getDescription();
         this.used = hiddenItem.isUsed();
