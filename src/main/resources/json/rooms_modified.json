@@ -1,7 +1,7 @@
 [
   {
     "name": "Enviro-Field",
-    "description": "As you enter the room, your body starts to disintegrate... you cannot continue...",
+    "description": "Suddenly, your body goes numb as you run out of breath. A flashback of your missions begins to play...",
     "exits": {
       "west": "Docking Bay"
     },

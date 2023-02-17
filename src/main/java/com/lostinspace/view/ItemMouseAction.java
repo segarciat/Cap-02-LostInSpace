@@ -154,7 +154,7 @@ class ItemMouseAction implements MouseListener {
         inventoryItemButton.addMouseListener(new InventoryItemAction(controller, item, panel));
         panel.add(inventoryItemButton);
 
-        repaintPanel();
+        panel.repaintPanel();
     }
 
     /**
@@ -163,7 +163,7 @@ class ItemMouseAction implements MouseListener {
     private void removeButtonFromPanel() {
         panel.remove(button);
 
-        repaintPanel();
+        panel.repaintPanel();
     }
 
     /*
@@ -189,12 +189,6 @@ class ItemMouseAction implements MouseListener {
         hiddenItemButton.addMouseListener(new ItemMouseAction(controller, hiddenItem, panel, hiddenItemButton));
         panel.add(hiddenItemButton);
 
-        repaintPanel();
-    }
-
-    // If any item buttons are added or removed, revalidate panel
-    private void repaintPanel() {
-        panel.revalidate();
-        panel.repaint();
+        panel.repaintPanel();
     }
 }

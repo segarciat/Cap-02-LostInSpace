@@ -89,6 +89,7 @@ public class RoomPanel extends ImagePanel {
             if (item.getImage() != null && !item.isHidden()) {
                 JButton button = SwingComponentCreator.createButtonWithImage(item.getImage(), item.getRectangle());
                 button.addMouseListener(new ItemMouseAction(controller, item, this, button));
+                button.setName(item.getName());
                 this.add(button);
             }
         }
@@ -105,6 +106,27 @@ public class RoomPanel extends ImagePanel {
 
     public JPanel getDirectionButtonsPane() {
         return directionButtonsPane;
+    }
+
+    /**
+     * Removes a single item from the room with the given name.
+     * @param itemName The name of the item to remove.
+     */
+    public void removeItemFromRoom(String itemName) {
+        for (Component component: getComponents()) {
+            if (component.getName() != null && component.getName().equals(itemName)) {
+                this.remove(component);
+                break;
+            }
+        }
+        repaintPanel();
+    }
+
+
+    // If any item buttons are added or removed, revalidate panel
+    public void repaintPanel() {
+        this.revalidate();
+        this.repaint();
     }
 
     /*
