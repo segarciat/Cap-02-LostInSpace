@@ -23,6 +23,8 @@ class ItemController {
     public static final String MANUAL = "manual";
     public static final String PIPES = "pipes";
     public static final double O_2_CONSUMED_PIPES = 25.0;
+    public static final String SCRAMBLER = "scrambler";
+    public static final String MONSTER = "monster";
     private final List<String> POSTER_COLORS = Stream.of("Orange", "Pink", "Green", "Blue", "Purple", "Yellow").sorted().collect(Collectors.toList());
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
@@ -71,16 +73,10 @@ class ItemController {
         if (item.isUsed())
             return item.getUsedDescription();
 
-        ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
-        // An item is needed, and it has not been used.
-        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
-            return item.getFailedUseDescription();
-
         // Check if interactable requires an item and if player has it
         switch (item.getName()) {
             case SHIP:
-                useShip();
-                break;
+                return useShip(item);
             case CONSOLE:
                 useConsole(item);
                 break;
@@ -92,21 +88,42 @@ class ItemController {
                 break;
         }
 
+        ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
+        // An item is needed, and it has not been used
+        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
+            return item.getFailedUseDescription();
+
         return item.isUsed()? item.getUseDescription(): item.getFailedUseDescription();
     }
 
-    private void useShip() {
+    /**
+     * Player uses the ship
+     * @param item ItemMod ship item object
+     * @return String for text
+     */
+    private String useShip(ItemMod item) {
         if (model.getOfficerZhang().getInventory().size() == 3) {
+            item.setUsed(true);
             // The player has met win game condition, send back to ControllerGUI
-            GUIController.winGame();
+            return item.getUseDescription();
         }
+
+        return item.getFailedUseDescription();
     }
 
+    /**
+     * Player uses the pipes
+     * @param item ItemMod pipes item object
+     */
     private void usePipes(ItemMod item) {
         model.getPlayer().refillOxygen(O_2_CONSUMED_PIPES);
         item.setUsed(true);
     }
 
+    /**
+     * Player uses the console
+     * @param item ItemMod console item object
+     */
     public void useConsole(ItemMod item) {
         // if the player has already used the console, do nothing.
 
@@ -202,6 +219,11 @@ class ItemController {
             if (inventoryItem.getName().equals("tool") || inventoryItem.getName().equals("component") || inventoryItem.getName().equals(
                     "manual")) {
                 model.getOfficerZhang().addItemToInventory(inventoryItem);
+            }
+
+            if (inventoryItem.getName().equals(SCRAMBLER)) {
+                // remove monster from the room.
+                view.getCurrentRoomPanel().removeItemFromRoom(MONSTER);
             }
 
             textDescription = inventoryItem.getUseDescription();
