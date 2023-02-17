@@ -3,6 +3,7 @@ package com.lostinspace.controller;
 import com.lostinspace.model.ItemMod;
 import com.lostinspace.model.Model;
 import com.lostinspace.model.Player;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -90,6 +91,8 @@ public class GUIConsoleControllerTest {
 
         controller.movePlayer("Junction Hallway 1");
 
+        controller.toggleEasyMode();
+
         assertEquals(player.getCurrentRoom(), "Junction Hallway 1");
     }
 
@@ -105,6 +108,8 @@ public class GUIConsoleControllerTest {
         controller.toggleEasyMode();
 
         controller.movePlayer("Junction Hallway 1");
+
+        controller.toggleEasyMode();
 
         assertEquals(player.getOxygen(), 50, 0.001);
     }
