@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
-    public ImagePanel(String filename, int width, int height) {
+    public ImagePanel(String filename) {
         backgroundImage = ImageLoader.loadImage(filename);
     }
 

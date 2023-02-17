@@ -12,7 +12,7 @@ class MapPanel extends ImagePanel {
     private static final int BUTTON_HEIGHT = 40;
 
     public MapPanel(AppView view) {
-        super(BACKGROUND, view.getFrame().getWidth(), view.getFrame().getHeight());
+        super(BACKGROUND);
         this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(null);
 

@@ -36,7 +36,7 @@ public class IntroPanel extends ImagePanel {
     private final AppView view;
 
     public IntroPanel(AppView view) {
-        super(BACKGROUND_IMAGE, view.getFrame().getWidth(), view.getFrame().getHeight());
+        super(BACKGROUND_IMAGE);
         this.view = view;
 
         // Create skip button

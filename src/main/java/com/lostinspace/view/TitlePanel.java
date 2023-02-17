@@ -37,7 +37,7 @@ public class TitlePanel extends ImagePanel {
 
     // Constructor
     public TitlePanel(AppView view) {
-        super(TITLE_SCREEN_IMAGE, view.getFrame().getWidth(), view.getFrame().getHeight());
+        super(TITLE_SCREEN_IMAGE);
         this.app = view;
 
         // Get frame from the AppGUI

@@ -12,7 +12,7 @@ public class MenuPanel extends ImagePanel {
     public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
 
     public MenuPanel(AppView view) {
-        super(BACKGROUND, view.getFrame().getWidth(), view.getFrame().getHeight());
+        super(BACKGROUND);
 
         this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(new GridBagLayout());

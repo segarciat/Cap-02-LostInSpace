@@ -1,7 +1,6 @@
 package com.lostinspace.view;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,8 +11,7 @@ public class OpenDialogAction implements ActionListener {
 
     // window settings, font text, font color
     private static final int WINDOW_SIZE = 720;
-    private static final Font MONOSPACE_PLAIN_MED = new Font("Monospaced", Font.PLAIN, 14);
-    private static final java.awt.Color COLOR_GREEN = new Color(76, 175, 82);
+    public static final String DIALOG_BACKGROUND = "/images_title/background.jpg";
 
     // fields for the frame, text area, title, and buttons
     private final JFrame frame;
@@ -40,7 +38,7 @@ public class OpenDialogAction implements ActionListener {
     /// actions for image settings in the dialog frame
     @Override
     public void actionPerformed(ActionEvent e) {
-        ImagePanel imgPanel = new ImagePanel("/images_title/background.jpg", 720, 720);
+        ImagePanel imgPanel = new ImagePanel(DIALOG_BACKGROUND);
         imgPanel.setLayout(null);
 
         d = new JDialog(frame, title);

@@ -33,7 +33,7 @@ public class RoomPanel extends ImagePanel {
     private final JPanel directionButtonsPane;
 
     public RoomPanel(AppView view, Room room, GUIController controller) {
-        super(room.getImage(), view.getFrame().getWidth(), view.getFrame().getHeight());
+        super(room.getImage());
 
         this.controller = controller;
         this.oxygenBar = new JProgressBar();
