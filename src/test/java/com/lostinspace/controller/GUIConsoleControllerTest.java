@@ -61,4 +61,51 @@ public class GUIConsoleControllerTest {
 
         assertEquals(player.getOxygen(), maximumOxygen, 0.0001);
     }
+
+    /*
+     * Normal mode
+     * When the player has an oxygen level of 0, if the player tries to move to another room, they should be sent to
+     * the end game area (Enviro-Field)
+     */
+    @Test
+    public void player_normalMode_oxygenLevelZero_whenMoveRoom_goToEnviroField() {
+        Player player = controller.getPlayer();
+        player.setOxygen(0);
+
+        controller.movePlayer("Junction Hallway 1");
+
+        assertEquals(player.getCurrentRoom(), "Enviro-Field");
+    }
+
+    /*
+     * Easy-mode
+     * When the player has an oxygen level of 0, if the player tries to move to another room, should be able to move
+     * rooms since oxygen depletion is turned off
+     */
+    @Test
+    public void player_easyMode_oxygenLevelZero_ableToMoveRoom() {
+        Player player = controller.getPlayer();
+        player.setOxygen(0);
+        controller.toggleEasyMode();
+
+        controller.movePlayer("Junction Hallway 1");
+
+        assertEquals(player.getCurrentRoom(), "Junction Hallway 1");
+    }
+
+    /*
+     * Easy-mode
+     * When the player has an oxygen level of 0, if the player tries to move to another room, should be able to move
+     * rooms since oxygen depletion is turned off
+     */
+    @Test
+    public void player_easyMode_oxygenLevelSame_whenMoveRoom() {
+        Player player = controller.getPlayer();
+        player.setOxygen(50);
+        controller.toggleEasyMode();
+
+        controller.movePlayer("Junction Hallway 1");
+
+        assertEquals(player.getOxygen(), 50, 0.001);
+    }
 }
