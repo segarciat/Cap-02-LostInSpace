@@ -78,21 +78,23 @@ class ItemController {
             case SHIP:
                 return useShip(item);
             case CONSOLE:
-                useConsole(item);
-                break;
+                return useConsole(item);
             case PIPES:
-                usePipes(item);
-                break;
+                return usePipes(item);
         }
 
         ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
         // An item is needed, and it has not been used
-        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed())) {
-            return item.getFailedUseDescription();
-        } else {
-            item.setUsed(true);
-            return item.getUseDescription();
+        if (!item.getName().equals("ship") || !item.getName().equals("console") || !item.getName().equals("pipes")) {
+            if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed())) {
+                return item.getFailedUseDescription();
+            } else {
+                item.setUsed(true);
+                return item.getUseDescription();
+            }
         }
+
+        return item.isUsed()? item.getUsedDescription() : item.getUseDescription();
     }
 
     /**
@@ -114,17 +116,26 @@ class ItemController {
      * Player uses the pipes
      * @param item ItemMod pipes item object
      */
-    private void usePipes(ItemMod item) {
+    private String usePipes(ItemMod item) {
+        if (item.isUsed()) {
+            return item.getUsedDescription();
+        }
+
         model.getPlayer().refillOxygen(O_2_CONSUMED_PIPES);
         item.setUsed(true);
+
+        return item.getUseDescription();
     }
 
     /**
      * Player uses the console
      * @param item ItemMod console item object
      */
-    public void useConsole(ItemMod item) {
-        // if the player has already used the console, do nothing.
+    public String useConsole(ItemMod item) {
+        // if the player has already used the console, do nothing
+        if (item.isUsed()) {
+            return item.getUsedDescription();
+        }
 
         // Create panel to hold prompt questions and checkboxes.
         JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -162,7 +173,12 @@ class ItemController {
                 .sorted()
                 .collect(Collectors.toList());
 
-        item.setUsed(userResponse.equals(POSTER_COLORS));
+        if (userResponse.equals(POSTER_COLORS)) {
+            item.setUsed(userResponse.equals(POSTER_COLORS));
+            return item.getUseDescription();
+        } else {
+            return item.getFailedUseDescription();
+        }
     }
 
     /**
