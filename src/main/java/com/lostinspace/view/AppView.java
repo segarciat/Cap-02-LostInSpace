@@ -193,6 +193,10 @@ public class AppView {
         return controller;
     }
 
+    public RoomPanel getCurrentRoomPanel() {
+        return currentRoomPanel;
+    }
+
     /**
      * Allows player to toggle (open/close) the menu when pressing ESC key.
      */

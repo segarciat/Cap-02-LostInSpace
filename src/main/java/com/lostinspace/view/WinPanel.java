@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class WinPanel extends ImagePanel {
     private static final String INITIAL_IMAGE = "/images_title/end_flyout.gif";
-    private static final String END_IMAGE = "/images_title/title.gif";
+    private static final String END_IMAGE = "/images_title/title_thankyou.gif";
     private static final int TIMER_DELAY = 6000;
 
-    public WinPanel(AppView app) {
-        super(INITIAL_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
+    public WinPanel(AppView view) {
+        super(INITIAL_IMAGE);
+        this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(null);
 
         Timer timer = new Timer(TIMER_DELAY, e1 -> {

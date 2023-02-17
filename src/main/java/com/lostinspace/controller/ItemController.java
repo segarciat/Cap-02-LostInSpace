@@ -23,6 +23,8 @@ class ItemController {
     public static final String MANUAL = "manual";
     public static final String PIPES = "pipes";
     public static final double O_2_CONSUMED_PIPES = 25.0;
+    public static final String SCRAMBLER = "scrambler";
+    public static final String MONSTER = "monster";
     private final List<String> POSTER_COLORS = Stream.of("Orange", "Pink", "Green", "Blue", "Purple", "Yellow").sorted().collect(Collectors.toList());
     private final List<String> WRONG_COLORS = List.of("Red", "Black", "White", "Silver");
 
@@ -217,6 +219,11 @@ class ItemController {
             if (inventoryItem.getName().equals("tool") || inventoryItem.getName().equals("component") || inventoryItem.getName().equals(
                     "manual")) {
                 model.getOfficerZhang().addItemToInventory(inventoryItem);
+            }
+
+            if (inventoryItem.getName().equals(SCRAMBLER)) {
+                // remove monster from the room.
+                view.getCurrentRoomPanel().removeItemFromRoom(MONSTER);
             }
 
             textDescription = inventoryItem.getUseDescription();
