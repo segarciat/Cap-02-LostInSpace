@@ -18,7 +18,8 @@ public class OpenDialogAction implements ActionListener {
     private final JTextArea textArea;
     private final String title;
     private final JButton closeButton;
-    private JDialog d;
+    public JDialog d;
+
 
     public OpenDialogAction(JFrame frame, String text, String title) {
         this.frame = frame;
