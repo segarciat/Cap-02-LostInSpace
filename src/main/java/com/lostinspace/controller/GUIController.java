@@ -69,7 +69,7 @@ public class GUIController {
          */
         if (requiredItemName != null && (requiredItemOwnedByPlayer == null || !requiredItemOwnedByPlayer.isUsed())) {
             destinationName = currentRoomName; // stay in this room.
-        } else if (player.getOxygen() == 0) {
+        } else if (player.getOxygen() == 0 && !isEasyMode) {
             // If the player's oxygen is 0, then move them to the Enviro-Field (end-game)
             player.setCurrentRoom(ENVIRO_FIELD);
         } else {
