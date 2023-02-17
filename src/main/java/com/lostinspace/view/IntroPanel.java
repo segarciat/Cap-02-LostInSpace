@@ -1,7 +1,5 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.AppGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +10,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * View that shows the introductory portion of the game in the frame, including prologue and instructions.
+ */
 public class IntroPanel extends ImagePanel {
-    private static final String BACKGROUND_IMAGE = "/images_title/background.jpg";
-    private static final String BUTTON_SKIP = "/images_title/skip.png";
+    private static final String BACKGROUND_IMAGE = "images_title/background.jpg";
+    private static final String BUTTON_SKIP = "images_title/skip.png";
 
     private static final int WINDOW_SIZE = 720;
 
@@ -27,61 +28,36 @@ public class IntroPanel extends ImagePanel {
     // font colors
     private static final Color COLOR_GREEN = new Color(76, 175, 82);
 
-    private final JTextArea introTextArea = new JTextArea();
+    private final JTextArea introTextArea;
 
-    private Iterator<String> introPageIterator;
+    private final Iterator<String> introPageIterator;
 
     private final JButton skipButton;
-    private final AppGUI app;
+    private final AppView view;
 
-    public IntroPanel(AppGUI app) {
-        super(BACKGROUND_IMAGE, app.getFrame().getWidth(), app.getFrame().getHeight());
-        this.app = app;
+    public IntroPanel(AppView view) {
+        super(BACKGROUND_IMAGE);
+        this.view = view;
 
         // Create skip button
-        skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
-        skipButton.setFocusable(false);
+        skipButton = SwingComponentCreator.createButtonWithImage(BUTTON_SKIP, 235, 620, BUTTON_WIDTH, BUTTON_HEIGHT);
         skipButton.addActionListener(new SkipIntroPage());
 
-        // Customize text area.
-        setIntroTextAreaOptions();
+        // Customize text area
+        introPageIterator = introPagesIterator();
+        introTextArea = SwingComponentCreator.createStyledTextArea(introPageIterator.next());
+        introTextArea.setMargin(new Insets(30, 80, 0, 80));
 
         // Set panel attributes
         this.setSize(WINDOW_SIZE, WINDOW_SIZE);
         this.setOpaque(false);
-        this.setLayout(new GridBagLayout());
+        this.setLayout(null);
 
-        // Add components to panel.
-        GridBagConstraints gbc = new GridBagConstraints();
+        // Add components
+        this.add(skipButton);
+        this.add(introTextArea);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(30, 0, 0, 0);
-        this.add(skipButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(0,0,0,0);
-        gbc.weighty = 1.0;
-        this.add(introTextArea, gbc);
-
-        app.getFrame().addKeyListener(new FlipPageOnKeyPress());
-        app.getFrame().requestFocus();
-    }
-
-    private void setIntroTextAreaOptions() {
-        introPageIterator = introPagesIterator();
-        // Set text area attributes
-        introTextArea.setText(introPageIterator.next());                        // initial text
-        introTextArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                          // size
-        introTextArea.setEditable(false);                                         // non-editable
-        introTextArea.setFocusable(false);                                       // prevent from stealing focus on click
-        introTextArea.setOpaque(false);                                           // no background
-        introTextArea.setLineWrap(true);                                          // wrap lines
-        introTextArea.setWrapStyleWord(true);                                     // wrap by word
-        introTextArea.setFont(MONOSPACE_PLAIN_MED);                               // font type
-        introTextArea.setForeground(COLOR_GREEN);                                 // font color
-        introTextArea.setMargin(new Insets(0,140,0,140));  // margins
+        view.getFrame().requestFocus();
     }
 
     /**
@@ -119,13 +95,17 @@ public class IntroPanel extends ImagePanel {
     public Iterator<String> introPagesIterator() {
         java.util.List<String> introPages = new ArrayList<>();
 
-        java.util.List<String> prologuePages = splitIntoPages(app.getController().getPrologue(), 13);
-        List<String> tutorialPages = splitIntoPages(app.getController().getTutorial(), 26);
+        java.util.List<String> prologuePages = splitIntoPages(view.getController().getPrologue(), 13);
+        List<String> tutorialPages = splitIntoPages(view.getController().getTutorial(), 26);
 
         introPages.addAll(prologuePages);
         introPages.addAll(tutorialPages);
 
         return introPages.iterator();
+    }
+
+    public void allowPageSkipOnKeyPress() {
+        view.getFrame().addKeyListener(new FlipPageOnKeyPress());
     }
 
     private class SkipIntroPage implements ActionListener {
@@ -134,20 +114,23 @@ public class IntroPanel extends ImagePanel {
             if (introPageIterator.hasNext()) {
                 introTextArea.setText(introPageIterator.next());
             } else {
-                app.setRoute(Route.GAME);
-                app.execute();
+                view.setRoute(Route.GAME);
+                view.update();
             }
         }
     }
 
+    /**
+     * Action that allows updating the text in the intro panel by pressing a key, simulating flipping a page.
+     */
     private class FlipPageOnKeyPress implements KeyListener {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
                 skipButton.doClick();
 
-            if (!introPageIterator.hasNext() && Route.GAME.equals(app.getRoute())) {
-                app.getFrame().removeKeyListener(this);
+            if (!introPageIterator.hasNext() && Route.GAME.equals(view.getRoute())) {
+                view.getFrame().removeKeyListener(this);
             }
         }
 

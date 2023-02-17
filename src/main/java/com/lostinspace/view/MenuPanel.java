@@ -1,8 +1,5 @@
 package com.lostinspace.view;
 
-import com.lostinspace.app.AppGUI;
-import com.lostinspace.util.TextLoader;
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -10,116 +7,85 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuPanel extends ImagePanel {
-
-
-    public static final String BACKGROUND = "/images_title/background.jpg";
+    public static final String BACKGROUND = "images_title/background.jpg";
     public static final String HELP_DIALOG_TITLE = "instructions";
+    public static final String OBJECTIVES_DIALOG_TITLE = "objectives";
 
-    public MenuPanel(AppGUI app) {
-        super(BACKGROUND, app.getFrame().getWidth(), app.getFrame().getHeight());
+    public MenuPanel(AppView view) {
+        super(BACKGROUND);
 
-        this.setSize(app.getFrame().getWidth(), app.getFrame().getHeight());
+        this.setSize(view.getFrame().getWidth(), view.getFrame().getHeight());
         this.setLayout(new GridBagLayout());
 
-        // exit Button
-        JButton exitButton = new JButton("Exit");
+        // buttons created for menu
+        JButton exitButton = SwingComponentCreator.createExitButton();
 
-        // help Button
-        JButton helpButton = new JButton("Help");
+        JButton helpButton = SwingComponentCreator.createButtonWithText("Help");
 
-        // continue Button
-        JButton continueButton = new JButton("Continue");
+        JButton continueButton = SwingComponentCreator.createButtonWithText("Continue");
 
-        // action listener for exit button
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        JButton objectiveButton = SwingComponentCreator.createButtonWithText("Objectives");
+
+        JButton easyModeButton = SwingComponentCreator.createButtonWithText("Easy Mode");
+
+        JButton restartButton = SwingComponentCreator.createRestartButton(view);
+
 
         JPanel panel = this;
 
+        // action Listener for objectives button
+        objectiveButton.addActionListener(new OpenDialogAction(view.getFrame(), view.getController().getObjectives(), OBJECTIVES_DIALOG_TITLE));
+
         // action listener for help button
-//        helpButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String msg = TextLoader.loadText("text/instructions.txt");
-//                JOptionPane.showMessageDialog(panel,msg);
-//            }
-//        });
-        helpButton.addActionListener(new OpenDialogAction(app.getFrame(), app.getController().getInstructions(), HELP_DIALOG_TITLE));
-        helpButton.setFocusable(false);
+        helpButton.addActionListener(new OpenDialogAction(view.getFrame(), view.getController().getInstructions(), HELP_DIALOG_TITLE));
+
+        // action listener for easy mode  button
+        easyModeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean isEasyMode = view.getController().toggleEasyMode();
+                // declare a string variable for dialog message
+                String dialogText;
+                // using isEasyMode, assign correct message
+                if (isEasyMode) {
+                    dialogText = "Easy Mode is activated";
+                } else {
+                    dialogText = "Easy Mode is deactivated";
+                }
+
+                // pass dialog message to show message dialog method
+                JOptionPane.showMessageDialog(view.getFrame(), dialogText);
+            }
+        });
 
         // action listener for help button
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.setRoute(Route.GAME);
-                app.execute();
+                view.setRoute(Route.GAME);
+                view.update();
             }
         });
 
-        continueButton.setFocusable(false);
-
-        // add exit and help button to panel in a box layout with transparent buttons
-//        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        // add exit, help, and continue button to panel in a grid layout with transparent buttons
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 0, 12, 0);
-        panel.add(helpButton,gbc);
-        gbc.gridy = 1;
-        panel.add(exitButton, gbc);
-        gbc.gridy = 2;
         panel.add(continueButton, gbc);
-//        exitButton.setBackground(new Color(0, 0, 0, 65));
-//        helpButton.setBackground(new Color(0, 0, 0, 65));
-//        continueButton.setBackground(new Color(0,0,0, 65));
+        gbc.gridy = 1;
+        panel.add(objectiveButton, gbc);
+        gbc.gridy = 2;
+        panel.add(easyModeButton, gbc);
+        gbc.gridy = 3;
+        panel.add(helpButton, gbc);
+        gbc.gridy = 4;
+        panel.add(restartButton, gbc);
+        gbc.gridy = 5;
+        panel.add(exitButton, gbc);
     }
 }
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame();
-//        JPanel panel = new JPanel();
-//
-//        // exit Button
-//        JButton exitButton = new JButton("Exit");
-//
-//        // help Button
-//        JButton helpButton = new JButton("Help");
-//
-//        // action listener for exit button
-//        exitButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.exit(0);
-//            }
-//        });
-//
-//        // action listener for help button
-//        helpButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JOptionPane.showMessageDialog(panel, "Eventually will show help text");
-//            }
-//        });
-//
-//
-//
-//        // add exit and help button to panel in a box layout with transparent buttons
-//        panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
-//        panel.add(exitButton);
-//        panel.add(helpButton);
-//        exitButton.setBackground(new Color(0,0,0,65));
-//        helpButton.setBackground(new Color(0,0,0, 65));
-//
-//        // add panel to the JFrame that includes buttons
-//        frame.add(panel);
-//        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setVisible(true);
-//    }
-//}
+
 
 
 

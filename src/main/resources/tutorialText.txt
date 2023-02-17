@@ -12,10 +12,10 @@ OBJECTIVES - Display objectives for completing the game.
 GO - Requires two words. Moves in a cardinal direction [North, South, East, West]
 Example: go North
 
-LOOK - Requires two words. Use this to examine rooms and what points of interest they contain.
+LOOK <left click> - Requires two words. Use this to examine rooms and what points of interest they contain.
 Example: look room
 
-INSPECT - Requires two words. Use this to examine items and interactable objects.
+INSPECT  - Requires two words. Use this to examine items and interactable objects.
 Example: look room
 
 RESTART - Restart into a new game.

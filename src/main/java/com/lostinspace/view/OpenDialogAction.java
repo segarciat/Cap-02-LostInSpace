@@ -1,27 +1,36 @@
 package com.lostinspace.view;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OpenDialogAction implements ActionListener {
-    private static final int WINDOW_SIZE = 720;
-    private static final Font MONOSPACE_PLAIN_MED = new Font("Monospaced", Font.PLAIN, 14);
-    // font colors
-    private static final java.awt.Color COLOR_GREEN = new Color(76, 175, 82);
+    private static final String BUTTON_CLOSE = "images_title/close.png";
+    private static final int BUTTON_WIDTH = 250;
+    private static final int BUTTON_HEIGHT = 40;
 
-    private JFrame frame;
-    private JTextArea textArea =  new JTextArea();
-    private String title;
-    private JButton closeButton;
-    private JDialog d;
+    // window settings, font text, font color
+    private static final int WINDOW_SIZE = 720;
+    public static final String DIALOG_BACKGROUND = "images_title/background.jpg";
+
+    // fields for the frame, text area, title, and buttons
+    private final JFrame frame;
+    private final JTextArea textArea;
+    private final String title;
+
+
+
+    private final JButton closeButton;
+    public JDialog d;
+
 
     public OpenDialogAction(JFrame frame, String text, String title) {
         this.frame = frame;
-        setTextAreaOptions(textArea, text);
         this.title = title;
-        this.closeButton = new JButton("close");
+
+        textArea = SwingComponentCreator.createStyledTextArea(text);
+
+        this.closeButton = SwingComponentCreator.createButtonWithImage(BUTTON_CLOSE, 235, 620, BUTTON_WIDTH, BUTTON_HEIGHT);
         this.closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,30 +39,51 @@ public class OpenDialogAction implements ActionListener {
         });
     }
 
-
+    /// actions for image settings in the dialog frame
     @Override
     public void actionPerformed(ActionEvent e) {
-        ImagePanel imgPanel = new ImagePanel("/images_title/background.jpg", 720, 720);
+        ImagePanel imgPanel = new ImagePanel(DIALOG_BACKGROUND);
+        imgPanel.setLayout(null);
+
         d = new JDialog(frame, title);
-        imgPanel.add(textArea);
-        imgPanel.add(closeButton);
         d.setSize(WINDOW_SIZE, WINDOW_SIZE);
         d.setContentPane(imgPanel);
+        d.setLocationRelativeTo(frame);
         d.setVisible(true);
 
+        imgPanel.add(textArea);
+        imgPanel.add(closeButton);
+
+        // Set Z-order to ensure the close button is at the top, so the button can be pressed
+        imgPanel.setComponentZOrder(textArea, 1);
+        imgPanel.setComponentZOrder(closeButton, 0);
     }
 
-    private static void setTextAreaOptions(JTextArea textArea, String text) {
-        // Set text area attributes
-        textArea.setText(text);                        // initial text
-        textArea.setSize(WINDOW_SIZE, WINDOW_SIZE);                          // size
-        textArea.setEditable(false);                                         // non-editable
-        textArea.setFocusable(false);                                       // prevent from stealing focus on click
-        textArea.setOpaque(false);                                           // no background
-        textArea.setLineWrap(true);                                          // wrap lines
-        textArea.setWrapStyleWord(true);                                     // wrap by word
-        textArea.setFont(MONOSPACE_PLAIN_MED);                               // font type
-        textArea.setForeground(COLOR_GREEN);                                 // font color
-        textArea.setMargin(new Insets(0, 140, 0, 140));  // margins
+    // getters and setters for Unit testing (private on working code)
+    public JButton getCloseButton() {
+        return closeButton;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public JDialog getD() {
+        return d;
+    }
+
+    public void setD(JDialog d) {
+        this.d = d;
+    }
+    public static int getWindowSize(){
+        return WINDOW_SIZE;
     }
 }

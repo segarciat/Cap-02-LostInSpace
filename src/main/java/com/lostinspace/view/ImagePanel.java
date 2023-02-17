@@ -1,5 +1,7 @@
 package com.lostinspace.view;
 
+import com.lostinspace.util.ImageLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -15,27 +17,13 @@ import java.util.Objects;
 public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
-    public ImagePanel(String filename, int width, int height) {
-        backgroundImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(filename)))
-                .getImage();
-    }
-
-    public Image getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    /**
-     * Sets the background image and repaints the JPanel.
-     *
-     * @param backgroundImage The new image for the background.
-     */
-    public void setBackgroundImage(Image backgroundImage) {
-        this.backgroundImage = backgroundImage;
-        repaint();
+    public ImagePanel(String filename) {
+        backgroundImage = ImageLoader.loadImage(filename);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         int imageWidth = backgroundImage.getWidth(null);
         int imageHeight = backgroundImage.getHeight(null);
 
@@ -58,5 +46,23 @@ public class ImagePanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this));
+    }
+
+    /**
+     * Returns the current background image painted on the panel.
+     * @return The current background image for this panel.
+     */
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    /**
+     * Sets the background image and repaints the JPanel.
+     *
+     * @param backgroundImage The new image for the background.
+     */
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
+        repaint();
     }
 }

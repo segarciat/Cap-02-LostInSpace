@@ -1,6 +1,9 @@
 package com.lostinspace.util;
 
 
+/**
+ * Enum for transforming text, allowing changing foreground and background color.
+ */
 public enum Color {
     GREEN("[32m", "[42m"),
     YELLOW("[33m", "[43m"),
