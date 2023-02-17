@@ -70,7 +70,7 @@
     "description": "The E.D.F.S. Spartan, your SHIP",
     "lookDescription": "The E.D.F.S. Spartan rests precariously on its twisted landing struts. Every few seconds her hull groans as Zhang shifts his weight inside. She's seen better days, but you're still breathing. You silently mouth words of appreciation.",
     "used": false,
-    "useDescription": "YOU SPEED AWAY IN YOUR ROCKET SHIP :O",
+    "useDescription": "The engine shakes for a few moments before firing up with a load roar, blasting hot air through the thrusts. You and your remaining crew members hopped on board to quickly leave before anymore trouble arises. You look out the window, watching as the freighter ship becomes smaller and smaller.",
     "usedDescription": "",
     "failedUseDescription": "\"Whoa! We're in NO WAY ready for launch, Captain!\", Zhang yells, making an 'X' with his arms over his head. \"I need to finish my REPAIRS, remember?\"\n\nA flight officer can dream, can't they...?",
     "image": "/images_items/ship.png",

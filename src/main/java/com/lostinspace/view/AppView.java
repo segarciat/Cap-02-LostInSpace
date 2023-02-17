@@ -25,6 +25,7 @@ public class AppView {
     private final IntroPanel introPanel;
     private final MenuPanel menuPanel;
     private final MapPanel mapPanel;
+    private WinPanel winPanel;
 
     // controllers
     private final GUIController controller;
@@ -99,6 +100,9 @@ public class AppView {
             case MAP:
                 showMap();
                 break;
+            case WIN:
+                showWinPanel();
+                break;
             default:
                 break;
         }
@@ -146,6 +150,16 @@ public class AppView {
     }
 
     /*
+     * Create win panel
+     * Only create instance of win panel when the player enters this route to start the timer for image transitions
+     */
+    private void showWinPanel() {
+        winPanel = new WinPanel(this);
+        frame.setContentPane(winPanel);
+        frame.requestFocus();
+    }
+
+    /*
      * Create objects for the game
      */
     private void createRooms() {
@@ -178,8 +192,6 @@ public class AppView {
     public GUIController getController() {
         return controller;
     }
-
-
 
     /**
      * Allows player to toggle (open/close) the menu when pressing ESC key.

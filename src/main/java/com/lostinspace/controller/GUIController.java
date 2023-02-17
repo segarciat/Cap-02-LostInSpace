@@ -5,6 +5,7 @@ import com.lostinspace.model.*;
 import com.lostinspace.model.ItemMod;
 import com.lostinspace.view.Route;
 
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -32,6 +33,9 @@ public class GUIController {
 
         // Call set up method
         setUp();
+
+        // Cheat mode for satisfying winning condition
+        cheatMode();
     }
 
     // Set up initial parameters for the game
@@ -40,6 +44,17 @@ public class GUIController {
         model.getPlayer().setOxygen(INITIAL_OXYGEN);
         view.setRoute(Route.TITLE);
         view.update();
+    }
+
+    private void cheatMode() {
+        List<ItemMod> inventory = model.getOfficerZhang().getInventory();
+
+        String[] keyItems = new String[] {"component", "tool", "manual"};
+
+        for (String item : keyItems) {
+            ItemMod keyItem = model.getItemByName(item);
+            model.getOfficerZhang().addItemToInventory(keyItem);
+        }
     }
 
     public void execute() {
@@ -149,6 +164,7 @@ public class GUIController {
      */
     public static void winGame() {
         // TODO: Win game condition met, get images, etc for win game panel
+        System.out.println("You win the game!");
     }
 
     /*

@@ -13,12 +13,19 @@ import java.awt.event.MouseListener;
  * Action that "item buttons" responds when hovering, left-, or right-clicking (highlighting, GET/USE/LOOK actions).
  */
 class ItemMouseAction implements MouseListener {
+    private final AppView view;
     private final GUIController controller;
+
     private final ItemMod item;
     private final RoomPanel panel;
     private final JButton button;
 
-    ItemMouseAction(GUIController controller, ItemMod item, RoomPanel panel, JButton button) {
+    // constants
+    private final int INVENTORY_SIZE = 48;
+    private final int TIMER_DELAY = 3000;
+
+    ItemMouseAction(AppView view, GUIController controller, ItemMod item, RoomPanel panel, JButton button) {
+        this.view = view;
         this.controller = controller;
         this.item = item;
         this.panel = panel;
@@ -30,6 +37,12 @@ class ItemMouseAction implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Timer timer = new Timer(TIMER_DELAY, e1 -> {
+            view.setRoute(Route.WIN);
+            view.update();
+        });
+        timer.setRepeats(false);
+
         if (e.getButton() == MouseEvent.BUTTON1) {
             // Change text area text to the look description of the item
             String lookDescription = controller.lookItem(item);
@@ -66,9 +79,31 @@ class ItemMouseAction implements MouseListener {
                 if (item.isUsed() && item.getHiddenItem() != null)
                     revealHiddenItem(item);
             }
+
             panel.updateView();
             setRoomAreaText(textDescription);
+
+            // Check winning condition
+            if (winGameConditionMet(textDescription)) {
+                timer.start();
+            }
         }
+    }
+
+    /**
+     * Checks if the winning conditions have been met
+     * @param textDescription String textDescription returned from the ItemController
+     * @return boolean whether the condition has been met
+     */
+    public boolean winGameConditionMet(String textDescription) {
+        ItemMod ship = controller.getModel().getItemByName("ship");
+        String useDescription = ship.getUseDescription();
+
+        if (textDescription.equals(useDescription)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -113,12 +148,12 @@ class ItemMouseAction implements MouseListener {
         int inventorySize = controller.getPlayer().getInventory().size();
 
         // Place the image of the item depending on number of items in the inventory
-        Rectangle item1Area = new Rectangle(515, 40, 48, 48);
-        Rectangle item2Area = new Rectangle(607, 40, 48, 48);
-        Rectangle item3Area = new Rectangle(515, 100, 48, 48);
-        Rectangle item4Area = new Rectangle(607, 100, 48, 48);
-        Rectangle item5Area = new Rectangle(515, 160, 48, 48);
-        Rectangle item6Area = new Rectangle(607, 160, 48, 48);
+        Rectangle item1Area = new Rectangle(515, 40, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item2Area = new Rectangle(607, 40, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item3Area = new Rectangle(515, 100, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item4Area = new Rectangle(607, 100, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item5Area = new Rectangle(515, 160, INVENTORY_SIZE, INVENTORY_SIZE);
+        Rectangle item6Area = new Rectangle(607, 160, INVENTORY_SIZE, INVENTORY_SIZE);
 
         Rectangle itemArea = new Rectangle();
 
@@ -186,7 +221,7 @@ class ItemMouseAction implements MouseListener {
         JButton hiddenItemButton = SwingComponentCreator.createButtonWithImage(hiddenItem.getImage(),
                 hiddenItem.getRectangle());
 
-        hiddenItemButton.addMouseListener(new ItemMouseAction(controller, hiddenItem, panel, hiddenItemButton));
+        hiddenItemButton.addMouseListener(new ItemMouseAction(view, controller, hiddenItem, panel, hiddenItemButton));
         panel.add(hiddenItemButton);
 
         repaintPanel();
