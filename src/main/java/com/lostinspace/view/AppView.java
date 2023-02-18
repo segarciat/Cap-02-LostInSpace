@@ -327,7 +327,7 @@ public class AppView {
         float dB = ((float) volume / 20 * 46) - 40;
         if (gameMusicClip != null) {
             FloatControl volumeControl = (FloatControl) gameMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
-            if (volumeControl != null) {
+            if (volumeControl != null && volumeControl.getMinimum() <= dB && dB <= volumeControl.getMaximum()) {
                 volumeControl.setValue(dB);
             }
         }
