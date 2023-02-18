@@ -57,6 +57,6 @@ public class ItemControllerTest {
             controller.getItemController().useInventoryItem(itemInInventory);
         }
 
-        Assert.assertEquals(officer.getInventory().size(), 0, 0.001);
+        Assert.assertEquals(0, officer.getInventory().size(), 0.001);
     }
 }

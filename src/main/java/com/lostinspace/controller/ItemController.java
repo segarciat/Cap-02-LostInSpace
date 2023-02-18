@@ -3,8 +3,6 @@ package com.lostinspace.controller;
 import com.lostinspace.model.*;
 import com.lostinspace.view.AppView;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -73,111 +71,65 @@ class ItemController {
         if (item.isUsed())
             return item.getUsedDescription();
 
+        // It is possible that an item is needed, and it has not been used
         // Check if interactable requires an item and if player has it
+        ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
+
+        if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed()))
+            return item.getFailedUseDescription();
+
         switch (item.getName()) {
             case SHIP:
-                return useShip(item);
+                interactShip(item);
+                break;
             case CONSOLE:
-                return useConsole(item);
+                interactConsole(item);
+                break;
             case PIPES:
-                return usePipes(item);
-        }
-
-        ItemMod requiredItemInInventory = model.returnItemFromInventory(item.getRequiredItem());
-        // An item is needed, and it has not been used
-        if (!item.getName().equals("ship") || !item.getName().equals("console") || !item.getName().equals("pipes")) {
-            if (item.getRequiredItem() != null && (requiredItemInInventory == null || !requiredItemInInventory.isUsed())) {
-                return item.getFailedUseDescription();
-            } else {
+                interactPipes(item);
+                break;
+            default:
                 item.setUsed(true);
-                return item.getUseDescription();
-            }
+                break;
         }
 
-        return item.isUsed()? item.getUsedDescription() : item.getUseDescription();
+        return item.isUsed()? item.getUseDescription() : item.getFailedUseDescription();
     }
 
     /**
      * Player uses the ship
      * @param item ItemMod ship item object
-     * @return String for text
      */
-    private String useShip(ItemMod item) {
+    private void interactShip(ItemMod item) {
         if (model.getOfficerZhang().getInventory().size() == 3) {
             item.setUsed(true);
             // The player has met win game condition, send back to ControllerGUI
-            return item.getUseDescription();
         }
-
-        return item.getFailedUseDescription();
     }
 
     /**
      * Player uses the pipes
      * @param item ItemMod pipes item object
      */
-    private String usePipes(ItemMod item) {
-        if (item.isUsed()) {
-            return item.getUsedDescription();
-        }
-
+    private void interactPipes(ItemMod item) {
         model.getPlayer().refillOxygen(O_2_CONSUMED_PIPES);
         item.setUsed(true);
-
-        return item.getUseDescription();
     }
 
     /**
      * Player uses the console
      * @param item ItemMod console item object
      */
-    public String useConsole(ItemMod item) {
-        // if the player has already used the console, do nothing
-        if (item.isUsed()) {
-            return item.getUsedDescription();
-        }
-
-        // Create panel to hold prompt questions and checkboxes.
-        JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        questionPanel.add(new JLabel(UIManager.getIcon("OptionPane.questionIcon")));
-
-        // Add the prompt question.
-        JLabel promptLabel = new JLabel("What are the colors on the poster in the ship?");
-        questionPanel.add(promptLabel);
-
-        // Create panel for the boxes
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(questionPanel);
-
+    public void interactConsole(ItemMod item) {
         // Create random colors to display as choices.
         List<String> colors = new ArrayList<>(POSTER_COLORS);
         colors.addAll(WRONG_COLORS);
         Collections.shuffle(colors);
 
-        // Create checkboxes for each of those colors and add them to the panel.
-        List<JCheckBox> checkBoxes = colors.stream().map(JCheckBox::new).collect(Collectors.toList());
-
-        // Add all checkboxes to the panel.
-        checkBoxes.forEach(panel::add);
-
-        int result = JOptionPane.showConfirmDialog(view.getFrame(),
-                panel,
-                "Console Puzzle",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
-
-        List<String> userResponse = checkBoxes.stream()
-                .filter(JCheckBox::isSelected)
-                .map(JCheckBox::getText)
-                .sorted()
-                .collect(Collectors.toList());
+        List<String> userResponse = view.showConsoleGame(colors).stream().sorted().collect(Collectors.toList());
 
         if (userResponse.equals(POSTER_COLORS)) {
             item.setUsed(userResponse.equals(POSTER_COLORS));
-            return item.getUseDescription();
-        } else {
-            return item.getFailedUseDescription();
         }
     }
 

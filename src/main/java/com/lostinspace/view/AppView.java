@@ -8,9 +8,12 @@ import com.lostinspace.util.SoundLoader;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppView {
     // size of objects
@@ -21,6 +24,8 @@ public class AppView {
     private static final String GAME_TITLE = "Lost In Space";
     public static final String GAME_BACKGROUND_MUSIC_FILE = "sound/space-chillout.wav";
     public static final String WIN_MUSIC = "sound/win.wav";
+    public static final String CONSOLE_PUZZLE_TITLE = "Console Puzzle";
+    public static final String CONSOLE_PUZZLE_PROMPT = "What are the colors on the poster in the ship?";
 
     // java swing components
     private final JFrame frame;
@@ -84,6 +89,41 @@ public class AppView {
         }
     }
 
+    public List<String> showConsoleGame(List<String> colors) {
+        // Create panel to hold prompt questions and checkboxes.
+        JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        questionPanel.add(new JLabel(UIManager.getIcon("OptionPane.questionIcon")));
+
+        // Add the prompt question.
+        JLabel promptLabel = new JLabel(CONSOLE_PUZZLE_PROMPT);
+        questionPanel.add(promptLabel);
+
+        // Create panel for the boxes
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(questionPanel);
+
+        // Create checkboxes for each of those colors and add them to the panel.
+        List<JCheckBox> checkBoxes = colors.stream().map(JCheckBox::new).collect(Collectors.toList());
+
+        // Add all checkboxes to the panel.
+        checkBoxes.forEach(panel::add);
+
+        int result = JOptionPane.showConfirmDialog(frame,
+                panel,
+                CONSOLE_PUZZLE_TITLE,
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        List<String> userResponse = checkBoxes.stream()
+                .filter(JCheckBox::isSelected)
+                .map(JCheckBox::getText)
+                .sorted()
+                .collect(Collectors.toList());
+
+        return userResponse;
+    }
+
     /*
      * Set frame attributes
      */
@@ -136,7 +176,7 @@ public class AppView {
     }
 
     /*
-     * Create title frame
+     * Create title frame`
      */
     private void showTitleScreen() {
         frame.setContentPane(titlePanel);
@@ -174,6 +214,7 @@ public class AppView {
         winPanel = new WinPanel(this);
         frame.setContentPane(winPanel);
         frame.requestFocus();
+        gameMusicClip.close();
         gameMusicClip = SoundLoader.loadMusic(WIN_MUSIC);
         gameMusicClip.start();
         gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
