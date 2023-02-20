@@ -157,14 +157,6 @@ public class GUIController {
     }
 
     /*
-     * WIN CONDITION MET
-     */
-    public static void winGame() {
-        // TODO: Win game condition met, get images, etc for win game panel
-        System.out.println("You win the game!");
-    }
-
-    /*
      * ACCESSOR METHODS
      */
     public Player getPlayer() {
