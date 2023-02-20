@@ -312,6 +312,7 @@ public class AppView {
                 gameMusicClip.stop();
             } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && !gameMusicClip.isActive()) {
                 gameMusicClip.start();
+                gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
             }
 
         }
